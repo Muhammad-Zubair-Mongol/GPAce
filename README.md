@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # GPAce - Your Academic Assistant
 
 GPAce is a web-based academic assistant tool that helps students manage their academic life, including timetables, tasks, and study spaces.
@@ -112,3 +113,6 @@ The application is compatible with:
 ## Support
 
 For issues and support, please check the documentation or contact the development team.
+=======
+# gpace-beta
+>>>>>>> a00127b721c945f1f82fe6c16d4f8d85a907cfd1
