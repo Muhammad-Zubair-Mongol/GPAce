@@ -1,0 +1,419 @@
+/* Priority Calculator Styles */
+
+:root {
+    --primary-color: #fe2c55;
+    --secondary-color: #25f4ee;
+    --background-color: #121212;
+    --text-color: #ffffff;
+    --card-bg: #1e1e1e;
+    --hover-bg: #2d2d2d;
+    --nav-bg: #1a1a1a;
+    --border-color: #333;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    min-height: 100vh;
+    padding-top: 120px;
+    margin: 0;
+}
+
+.top-nav {
+    background-color: var(--nav-bg);
+    padding: 15px 30px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    height: 80px;
+}
+
+.nav-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+    background-color: var(--hover-bg);
+}
+
+.nav-links a.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.priority-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.priority-score {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.score-breakdown {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.component-score {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.total-score {
+    margin-top: 10px;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+    border-bottom: none !important;
+    padding-top: 10px;
+    color: var(--primary-color);
+}
+
+.light-theme {
+    --background-color: #f5f5f5;
+    --text-color: #333333;
+    --card-bg: #ffffff;
+    --hover-bg: #f0f0f0;
+    --nav-bg: #ffffff;
+    --border-color: #e0e0e0;
+}
+
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1001;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+    background-color: var(--hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.theme-icon {
+    font-size: 16px;
+}
+
+.theme-text {
+    font-size: 14px;
+}
+
+.subject-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.subject-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.subject-stats {
+    display: none;
+    background: var(--card-bg);
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 5px;
+}
+
+.subject-stats.show {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.stat {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.stat span:last-child {
+    color: var(--secondary-color);
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.toggle-stats {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    padding: 5px;
+    font-size: 1.1rem;
+    opacity: 0.8;
+    transition: all 0.2s ease;
+}
+
+.toggle-stats:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.section-tasks {
+    background: var(--card-bg);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.formula-box {
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    color: var(--text-color);
+}
+
+.formula-box h4 {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.formula-component {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.formula-component strong {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.formula-component p {
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.formula-component code {
+    display: block;
+    background-color: rgba(0,0,0,0.2);
+    padding: 10px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 0.9em;
+}
+
+.formula-component small {
+    display: block;
+    margin-top: 10px;
+    opacity: 0.7;
+}
+
+.formula-total {
+    background-color: rgba(0,0,0,0.2);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.formula-total strong {
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 10px;
+}
+
+.formula-total code {
+    background-color: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.task-item {
+    background: var(--background-color);
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 10px;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+}
+
+.delete-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.task-info {
+    flex: 1;
+    min-width: 0;
+    margin-right: 15px;
+}
+
+.task-info h5 {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.priority-score {
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.view-all-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001;
+}
+
+.view-all-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.profile-icon {
+    position: fixed;
+    top: -40px; /* Start off-screen */
+    right: 20px;
+    z-index: 1001;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--card-bg);
+    padding: 8px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+}
+
+.profile-icon.visible {
+    top: 15px;
+}
+
+.profile-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.profile-icon i {
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+.score-breakdown {
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.component-score {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: rgba(255,255,255,0.7);
+}
+
+.component-score:last-child {
+    margin-bottom: 0;
+}
+
+.component-score span:first-child {
+    opacity: 0.8;
+}
+
+.component-score span:last-child {
+    font-weight: bold;
+}
+
+.task-item small.text-muted:contains('overdue') {
+    color: #ff4444 !important;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .theme-text {
+        display: none;
+    }
+    .nav-links {
+        display: none;
+    }
+    .nav-brand {
+        margin: 0 auto;
+    }
+    .formula-box {
+        position: static;
+        margin: 20px auto;
+        width: 90%;
+    }
+}

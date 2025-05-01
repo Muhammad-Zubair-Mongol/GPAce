@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Priority Calculator</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="priority-calculator.js"></script>
+    <script type="module" src="js/cross-tab-sync.js"></script>
+    <script type="module" src="js/firebase-init.js"></script>
+    <!-- Common Initialization -->
+    <script type="module" src="js/common.js"></script>
+    <!-- Priority Calculator Styles -->
+    <link href="css/priority-calculator.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-brand d-flex align-items-center">
+            <img
+                src="assets/images/gpace-logo-white.png"
+                alt="GPAce Logo"
+                style="height: 80px; margin-right: 0px;"
+            >
+            <a href="grind.html" style="text-decoration: none; color: inherit;">GPAce</a>
+        </div>
+        <div class="nav-links">
+            <a href="grind.html">Grind Mode</a>
+            <a href="study-spaces.html">Grind Station</a>
+            <a href="daily-calendar.html">Daily Drip</a>
+            <a href="academic-details.html">Brain Juice</a>
+            <a href="extracted.html">Hustle Hub</a>
+            <a href="subject-marks.html">Subject Marks</a>
+            <a href="priority-calculator.html" class="active">Priority Plug</a>
+        </div>
+    </nav>
+
+
+    <div class="formula-box">
+        <h4>Priority Score Formula <i class="bi bi-info-circle info-icon" title="How the priority score is calculated"></i></h4>
+        <div class="formula-component">
+            <strong>Credit Hours Points (CHP)</strong>
+            <p>Reflects the relative importance of the subject based on credit hours.</p>
+            <code>CHP = Relative Score of Subject (0-100)</code>
+        </div>
+        <div class="formula-component">
+            <strong>Cognitive Difficulty Points (CDP)</strong>
+            <p>Measures the complexity and intellectual challenge of the task.</p>
+            <code>CDP = Cognitive Difficulty of Subject (1-100)</code>
+        </div>
+        <div class="formula-component">
+            <strong>Task Weightage Points (TWP)</strong>
+            <p>Indicates the importance of the task within its section.</p>
+            <code>TWP = Average Weightage of Task Section (0-100)</code>
+        </div>
+        <div class="formula-component">
+            <strong>Time Remaining Points (TRP)</strong>
+            <p>Dynamically adjusts priority based on task deadline.</p>
+            <code>TRP = Calculation Method:
+- If Task is Upcoming: 100 * (1 / (Days + Hours/24))
+- If Task is Overdue: 100 * (1 + log(Overdue Days + 1))</code>
+            <small class="text-muted">
+                Overdue tasks get increasing priority
+                Upcoming tasks get inverse priority boost
+            </small>
+        </div>
+        <div class="formula-component">
+            <strong>Academic Performance Adjustment (APA)</strong>
+            <p>Uses the overall subject performance from Subject Marks page.</p>
+            <code>APA = Overall Subject Performance (0-100)
+Example: If subject performance is 2%, APA = 2</code>
+            <small class="text-muted">
+                Performance is taken directly from the Subject Marks page
+                Higher performance reduces priority to focus on weaker subjects
+            </small>
+        </div>
+        <div class="formula-total">
+            <strong>Final Priority Score</strong>
+            <code>Priority Score = (CHP + CDP + TWP + TRP) × (1 - APA/100)</code>
+            <small class="text-muted">APA acts as a percentage reduction of the total score</small>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <h1 class="mb-4">Priority Calculator</h1>
+        <div id="priorityList"></div>
+    </div>
+
+    <a href="priority-list.html" class="view-all-button">
+        <i class="bi bi-list-check"></i>
+        View All Tasks
+    </a>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

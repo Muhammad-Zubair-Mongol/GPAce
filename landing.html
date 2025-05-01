@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Redefining Productivity</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="styles/main.css">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #fe2c55;
+            --secondary-color: #25f4ee;
+            --background-color: #121212;
+            --text-color: #ffffff;
+            --card-bg: #1e1e1e;
+            --hover-bg: #2d2d2d;
+            --nav-bg: #1a1a1a;
+            --border-color: #333;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        .top-nav {
+            background: transparent;
+            transition: background-color 0.3s ease;
+            padding: 15px 0;
+        }
+
+        .top-nav.scrolled {
+            background-color: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-section {
+            position: relative;
+            padding: 100px 0 50px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(254, 44, 85, 0.1), rgba(37, 244, 238, 0.1));
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .napkin-section {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: -50px;
+            position: relative;
+            z-index: 3;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+        }
+
+        .napkin-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .napkin-card {
+            background-color: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            height: 100%; /* Ensure equal height */
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .napkin-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .napkin-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .napkin-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .napkin-description {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            flex-grow: 1;
+        }
+
+        .napkin-tag {
+            font-size: 0.8rem;
+            color: var(--secondary-color);
+            opacity: 0.7;
+        }
+
+        @media (max-width: 992px) {
+            .napkin-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .napkin-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .problem-solver-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-solver-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .problem-solver-text {
+            flex: 1;
+            max-width: 40%;
+        }
+
+        .problem-solver-features {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .problem-feature {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .problem-feature:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .problem-feature-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .problem-feature-text {
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 992px) {
+            .problem-solver-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .problem-solver-text {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .problem-solver-features {
+                justify-content: center;
+            }
+        }
+
+        /* Custom button styles */
+        .btn-gpace {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .btn-gpace::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg, 
+                transparent, 
+                rgba(255,255,255,0.3), 
+                transparent
+            );
+            transition: all 0.3s ease;
+        }
+
+        .btn-gpace:hover::before {
+            left: 100%;
+        }
+
+        .btn-gpace:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .stats-section {
+            background-color: var(--card-bg);
+            padding: 50px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        .stats-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(255,255,255,0.02) 0px,
+                rgba(255,255,255,0.02) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        @media (max-width: 992px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .usp-section {
+            background-color: var(--background-color);
+            padding: 50px 0;
+            position: relative;
+        }
+
+        .usp-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .usp-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .usp-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .usp-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .usp-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .usp-description {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+
+        .research-backed {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        @media (max-width: 992px) {
+            .usp-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .usp-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Video Demonstration Styles */
+        .video-section {
+            background-color: rgba(0,0,0,0.05);
+            padding: 50px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-placeholder {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg, 
+                rgba(254, 44, 85, 0.1), 
+                rgba(37, 244, 238, 0.1)
+            );
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .video-placeholder-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .video-play-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .video-play-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .video-description {
+            margin-top: 20px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Modal Video Styles */
+        .modal-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-video.show {
+            display: flex;
+        }
+
+        .modal-video-content {
+            position: relative;
+            width: 80%;
+            max-width: 1000px;
+            background: black;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .modal-video-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .modal-video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .modal-video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Scroll-Triggered Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-animation {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-animation.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Video Placeholder */
+        @media (max-width: 992px) {
+            .video-placeholder {
+                height: 350px;
+            }
+        }
+
+        /* Pricing Section Styles */
+        .pricing-section {
+            background-color: var(--background-color);
+            padding: 50px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .pricing-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .pricing-card-header {
+            margin-bottom: 20px;
+        }
+
+        .pricing-card-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .pricing-card-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .pricing-card-features {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .pricing-card-features li {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pricing-card-features li i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .pricing-card-cta {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card-cta:hover {
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured {
+            border: 2px solid var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .pricing-card-badge {
+            position: absolute;
+            top: 20px;
+            right: -50px;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 992px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tooltip Styles */
+        .tooltip-custom {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--primary-color);
+            cursor: help;
+        }
+
+        .tooltip-custom .tooltip-text {
+            visibility: hidden;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0,0,0,0.8);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            width: 250px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip-custom:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Contact Modal Styles */
+        .contact-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-modal.show {
+            display: flex;
+        }
+
+        .contact-modal-content {
+            background: var(--background-color);
+            border-radius: 15px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .contact-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid var(--border-color);
+            color: white;
+        }
+
+        .contact-form .form-control:focus {
+            background-color: rgba(255,255,255,0.2);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Footer Styles */
+        .footer-section {
+            background-color: rgba(255,255,255,0.05);
+            color: rgba(255,255,255,0.7);
+            padding: 50px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .footer-social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-social-links a {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-newsletter {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .footer-newsletter h4 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .footer-newsletter .form-control {
+            background-color: rgba(255,255,255,0.1);
+            border: 1px solid var(--border-color);
+            color: white;
+        }
+
+        .footer-newsletter .form-control:focus {
+            background-color: rgba(255,255,255,0.2);
+            border-color: var(--primary-color);
+            color: white;
+        }
+
+        .footer-links {
+            margin-top: 30px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            margin: 0 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .footer-links {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-links a {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav position-fixed w-100" style="z-index: 1000;">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="nav-brand d-flex align-items-center">
+                <img 
+                    src="assets/images/gpace-logo-white.png" 
+                    alt="GPAce Logo" 
+                    style="height: 80px; margin-right: 0px;"
+                >
+                <a href="grind.html" style="text-decoration: none; color: inherit;">GPAce</a>
+            </div>
+            <div>
+                <a href="grind.html" class="btn btn-gpace">Dashboard</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Productivity Redefined</h1>
+                <p class="hero-subtitle">Personalized AI-driven productivity that understands your unique cognitive patterns</p>
+                <a href="grind.html" class="btn btn-lg btn-gpace">Start Your Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5">
+        <div class="napkin-section">
+            <h2 class="text-center mb-4">GPAce: Productivity Reimagined</h2>
+            <div class="napkin-grid">
+                <div class="napkin-card">
+                    <div class="napkin-icon">
+                        <i class="bi bi-brain"></i>
+                    </div>
+                    <h4 class="napkin-title">What to Do</h4>
+                    <p class="napkin-description">Personalized AI guides task selection based on your brain state</p>
+                    <div class="napkin-tag">Neuroscience-Driven</div>
+                </div>
+                <div class="napkin-card">
+                    <div class="napkin-icon">
+                        <i class="bi bi-puzzle"></i>
+                    </div>
+                    <h4 class="napkin-title">How to Do</h4>
+                    <p class="napkin-description">Break tasks into subtasks to overcome mental friction</p>
+                    <div class="napkin-tag">Cognitive Optimization</div>
+                </div>
+                <div class="napkin-card">
+                    <div class="napkin-icon">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+                    <h4 class="napkin-title">Where to Do</h4>
+                    <p class="napkin-description">Optimize environment: Open for creativity, Closed for focus</p>
+                    <div class="napkin-tag">Space Psychology</div>
+                </div>
+                <div class="napkin-card">
+                    <div class="napkin-icon">
+                        <i class="bi bi-clock"></i>
+                    </div>
+                    <h4 class="napkin-title">When to Do</h4>
+                    <p class="napkin-description">Align tasks with your Ultradian cycle and energy levels</p>
+                    <div class="napkin-tag">Biological Rhythms</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-background"></div>
+        <div class="container">
+            <h2 class="text-center mb-5 text-white">The Student Productivity Challenge</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-fire"></i>
+                    </div>
+                    <div class="stat-number">60%</div>
+                    <div class="stat-label">Students Experience Burnout</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-clock"></i>
+                    </div>
+                    <div class="stat-number">51.9%</div>
+                    <div class="stat-label">Lack Time Management Skills</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-journal-text"></i>
+                    </div>
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Face Stress Barriers in Research</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <div class="stat-number">+0.38</div>
+                    <div class="stat-label">GPA Boost with Mentorship</div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="text-white-50 mx-auto" style="max-width: 800px;">
+                    These statistics reveal a critical need for intelligent, personalized productivity solutions that address 
+                    the complex challenges students face in academic and personal development.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-5 text-white">Burnout Management in Action</h2>
+                <div class="video-placeholder scroll-animation">
+                    <div class="video-placeholder-content">
+                        <div class="video-play-icon">
+                            <i class="bi bi-play-circle"></i>
+                        </div>
+                        <h3 class="mt-3">How GPAce Tackles Student Burnout</h3>
+                        <p class="video-description">
+                            Watch how our AI-driven approach helps students manage energy, 
+                            reduce stress, and maintain productivity.
+                        </p>
+                        <!-- Actual video embed will replace this placeholder -->
+                        <div class="mt-4">
+                            <small class="text-muted">Video demonstration coming soon</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem-solver-section">
+        <div class="container">
+            <div class="problem-solver-content">
+                <div class="problem-solver-text">
+                    <h3>No Other Platform Can Offer</h3>
+                    <p>Unique solutions that transform your academic and professional journey</p>
+                </div>
+                <div class="problem-solver-features">
+                    <div class="problem-feature">
+                        <div class="problem-feature-icon">
+                            <i class="bi bi-journal-text text-white"></i>
+                        </div>
+                        <div class="problem-feature-text">Research Revolution</div>
+                    </div>
+                    <div class="problem-feature">
+                        <div class="problem-feature-icon">
+                            <i class="bi bi-compass text-white"></i>
+                        </div>
+                        <div class="problem-feature-text">Career Guidance</div>
+                    </div>
+                    <div class="problem-feature">
+                        <div class="problem-feature-icon">
+                            <i class="bi bi-award text-white"></i>
+                        </div>
+                        <div class="problem-feature-text">Scholarship Boost</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="usp-section container">
+        <h2 class="text-center mb-5 text-white">Transforming Student Productivity</h2>
+        <div class="usp-grid">
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="bi bi-clock"></i>
+                </div>
+                <h3 class="usp-title">Automated Time Management</h3>
+                <p class="usp-description">Leverage OCR technology to dynamically scan and organize class schedules, eliminating manual planning stress.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="bi bi-graph-up"></i>
+                </div>
+                <h3 class="usp-title">Progress Tracking</h3>
+                <p class="usp-description">Real-time milestone tracking for assignments and exams, providing instant feedback on academic progress.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="bi bi-battery-charging"></i>
+                </div>
+                <h3 class="usp-title">Energy Management</h3>
+                <p class="usp-description">Log mental fatigue and receive personalized study session optimization recommendations.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <h3 class="usp-title">Global Networking</h3>
+                <p class="usp-description">Connect with peers and professionals in a global marketplace of ideas and collaboration.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="bi bi-lightbulb"></i>
+                </div>
+                <h3 class="usp-title">Personalized Recommendations</h3>
+                <p class="usp-description">Curated lists of mentors, resources, and opportunities tailored to your unique academic goals.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h3 class="usp-title">Cognitive Development</h3>
+                <p class="usp-description">Customized training plans to enhance critical skills like memory recollection and problem-solving.</p>
+            </div>
+        </div>
+
+        <div class="research-backed">
+            <h3>Research-Backed Success</h3>
+            <p>GPAce is built on rigorous academic research, addressing key skills in leadership, collaboration, and productivity.</p>
+            <p>Our features are designed to empower students with tools that enhance academic and professional success.</p>
+        </div>
+    </section>
+
+    <section class="pricing-section container">
+        <h2 class="text-center mb-5 text-white">Flexible Pricing for Every Student</h2>
+        <div class="pricing-grid">
+            <!-- Free Version -->
+            <div class="pricing-card">
+                <div class="pricing-card-header">
+                    <h3 class="pricing-card-title">Free Version</h3>
+                    <div class="pricing-card-price">$0</div>
+                </div>
+                <ul class="pricing-card-features">
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Google AdSense Integration
+                            <span class="tooltip-text">
+                                Earn revenue through targeted ads while using our free productivity tools
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Advertising Partner Support
+                            <span class="tooltip-text">
+                                Access to curated ads that may provide additional value or opportunities
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Basic Productivity Tools
+                            <span class="tooltip-text">
+                                Essential time management and task tracking features to kickstart your productivity
+                            </span>
+                        </span>
+                    </li>
+                </ul>
+                <button class="pricing-card-cta">Get Started</button>
+            </div>
+
+            <!-- Subscription-Based -->
+            <div class="pricing-card featured">
+                <div class="pricing-card-badge">Recommended</div>
+                <div class="pricing-card-header">
+                    <h3 class="pricing-card-title">Semester Plan</h3>
+                    <div class="pricing-card-price">$17 <span style="font-size: 0.6em;">/semester</span></div>
+                </div>
+                <ul class="pricing-card-features">
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Essential Features Unlocked
+                            <span class="tooltip-text">
+                                Full access to advanced productivity tracking and optimization tools
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Advanced Productivity Tools
+                            <span class="tooltip-text">
+                                AI-powered task prioritization, energy management, and personalized insights
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Performance Tracking
+                            <span class="tooltip-text">
+                                Comprehensive analytics to monitor and improve your academic performance
+                            </span>
+                        </span>
+                    </li>
+                </ul>
+                <button class="pricing-card-cta">Choose Plan</button>
+            </div>
+
+            <!-- Premium Tier -->
+            <div class="pricing-card">
+                <div class="pricing-card-header">
+                    <h3 class="pricing-card-title">Premium Tier</h3>
+                    <div class="pricing-card-price">Custom</div>
+                </div>
+                <ul class="pricing-card-features">
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Mentorship Access
+                            <span class="tooltip-text">
+                                Connect with experienced mentors who provide personalized academic and career guidance
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Investment Guidance
+                            <span class="tooltip-text">
+                                Tailored financial advice and investment strategies for students
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Final Year Project Support
+                            <span class="tooltip-text">
+                                Comprehensive assistance for capstone projects, including research and presentation support
+                            </span>
+                        </span>
+                    </li>
+                </ul>
+                <button id="premiumContactBtn" class="pricing-card-cta">Contact Sales</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-5 text-white">Productivity Features Explained</h2>
+                <div class="video-placeholder scroll-animation">
+                    <div class="video-placeholder-content">
+                        <div class="video-play-icon">
+                            <i class="bi bi-play-circle"></i>
+                        </div>
+                        <h3 class="mt-3">Transforming Your Academic Journey</h3>
+                        <p class="video-description">
+                            Explore how GPAce's unique features integrate to create 
+                            a comprehensive productivity ecosystem.
+                        </p>
+                        <!-- Actual video embed will replace this placeholder -->
+                        <div class="mt-4">
+                            <small class="text-muted">Video demonstration coming soon</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container text-center py-5">
+        <a href="grind.html" class="btn btn-lg btn-gpace">Start Your Productivity Journey</a>
+    </section>
+
+    <!-- Modal Video Container -->
+    <div id="videoModal1" class="modal-video">
+        <div class="modal-video-close">&times;</div>
+        <div class="modal-video-content">
+            <div class="modal-video-container">
+                <iframe 
+                    src="" 
+                    title="GPAce Burnout Management" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                ></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div id="videoModal2" class="modal-video">
+        <div class="modal-video-close">&times;</div>
+        <div class="modal-video-content">
+            <div class="modal-video-container">
+                <iframe 
+                    src="" 
+                    title="GPAce Productivity Features" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                ></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="premiumContactModal" class="contact-modal">
+        <div class="contact-modal-content">
+            <div class="contact-modal-close">&times;</div>
+            <h3 class="text-center mb-4 text-white">Contact Premium Tier Sales</h3>
+            <form class="contact-form">
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="Your Email" required>
+                </div>
+                <div class="mb-3">
+                    <input type="tel" class="form-control" placeholder="Your Phone (Optional)">
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" rows="4" placeholder="Tell us about your specific needs" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-gpace w-100">Send Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <img 
+                        src="assets/images/gpace-logo-white.png" 
+                        alt="GPAce Logo" 
+                        class="footer-logo"
+                    >
+                    <p>Transforming student productivity through AI-driven solutions.</p>
+                    
+                    <!-- Contact Information -->
+                    <div class="contact-info mt-4">
+                        <p><i class="bi bi-envelope"></i> support@gpace.ai</p>
+                        <p><i class="bi bi-phone"></i> +1 (650) 555-GPAD</p>
+                        <p><i class="bi bi-geo-alt"></i> Silicon Valley, CA, USA</p>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="footer-social-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <!-- Quick Links -->
+                    <h4 class="text-white mb-4">Quick Links</h4>
+                    <div class="d-flex flex-column">
+                        <a href="#" class="text-decoration-none text-light mb-2">About Us</a>
+                        <a href="#" class="text-decoration-none text-light mb-2">Features</a>
+                        <a href="#" class="text-decoration-none text-light mb-2">Pricing</a>
+                        <a href="#" class="text-decoration-none text-light mb-2">Blog</a>
+                        <a href="#" class="text-decoration-none text-light mb-2">Career</a>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <!-- Newsletter Signup -->
+                    <div class="footer-newsletter">
+                        <h4>Stay Productive, Stay Informed</h4>
+                        <form id="newsletterForm">
+                            <div class="mb-3">
+                                <input type="email" class="form-control" id="newsletterEmail" placeholder="Enter your email" required>
+                            </div>
+                            <button type="submit" class="btn btn-gpace w-100">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Links and Copyright -->
+            <div class="footer-links text-center mt-4">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#cookieModal">Cookie Policy</a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 GPAce. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Legal Modals -->
+    <!-- Privacy Policy Modal -->
+    <div class="modal fade" id="privacyModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">Privacy Policy</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-white">
+                    <p>At GPAce, we are committed to protecting your privacy. This policy outlines how we collect, use, and safeguard your personal information.</p>
+                    <!-- Add more detailed privacy policy content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">Terms of Service</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-white">
+                    <p>By using GPAce, you agree to our terms of service which govern your use of our platform.</p>
+                    <!-- Add more detailed terms of service content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Policy Modal -->
+    <div class="modal fade" id="cookieModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">Cookie Policy</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-white">
+                    <p>We use cookies to enhance your browsing experience and provide personalized services.</p>
+                    <!-- Add more detailed cookie policy content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navigation background on scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.top-nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll-triggered animation
+        function checkScroll() {
+            const scrollAnimations = document.querySelectorAll('.scroll-animation');
+            
+            scrollAnimations.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const viewportHeight = window.innerHeight;
+
+                if (elementPosition < viewportHeight * 0.75) {
+                    element.classList.add('is-visible');
+                }
+            });
+        }
+
+        // Add scroll event listener
+        window.addEventListener('scroll', checkScroll);
+        // Initial check
+        checkScroll();
+
+        // Video Modal Functionality
+        function setupVideoModal(triggerSelector, modalId, videoUrl) {
+            const triggers = document.querySelectorAll(triggerSelector);
+            const modal = document.getElementById(modalId);
+            const closeBtn = modal.querySelector('.modal-video-close');
+            const iframe = modal.querySelector('iframe');
+
+            triggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    iframe.src = videoUrl;
+                    modal.classList.add('show');
+                });
+            });
+
+            closeBtn.addEventListener('click', () => {
+                iframe.src = ''; // Stop video
+                modal.classList.remove('show');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    iframe.src = '';
+                    modal.classList.remove('show');
+                }
+            });
+        }
+
+        // Setup video modals with YouTube URLs (replace with your actual video URLs)
+        setupVideoModal('.video-play-icon', 'videoModal1', 'https://www.youtube.com/embed/dQw4w9WgXcQ');//This is where I Will replace withh the youtube video lINK)
+        setupVideoModal('.video-play-icon', 'videoModal2', 'https://www.youtube.com/embed/dQw4w9WgXcQ'); //This is where I Will replace withh the youtube video lINK)
+
+        // Contact Modal Functionality
+        function setupContactModal() {
+            const contactBtn = document.getElementById('premiumContactBtn');
+            const modal = document.getElementById('premiumContactModal');
+            const closeBtn = modal.querySelector('.contact-modal-close');
+
+            contactBtn.addEventListener('click', () => {
+                modal.classList.add('show');
+            });
+
+            closeBtn.addEventListener('click', () => {
+                modal.classList.remove('show');
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                }
+            });
+
+            // Form submission (placeholder)
+            const form = modal.querySelector('form');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('Thank you for your inquiry! We will contact you soon.');
+                modal.classList.remove('show');
+            });
+        }
+
+        // Initialize contact modal
+        setupContactModal();
+
+        // Pricing Plan Selection Handling
+        function setupPricingPlans() {
+            // Free Version Button
+            const freeBtn = document.querySelector('.pricing-card:nth-child(1) .pricing-card-cta');
+            freeBtn.addEventListener('click', () => {
+                // TODO: Backend Integration for Free Plan Signup
+                // 1. Validate user authentication status
+                // 2. Create user account with free tier permissions
+                // 3. Set up Google AdSense integration
+                // 4. Redirect to onboarding/dashboard
+                
+                // Temporary client-side handling
+                alert('Free Plan Selected! Redirecting to signup...');
+                window.location.href = 'grind.html'; // Placeholder redirect
+            });
+
+            // Semester Plan Button
+            const semesterBtn = document.querySelector('.pricing-card:nth-child(2) .pricing-card-cta');
+            semesterBtn.addEventListener('click', () => {
+                // TODO: Backend Integration for Semester Plan
+                // 1. Check user authentication
+                // 2. Initiate payment gateway integration
+                // 3. Validate payment
+                // 4. Provision semester plan features
+                // 5. Create subscription record
+                
+                // Potential payment gateway integration points:
+                // - Stripe
+                // - PayPal
+                // - Braintree
+                // - Local payment processors
+                
+                // Temporary client-side handling
+                alert('Semester Plan Selected! Proceeding to checkout...');
+                window.location.href = 'grind.html'; // Placeholder redirect
+            });
+
+            // Premium Tier Contact Button (Already implemented in previous modal script)
+        }
+
+        // Initialize Pricing Plan Handlers
+        setupPricingPlans();
+
+        // TODO: Comprehensive Backend Integration Strategy
+        /*
+        Backend Integration Requirements:
+        1. User Authentication System
+            - Implement secure user registration
+            - OAuth support (Google, Microsoft, etc.)
+            - Email verification
+        
+        2. Payment Processing
+            - Secure payment gateway integration
+            - Subscription management
+            - Proration and billing cycles
+            - Invoice generation
+        
+        3. Feature Provisioning
+            - Dynamic feature flag system
+            - Tier-based access control
+            - Granular permissions management
+        
+        4. Compliance and Security
+            - GDPR compliance
+            - PCI-DSS standards for payment
+            - Data encryption
+            - Secure token-based authentication
+        
+        5. Webhook Implementations
+            - Payment status updates
+            - Subscription lifecycle events
+            - User tier change notifications
+        
+        Recommended Tech Stack:
+        - Backend: Node.js/Express or Django/Flask
+        - Database: PostgreSQL
+        - Payment Gateway: Stripe
+        - Authentication: JWT, Passport.js
+        
+        Potential Microservices:
+        - User Service
+        - Billing Service
+        - Subscription Service
+        - Feature Management Service
+        */
+
+        // Newsletter Signup Handler
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('newsletterEmail').value;
+            
+            // TODO: Implement actual newsletter signup logic
+            // 1. Validate email
+            // 2. Send to backend service
+            // 3. Handle success/error responses
+            
+            alert(`Thank you for subscribing with ${email}!`);
+            this.reset(); // Clear the form
+        });
+    </script>
+    <script src="js/theme-toggle.js"></script>
+<script src="/js/inject-header.js"></script>
+    </body>
+</html>

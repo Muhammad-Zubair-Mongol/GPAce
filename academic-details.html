@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Academic Details</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+
+    <!-- Firebase SDKs - Now imported via module -->
+    <script type="module" src="js/academic-details.js"></script>
+
+    <link href="css/academic-details.css" rel="stylesheet">
+        <!-- Cross-Tab Synchronization -->
+    <script type="module" src="js/cross-tab-sync.js"></script>
+
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-brand d-flex align-items-center">
+            <img
+                src="assets/images/gpace-logo-white.png"
+                alt="GPAce Logo"
+                style="height: 80px; margin-right: 0px;"
+            >
+            <a href="grind.html" style="text-decoration: none; color: inherit;">GPAce</a>
+        </div>
+        <div class="nav-links">
+            <a href="grind.html">Grind Mode</a>
+            <a href="study-spaces.html">Grind Station</a>
+            <a href="daily-calendar.html">Daily Drip</a>
+            <a href="academic-details.html" class="active">Brain Juice</a>
+            <a href="extracted.html">Hustle Hub</a>
+            <a href="subject-marks.html">Subject Marks</a>
+            <a href="flashcards.html">Flashcards</a>
+            <a href="markdown-converter.html">MD Converter</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="mb-4">Academic Details</h1>
+
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle" id="themeToggleBtn">
+            <span class="theme-icon">🌞</span>
+            <span class="theme-text">Light Mode</span>
+        </button>
+
+        <!-- New semester selector -->
+        <div class="card mb-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 id="currentSemesterTitle">Default</h3>
+                    <p id="currentSemesterDescription" class="text-muted mb-0 small"></p>
+                    <div id="syncStatus" class="mt-1">
+                        <span class="badge bg-success sync-status-badge d-none" id="cloudSyncedBadge">
+                            <i class="bi bi-cloud-check"></i> Cloud Synced
+                        </span>
+                        <span class="badge bg-warning text-dark sync-status-badge d-none" id="localOnlyBadge">
+                            <i class="bi bi-exclamation-triangle"></i> Local Storage Only
+                        </span>
+                        <small class="text-muted" id="lastSyncTime"></small>
+                    </div>
+                </div>
+                <div class="semester-selector-container d-flex align-items-center">
+                    <label for="semesterSelector" class="form-label me-2 mb-0">Select Semester:</label>
+                    <select id="semesterSelector" class="form-select me-2">
+                        <option value="default">Default</option>
+                        <option value="">+ New Semester</option>
+                    </select>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="semesterActionsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-gear"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="semesterActionsDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="showCopySemesterModal()"><i class="bi bi-copy"></i> Copy Subjects</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showNewSemesterModal()"><i class="bi bi-plus-circle"></i> New Semester</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="editSemesterDetails()"><i class="bi bi-pencil"></i> Edit Details</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="forceSyncSemester()"><i class="bi bi-cloud-arrow-up"></i> Force Sync</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="archiveSemester()"><i class="bi bi-archive"></i> Archive Semester</a></li>
+                            <li><a class="dropdown-item text-danger" href="#" onclick="deleteSemester()"><i class="bi bi-trash"></i> Delete Semester</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 pt-2 border-top">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="text-muted small">
+                        <i class="bi bi-info-circle"></i>
+                        Select or create a semester to manage subject data separately for different academic periods.
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="showArchivedSemesters">
+                        <label class="form-check-label" for="showArchivedSemesters">Show Archived</label>
+                    </div>
+                </div>
+                <div class="storage-info mt-2">
+                    <div class="progress" style="height: 5px;">
+                        <div class="progress-bar bg-info" id="storageUsage" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <small class="text-muted" id="storageUsageText">Calculating storage usage...</small>
+                        <small class="text-muted"><a href="#" onclick="showStorageManager()">Manage Storage</a></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copy Semester Modal -->
+        <div class="modal fade" id="copySemesterModal" tabindex="-1" aria-labelledby="copySemesterModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="copySemesterModalLabel">Copy Subjects to New Semester</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="sourceSelector" class="form-label">Source Semester:</label>
+                            <select id="sourceSelector" class="form-select">
+                                <!-- Options will be populated dynamically -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newSemesterName" class="form-label">New Semester Name:</label>
+                            <input type="text" class="form-control" id="newSemesterName" placeholder="e.g., Spring 2023">
+                            <div class="mt-2">
+                                <small class="text-muted">Suggested formats:</small>
+                                <div class="d-flex flex-wrap gap-1 mt-1">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="Fall {year}">Fall</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="Spring {year}">Spring</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="Summer {year}">Summer</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="Winter {year}">Winter</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="1st Year">1st Year</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="2nd Year">2nd Year</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="3rd Year">3rd Year</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="4th Year">4th Year</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="semesterDescription" class="form-label">Semester Description (optional):</label>
+                            <textarea class="form-control" id="semesterDescription" rows="2" placeholder="Brief description of this semester"></textarea>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="setPrioritySemester" checked>
+                            <label class="form-check-label" for="setPrioritySemester">
+                                Set as priority semester (syncs first when storage is limited)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="copySubjectsToNewSemester()">Copy Subjects</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Semester Modal -->
+        <div class="modal fade" id="newSemesterModal" tabindex="-1" aria-labelledby="newSemesterModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="newSemesterModalLabel">Create New Semester</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="createSemesterName" class="form-label">Semester Name:</label>
+                            <input type="text" class="form-control" id="createSemesterName" placeholder="e.g., Spring 2023">
+                            <div class="mt-2">
+                                <small class="text-muted">Suggested formats:</small>
+                                <div class="d-flex flex-wrap gap-1 mt-1">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="Fall {year}">Fall</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="Spring {year}">Spring</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="Summer {year}">Summer</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="Winter {year}">Winter</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="1st Year">1st Year</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="2nd Year">2nd Year</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="3rd Year">3rd Year</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="4th Year">4th Year</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="createSemesterDescription" class="form-label">Semester Description (optional):</label>
+                            <textarea class="form-control" id="createSemesterDescription" rows="2" placeholder="Brief description of this semester"></textarea>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="createPrioritySemester" checked>
+                            <label class="form-check-label" for="createPrioritySemester">
+                                Set as priority semester (syncs first when storage is limited)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="createNewSemester()">Create Semester</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit Semester Details Modal -->
+        <div class="modal fade" id="editSemesterModal" tabindex="-1" aria-labelledby="editSemesterModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editSemesterModalLabel">Edit Semester Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle"></i> Editing semester details will not affect your saved subjects.
+                        </div>
+
+                        <!-- Preview Card -->
+                        <div class="semester-preview-card mb-4">
+                            <h5>Preview</h5>
+                            <div class="card p-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <h4 id="previewSemesterName" class="m-0">Semester Name</h4>
+                                    <div class="ms-2" id="previewBadges">
+                                        <!-- Badges will be added dynamically -->
+                                    </div>
+                                </div>
+                                <p id="previewSemesterDescription" class="text-muted mb-0 small">Semester description will appear here</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editSemesterName" class="form-label">Semester Name:</label>
+                            <input type="text" class="form-control" id="editSemesterName" oninput="updateSemesterPreview()">
+                            <div class="invalid-feedback" id="editSemesterNameFeedback">
+                                Please enter a valid semester name
+                            </div>
+                            <div class="mt-2">
+                                <small class="text-muted">Suggested formats:</small>
+                                <div class="d-flex flex-wrap gap-1 mt-1">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="Fall {year}">Fall</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="Spring {year}">Spring</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="Summer {year}">Summer</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="Winter {year}">Winter</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="1st Year">1st Year</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="2nd Year">2nd Year</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="3rd Year">3rd Year</button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary semester-template" data-template="4th Year">4th Year</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editSemesterDescription" class="form-label">Semester Description:</label>
+                            <textarea class="form-control" id="editSemesterDescription" rows="2" oninput="updateSemesterPreview()"></textarea>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" id="editPrioritySemester" onchange="updateSemesterPreview()">
+                            <label class="form-check-label" for="editPrioritySemester">
+                                Set as priority semester
+                            </label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Color Tag:</label>
+                            <div class="color-tags-container d-flex flex-wrap gap-2">
+                                <button type="button" class="btn btn-sm btn-outline-danger color-tag-btn" data-color="danger" onclick="selectColorTag(this, 'danger')">Red</button>
+                                <button type="button" class="btn btn-sm btn-outline-success color-tag-btn" data-color="success" onclick="selectColorTag(this, 'success')">Green</button>
+                                <button type="button" class="btn btn-sm btn-outline-primary color-tag-btn" data-color="primary" onclick="selectColorTag(this, 'primary')">Blue</button>
+                                <button type="button" class="btn btn-sm btn-outline-warning color-tag-btn" data-color="warning" onclick="selectColorTag(this, 'warning')">Yellow</button>
+                                <button type="button" class="btn btn-sm btn-outline-info color-tag-btn" data-color="info" onclick="selectColorTag(this, 'info')">Teal</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary color-tag-btn" data-color="secondary" onclick="selectColorTag(this, 'secondary')">Gray</button>
+                                <button type="button" class="btn btn-sm btn-outline-dark color-tag-btn" data-color="dark" onclick="selectColorTag(this, 'dark')">Black</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary color-tag-btn" data-color="" onclick="selectColorTag(this, '')">None</button>
+                            </div>
+                        </div>
+                        <input type="hidden" id="editSemesterColor" value="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" onclick="saveSemesterDetails()">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Archive Semester Confirmation Modal -->
+        <div class="modal fade" id="archiveSemesterModal" tabindex="-1" aria-labelledby="archiveSemesterModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning text-dark">
+                        <h5 class="modal-title" id="archiveSemesterModalLabel">Archive Semester</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-warning">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <strong>Are you sure you want to archive this semester?</strong>
+                        </div>
+                        <p>You are about to archive semester <strong id="archiveSemesterName"></strong>.</p>
+                        <ul>
+                            <li>Archived semesters will be hidden unless "Show Archived" is checked</li>
+                            <li>This action can be reversed by editing the semester details later</li>
+                            <li>All data will be preserved</li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-warning" id="confirmArchiveBtn">Archive Semester</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Delete Semester Confirmation Modal -->
+        <div class="modal fade" id="deleteSemesterModal" tabindex="-1" aria-labelledby="deleteSemesterModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title" id="deleteSemesterModalLabel">Delete Semester</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <strong>Warning: This action cannot be undone!</strong>
+                        </div>
+                        <p>You are about to permanently delete semester <strong id="deleteSemesterName"></strong>.</p>
+                        <p>All subjects and associated data for this semester will be permanently lost.</p>
+
+                        <div class="mt-4">
+                            <label class="form-label">Confirmation:</label>
+                            <p class="text-muted small">To confirm deletion, type <strong id="deleteConfirmationCode"></strong> below:</p>
+                            <input type="text" class="form-control" id="deleteConfirmationInput" placeholder="Type confirmation text here">
+                            <div class="invalid-feedback">
+                                Please type the confirmation text exactly as shown
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="confirmDeleteBtn" disabled>Delete Permanently</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Add New Subject</h3>
+            <div class="form-group">
+                <label for="subjectCount">Enter Number of Subjects</label>
+                <input type="number" id="subjectCount" class="form-control" min="1" placeholder="Enter number of subjects">
+                <button class="btn btn-primary" id="generateFormsBtn">Generate Forms</button>
+            </div>
+            <div class="form-group mt-3">
+                <label for="bulkInput">Bulk Add Subjects (Format: Subject Name, Credit Hours - one per line)</label>
+                <textarea id="bulkInput" class="form-control" rows="5" placeholder="Example:\nCalculus I, 3\nPhysics, 4"></textarea>
+                <button class="btn btn-primary mt-2" id="parseBulkBtn">Add Subjects</button>
+            </div>
+            <div id="subjectForms">
+                <!-- Subject forms will be dynamically added here -->
+            </div>
+            <button id="saveButton" class="btn btn-primary mt-3 d-none">Save All Subjects</button>
+        </div>
+
+        <div class="subject-list" id="savedSubjects">
+            <!-- Saved subjects will be displayed here -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Firebase Scripts now imported via js/academic-details.js -->
+    <script src="js/sideDrawer.js"></script>
+    <script type="module" src="js/subject-management.js"></script>
+    <script type="module" src="js/ui-utilities.js"></script>
+    <script type="module" src="js/semester-management.js"></script>
+
+    <!-- Firebase SDKs now imported via js/academic-details.js -->
+    <script src="js/auth.js" type="module"></script>
+    <script src="js/firestore.js" type="module"></script>
+<script src="/js/inject-header.js"></script>
+    </body>
+</html>

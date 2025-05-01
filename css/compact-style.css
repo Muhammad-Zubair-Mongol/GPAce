@@ -1,0 +1,254 @@
+/* Import Roboto font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Custom compact styles */
+:root {
+  --sidebar-width: 260px;
+  --content-spacing: 12px;
+  --container-spacing: 10px;
+  --element-spacing: 8px;
+}
+
+body {
+  font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  padding-top: 60px; /* Match extracted.html */
+}
+
+.top-nav {
+  padding: 10px 30px; /* Match extracted.html */
+  height: 60px; /* Match extracted.html */
+  backdrop-filter: blur(10px); /* Match extracted.html */
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  height: calc(100vh - 60px); /* Match extracted.html */
+}
+
+.sidebar.closing {
+  transform: translateX(-270px);
+}
+
+.main-content {
+  margin-left: var(--sidebar-width);
+  padding: var(--content-spacing) var(--content-spacing) var(--content-spacing) 20px;
+  min-height: calc(100vh - 60px); /* Match extracted.html */
+}
+
+.project-item {
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin: 4px 6px;
+  font-size: 13px;
+}
+
+.task-item {
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.subsection {
+  padding-left: 8px;
+  margin-left: 8px;
+}
+
+.subsection.expanded {
+  margin-bottom: 6px;
+}
+
+.sidebar h5 {
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.project-item i {
+  font-size: 14px;
+  margin-right: 6px;
+}
+
+.sidebar-divider {
+  margin: 6px 10px;
+}
+
+.project-title {
+  font-size: 13px;
+  margin-left: 6px;
+}
+
+.project-subtitle {
+  font-size: 11px;
+  margin-left: 6px;
+}
+
+.task-title {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.task-description {
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.auth-required-message {
+  padding: 16px;
+  margin: 8px;
+  text-align: center;
+}
+
+.auth-required-message i {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+}
+
+.auth-required-message h5 {
+  margin-bottom: 6px;
+  font-size: 16px;
+}
+
+.auth-required-message p {
+  margin-bottom: 12px;
+  font-size: 13px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 200px;
+}
+
+.auth-required-message button {
+  margin-top: 8px;
+  font-size: 13px;
+  padding: 6px 12px;
+}
+
+.sidebar-toggle {
+  top: 60px;
+  left: var(--sidebar-width);
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+}
+
+.form-control {
+  border-radius: 6px;
+  padding: 8px;
+  font-size: 13px;
+}
+
+.btn-primary {
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.task-header {
+  margin-bottom: 8px;
+}
+
+.add-task-btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+
+.nav-links a {
+  padding: 4px 8px;
+  font-size: 13px;
+}
+
+.nav-brand {
+  font-size: 20px;
+}
+
+/* Improve empty section styling */
+.empty-section {
+  padding: 20px;
+  font-size: 13px;
+}
+
+.empty-section i {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+/* Fix project section header */
+.project-header {
+  padding: 15px;
+  margin-bottom: 16px;
+}
+
+.project-title {
+  font-size: 16px;
+  gap: 8px;
+}
+
+/* More compact section headers */
+.section-header {
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: 14px;
+  gap: 6px;
+}
+
+.weightage-badge {
+  padding: 3px 10px;
+  font-size: 11px;
+}
+
+/* Make task meta info more compact */
+.task-meta {
+  margin-top: 8px;
+  padding-top: 8px;
+}
+
+.task-due-date {
+  font-size: 12px;
+}
+
+.task-due-date i {
+  margin-right: 4px;
+  font-size: 12px;
+}
+
+/* Adjust completion circle */
+.completion-circle {
+  width: 18px;
+  height: 18px;
+  margin-right: 12px;
+}
+
+/* Intelligent resizing for content */
+@media (max-width: 1200px) {
+  .task-item {
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar-toggle.collapsed {
+    left: 10px;
+  }
+
+  .main-content.full-width {
+    padding-left: var(--content-spacing);
+  }
+}
+
+/* Fix the existing subsections structure */
+.subsection {
+  transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+  opacity: 0;
+  max-height: 0;
+}
+
+.subsection.expanded {
+  opacity: 1;
+  max-height: 500px;
+}

@@ -1,0 +1,808 @@
+/* Refactored CSS based on modern best practices */
+
+/* Rule 1: Use max-width */
+/* Rule 2: Use rem for scalable typography & sizing */
+/* Rule 3: Use gap instead of margins in flex/grid */
+/* Rule 4: Use translate instead of negative margins */
+/* Rule 5: Use Logical Properties */
+/* Rule 6: Use :has() for parent-based styling */
+/* Rule 7: Use clamp() for responsive typography */
+/* Rule 8: Use flex: 1 instead of fixed widths in Flexbox */
+/* Rule 9: Use aspect-ratio */
+/* Rule 10: Use color-mix() for dynamic theming */
+
+:root {
+    --primary-color: #fe2c55;
+    --primary-color-rgb: 254, 44, 85; /* Added for rgba */
+    --secondary-color: #25f4ee;
+    --background-color: #121212;
+    --text-color: #ffffff;
+    --card-bg: #1e1e1e;
+    --hover-bg: #2d2d2d;
+    --nav-bg: #1a1a1a;
+    --border-color: #333;
+    --muted-text-color: rgba(255, 255, 255, 0.75);
+    --card-text-color: rgba(255, 255, 255, 0.9);
+    --form-control-bg: #2c2c2c;
+    --form-control-text: #ffffff;
+    --danger-color: #dc3545; /* Added for consistency */
+    --danger-color-rgb: 220, 53, 69; /* Added for rgba */
+    --warning-color: #ffc107; /* Added for consistency */
+    --info-color: var(--secondary-color); /* Alias for info */
+
+    --border-thin: 0.0625rem; /* 1px */
+    --border-medium: 0.125rem; /* 2px */
+    --border-thick: 0.25rem; /* 4px */
+
+    /* Base font size for rem calculations - moved from :root to avoid affecting rem unit */
+    /* font-size: 16px; */
+}
+
+/* Set base font size on html for rem calculation */
+html {
+    font-size: 100%; /* Typically 16px by default */
+}
+
+
+body.light-theme {
+    --background-color: #f8f9fa;
+    --text-color: #212529;
+    --card-bg: #ffffff;
+    --hover-bg: #e9ecef;
+    --nav-bg: #ffffff;
+    --border-color: #dee2e6;
+    --muted-text-color: rgba(33, 37, 41, 0.75);
+    --card-text-color: rgba(33, 37, 41, 0.9);
+    --form-control-bg: #f8f9fa;
+    --form-control-text: #212529;
+    --danger-color: #dc3545;
+    --danger-color-rgb: 220, 53, 69;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8; /* Adjusted info for light theme */
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease; /* More specific transition */
+    min-height: 100vh;
+    /* Rule 5 (logical), Rule 2 (rem) */
+    padding-block-start: 5rem; /* Adjusted later based on nav height */
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Added default font stack */
+}
+
+/* Card base styles */
+.card {
+    background-color: var(--card-bg);
+    /* Rule 2 (rem) */
+    border: var(--border-thin) solid var(--border-color);
+    color: var(--card-text-color);
+    /* Rule 2 (rem) */
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* Softened shadow */
+    border-radius: 0.75rem; /* 12px */
+    padding: 1.25rem; /* 20px */
+    margin-block-end: 1.25rem; /* 20px - Rule 5 */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Added shadow transition */
+}
+
+.card:hover {
+    /* Rule 4 (translate), Rule 2 (rem) */
+    transform: translateY(-0.125rem); /* -2px */
+    box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.card h1, .card h2, .card h3, .card h4, .card h5, .card h6 {
+    color: var(--text-color); /* Use main text color for headings */
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-block-start: 0; /* Reset top margin */
+    margin-block-end: 1rem; /* 16px */
+}
+
+.card .text-muted {
+    color: var(--muted-text-color) !important; /* Keep important if overriding framework */
+}
+
+/* Form control base styles */
+.form-control, .form-select {
+    display: block; /* Ensure block display */
+    width: 100%; /* Rule 1 */
+    /* Rule 2 (rem) */
+    padding: 0.625rem 0.9375rem; /* 10px 15px */
+    font-size: 1rem; /* 16px */
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--form-control-text);
+    background-color: var(--form-control-bg);
+    background-clip: padding-box;
+    /* Rule 2 (rem) */
+    border: var(--border-thin) solid var(--border-color);
+    appearance: none; /* Remove default styling */
+    border-radius: 0.5rem; /* 8px */
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+/* Select specific styles */
+.form-select {
+    /* Rule 2 (rem) */
+    padding-inline-end: 2.5rem; /* Make space for arrow */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e"); /* Default arrow */
+    background-repeat: no-repeat;
+    /* Rule 5 (logical), Rule 2 (rem) */
+    background-position: right 0.75rem center; /* 12px */
+    background-size: 1rem 0.75rem; /* 16px 12px */
+}
+/* Arrow color for dark theme */
+[data-theme="dark"] .form-select {
+     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23dee2e6' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+}
+
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--form-control-bg); /* Keep background */
+    color: var(--form-control-text);
+    border-color: var(--primary-color);
+    outline: 0; /* Remove default outline */
+    /* Rule 10 (color-mix), Rule 2 (rem) */
+    box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--primary-color) 25%, transparent); /* 4px */
+}
+
+/* Subject card specific styles (inherits from .card) */
+.subject-card {
+    /* Padding, border-radius, margin-block-end already defined in .card */
+    /* Additional specific styles if needed */
+}
+
+.subject-card h3, /* Use standard heading levels */
+.subject-card h4 {
+    color: var(--primary-color);
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-block-end: 0.625rem; /* 10px */
+    /* Rule 7 (clamp), Rule 2 (rem) */
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+}
+
+.subject-card p {
+    color: var(--card-text-color);
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-block-start: 0; /* Reset top margin */
+    margin-block-end: 0.5rem; /* 8px */
+    line-height: 1.6; /* Improve readability */
+}
+
+.subject-card p strong {
+    color: var(--text-color); /* Use main text color */
+    font-weight: 600;
+}
+
+.subject-tag {
+    color: var(--secondary-color) !important; /* Keep important if needed */
+    font-size: 0.875rem; /* Rule 2 */
+    font-weight: 500;
+}
+
+/* Form labels */
+.form-label {
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-block-end: 0.5rem; /* 8px */
+    color: var(--text-color);
+    font-weight: 500;
+    display: inline-block; /* Allow margin */
+}
+
+/* Form Group */
+.form-group {
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-block-end: 1rem; /* 16px (adjusted from 0.9375rem) */
+}
+
+/* Enhanced semester selector styling (inherits .form-select) */
+#semesterSelector {
+    /* Base styles from .form-select are inherited */
+    transition: all 0.3s ease; /* Keep transition */
+    background-color: var(--card-bg); /* Override form-control bg if needed */
+    color: var(--text-color);
+}
+
+/* Focus state inherited from .form-select:focus */
+
+#semesterSelector option {
+    /* Rule 2 (rem) */
+    padding: 0.625rem; /* 10px */
+    min-height: 1.875rem; /* 30px */
+    /* Inherit background/color from select or set explicitly */
+    background-color: var(--form-control-bg);
+    color: var(--form-control-text);
+}
+
+#semesterSelector optgroup {
+    font-weight: bold;
+    color: var(--primary-color);
+    /* Rule 2 (rem) */
+    font-style: italic;
+    padding-block-start: 0.5rem; /* Rule 5, Rule 2 */
+}
+
+.semester-selector-container {
+    position: relative; /* For potential custom elements */
+}
+
+/* Modal improvements */
+.modal-content {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: var(--border-thin) solid var(--border-color); /* Rule 2 */
+    border-radius: 0.75rem; /* Match card radius - Rule 2 */
+}
+
+.modal-header {
+    /* Rule 5 (logical), Rule 2 (rem) */
+    border-block-end: var(--border-thin) solid var(--border-color);
+    padding: 1rem 1.25rem; /* Rule 2 */
+}
+
+.modal-footer {
+    /* Rule 5 (logical), Rule 2 (rem) */
+    border-block-start: var(--border-thin) solid var(--border-color);
+    padding: 0.75rem 1.25rem; /* Rule 2 */
+    display: flex; /* Added */
+    flex-wrap: wrap; /* Added */
+    justify-content: flex-end; /* Added */
+    gap: 0.5rem; /* Rule 3, Rule 2 */
+}
+
+.modal-title { /* Assuming standard modal title class */
+     font-size: 1.25rem; /* Rule 2 */
+     font-weight: 600;
+}
+
+/* Semester cards and badges */
+#currentSemesterTitle {
+    display: inline-flex;
+    align-items: center;
+    /* Rule 3 (gap), Rule 2 (rem) */
+    gap: 0.5rem; /* 8px */
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-block-end: 0.3125rem; /* 5px */
+    transition: color 0.3s ease;
+    /* Rule 7 (clamp), Rule 2 (rem) */
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 600; /* Added */
+    line-height: 1.3; /* Added */
+}
+
+/* Assuming .badge is a general class */
+.badge {
+    display: inline-block;
+    /* Rule 2 (rem) */
+    padding: 0.35em 0.65em; /* Keep em for relative padding */
+    font-size: 0.75rem; /* 12px */
+    font-weight: 700;
+    line-height: 1;
+    color: #fff; /* Default badge text */
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.375rem; /* 6px */
+    background-color: var(--secondary-color); /* Default badge background */
+}
+
+#currentSemesterTitle .badge {
+    /* Rule 2 (rem) */
+    font-size: 0.7rem; /* Smaller badge in title */
+    transition: all 0.3s ease;
+    animation: fadeIn 0.5s ease forwards; /* Added forwards */
+}
+
+#currentSemesterDescription {
+    animation: fadeIn 0.7s ease forwards; /* Added forwards */
+    /* Rule 1 (max-width), Rule 2 (rem) */
+    max-width: 31.25rem; /* 500px */
+    width: 100%;
+    color: var(--muted-text-color); /* Use muted text */
+    line-height: 1.6;
+}
+
+/* Sync status badges */
+.sync-status-badge {
+    /* Inherits from .badge */
+    display: inline-flex !important; /* Keep important if needed */
+    align-items: center;
+    /* Rule 3 (gap), Rule 2 (rem) */
+    gap: 0.3125rem; /* 5px */
+    /* Rule 2 (rem) */
+    font-size: 0.8rem; /* Slightly larger */
+    animation: fadeIn 0.5s ease forwards; /* Added forwards */
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-inline-end: 0.625rem; /* 10px */
+}
+/* Example status colors */
+.sync-status-badge.synced { background-color: var(--success-color, #28a745); }
+.sync-status-badge.syncing { background-color: var(--warning-color); color: #000; }
+.sync-status-badge.error { background-color: var(--danger-color); }
+
+
+/* Storage usage bar */
+.storage-info {
+    transition: all 0.3s ease;
+    animation: fadeIn 0.7s ease forwards; /* Added forwards */
+    /* Rule 2 (rem) */
+    font-size: 0.875rem; /* 14px */
+    color: var(--muted-text-color);
+}
+
+.progress {
+    /* Rule 2 (rem) */
+    height: 0.5rem; /* 8px (increased height slightly) */
+    border-radius: 0.25rem; /* 4px (matched height) */
+    overflow: hidden;
+    background-color: var(--hover-bg); /* Add background */
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-block-start: 0.5rem; /* 8px */
+}
+
+.progress-bar {
+    transition: width 1s ease;
+    background-color: var(--primary-color); /* Use theme color */
+    height: 100%; /* Ensure full height */
+    display: flex; /* For potential text inside */
+    justify-content: center; /* For potential text inside */
+    align-items: center; /* For potential text inside */
+    color: white; /* For potential text inside */
+}
+
+/* Color tag buttons in edit modal */
+.color-tag-btn {
+    /* Rule 2 (rem) */
+    width: 2.8125rem; /* 45px */
+    height: 1.875rem; /* 30px */
+    border-radius: 0.25rem; /* 4px */
+    overflow: hidden;
+    transition: all 0.2s ease;
+    border: none; /* Remove border */
+    cursor: pointer; /* Add cursor */
+    display: inline-block; /* Allow spacing */
+}
+
+.color-tag-btn.active {
+    transform: scale(1.1);
+    /* Rule 10 (color-mix), Rule 2 (rem) */
+    box-shadow: 0 0 0 var(--border-medium) color-mix(in srgb, var(--primary-color) 50%, transparent); /* 2px */
+    outline: var(--border-thin) solid transparent; /* Prevent overlap */
+}
+
+/* Toasts */
+.toast {
+    animation: slideIn 0.3s ease forwards; /* Added forwards */
+    /* Rule 2 (rem) */
+    box-shadow: 0 0.3125rem 0.9375rem rgba(0, 0, 0, 0.3); /* 5px 15px */
+    background-color: var(--card-bg); /* Use card background */
+    border: var(--border-thin) solid var(--border-color); /* Add border */
+    border-radius: 0.5rem; /* Rule 2 */
+    color: var(--text-color);
+}
+.toast-header { /* Assuming standard toast structure */
+    border-block-end: var(--border-thin) solid var(--border-color); /* Rule 5, Rule 2 */
+    padding: 0.5rem 1rem; /* Rule 2 */
+}
+.toast-body {
+    padding: 1rem; /* Rule 2 */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    /* Rule 4 (translate), Rule 2 (rem) */
+    from { transform: translateY(1.25rem); opacity: 0; } /* 20px */
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Semester template buttons */
+.semester-template { /* Assuming this is a button or card */
+    transition: all 0.2s ease;
+    /* Add base styles if not inheriting */
+    display: block;
+    padding: 1rem; /* Rule 2 */
+    border: var(--border-thin) solid var(--border-color); /* Rule 2 */
+    border-radius: 0.5rem; /* Rule 2 */
+    text-align: center;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.semester-template:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    transform: translateY(-0.125rem); /* Rule 4, Rule 2 */
+}
+
+/* Loading indicator */
+.loading-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Rule 2 (rem), Rule 5 (logical) */
+    padding-block: 2.5rem; /* 40px */
+    color: var(--primary-color);
+    min-height: 10rem; /* Give it some minimum height - Rule 2 */
+}
+
+.loading-indicator .spinner-border { /* Assuming spinner class */
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-inline-end: 0.9375rem; /* 15px */
+    /* Add spinner styles if needed */
+    width: 2rem; /* Rule 2 */
+    height: 2rem; /* Rule 2 */
+    border-width: 0.25em; /* Keep em for relative border */
+}
+
+/* Subject list animations */
+.subject-card {
+    /* Animation applied via class or JS preferred over direct CSS */
+    /* animation: fadeIn 0.5s ease; */
+    /* animation-fill-mode: both; */
+}
+/* Staggered animation using JS is more flexible */
+/* .subject-card:nth-child(1) { animation-delay: 0.1s; } ... */
+
+/* Form validation styling */
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+    border-color: var(--danger-color); /* Use variable */
+    /* Rule 2 (rem) */
+    padding-inline-end: calc(1.5em + 0.75rem); /* Adjust padding for icon */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    /* Rule 5 (logical), Rule 2 (rem) */
+    background-position: right calc(0.375em + 0.1875rem) center; /* Adjust position */
+    background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem); /* Adjust size */
+}
+/* Focus state for invalid inputs */
+.was-validated .form-control:invalid:focus,
+.form-control.is-invalid:focus {
+    border-color: var(--danger-color);
+    box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--danger-color) 25%, transparent); /* Rule 10, Rule 2 */
+}
+
+
+.invalid-feedback {
+    display: none; /* Hide by default */
+    width: 100%;
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-block-start: 0.25rem; /* 4px */
+    font-size: 0.875rem; /* 14px */
+    color: var(--danger-color); /* Use variable */
+}
+/* Show feedback when invalid */
+.was-validated .form-control:invalid ~ .invalid-feedback,
+.form-control.is-invalid ~ .invalid-feedback {
+    display: block;
+}
+
+
+/* Alert styling */
+.alert {
+    position: relative;
+    /* Rule 2 (rem) */
+    padding: 1rem 1.25rem; /* 16px 20px */
+    margin-block-end: 1rem; /* 16px - Rule 5 */
+    border: var(--border-thin) solid transparent; /* Rule 2 */
+    border-radius: 0.5rem; /* 8px */
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+    /* Rule 5 (logical), Rule 2 (rem) */
+    border-inline-start-width: var(--border-thick); /* 4px */
+}
+
+.alert-info { border-inline-start-color: var(--info-color); }
+.alert-warning { border-inline-start-color: var(--warning-color); }
+.alert-danger { border-inline-start-color: var(--danger-color); }
+/* Add success state */
+.alert-success { border-inline-start-color: var(--success-color, #28a745); }
+
+
+/* Top Navigation */
+.top-nav {
+    background-color: var(--nav-bg);
+    padding: 10px 30px; /* Match extracted.html */
+    position: fixed;
+    /* Rule 5 (logical) */
+    inset-block-start: 0;
+    inset-inline: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Match extracted.html */
+    height: 60px; /* Match extracted.html */
+    backdrop-filter: blur(10px); /* Match extracted.html */
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1001;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+    background-color: var(--hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.theme-icon {
+    font-size: 16px;
+}
+
+.nav-brand {
+    /* Rule 2 (rem) */
+    font-size: 1.5rem; /* 24px */
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none; /* Added */
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.nav-links {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    /* Rule 3 (gap), Rule 2 (rem) */
+    gap: 1rem; /* 16px (reduced slightly) */
+    flex-wrap: wrap; /* Allow links to wrap */
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 5px 10px; /* Match extracted.html */
+    border-radius: 5px; /* Match extracted.html */
+    transition: background-color 0.3s;
+    font-size: 16px; /* Match extracted.html */
+    white-space: nowrap; /* Prevent wrapping */
+}
+
+.nav-links a:hover {
+    background-color: var(--hover-bg);
+    color: var(--primary-color); /* Highlight on hover */
+}
+
+.nav-links a.active {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+/* Container */
+.container {
+    /* Rule 1 (max-width), Rule 2 (rem) */
+    max-width: 75rem; /* 1200px */
+    width: 100%;
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-block: 2.5rem; /* 40px */
+    margin-inline: auto;
+    padding-inline: 1.25rem; /* 20px */
+}
+
+/* Button base styles */
+.btn {
+    display: inline-block; /* Correct display */
+    font-weight: 500;
+    line-height: 1.5;
+    color: var(--text-color); /* Default text color */
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent; /* Default background */
+    border: var(--border-thin) solid transparent; /* Rule 2 */
+    /* Rule 2 (rem) */
+    padding: 0.625rem 1.25rem; /* 10px 20px */
+    font-size: 1rem; /* 16px */
+    border-radius: 0.5rem; /* 8px */
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    /* Rule 10 (color-mix) */
+    background-color: color-mix(in srgb, var(--primary-color) 85%, black);
+    border-color: color-mix(in srgb, var(--primary-color) 80%, black);
+    /* Rule 4 (translate), Rule 2 (rem) */
+    transform: translateY(-0.0625rem); /* -1px */
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.btn-danger:hover {
+    /* Rule 10 (color-mix) */
+    background-color: color-mix(in srgb, var(--danger-color) 85%, black);
+    border-color: color-mix(in srgb, var(--danger-color) 80%, black);
+}
+/* Add other button variants (secondary, success, etc.) as needed */
+.btn-secondary {
+    color: var(--text-color);
+    background-color: var(--hover-bg);
+    border-color: var(--border-color);
+}
+.btn-secondary:hover {
+     background-color: color-mix(in srgb, var(--hover-bg) 85%, black);
+     border-color: color-mix(in srgb, var(--border-color) 80%, black);
+}
+
+
+/* Subject List Grid */
+.subject-list {
+    display: grid;
+    /* Rule 2 (rem) */
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 18.75rem), 1fr)); /* 300px */
+    /* Rule 3 (gap), Rule 2 (rem) */
+    gap: 1.25rem; /* 20px */
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-block-start: 1.875rem; /* 30px */
+}
+
+/* Subject Card (already styled via .card) */
+.subject-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; /* Align top */
+    /* Rule 5 (logical), Rule 2 (rem) */
+    margin-block-end: 0.9375rem; /* 15px */
+    gap: 0.5rem; /* Rule 3, Rule 2 */
+}
+
+.subject-title {
+    /* Rule 2 (rem) */
+    font-size: 1.125rem; /* 18px */
+    font-weight: 600;
+    color: var(--primary-color);
+    line-height: 1.4; /* Added */
+}
+
+/* .subject-tag already styled */
+
+/* Responsive adjustments using clamp for fluid typography */
+h1 { font-size: clamp(1.5rem, 4vw, 2.5rem); } /* ~24px to 40px */
+h2 { font-size: clamp(1.25rem, 3vw, 2rem); } /* ~20px to 32px */
+h3 { font-size: clamp(1.1rem, 2.5vw, 1.75rem); } /* ~18px to 28px */
+h4 { font-size: clamp(1rem, 2vw, 1.5rem); } /* ~16px to 24px */
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 0.5rem; /* Reduce gap */
+        justify-content: center; /* Center links when wrapped */
+    }
+    .top-nav {
+        /* Rule 2 (rem), Rule 5 (logical) */
+        padding-block: 0.75rem; /* 12px */
+        padding-inline: 1rem; /* 16px */
+        min-height: auto; /* Allow height to adjust */
+        /* Keep flex-wrap: wrap from base .top-nav */
+        justify-content: center; /* Center brand and links block */
+    }
+    .nav-brand {
+        margin-block-end: 0.5rem; /* Add margin below brand when wrapped */
+        text-align: center; /* Center brand text */
+        width: 100%; /* Allow centering */
+    }
+    .container {
+        /* Rule 5 (logical), Rule 2 (rem) */
+        padding-inline: 1rem; /* 16px */
+        margin-block: 1.5rem; /* Reduce margin */
+    }
+    body {
+        /* Rule 5 (logical), Rule 2 (rem) */
+        /* Adjust based on measured nav height or use JS */
+        padding-block-start: 8rem; /* Approx guess for wrapped nav */
+    }
+    .subject-list {
+         grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); /* Adjust min size */
+    }
+}
+
+/* Add mobile menu toggle for very small screens */
+@media (max-width: 480px) {
+    .subject-list {
+        grid-template-columns: 1fr; /* Single column */
+    }
+    .nav-links a {
+        padding: 0.4rem 0.6rem; /* Smaller padding */
+        font-size: 0.9rem; /* Smaller font */
+    }
+    .top-nav {
+        padding-inline: 0.75rem; /* Further reduce padding */
+    }
+    .container {
+        padding-inline: 0.75rem; /* Further reduce padding */
+        margin-block: 1rem;
+    }
+    body {
+         padding-block-start: 7rem; /* Re-adjust */
+    }
+    h1 { font-size: clamp(1.3rem, 5vw, 2rem); }
+    h2 { font-size: clamp(1.1rem, 4vw, 1.75rem); }
+}
+
+/* Use aspect-ratio for media elements */
+.media-container {
+    /* Rule 9 (aspect-ratio) */
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    background-color: var(--hover-bg); /* Placeholder background */
+    border-radius: 0.5rem; /* Rule 2 */
+    overflow: hidden; /* Clip content */
+}
+.media-container img,
+.media-container video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the container */
+}
+
+
+/* Use :has() for contextual styling (modern browsers) */
+.card:has(.btn-primary) {
+    /* Rule 10 (color-mix) */
+    /* Example: Slightly tint border */
+    /* border-color: color-mix(in srgb, var(--primary-color) 20%, var(--border-color)); */
+}
+
+/* Style label when its associated focused input is within the same group */
+/* Requires specific HTML structure, e.g., <div class="form-group"><label/><input/></div> */
+.form-group:has(.form-control:focus) .form-label {
+    color: var(--primary-color);
+    font-weight: 600; /* Example enhancement */
+}
+
+/* Accessibility: Add focus styles */
+:is(a, button, .btn, input, select, textarea, summary, [tabindex]:not([tabindex*="-"])):focus-visible {
+    outline: var(--border-medium) solid var(--primary-color); /* Rule 2 */
+    outline-offset: 0.125rem; /* Rule 2 */
+    box-shadow: 0 0 0 0.1875rem color-mix(in srgb, var(--primary-color) 30%, transparent); /* Rule 10, Rule 2 */
+}
+/* Remove default outline when :focus-visible is supported */
+:is(a, button, .btn, input, select, textarea, summary, [tabindex]:not([tabindex*="-"])):focus {
+   outline: none;
+}
+/* Special handling for form controls that already have focus box-shadow */
+:is(.form-control, .form-select):focus-visible {
+    outline: none; /* Outline handled by box-shadow */
+    box-shadow: 0 0 0 0.25rem color-mix(in srgb, var(--primary-color) 25%, transparent);
+}
+/* Special handling for color tags */
+.color-tag-btn:focus-visible {
+    outline: none; /* Outline handled by box-shadow */
+    box-shadow: 0 0 0 var(--border-medium) color-mix(in srgb, var(--primary-color) 50%, transparent);
+}

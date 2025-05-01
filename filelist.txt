@@ -1,0 +1,3627 @@
+ Volume in drive D is MONGOL
+ Volume Serial Number is C7C2-5DAF
+
+ Directory of D:\Creating an App
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/29/2024  11:03 AM               161 .env
+11/29/2024  01:03 PM            18,533 academic-details.html
+11/29/2024  06:01 PM            32,036 daily-calendar.html
+11/30/2024  03:31 AM            57,915 extracted.html
+11/30/2024  06:41 AM            81,352 grind.html
+11/30/2024  06:17 AM            22,326 settings.html
+11/28/2024  09:21 AM        26,607,616 node-installer.msi
+11/30/2024  02:12 PM            36,830 package-lock.json
+11/29/2024  11:03 AM               386 package.json
+11/29/2024  01:03 PM            27,430 priority-calculator.html
+11/29/2024  11:03 AM            21,100 server.js
+11/26/2024  05:29 AM               118 start-server.bat
+11/28/2024  05:35 PM            29,554 study-spaces.old
+11/29/2024  10:47 AM            17,062 tasks.html
+11/27/2024  05:35 PM    <DIR>          data
+11/28/2024  04:24 AM    <DIR>          js
+11/28/2024  02:29 AM    <DIR>          models
+11/26/2024  05:29 AM    <DIR>          node_modules
+11/26/2024  01:52 PM    <DIR>          scripts
+11/26/2024  08:42 AM    <DIR>          server
+11/26/2024  12:35 PM    <DIR>          sounds
+11/27/2024  01:01 PM    <DIR>          styles
+11/26/2024  05:05 AM    <DIR>          uploads
+11/30/2024  06:02 AM             3,008 README.md
+11/28/2024  05:55 PM            16,256 priority-list.html
+11/28/2024  02:53 PM    <DIR>          assets
+11/28/2024  02:57 PM           270,177 pop.mp3
+11/28/2024  05:24 PM               419 index.html
+11/29/2024  06:16 PM            30,514 study-spaces.html
+11/28/2024  06:06 PM    <DIR>          icons
+11/29/2024  01:01 PM            37,107 sleep-saboteurs.html
+11/29/2024  03:30 AM    <DIR>          alarm-sounds
+11/29/2024  11:02 AM    <DIR>          api
+11/29/2024  06:03 PM    <DIR>          css
+11/30/2024  06:09 PM    <DIR>          public
+11/30/2024  06:17 PM             1,808 404.html
+11/30/2024  06:17 PM               129 firebase.json
+11/30/2024  06:17 PM                51 .firebaserc
+11/30/2024  06:17 PM             1,210 .gitignore
+11/30/2024  06:18 PM    <DIR>          .firebase
+11/30/2024  06:19 PM                30 filelist.txt
+              25 File(s)     27,313,128 bytes
+
+ Directory of D:\Creating an App\data
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  08:44 AM                18 locations.json
+11/26/2024  08:44 AM                17 schedule.json
+11/30/2024  11:16 AM           376,994 timetable.json
+11/26/2024  12:21 PM    <DIR>          energy-logs
+               3 File(s)        377,029 bytes
+
+ Directory of D:\Creating an App\data\energy-logs
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  12:35 PM             1,374 2024-11-26.json
+               1 File(s)          1,374 bytes
+
+ Directory of D:\Creating an App\js
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/29/2024  05:33 PM            38,449 calendarManager.js
+11/27/2024  12:16 PM             3,436 currentTaskManager.js
+11/28/2024  03:38 AM             7,749 energyHologram.js
+11/28/2024  03:27 AM             1,562 energyLevels.js
+11/26/2024  06:26 AM               506 googleGenerativeAI.js
+11/29/2024  05:23 PM             7,490 imageAnalyzer.js
+11/28/2024  03:14 AM            12,522 pomodoroTimer.js
+11/29/2024  05:23 PM             3,033 scheduleManager.js
+11/28/2024  04:27 AM             2,510 sleepTimeCalculator.js
+11/26/2024  04:16 AM             3,372 soundManager.js
+11/29/2024  06:19 PM            27,607 studySpacesManager.js
+11/26/2024  02:15 PM             6,515 taskFilters.js
+11/27/2024  05:21 PM             6,183 tasksManager.js
+11/29/2024  05:33 PM             1,255 timetableIntegration.js
+11/27/2024  04:07 PM            15,039 todoistIntegration.js
+11/26/2024  04:17 AM             3,222 transitionManager.js
+11/30/2024  06:40 AM             2,918 gemini-api.js
+              17 File(s)        143,368 bytes
+
+ Directory of D:\Creating an App\models
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\node_modules
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/30/2024  02:12 PM            36,551 .package-lock.json
+11/26/2024  05:04 AM    <DIR>          .bin
+11/26/2024  05:29 AM    <DIR>          @google
+11/26/2024  04:34 AM    <DIR>          accepts
+11/26/2024  05:04 AM    <DIR>          append-field
+11/26/2024  04:34 AM    <DIR>          array-flatten
+11/26/2024  04:34 AM    <DIR>          body-parser
+11/26/2024  05:04 AM    <DIR>          buffer-from
+11/26/2024  05:04 AM    <DIR>          busboy
+11/26/2024  04:34 AM    <DIR>          bytes
+11/26/2024  04:34 AM    <DIR>          call-bind
+11/26/2024  05:04 AM    <DIR>          concat-stream
+11/26/2024  04:34 AM    <DIR>          content-disposition
+11/26/2024  04:34 AM    <DIR>          content-type
+11/26/2024  04:34 AM    <DIR>          cookie
+11/26/2024  04:34 AM    <DIR>          cookie-signature
+11/26/2024  05:04 AM    <DIR>          core-util-is
+11/26/2024  04:34 AM    <DIR>          debug
+11/26/2024  04:34 AM    <DIR>          define-data-property
+11/26/2024  04:34 AM    <DIR>          depd
+11/26/2024  04:34 AM    <DIR>          destroy
+11/26/2024  04:34 AM    <DIR>          dotenv
+11/26/2024  04:34 AM    <DIR>          ee-first
+11/26/2024  04:34 AM    <DIR>          encodeurl
+11/26/2024  04:34 AM    <DIR>          es-define-property
+11/26/2024  04:34 AM    <DIR>          es-errors
+11/26/2024  04:34 AM    <DIR>          escape-html
+11/26/2024  04:34 AM    <DIR>          etag
+11/26/2024  04:34 AM    <DIR>          express
+11/26/2024  04:34 AM    <DIR>          finalhandler
+11/26/2024  04:34 AM    <DIR>          forwarded
+11/26/2024  04:34 AM    <DIR>          fresh
+11/26/2024  04:34 AM    <DIR>          function-bind
+11/26/2024  04:34 AM    <DIR>          get-intrinsic
+11/26/2024  04:34 AM    <DIR>          gopd
+11/26/2024  04:34 AM    <DIR>          has-property-descriptors
+11/26/2024  04:34 AM    <DIR>          has-proto
+11/26/2024  04:34 AM    <DIR>          has-symbols
+11/26/2024  04:34 AM    <DIR>          hasown
+11/26/2024  04:34 AM    <DIR>          http-errors
+11/26/2024  04:34 AM    <DIR>          iconv-lite
+11/26/2024  04:34 AM    <DIR>          inherits
+11/26/2024  04:34 AM    <DIR>          ipaddr.js
+11/26/2024  05:04 AM    <DIR>          isarray
+11/26/2024  04:34 AM    <DIR>          media-typer
+11/26/2024  04:34 AM    <DIR>          merge-descriptors
+11/26/2024  04:34 AM    <DIR>          methods
+11/26/2024  04:34 AM    <DIR>          mime
+11/26/2024  04:34 AM    <DIR>          mime-db
+11/26/2024  04:34 AM    <DIR>          mime-types
+11/26/2024  05:04 AM    <DIR>          minimist
+11/26/2024  05:04 AM    <DIR>          mkdirp
+11/26/2024  04:34 AM    <DIR>          ms
+11/26/2024  05:04 AM    <DIR>          multer
+11/26/2024  04:34 AM    <DIR>          negotiator
+11/26/2024  05:04 AM    <DIR>          object-assign
+11/26/2024  04:34 AM    <DIR>          object-inspect
+11/26/2024  04:34 AM    <DIR>          on-finished
+11/26/2024  04:34 AM    <DIR>          parseurl
+11/26/2024  04:34 AM    <DIR>          path-to-regexp
+11/26/2024  05:04 AM    <DIR>          process-nextick-args
+11/26/2024  04:34 AM    <DIR>          proxy-addr
+11/26/2024  04:34 AM    <DIR>          qs
+11/26/2024  04:34 AM    <DIR>          range-parser
+11/26/2024  04:34 AM    <DIR>          raw-body
+11/26/2024  05:04 AM    <DIR>          readable-stream
+11/26/2024  04:34 AM    <DIR>          safe-buffer
+11/26/2024  04:34 AM    <DIR>          safer-buffer
+11/26/2024  04:34 AM    <DIR>          send
+11/26/2024  04:34 AM    <DIR>          serve-static
+11/26/2024  04:34 AM    <DIR>          set-function-length
+11/26/2024  04:34 AM    <DIR>          setprototypeof
+11/26/2024  04:34 AM    <DIR>          side-channel
+11/26/2024  04:34 AM    <DIR>          statuses
+11/26/2024  05:04 AM    <DIR>          streamsearch
+11/26/2024  05:04 AM    <DIR>          string_decoder
+11/26/2024  04:34 AM    <DIR>          toidentifier
+11/26/2024  04:34 AM    <DIR>          type-is
+11/26/2024  05:04 AM    <DIR>          typedarray
+11/26/2024  04:34 AM    <DIR>          unpipe
+11/26/2024  05:04 AM    <DIR>          util-deprecate
+11/26/2024  04:34 AM    <DIR>          utils-merge
+11/26/2024  04:34 AM    <DIR>          vary
+11/26/2024  05:04 AM    <DIR>          xtend
+11/29/2024  02:35 PM    <DIR>          shortid
+11/29/2024  02:35 PM    <DIR>          axios
+11/29/2024  02:35 PM    <DIR>          lodash
+11/29/2024  02:35 PM    <DIR>          follow-redirects
+11/29/2024  02:35 PM    <DIR>          is-buffer
+11/29/2024  02:35 PM    <DIR>          nanoid
+11/29/2024  02:35 PM    <DIR>          ultron
+11/29/2024  02:35 PM    <DIR>          gemini-api
+11/29/2024  02:35 PM    <DIR>          ws
+               1 File(s)         36,551 bytes
+
+ Directory of D:\Creating an App\node_modules\.bin
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM               290 mime
+11/26/2024  04:34 AM               316 mime.cmd
+11/26/2024  04:34 AM               769 mime.ps1
+11/26/2024  05:04 AM               302 mkdirp
+11/26/2024  05:04 AM               322 mkdirp.cmd
+11/26/2024  05:04 AM               793 mkdirp.ps1
+               6 File(s)          2,792 bytes
+
+ Directory of D:\Creating an App\node_modules\@google
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:29 AM    <DIR>          generative-ai
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\node_modules\@google\generative-ai
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:29 AM             1,456 package.json
+11/26/2024  05:29 AM             3,792 README.md
+11/26/2024  05:29 AM    <DIR>          dist
+               2 File(s)          5,248 bytes
+
+ Directory of D:\Creating an App\node_modules\@google\generative-ai\dist
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:29 AM            11,891 generative-ai.d.ts
+11/26/2024  05:29 AM            34,958 index.js
+11/26/2024  05:29 AM               987 index.js.map
+11/26/2024  05:29 AM            34,776 index.mjs
+11/26/2024  05:29 AM               984 index.mjs.map
+11/26/2024  05:29 AM               329 tsdoc-metadata.json
+11/26/2024  05:29 AM    <DIR>          src
+11/26/2024  05:29 AM    <DIR>          types
+               6 File(s)         83,925 bytes
+
+ Directory of D:\Creating an App\node_modules\@google\generative-ai\dist\src
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:29 AM               860 errors.d.ts
+11/26/2024  05:29 AM             1,095 gen-ai.d.ts
+11/26/2024  05:29 AM               657 index.d.ts
+11/26/2024  05:29 AM    <DIR>          methods
+11/26/2024  05:29 AM    <DIR>          models
+11/26/2024  05:29 AM    <DIR>          requests
+               3 File(s)          2,612 bytes
+
+ Directory of D:\Creating an App\node_modules\@google\generative-ai\dist\src\methods
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:29 AM             1,798 chat-session.d.ts
+11/26/2024  05:29 AM               802 count-tokens.d.ts
+11/26/2024  05:29 AM             1,009 embed-content.d.ts
+11/26/2024  05:29 AM               995 generate-content.d.ts
+               4 File(s)          4,604 bytes
+
+ Directory of D:\Creating an App\node_modules\@google\generative-ai\dist\src\models
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:29 AM             2,601 generative-model.d.ts
+               1 File(s)          2,601 bytes
+
+ Directory of D:\Creating an App\node_modules\@google\generative-ai\dist\src\requests
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:29 AM             1,071 request-helpers.d.ts
+11/26/2024  05:29 AM             1,149 request.d.ts
+11/26/2024  05:29 AM             1,169 response-helpers.d.ts
+11/26/2024  05:29 AM             1,556 stream-reader.d.ts
+               4 File(s)          4,945 bytes
+
+ Directory of D:\Creating an App\node_modules\@google\generative-ai\dist\types
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:29 AM             1,559 content.d.ts
+11/26/2024  05:29 AM             2,542 enums.d.ts
+11/26/2024  05:29 AM               714 index.d.ts
+11/26/2024  05:29 AM             2,302 requests.d.ts
+11/26/2024  05:29 AM             3,655 responses.d.ts
+               5 File(s)         10,772 bytes
+
+ Directory of D:\Creating an App\node_modules\accepts
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             5,096 HISTORY.md
+11/26/2024  04:34 AM             5,252 index.js
+11/26/2024  04:34 AM             1,167 LICENSE
+11/26/2024  04:34 AM             1,157 package.json
+11/26/2024  04:34 AM             4,123 README.md
+               5 File(s)         16,795 bytes
+
+ Directory of D:\Creating an App\node_modules\append-field
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM                14 .npmignore
+11/26/2024  05:04 AM               307 index.js
+11/26/2024  05:04 AM             1,082 LICENSE
+11/26/2024  05:04 AM               416 package.json
+11/26/2024  05:04 AM             1,016 README.md
+11/26/2024  05:04 AM    <DIR>          lib
+11/26/2024  05:04 AM    <DIR>          test
+               5 File(s)          2,835 bytes
+
+ Directory of D:\Creating an App\node_modules\append-field\lib
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM             1,112 parse-path.js
+11/26/2024  05:04 AM             1,642 set-value.js
+               2 File(s)          2,754 bytes
+
+ Directory of D:\Creating an App\node_modules\append-field\test
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM               450 forms.js
+               1 File(s)            450 bytes
+
+ Directory of D:\Creating an App\node_modules\array-flatten
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,195 array-flatten.js
+11/26/2024  04:34 AM             1,103 LICENSE
+11/26/2024  04:34 AM               879 package.json
+11/26/2024  04:34 AM             1,245 README.md
+               4 File(s)          4,422 bytes
+
+ Directory of D:\Creating an App\node_modules\body-parser
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM            16,729 HISTORY.md
+11/26/2024  04:34 AM             2,681 index.js
+11/26/2024  04:34 AM             1,172 LICENSE
+11/26/2024  04:34 AM             1,472 package.json
+11/26/2024  04:34 AM            19,180 README.md
+11/26/2024  04:34 AM             1,193 SECURITY.md
+11/26/2024  04:34 AM    <DIR>          lib
+               6 File(s)         42,427 bytes
+
+ Directory of D:\Creating an App\node_modules\body-parser\lib
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             4,325 read.js
+11/26/2024  04:34 AM    <DIR>          types
+               1 File(s)          4,325 bytes
+
+ Directory of D:\Creating an App\node_modules\body-parser\lib\types
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             5,299 json.js
+11/26/2024  04:34 AM             1,884 raw.js
+11/26/2024  04:34 AM             2,285 text.js
+11/26/2024  04:34 AM             6,404 urlencoded.js
+               4 File(s)         15,872 bytes
+
+ Directory of D:\Creating an App\node_modules\buffer-from
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM             1,675 index.js
+11/26/2024  05:04 AM             1,078 LICENSE
+11/26/2024  05:04 AM               304 package.json
+11/26/2024  05:04 AM             1,990 readme.md
+               4 File(s)          5,047 bytes
+
+ Directory of D:\Creating an App\node_modules\busboy
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM                73 .eslintrc.js
+11/26/2024  05:04 AM             1,067 LICENSE
+11/26/2024  05:04 AM               810 package.json
+11/26/2024  05:04 AM             7,926 README.md
+11/26/2024  05:04 AM    <DIR>          .github
+11/26/2024  05:04 AM    <DIR>          bench
+11/26/2024  05:04 AM    <DIR>          lib
+11/26/2024  05:04 AM    <DIR>          test
+               4 File(s)          9,876 bytes
+
+ Directory of D:\Creating an App\node_modules\busboy\.github
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM    <DIR>          workflows
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\node_modules\busboy\.github\workflows
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM               518 ci.yml
+11/26/2024  05:04 AM               471 lint.yml
+               2 File(s)            989 bytes
+
+ Directory of D:\Creating an App\node_modules\busboy\bench
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM             3,178 bench-multipart-fields-100mb-big.js
+11/26/2024  05:04 AM             3,169 bench-multipart-fields-100mb-small.js
+11/26/2024  05:04 AM             3,349 bench-multipart-files-100mb-big.js
+11/26/2024  05:04 AM             3,340 bench-multipart-files-100mb-small.js
+11/26/2024  05:04 AM             2,211 bench-urlencoded-fields-100pairs-small.js
+11/26/2024  05:04 AM             1,808 bench-urlencoded-fields-900pairs-small-alt.js
+               6 File(s)         17,055 bytes
+
+ Directory of D:\Creating an App\node_modules\busboy\lib
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM             1,576 index.js
+11/26/2024  05:04 AM            16,220 utils.js
+11/26/2024  05:04 AM    <DIR>          types
+               2 File(s)         17,796 bytes
+
+ Directory of D:\Creating an App\node_modules\busboy\lib\types
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM            18,985 multipart.js
+11/26/2024  05:04 AM            10,705 urlencoded.js
+               2 File(s)         29,690 bytes
+
+ Directory of D:\Creating an App\node_modules\busboy\test
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM             2,799 common.js
+11/26/2024  05:04 AM             2,061 test-types-multipart-charsets.js
+11/26/2024  05:04 AM             2,369 test-types-multipart-stream-pause.js
+11/26/2024  05:04 AM            30,013 test-types-multipart.js
+11/26/2024  05:04 AM            11,210 test-types-urlencoded.js
+11/26/2024  05:04 AM               539 test.js
+               6 File(s)         48,991 bytes
+
+ Directory of D:\Creating an App\node_modules\bytes
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,775 History.md
+11/26/2024  04:34 AM             3,613 index.js
+11/26/2024  04:34 AM             1,153 LICENSE
+11/26/2024  04:34 AM               959 package.json
+11/26/2024  04:34 AM             4,770 Readme.md
+               5 File(s)         12,270 bytes
+
+ Directory of D:\Creating an App\node_modules\call-bind
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM                10 .eslintignore
+11/26/2024  04:34 AM               208 .eslintrc
+11/26/2024  04:34 AM               139 .nycrc
+11/26/2024  04:34 AM               413 callBound.js
+11/26/2024  04:34 AM             8,142 CHANGELOG.md
+11/26/2024  04:34 AM             1,037 index.js
+11/26/2024  04:34 AM             1,071 LICENSE
+11/26/2024  04:34 AM             2,304 package.json
+11/26/2024  04:34 AM             2,026 README.md
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          test
+               9 File(s)         15,350 bytes
+
+ Directory of D:\Creating an App\node_modules\call-bind\.github
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM               580 FUNDING.yml
+               1 File(s)            580 bytes
+
+ Directory of D:\Creating an App\node_modules\call-bind\test
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             2,349 callBound.js
+11/26/2024  04:34 AM             3,839 index.js
+               2 File(s)          6,188 bytes
+
+ Directory of D:\Creating an App\node_modules\concat-stream
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM             3,775 index.js
+11/26/2024  05:04 AM             1,084 LICENSE
+11/26/2024  05:04 AM             1,187 package.json
+11/26/2024  05:04 AM             3,510 readme.md
+               4 File(s)          9,556 bytes
+
+ Directory of D:\Creating an App\node_modules\content-disposition
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,020 HISTORY.md
+11/26/2024  04:34 AM            10,594 index.js
+11/26/2024  04:34 AM             1,094 LICENSE
+11/26/2024  04:34 AM             1,200 package.json
+11/26/2024  04:34 AM             5,205 README.md
+               5 File(s)         19,113 bytes
+
+ Directory of D:\Creating an App\node_modules\content-type
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM               523 HISTORY.md
+11/26/2024  04:34 AM             5,002 index.js
+11/26/2024  04:34 AM             1,089 LICENSE
+11/26/2024  04:34 AM             1,075 package.json
+11/26/2024  04:34 AM             2,782 README.md
+               5 File(s)         10,471 bytes
+
+ Directory of D:\Creating an App\node_modules\cookie
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             8,103 index.js
+11/26/2024  04:34 AM             1,175 LICENSE
+11/26/2024  04:34 AM             1,092 package.json
+11/26/2024  04:34 AM            11,769 README.md
+11/26/2024  04:34 AM             1,180 SECURITY.md
+               5 File(s)         23,319 bytes
+
+ Directory of D:\Creating an App\node_modules\cookie-signature
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM                29 .npmignore
+11/26/2024  04:34 AM               695 History.md
+11/26/2024  04:34 AM             1,230 index.js
+11/26/2024  04:34 AM               492 package.json
+11/26/2024  04:34 AM             1,490 Readme.md
+               5 File(s)          3,936 bytes
+
+ Directory of D:\Creating an App\node_modules\core-util-is
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM             1,077 LICENSE
+11/26/2024  05:04 AM               799 package.json
+11/26/2024  05:04 AM                67 README.md
+11/26/2024  05:04 AM    <DIR>          lib
+               3 File(s)          1,943 bytes
+
+ Directory of D:\Creating an App\node_modules\core-util-is\lib
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  05:04 AM             3,039 util.js
+               1 File(s)          3,039 bytes
+
+ Directory of D:\Creating an App\node_modules\debug
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM                46 .coveralls.yml
+11/26/2024  04:34 AM               180 .eslintrc
+11/26/2024  04:34 AM                72 .npmignore
+11/26/2024  04:34 AM               140 .travis.yml
+11/26/2024  04:34 AM            11,707 CHANGELOG.md
+11/26/2024  04:34 AM               321 component.json
+11/26/2024  04:34 AM             1,736 karma.conf.js
+11/26/2024  04:34 AM             1,107 LICENSE
+11/26/2024  04:34 AM             1,059 Makefile
+11/26/2024  04:34 AM                40 node.js
+11/26/2024  04:34 AM             1,138 package.json
+11/26/2024  04:34 AM            17,918 README.md
+11/26/2024  04:34 AM    <DIR>          src
+              12 File(s)         35,464 bytes
+
+ Directory of D:\Creating an App\node_modules\debug\src
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             4,734 browser.js
+11/26/2024  04:34 AM             4,394 debug.js
+11/26/2024  04:34 AM               263 index.js
+11/26/2024  04:34 AM               373 inspector-log.js
+11/26/2024  04:34 AM             6,015 node.js
+               5 File(s)         15,779 bytes
+
+ Directory of D:\Creating an App\node_modules\define-data-property
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM               291 .eslintrc
+11/26/2024  04:34 AM               216 .nycrc
+11/26/2024  04:34 AM             5,390 CHANGELOG.md
+11/26/2024  04:34 AM               315 index.d.ts
+11/26/2024  04:34 AM             2,336 index.js
+11/26/2024  04:34 AM             1,071 LICENSE
+11/26/2024  04:34 AM             2,856 package.json
+11/26/2024  04:34 AM             2,431 README.md
+11/26/2024  04:34 AM             4,883 tsconfig.json
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          test
+               9 File(s)         19,789 bytes
+
+ Directory of D:\Creating an App\node_modules\define-data-property\.github
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM               591 FUNDING.yml
+               1 File(s)            591 bytes
+
+ Directory of D:\Creating an App\node_modules\define-data-property\test
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM            10,471 index.js
+               1 File(s)         10,471 bytes
+
+ Directory of D:\Creating an App\node_modules\depd
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             2,256 History.md
+11/26/2024  04:34 AM            10,932 index.js
+11/26/2024  04:34 AM             1,094 LICENSE
+11/26/2024  04:34 AM             1,335 package.json
+11/26/2024  04:34 AM             9,988 Readme.md
+11/26/2024  04:34 AM    <DIR>          lib
+               5 File(s)         25,605 bytes
+
+ Directory of D:\Creating an App\node_modules\depd\lib
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM    <DIR>          browser
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\node_modules\depd\lib\browser
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,512 index.js
+               1 File(s)          1,512 bytes
+
+ Directory of D:\Creating an App\node_modules\destroy
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             4,258 index.js
+11/26/2024  04:34 AM             1,173 LICENSE
+11/26/2024  04:34 AM             1,128 package.json
+11/26/2024  04:34 AM             2,459 README.md
+               4 File(s)          9,018 bytes
+
+ Directory of D:\Creating an App\node_modules\dotenv
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM            16,096 CHANGELOG.md
+11/26/2024  04:34 AM                11 config.d.ts
+11/26/2024  04:34 AM               176 config.js
+11/26/2024  04:34 AM             1,294 LICENSE
+11/26/2024  04:34 AM             1,668 package.json
+11/26/2024  04:34 AM            17,203 README-es.md
+11/26/2024  04:34 AM            26,833 README.md
+11/26/2024  04:34 AM    <DIR>          lib
+               7 File(s)         63,281 bytes
+
+ Directory of D:\Creating an App\node_modules\dotenv\lib
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM               289 cli-options.js
+11/26/2024  04:34 AM               633 env-options.js
+11/26/2024  04:34 AM             4,903 main.d.ts
+11/26/2024  04:34 AM             9,972 main.js
+               4 File(s)         15,797 bytes
+
+ Directory of D:\Creating an App\node_modules\ee-first
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,684 index.js
+11/26/2024  04:34 AM             1,099 LICENSE
+11/26/2024  04:34 AM               859 package.json
+11/26/2024  04:34 AM             2,617 README.md
+               4 File(s)          6,259 bytes
+
+ Directory of D:\Creating an App\node_modules\encodeurl
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,578 index.js
+11/26/2024  04:34 AM             1,089 LICENSE
+11/26/2024  04:34 AM             1,092 package.json
+11/26/2024  04:34 AM             3,221 README.md
+               4 File(s)          6,980 bytes
+
+ Directory of D:\Creating an App\node_modules\es-define-property
+
+11/28/2024  04:34 AM    <DIR>          .
+11/28/2024  04:34 AM    <DIR>          ..
+11/26/2024  04:34 AM               144 .eslintrc
+11/26/2024  04:34 AM               139 .nycrc
+11/26/2024  04:34 AM               822 CHANGELOG.md
+11/26/2024  04:34 AM                93 index.d.ts
+11/26/2024  04:34 AM               358 index.js
+11/26/2024  04:34 AM             1,071 LICENSE
+11/26/2024  04:34 AM             2,112 package.json
+11/26/2024  04:34 AM             2,056 README.md
+11/26/2024  04:34 AM             3,195 tsconfig.json
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          test
+               9 File(s)          9,990 bytes
+
+ Directory of D:\Creating an App\node_modules\es-define-property\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               564 FUNDING.yml
+               1 File(s)            564 bytes
+
+ Directory of D:\Creating an App\node_modules\es-define-property\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,244 index.js
+               1 File(s)          1,244 bytes
+
+ Directory of D:\Creating an App\node_modules\es-errors
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM                43 .eslintrc
+11/26/2024  04:34 AM             1,833 CHANGELOG.md
+11/26/2024  04:34 AM                68 eval.d.ts
+11/26/2024  04:34 AM                75 eval.js
+11/26/2024  04:34 AM                56 index.d.ts
+11/26/2024  04:34 AM                66 index.js
+11/26/2024  04:34 AM             1,071 LICENSE
+11/26/2024  04:34 AM             2,174 package.json
+11/26/2024  04:34 AM                71 range.d.ts
+11/26/2024  04:34 AM                77 range.js
+11/26/2024  04:34 AM             2,114 README.md
+11/26/2024  04:34 AM                83 ref.d.ts
+11/26/2024  04:34 AM                79 ref.js
+11/26/2024  04:34 AM                74 syntax.d.ts
+11/26/2024  04:34 AM                79 syntax.js
+11/26/2024  04:34 AM             3,170 tsconfig.json
+11/26/2024  04:34 AM                67 type.d.ts
+11/26/2024  04:34 AM                75 type.js
+11/26/2024  04:34 AM                65 uri.d.ts
+11/26/2024  04:34 AM                73 uri.js
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          test
+              20 File(s)         11,413 bytes
+
+ Directory of D:\Creating an App\node_modules\es-errors\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               555 FUNDING.yml
+               1 File(s)            555 bytes
+
+ Directory of D:\Creating an App\node_modules\es-errors\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               356 index.js
+               1 File(s)            356 bytes
+
+ Directory of D:\Creating an App\node_modules\escape-html
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,362 index.js
+11/26/2024  04:34 AM             1,157 LICENSE
+11/26/2024  04:34 AM               434 package.json
+11/26/2024  04:34 AM               707 Readme.md
+               4 File(s)          3,660 bytes
+
+ Directory of D:\Creating an App\node_modules\etag
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,732 HISTORY.md
+11/26/2024  04:34 AM             2,479 index.js
+11/26/2024  04:34 AM             1,094 LICENSE
+11/26/2024  04:34 AM             1,306 package.json
+11/26/2024  04:34 AM             4,198 README.md
+               5 File(s)         10,809 bytes
+
+ Directory of D:\Creating an App\node_modules\express
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM           114,974 History.md
+11/26/2024  04:34 AM               224 index.js
+11/26/2024  04:34 AM             1,249 LICENSE
+11/26/2024  04:34 AM             2,708 package.json
+11/26/2024  04:34 AM             9,806 Readme.md
+11/26/2024  04:34 AM    <DIR>          lib
+               5 File(s)        128,961 bytes
+
+ Directory of D:\Creating an App\node_modules\express\lib
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM            14,593 application.js
+11/26/2024  04:34 AM             2,409 express.js
+11/26/2024  04:34 AM            12,505 request.js
+11/26/2024  04:34 AM            28,729 response.js
+11/26/2024  04:34 AM             5,871 utils.js
+11/26/2024  04:34 AM             3,325 view.js
+11/26/2024  04:34 AM    <DIR>          middleware
+11/26/2024  04:34 AM    <DIR>          router
+               6 File(s)         67,432 bytes
+
+ Directory of D:\Creating an App\node_modules\express\lib\middleware
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               853 init.js
+11/26/2024  04:34 AM               885 query.js
+               2 File(s)          1,738 bytes
+
+ Directory of D:\Creating an App\node_modules\express\lib\router
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM            15,123 index.js
+11/26/2024  04:34 AM             3,296 layer.js
+11/26/2024  04:34 AM             4,399 route.js
+               3 File(s)         22,818 bytes
+
+ Directory of D:\Creating an App\node_modules\finalhandler
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             4,549 HISTORY.md
+11/26/2024  04:34 AM             6,768 index.js
+11/26/2024  04:34 AM             1,119 LICENSE
+11/26/2024  04:34 AM             1,276 package.json
+11/26/2024  04:34 AM             4,120 README.md
+11/26/2024  04:34 AM             1,202 SECURITY.md
+               6 File(s)         19,034 bytes
+
+ Directory of D:\Creating an App\node_modules\forwarded
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               400 HISTORY.md
+11/26/2024  04:34 AM             1,578 index.js
+11/26/2024  04:34 AM             1,094 LICENSE
+11/26/2024  04:34 AM             1,150 package.json
+11/26/2024  04:34 AM             1,654 README.md
+               5 File(s)          5,876 bytes
+
+ Directory of D:\Creating an App\node_modules\fresh
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,500 HISTORY.md
+11/26/2024  04:34 AM             2,711 index.js
+11/26/2024  04:34 AM             1,174 LICENSE
+11/26/2024  04:34 AM             1,357 package.json
+11/26/2024  04:34 AM             3,374 README.md
+               5 File(s)         10,116 bytes
+
+ Directory of D:\Creating an App\node_modules\function-bind
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               253 .eslintrc
+11/26/2024  04:34 AM               216 .nycrc
+11/26/2024  04:34 AM            13,812 CHANGELOG.md
+11/26/2024  04:34 AM             2,043 implementation.js
+11/26/2024  04:34 AM               126 index.js
+11/26/2024  04:34 AM             1,052 LICENSE
+11/26/2024  04:34 AM             2,262 package.json
+11/26/2024  04:34 AM             1,755 README.md
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          test
+               8 File(s)         21,519 bytes
+
+ Directory of D:\Creating an App\node_modules\function-bind\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               584 FUNDING.yml
+11/26/2024  04:34 AM               157 SECURITY.md
+               2 File(s)            741 bytes
+
+ Directory of D:\Creating an App\node_modules\function-bind\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               176 .eslintrc
+11/26/2024  04:34 AM             8,991 index.js
+               2 File(s)          9,167 bytes
+
+ Directory of D:\Creating an App\node_modules\get-intrinsic
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               603 .eslintrc
+11/26/2024  04:34 AM               139 .nycrc
+11/26/2024  04:34 AM            11,640 CHANGELOG.md
+11/26/2024  04:34 AM            13,615 index.js
+11/26/2024  04:34 AM             1,071 LICENSE
+11/26/2024  04:34 AM             2,414 package.json
+11/26/2024  04:34 AM             2,791 README.md
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          test
+               7 File(s)         32,273 bytes
+
+ Directory of D:\Creating an App\node_modules\get-intrinsic\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               584 FUNDING.yml
+               1 File(s)            584 bytes
+
+ Directory of D:\Creating an App\node_modules\get-intrinsic\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             8,767 GetIntrinsic.js
+               1 File(s)          8,767 bytes
+
+ Directory of D:\Creating an App\node_modules\gopd
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               224 .eslintrc
+11/26/2024  04:34 AM             1,541 CHANGELOG.md
+11/26/2024  04:34 AM               263 index.js
+11/26/2024  04:34 AM             1,071 LICENSE
+11/26/2024  04:34 AM             1,877 package.json
+11/26/2024  04:34 AM             1,562 README.md
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          test
+               6 File(s)          6,538 bytes
+
+ Directory of D:\Creating an App\node_modules\gopd\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               575 FUNDING.yml
+               1 File(s)            575 bytes
+
+ Directory of D:\Creating an App\node_modules\gopd\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               590 index.js
+               1 File(s)            590 bytes
+
+ Directory of D:\Creating an App\node_modules\has-property-descriptors
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               173 .eslintrc
+11/26/2024  04:34 AM               139 .nycrc
+11/26/2024  04:34 AM             2,648 CHANGELOG.md
+11/26/2024  04:34 AM               588 index.js
+11/26/2024  04:34 AM             1,067 LICENSE
+11/26/2024  04:34 AM             2,090 package.json
+11/26/2024  04:34 AM             2,206 README.md
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          test
+               7 File(s)          8,911 bytes
+
+ Directory of D:\Creating an App\node_modules\has-property-descriptors\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               595 FUNDING.yml
+               1 File(s)            595 bytes
+
+ Directory of D:\Creating an App\node_modules\has-property-descriptors\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,405 index.js
+               1 File(s)          1,405 bytes
+
+ Directory of D:\Creating an App\node_modules\has-proto
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM                43 .eslintrc
+11/26/2024  04:34 AM             2,200 CHANGELOG.md
+11/26/2024  04:34 AM                57 index.d.ts
+11/26/2024  04:34 AM               302 index.js
+11/26/2024  04:34 AM             1,067 LICENSE
+11/26/2024  04:34 AM             2,004 package.json
+11/26/2024  04:34 AM             1,623 README.md
+11/26/2024  04:34 AM             3,611 tsconfig.json
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          test
+               8 File(s)         10,907 bytes
+
+ Directory of D:\Creating an App\node_modules\has-proto\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               580 FUNDING.yml
+               1 File(s)            580 bytes
+
+ Directory of D:\Creating an App\node_modules\has-proto\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               477 index.js
+               1 File(s)            477 bytes
+
+ Directory of D:\Creating an App\node_modules\has-symbols
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               164 .eslintrc
+11/26/2024  04:34 AM               139 .nycrc
+11/26/2024  04:34 AM             7,690 CHANGELOG.md
+11/26/2024  04:34 AM               420 index.js
+11/26/2024  04:34 AM             1,071 LICENSE
+11/26/2024  04:34 AM             2,648 package.json
+11/26/2024  04:34 AM             2,044 README.md
+11/26/2024  04:34 AM             1,761 shams.js
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          test
+               8 File(s)         15,937 bytes
+
+ Directory of D:\Creating an App\node_modules\has-symbols\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               582 FUNDING.yml
+               1 File(s)            582 bytes
+
+ Directory of D:\Creating an App\node_modules\has-symbols\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               654 index.js
+11/26/2024  04:34 AM             2,021 tests.js
+11/26/2024  04:34 AM    <DIR>          shams
+               2 File(s)          2,675 bytes
+
+ Directory of D:\Creating an App\node_modules\has-symbols\test\shams
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               723 core-js.js
+11/26/2024  04:34 AM               686 get-own-property-symbols.js
+               2 File(s)          1,409 bytes
+
+ Directory of D:\Creating an App\node_modules\hasown
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM                43 .eslintrc
+11/26/2024  04:34 AM               216 .nycrc
+11/26/2024  04:34 AM             2,579 CHANGELOG.md
+11/26/2024  04:34 AM               117 index.d.ts
+11/26/2024  04:34 AM               206 index.js
+11/26/2024  04:34 AM             1,083 LICENSE
+11/26/2024  04:34 AM             2,283 package.json
+11/26/2024  04:34 AM             1,613 README.md
+11/26/2024  04:34 AM                73 tsconfig.json
+11/26/2024  04:34 AM    <DIR>          .github
+               9 File(s)          8,213 bytes
+
+ Directory of D:\Creating an App\node_modules\hasown\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               552 FUNDING.yml
+               1 File(s)            552 bytes
+
+ Directory of D:\Creating an App\node_modules\http-errors
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             3,973 HISTORY.md
+11/26/2024  04:34 AM             6,391 index.js
+11/26/2024  04:34 AM             1,168 LICENSE
+11/26/2024  04:34 AM             1,314 package.json
+11/26/2024  04:34 AM             5,962 README.md
+               5 File(s)         18,808 bytes
+
+ Directory of D:\Creating an App\node_modules\iconv-lite
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             4,342 Changelog.md
+11/26/2024  04:34 AM             1,064 LICENSE
+11/26/2024  04:34 AM             1,227 package.json
+11/26/2024  04:34 AM             6,534 README.md
+11/26/2024  04:34 AM    <DIR>          encodings
+11/26/2024  04:34 AM    <DIR>          lib
+               4 File(s)         13,167 bytes
+
+ Directory of D:\Creating an App\node_modules\iconv-lite\encodings
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM            21,415 dbcs-codec.js
+11/26/2024  04:34 AM             8,291 dbcs-data.js
+11/26/2024  04:34 AM               710 index.js
+11/26/2024  04:34 AM             6,115 internal.js
+11/26/2024  04:34 AM             2,191 sbcs-codec.js
+11/26/2024  04:34 AM            32,034 sbcs-data-generated.js
+11/26/2024  04:34 AM             4,686 sbcs-data.js
+11/26/2024  04:34 AM             5,011 utf16.js
+11/26/2024  04:34 AM             9,215 utf7.js
+11/26/2024  04:34 AM    <DIR>          tables
+               9 File(s)         89,668 bytes
+
+ Directory of D:\Creating an App\node_modules\iconv-lite\encodings\tables
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM            17,717 big5-added.json
+11/26/2024  04:34 AM            47,320 cp936.json
+11/26/2024  04:34 AM            38,122 cp949.json
+11/26/2024  04:34 AM            42,356 cp950.json
+11/26/2024  04:34 AM            41,064 eucjp.json
+11/26/2024  04:34 AM             2,216 gb18030-ranges.json
+11/26/2024  04:34 AM             1,227 gbk-added.json
+11/26/2024  04:34 AM            23,782 shiftjis.json
+               8 File(s)        213,804 bytes
+
+ Directory of D:\Creating an App\node_modules\iconv-lite\lib
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,109 bom-handling.js
+11/26/2024  04:34 AM             8,701 extend-node.js
+11/26/2024  04:34 AM               982 index.d.ts
+11/26/2024  04:34 AM             5,123 index.js
+11/26/2024  04:34 AM             3,387 streams.js
+               5 File(s)         19,302 bytes
+
+ Directory of D:\Creating an App\node_modules\inherits
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               250 inherits.js
+11/26/2024  04:34 AM               753 inherits_browser.js
+11/26/2024  04:34 AM               749 LICENSE
+11/26/2024  04:34 AM               581 package.json
+11/26/2024  04:34 AM             1,625 README.md
+               5 File(s)          3,958 bytes
+
+ Directory of D:\Creating an App\node_modules\ipaddr.js
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             9,738 ipaddr.min.js
+11/26/2024  04:34 AM             1,087 LICENSE
+11/26/2024  04:34 AM               719 package.json
+11/26/2024  04:34 AM             8,309 README.md
+11/26/2024  04:34 AM    <DIR>          lib
+               4 File(s)         19,853 bytes
+
+ Directory of D:\Creating an App\node_modules\ipaddr.js\lib
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM            19,333 ipaddr.js
+11/26/2024  04:34 AM             2,959 ipaddr.js.d.ts
+               2 File(s)         22,292 bytes
+
+ Directory of D:\Creating an App\node_modules\isarray
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM                13 .npmignore
+11/26/2024  05:04 AM                48 .travis.yml
+11/26/2024  05:04 AM               470 component.json
+11/26/2024  05:04 AM               132 index.js
+11/26/2024  05:04 AM                55 Makefile
+11/26/2024  05:04 AM               958 package.json
+11/26/2024  05:04 AM             1,890 README.md
+11/26/2024  05:04 AM               320 test.js
+               8 File(s)          3,886 bytes
+
+ Directory of D:\Creating an App\node_modules\media-typer
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               461 HISTORY.md
+11/26/2024  04:34 AM             6,375 index.js
+11/26/2024  04:34 AM             1,089 LICENSE
+11/26/2024  04:34 AM               759 package.json
+11/26/2024  04:34 AM             2,371 README.md
+               5 File(s)         11,055 bytes
+
+ Directory of D:\Creating an App\node_modules\merge-descriptors
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               363 HISTORY.md
+11/26/2024  04:34 AM             1,218 index.js
+11/26/2024  04:34 AM             1,167 LICENSE
+11/26/2024  04:34 AM             1,028 package.json
+11/26/2024  04:34 AM             1,305 README.md
+               5 File(s)          5,081 bytes
+
+ Directory of D:\Creating an App\node_modules\methods
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               427 HISTORY.md
+11/26/2024  04:34 AM             1,040 index.js
+11/26/2024  04:34 AM             1,180 LICENSE
+11/26/2024  04:34 AM               947 package.json
+11/26/2024  04:34 AM             1,694 README.md
+               5 File(s)          5,288 bytes
+
+ Directory of D:\Creating an App\node_modules\mime
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM                 0 .npmignore
+11/26/2024  04:34 AM             9,473 CHANGELOG.md
+11/26/2024  04:34 AM               149 cli.js
+11/26/2024  04:34 AM             1,098 LICENSE
+11/26/2024  04:34 AM             2,726 mime.js
+11/26/2024  04:34 AM               933 package.json
+11/26/2024  04:34 AM             2,119 README.md
+11/26/2024  04:34 AM            31,555 types.json
+11/26/2024  04:34 AM    <DIR>          src
+               8 File(s)         48,053 bytes
+
+ Directory of D:\Creating an App\node_modules\mime\src
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,351 build.js
+11/26/2024  04:34 AM             2,334 test.js
+               2 File(s)          3,685 bytes
+
+ Directory of D:\Creating an App\node_modules\mime-db
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM           185,882 db.json
+11/26/2024  04:34 AM            12,581 HISTORY.md
+11/26/2024  04:34 AM               189 index.js
+11/26/2024  04:34 AM             1,172 LICENSE
+11/26/2024  04:34 AM             1,624 package.json
+11/26/2024  04:34 AM             4,091 README.md
+               6 File(s)        205,539 bytes
+
+ Directory of D:\Creating an App\node_modules\mime-types
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             8,812 HISTORY.md
+11/26/2024  04:34 AM             3,663 index.js
+11/26/2024  04:34 AM             1,167 LICENSE
+11/26/2024  04:34 AM             1,149 package.json
+11/26/2024  04:34 AM             3,481 README.md
+               5 File(s)         18,272 bytes
+
+ Directory of D:\Creating an App\node_modules\minimist
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM               511 .eslintrc
+11/26/2024  05:04 AM               229 .nycrc
+11/26/2024  05:04 AM            21,542 CHANGELOG.md
+11/26/2024  05:04 AM             6,196 index.js
+11/26/2024  05:04 AM             1,073 LICENSE
+11/26/2024  05:04 AM             1,788 package.json
+11/26/2024  05:04 AM             3,609 README.md
+11/26/2024  05:04 AM    <DIR>          .github
+11/26/2024  05:04 AM    <DIR>          example
+11/26/2024  05:04 AM    <DIR>          test
+               7 File(s)         34,948 bytes
+
+ Directory of D:\Creating an App\node_modules\minimist\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM               579 FUNDING.yml
+               1 File(s)            579 bytes
+
+ Directory of D:\Creating an App\node_modules\minimist\example
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM                84 parse.js
+               1 File(s)             84 bytes
+
+ Directory of D:\Creating an App\node_modules\minimist\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM               675 all_bool.js
+11/26/2024  05:04 AM             3,575 bool.js
+11/26/2024  05:04 AM             1,245 dash.js
+11/26/2024  05:04 AM               713 default_bool.js
+11/26/2024  05:04 AM               586 dotted.js
+11/26/2024  05:04 AM               660 kv_short.js
+11/26/2024  05:04 AM               649 long.js
+11/26/2024  05:04 AM               792 num.js
+11/26/2024  05:04 AM             4,086 parse.js
+11/26/2024  05:04 AM               237 parse_modified.js
+11/26/2024  05:04 AM             1,741 proto.js
+11/26/2024  05:04 AM             1,295 short.js
+11/26/2024  05:04 AM               312 stop_early.js
+11/26/2024  05:04 AM             2,106 unknown.js
+11/26/2024  05:04 AM               194 whitespace.js
+              15 File(s)         18,866 bytes
+
+ Directory of D:\Creating an App\node_modules\mkdirp
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             2,825 index.js
+11/26/2024  05:04 AM             1,141 LICENSE
+11/26/2024  05:04 AM               623 package.json
+11/26/2024  05:04 AM             2,053 readme.markdown
+11/26/2024  05:04 AM    <DIR>          bin
+               4 File(s)          6,642 bytes
+
+ Directory of D:\Creating an App\node_modules\mkdirp\bin
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM               731 cmd.js
+11/26/2024  05:04 AM               315 usage.txt
+               2 File(s)          1,046 bytes
+
+ Directory of D:\Creating an App\node_modules\ms
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             2,764 index.js
+11/26/2024  04:34 AM             1,077 license.md
+11/26/2024  04:34 AM               704 package.json
+11/26/2024  04:34 AM             1,721 readme.md
+               4 File(s)          6,266 bytes
+
+ Directory of D:\Creating an App\node_modules\multer
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             2,594 index.js
+11/26/2024  05:04 AM             1,113 LICENSE
+11/26/2024  05:04 AM             1,128 package.json
+11/26/2024  05:04 AM            12,124 README.md
+11/26/2024  05:04 AM    <DIR>          lib
+11/26/2024  05:04 AM    <DIR>          storage
+               4 File(s)         16,959 bytes
+
+ Directory of D:\Creating an App\node_modules\multer\lib
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM               570 counter.js
+11/26/2024  05:04 AM             1,666 file-appender.js
+11/26/2024  05:04 AM             5,152 make-middleware.js
+11/26/2024  05:04 AM               659 multer-error.js
+11/26/2024  05:04 AM               542 remove-uploaded-files.js
+               5 File(s)          8,589 bytes
+
+ Directory of D:\Creating an App\node_modules\multer\storage
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             1,615 disk.js
+11/26/2024  05:04 AM               475 memory.js
+               2 File(s)          2,090 bytes
+
+ Directory of D:\Creating an App\node_modules\negotiator
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             2,499 HISTORY.md
+11/26/2024  04:34 AM             2,451 index.js
+11/26/2024  04:34 AM             1,177 LICENSE
+11/26/2024  04:34 AM               993 package.json
+11/26/2024  04:34 AM             4,901 README.md
+11/26/2024  04:34 AM    <DIR>          lib
+               5 File(s)         12,021 bytes
+
+ Directory of D:\Creating an App\node_modules\negotiator\lib
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             3,081 charset.js
+11/26/2024  04:34 AM             3,506 encoding.js
+11/26/2024  04:34 AM             3,409 language.js
+11/26/2024  04:34 AM             5,358 mediaType.js
+               4 File(s)         15,354 bytes
+
+ Directory of D:\Creating an App\node_modules\object-assign
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             2,108 index.js
+11/26/2024  05:04 AM             1,119 license
+11/26/2024  05:04 AM               764 package.json
+11/26/2024  05:04 AM             1,502 readme.md
+               4 File(s)          5,493 bytes
+
+ Directory of D:\Creating an App\node_modules\object-inspect
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,298 .eslintrc
+11/26/2024  04:34 AM               236 .nycrc
+11/26/2024  04:34 AM            35,971 CHANGELOG.md
+11/26/2024  04:34 AM            19,217 index.js
+11/26/2024  04:34 AM             1,071 LICENSE
+11/26/2024  04:34 AM               365 package-support.json
+11/26/2024  04:34 AM             2,817 package.json
+11/26/2024  04:34 AM             2,988 readme.markdown
+11/26/2024  04:34 AM               534 test-core-js.js
+11/26/2024  04:34 AM                42 util.inspect.js
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          example
+11/26/2024  04:34 AM    <DIR>          test
+              10 File(s)         64,539 bytes
+
+ Directory of D:\Creating an App\node_modules\object-inspect\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               585 FUNDING.yml
+               1 File(s)            585 bytes
+
+ Directory of D:\Creating an App\node_modules\object-inspect\example
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               391 all.js
+11/26/2024  04:34 AM               116 circular.js
+11/26/2024  04:34 AM               126 fn.js
+11/26/2024  04:34 AM               251 inspect.js
+               4 File(s)            884 bytes
+
+ Directory of D:\Creating an App\node_modules\object-inspect\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             2,082 bigint.js
+11/26/2024  04:34 AM               451 circular.js
+11/26/2024  04:34 AM               400 deep.js
+11/26/2024  04:34 AM             1,575 element.js
+11/26/2024  04:34 AM             1,536 err.js
+11/26/2024  04:34 AM               683 fakes.js
+11/26/2024  04:34 AM             2,227 fn.js
+11/26/2024  04:34 AM               372 global.js
+11/26/2024  04:34 AM               514 has.js
+11/26/2024  04:34 AM               255 holes.js
+11/26/2024  04:34 AM             6,633 indent-option.js
+11/26/2024  04:34 AM             4,946 inspect.js
+11/26/2024  04:34 AM               268 lowbyte.js
+11/26/2024  04:34 AM             2,312 number.js
+11/26/2024  04:34 AM             1,530 quoteStyle.js
+11/26/2024  04:34 AM             1,546 toStringTag.js
+11/26/2024  04:34 AM               302 undef.js
+11/26/2024  04:34 AM             7,034 values.js
+11/26/2024  04:34 AM    <DIR>          browser
+              18 File(s)         34,666 bytes
+
+ Directory of D:\Creating an App\node_modules\object-inspect\test\browser
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               416 dom.js
+               1 File(s)            416 bytes
+
+ Directory of D:\Creating an App\node_modules\on-finished
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,865 HISTORY.md
+11/26/2024  04:34 AM             4,430 index.js
+11/26/2024  04:34 AM             1,167 LICENSE
+11/26/2024  04:34 AM             1,057 package.json
+11/26/2024  04:34 AM             5,160 README.md
+               5 File(s)         13,679 bytes
+
+ Directory of D:\Creating an App\node_modules\parseurl
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,043 HISTORY.md
+11/26/2024  04:34 AM             2,809 index.js
+11/26/2024  04:34 AM             1,173 LICENSE
+11/26/2024  04:34 AM             1,180 package.json
+11/26/2024  04:34 AM             4,094 README.md
+               5 File(s)         10,299 bytes
+
+ Directory of D:\Creating an App\node_modules\path-to-regexp
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             3,617 index.js
+11/26/2024  04:34 AM             1,103 LICENSE
+11/26/2024  04:34 AM               554 package.json
+11/26/2024  04:34 AM             1,102 Readme.md
+               4 File(s)          6,376 bytes
+
+ Directory of D:\Creating an App\node_modules\process-nextick-args
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             1,083 index.js
+11/26/2024  05:04 AM             1,064 license.md
+11/26/2024  05:04 AM               578 package.json
+11/26/2024  05:04 AM               450 readme.md
+               4 File(s)          3,175 bytes
+
+ Directory of D:\Creating an App\node_modules\proxy-addr
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             2,991 HISTORY.md
+11/26/2024  04:34 AM             6,000 index.js
+11/26/2024  04:34 AM             1,094 LICENSE
+11/26/2024  04:34 AM             1,183 package.json
+11/26/2024  04:34 AM             4,131 README.md
+               5 File(s)         15,399 bytes
+
+ Directory of D:\Creating an App\node_modules\qs
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               597 .editorconfig
+11/26/2024  04:34 AM             1,026 .eslintrc
+11/26/2024  04:34 AM               216 .nycrc
+11/26/2024  04:34 AM            32,086 CHANGELOG.md
+11/26/2024  04:34 AM             1,600 LICENSE.md
+11/26/2024  04:34 AM             3,073 package.json
+11/26/2024  04:34 AM            24,553 README.md
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          dist
+11/26/2024  04:34 AM    <DIR>          lib
+11/26/2024  04:34 AM    <DIR>          test
+               7 File(s)         63,151 bytes
+
+ Directory of D:\Creating an App\node_modules\qs\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               548 FUNDING.yml
+               1 File(s)            548 bytes
+
+ Directory of D:\Creating an App\node_modules\qs\dist
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM            46,649 qs.js
+               1 File(s)         46,649 bytes
+
+ Directory of D:\Creating an App\node_modules\qs\lib
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               476 formats.js
+11/26/2024  04:34 AM               211 index.js
+11/26/2024  04:34 AM            11,317 parse.js
+11/26/2024  04:34 AM            11,331 stringify.js
+11/26/2024  04:34 AM             7,267 utils.js
+               5 File(s)         30,602 bytes
+
+ Directory of D:\Creating an App\node_modules\qs\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             7,698 empty-keys-cases.js
+11/26/2024  04:34 AM            46,874 parse.js
+11/26/2024  04:34 AM            52,947 stringify.js
+11/26/2024  04:34 AM             5,112 utils.js
+               4 File(s)        112,631 bytes
+
+ Directory of D:\Creating an App\node_modules\range-parser
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               917 HISTORY.md
+11/26/2024  04:34 AM             2,900 index.js
+11/26/2024  04:34 AM             1,178 LICENSE
+11/26/2024  04:34 AM             1,184 package.json
+11/26/2024  04:34 AM             2,278 README.md
+               5 File(s)          8,457 bytes
+
+ Directory of D:\Creating an App\node_modules\raw-body
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             6,048 HISTORY.md
+11/26/2024  04:34 AM             2,286 index.d.ts
+11/26/2024  04:34 AM             7,171 index.js
+11/26/2024  04:34 AM             1,181 LICENSE
+11/26/2024  04:34 AM             1,325 package.json
+11/26/2024  04:34 AM             6,553 README.md
+11/26/2024  04:34 AM             1,188 SECURITY.md
+               7 File(s)         25,752 bytes
+
+ Directory of D:\Creating an App\node_modules\readable-stream
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM               991 .travis.yml
+11/26/2024  05:04 AM             1,443 CONTRIBUTING.md
+11/26/2024  05:04 AM                53 duplex-browser.js
+11/26/2024  05:04 AM                46 duplex.js
+11/26/2024  05:04 AM             5,550 GOVERNANCE.md
+11/26/2024  05:04 AM             2,337 LICENSE
+11/26/2024  05:04 AM             1,370 package.json
+11/26/2024  05:04 AM                51 passthrough.js
+11/26/2024  05:04 AM               351 readable-browser.js
+11/26/2024  05:04 AM               771 readable.js
+11/26/2024  05:04 AM             2,999 README.md
+11/26/2024  05:04 AM                49 transform.js
+11/26/2024  05:04 AM                55 writable-browser.js
+11/26/2024  05:04 AM               229 writable.js
+11/26/2024  05:04 AM    <DIR>          doc
+11/26/2024  05:04 AM    <DIR>          lib
+11/26/2024  05:04 AM    <DIR>          node_modules
+              14 File(s)         16,295 bytes
+
+ Directory of D:\Creating an App\node_modules\readable-stream\doc
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM    <DIR>          wg-meetings
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\node_modules\readable-stream\doc\wg-meetings
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             2,280 2015-01-30.md
+               1 File(s)          2,280 bytes
+
+ Directory of D:\Creating an App\node_modules\readable-stream\lib
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             4,015 _stream_duplex.js
+11/26/2024  05:04 AM             1,753 _stream_passthrough.js
+11/26/2024  05:04 AM            31,426 _stream_readable.js
+11/26/2024  05:04 AM             7,742 _stream_transform.js
+11/26/2024  05:04 AM            20,335 _stream_writable.js
+11/26/2024  05:04 AM    <DIR>          internal
+               5 File(s)         65,271 bytes
+
+ Directory of D:\Creating an App\node_modules\readable-stream\lib\internal
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM    <DIR>          streams
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\node_modules\readable-stream\lib\internal\streams
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             2,009 BufferList.js
+11/26/2024  05:04 AM             2,175 destroy.js
+11/26/2024  05:04 AM                49 stream-browser.js
+11/26/2024  05:04 AM                36 stream.js
+               4 File(s)          4,269 bytes
+
+ Directory of D:\Creating an App\node_modules\readable-stream\node_modules
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM    <DIR>          safe-buffer
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\node_modules\readable-stream\node_modules\safe-buffer
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             8,738 index.d.ts
+11/26/2024  05:04 AM             1,529 index.js
+11/26/2024  05:04 AM             1,081 LICENSE
+11/26/2024  05:04 AM               783 package.json
+11/26/2024  05:04 AM            19,555 README.md
+               5 File(s)         31,686 bytes
+
+ Directory of D:\Creating an App\node_modules\safe-buffer
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             8,738 index.d.ts
+11/26/2024  04:34 AM             1,670 index.js
+11/26/2024  04:34 AM             1,081 LICENSE
+11/26/2024  04:34 AM             1,057 package.json
+11/26/2024  04:34 AM            19,555 README.md
+               5 File(s)         32,101 bytes
+
+ Directory of D:\Creating an App\node_modules\safer-buffer
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,483 dangerous.js
+11/26/2024  04:34 AM             1,094 LICENSE
+11/26/2024  04:34 AM               822 package.json
+11/26/2024  04:34 AM            12,794 Porting-Buffer.md
+11/26/2024  04:34 AM             8,261 Readme.md
+11/26/2024  04:34 AM             2,110 safer.js
+11/26/2024  04:34 AM            15,735 tests.js
+               7 File(s)         42,299 bytes
+
+ Directory of D:\Creating an App\node_modules\send
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM            13,397 HISTORY.md
+11/26/2024  04:34 AM            23,455 index.js
+11/26/2024  04:34 AM             1,128 LICENSE
+11/26/2024  04:34 AM             1,571 package.json
+11/26/2024  04:34 AM             9,476 README.md
+11/26/2024  04:34 AM             1,170 SECURITY.md
+11/26/2024  04:34 AM    <DIR>          node_modules
+               6 File(s)         50,197 bytes
+
+ Directory of D:\Creating an App\node_modules\send\node_modules
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM    <DIR>          encodeurl
+11/26/2024  04:34 AM    <DIR>          ms
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\node_modules\send\node_modules\encodeurl
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               238 HISTORY.md
+11/26/2024  04:34 AM             1,586 index.js
+11/26/2024  04:34 AM             1,089 LICENSE
+11/26/2024  04:34 AM             1,091 package.json
+11/26/2024  04:34 AM             3,855 README.md
+               5 File(s)          7,859 bytes
+
+ Directory of D:\Creating an App\node_modules\send\node_modules\ms
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             3,024 index.js
+11/26/2024  04:34 AM             1,079 license.md
+11/26/2024  04:34 AM               732 package.json
+11/26/2024  04:34 AM             1,886 readme.md
+               4 File(s)          6,721 bytes
+
+ Directory of D:\Creating an App\node_modules\serve-static
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM            10,763 HISTORY.md
+11/26/2024  04:34 AM             4,521 index.js
+11/26/2024  04:34 AM             1,189 LICENSE
+11/26/2024  04:34 AM             1,141 package.json
+11/26/2024  04:34 AM             7,812 README.md
+               5 File(s)         25,426 bytes
+
+ Directory of D:\Creating an App\node_modules\set-function-length
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               404 .eslintrc
+11/26/2024  04:34 AM               216 .nycrc
+11/26/2024  04:34 AM             4,876 CHANGELOG.md
+11/26/2024  04:34 AM               222 env.d.ts
+11/26/2024  04:34 AM               867 env.js
+11/26/2024  04:34 AM               256 index.d.ts
+11/26/2024  04:34 AM             1,273 index.js
+11/26/2024  04:34 AM             1,083 LICENSE
+11/26/2024  04:34 AM             2,704 package.json
+11/26/2024  04:34 AM             2,167 README.md
+11/26/2024  04:34 AM               116 tsconfig.json
+11/26/2024  04:34 AM    <DIR>          .github
+              11 File(s)         14,184 bytes
+
+ Directory of D:\Creating an App\node_modules\set-function-length\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               563 FUNDING.yml
+               1 File(s)            563 bytes
+
+ Directory of D:\Creating an App\node_modules\setprototypeof
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM                93 index.d.ts
+11/26/2024  04:34 AM               407 index.js
+11/26/2024  04:34 AM               727 LICENSE
+11/26/2024  04:34 AM             1,264 package.json
+11/26/2024  04:34 AM               844 README.md
+11/26/2024  04:34 AM    <DIR>          test
+               5 File(s)          3,335 bytes
+
+ Directory of D:\Creating an App\node_modules\setprototypeof\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               690 index.js
+               1 File(s)            690 bytes
+
+ Directory of D:\Creating an App\node_modules\side-channel
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               145 .editorconfig
+11/26/2024  04:34 AM               185 .eslintrc
+11/26/2024  04:34 AM               216 .nycrc
+11/26/2024  04:34 AM             8,802 CHANGELOG.md
+11/26/2024  04:34 AM               765 index.d.ts
+11/26/2024  04:34 AM             3,946 index.js
+11/26/2024  04:34 AM             1,071 LICENSE
+11/26/2024  04:34 AM             2,275 package.json
+11/26/2024  04:34 AM                98 README.md
+11/26/2024  04:34 AM             3,195 tsconfig.json
+11/26/2024  04:34 AM    <DIR>          .github
+11/26/2024  04:34 AM    <DIR>          test
+              10 File(s)         20,698 bytes
+
+ Directory of D:\Creating an App\node_modules\side-channel\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               583 FUNDING.yml
+               1 File(s)            583 bytes
+
+ Directory of D:\Creating an App\node_modules\side-channel\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,959 index.js
+               1 File(s)          1,959 bytes
+
+ Directory of D:\Creating an App\node_modules\statuses
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             1,789 codes.json
+11/26/2024  04:34 AM             1,546 HISTORY.md
+11/26/2024  04:34 AM             2,610 index.js
+11/26/2024  04:34 AM             1,172 LICENSE
+11/26/2024  04:34 AM             1,440 package.json
+11/26/2024  04:34 AM             3,559 README.md
+               6 File(s)         12,116 bytes
+
+ Directory of D:\Creating an App\node_modules\streamsearch
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM                73 .eslintrc.js
+11/26/2024  05:04 AM             1,085 LICENSE
+11/26/2024  05:04 AM               842 package.json
+11/26/2024  05:04 AM             2,696 README.md
+11/26/2024  05:04 AM    <DIR>          .github
+11/26/2024  05:04 AM    <DIR>          lib
+11/26/2024  05:04 AM    <DIR>          test
+               4 File(s)          4,696 bytes
+
+ Directory of D:\Creating an App\node_modules\streamsearch\.github
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM    <DIR>          workflows
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\node_modules\streamsearch\.github\workflows
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM               509 ci.yml
+11/26/2024  05:04 AM               471 lint.yml
+               2 File(s)            980 bytes
+
+ Directory of D:\Creating an App\node_modules\streamsearch\lib
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             9,501 sbmh.js
+               1 File(s)          9,501 bytes
+
+ Directory of D:\Creating an App\node_modules\streamsearch\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             1,398 test.js
+               1 File(s)          1,398 bytes
+
+ Directory of D:\Creating an App\node_modules\string_decoder
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM               899 .travis.yml
+11/26/2024  05:04 AM             2,338 LICENSE
+11/26/2024  05:04 AM               795 package.json
+11/26/2024  05:04 AM             1,801 README.md
+11/26/2024  05:04 AM    <DIR>          lib
+11/26/2024  05:04 AM    <DIR>          node_modules
+               4 File(s)          5,833 bytes
+
+ Directory of D:\Creating an App\node_modules\string_decoder\lib
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             9,465 string_decoder.js
+               1 File(s)          9,465 bytes
+
+ Directory of D:\Creating an App\node_modules\string_decoder\node_modules
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM    <DIR>          safe-buffer
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\node_modules\string_decoder\node_modules\safe-buffer
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             8,738 index.d.ts
+11/26/2024  05:04 AM             1,529 index.js
+11/26/2024  05:04 AM             1,081 LICENSE
+11/26/2024  05:04 AM               783 package.json
+11/26/2024  05:04 AM            19,555 README.md
+               5 File(s)         31,686 bytes
+
+ Directory of D:\Creating an App\node_modules\toidentifier
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               128 HISTORY.md
+11/26/2024  04:34 AM               504 index.js
+11/26/2024  04:34 AM             1,108 LICENSE
+11/26/2024  04:34 AM             1,142 package.json
+11/26/2024  04:34 AM             1,803 README.md
+               5 File(s)          4,685 bytes
+
+ Directory of D:\Creating an App\node_modules\type-is
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM             5,447 HISTORY.md
+11/26/2024  04:34 AM             5,562 index.js
+11/26/2024  04:34 AM             1,172 LICENSE
+11/26/2024  04:34 AM             1,133 package.json
+11/26/2024  04:34 AM             5,183 README.md
+               5 File(s)         18,497 bytes
+
+ Directory of D:\Creating an App\node_modules\typedarray
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM                48 .travis.yml
+11/26/2024  05:04 AM            21,325 index.js
+11/26/2024  05:04 AM             1,565 LICENSE
+11/26/2024  05:04 AM             1,162 package.json
+11/26/2024  05:04 AM             1,060 readme.markdown
+11/26/2024  05:04 AM    <DIR>          example
+11/26/2024  05:04 AM    <DIR>          test
+               5 File(s)         25,160 bytes
+
+ Directory of D:\Creating an App\node_modules\typedarray\example
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM               110 tarray.js
+               1 File(s)            110 bytes
+
+ Directory of D:\Creating an App\node_modules\typedarray\test
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM               217 tarray.js
+11/26/2024  05:04 AM    <DIR>          server
+               1 File(s)            217 bytes
+
+ Directory of D:\Creating an App\node_modules\typedarray\test\server
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM               468 undef_globals.js
+               1 File(s)            468 bytes
+
+ Directory of D:\Creating an App\node_modules\unpipe
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM                59 HISTORY.md
+11/26/2024  04:34 AM             1,118 index.js
+11/26/2024  04:34 AM             1,114 LICENSE
+11/26/2024  04:34 AM               770 package.json
+11/26/2024  04:34 AM             1,250 README.md
+               5 File(s)          4,311 bytes
+
+ Directory of D:\Creating an App\node_modules\util-deprecate
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM             1,614 browser.js
+11/26/2024  05:04 AM               282 History.md
+11/26/2024  05:04 AM             1,102 LICENSE
+11/26/2024  05:04 AM               123 node.js
+11/26/2024  05:04 AM               694 package.json
+11/26/2024  05:04 AM             1,666 README.md
+               6 File(s)          5,481 bytes
+
+ Directory of D:\Creating an App\node_modules\utils-merge
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM                79 .npmignore
+11/26/2024  04:34 AM               381 index.js
+11/26/2024  04:34 AM             1,084 LICENSE
+11/26/2024  04:34 AM               857 package.json
+11/26/2024  04:34 AM             1,319 README.md
+               5 File(s)          3,720 bytes
+
+ Directory of D:\Creating an App\node_modules\vary
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  04:34 AM               792 HISTORY.md
+11/26/2024  04:34 AM             2,930 index.js
+11/26/2024  04:34 AM             1,094 LICENSE
+11/26/2024  04:34 AM             1,215 package.json
+11/26/2024  04:34 AM             2,716 README.md
+               5 File(s)          8,747 bytes
+
+ Directory of D:\Creating an App\node_modules\xtend
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM               545 .jshintrc
+11/26/2024  05:04 AM               384 immutable.js
+11/26/2024  05:04 AM             1,078 LICENSE
+11/26/2024  05:04 AM               369 mutable.js
+11/26/2024  05:04 AM             1,056 package.json
+11/26/2024  05:04 AM               726 README.md
+11/26/2024  05:04 AM             2,307 test.js
+               7 File(s)          6,465 bytes
+
+ Directory of D:\Creating an App\node_modules\shortid
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             1,610 LICENSE
+11/29/2024  02:35 PM    <DIR>          lib
+11/29/2024  02:35 PM                55 index.js
+11/29/2024  02:35 PM               617 package.json
+11/29/2024  02:35 PM               738 CHANGELOG.md
+11/29/2024  02:35 PM            10,729 README.md
+               5 File(s)         13,749 bytes
+
+ Directory of D:\Creating an App\node_modules\shortid\lib
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             2,263 alphabet.js
+11/29/2024  02:35 PM             1,233 build.js
+11/29/2024  02:35 PM    <DIR>          util
+11/29/2024  02:35 PM               435 generate.js
+11/29/2024  02:35 PM             1,683 index.js
+11/29/2024  02:35 PM               348 is-valid.js
+11/29/2024  02:35 PM    <DIR>          random
+               5 File(s)          5,962 bytes
+
+ Directory of D:\Creating an App\node_modules\shortid\lib\util
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM                35 cluster-worker-id-browser.js
+11/29/2024  02:35 PM               221 cluster-worker-id.js
+               2 File(s)            256 bytes
+
+ Directory of D:\Creating an App\node_modules\shortid\lib\random
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM               522 random-byte-browser.js
+11/29/2024  02:35 PM                43 random-byte.js
+11/29/2024  02:35 PM               473 random-from-seed.js
+               3 File(s)          1,038 bytes
+
+ Directory of D:\Creating an App\node_modules\axios
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             2,328 package.json
+11/29/2024  02:35 PM            18,934 README.md
+11/29/2024  02:35 PM             1,058 LICENSE
+11/29/2024  02:35 PM                40 index.js
+11/29/2024  02:35 PM    <DIR>          dist
+11/29/2024  02:35 PM            13,037 CHANGELOG.md
+11/29/2024  02:35 PM             4,827 UPGRADE_GUIDE.md
+11/29/2024  02:35 PM             3,240 index.d.ts
+11/29/2024  02:35 PM    <DIR>          lib
+               7 File(s)         43,464 bytes
+
+ Directory of D:\Creating an App\node_modules\axios\dist
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM            42,011 axios.js
+11/29/2024  02:35 PM            12,670 axios.min.js
+11/29/2024  02:35 PM            52,168 axios.map
+11/29/2024  02:35 PM           105,443 axios.min.map
+               4 File(s)        212,292 bytes
+
+ Directory of D:\Creating an App\node_modules\axios\lib
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             1,368 axios.js
+11/29/2024  02:35 PM             2,316 defaults.js
+11/29/2024  02:35 PM             7,558 utils.js
+11/29/2024  02:35 PM    <DIR>          adapters
+11/29/2024  02:35 PM    <DIR>          cancel
+11/29/2024  02:35 PM    <DIR>          core
+11/29/2024  02:35 PM    <DIR>          helpers
+               3 File(s)         11,242 bytes
+
+ Directory of D:\Creating an App\node_modules\axios\lib\adapters
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM               915 README.md
+11/29/2024  02:35 PM             7,090 http.js
+11/29/2024  02:35 PM             6,175 xhr.js
+               3 File(s)         14,180 bytes
+
+ Directory of D:\Creating an App\node_modules\axios\lib\cancel
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM               385 Cancel.js
+11/29/2024  02:35 PM             1,240 CancelToken.js
+11/29/2024  02:35 PM               102 isCancel.js
+               3 File(s)          1,727 bytes
+
+ Directory of D:\Creating an App\node_modules\axios\lib\core
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM               336 README.md
+11/29/2024  02:35 PM             2,448 Axios.js
+11/29/2024  02:35 PM             1,251 InterceptorManager.js
+11/29/2024  02:35 PM               625 createError.js
+11/29/2024  02:35 PM             1,940 dispatchRequest.js
+11/29/2024  02:35 PM               592 enhanceError.js
+11/29/2024  02:35 PM               757 settle.js
+11/29/2024  02:35 PM               550 transformData.js
+               8 File(s)          8,499 bytes
+
+ Directory of D:\Creating an App\node_modules\axios\lib\helpers
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM               351 README.md
+11/29/2024  02:35 PM               986 btoa.js
+11/29/2024  02:35 PM             1,576 buildURL.js
+11/29/2024  02:35 PM               380 combineURLs.js
+11/29/2024  02:35 PM             1,365 cookies.js
+11/29/2024  02:35 PM               256 bind.js
+11/29/2024  02:35 PM               563 isAbsoluteURL.js
+11/29/2024  02:35 PM             2,245 isURLSameOrigin.js
+11/29/2024  02:35 PM               357 normalizeHeaderName.js
+11/29/2024  02:35 PM               784 parseHeaders.js
+11/29/2024  02:35 PM               564 spread.js
+11/29/2024  02:35 PM               727 deprecatedMethod.js
+              12 File(s)         10,154 bytes
+
+ Directory of D:\Creating an App\node_modules\lodash
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             1,952 LICENSE
+11/29/2024  02:35 PM    <DIR>          fp
+11/29/2024  02:35 PM               714 _apply.js
+11/29/2024  02:35 PM               684 _arrayAggregator.js
+11/29/2024  02:35 PM               537 _arrayEach.js
+11/29/2024  02:35 PM               528 _arrayEachRight.js
+11/29/2024  02:35 PM               597 _arrayEvery.js
+11/29/2024  02:35 PM               632 _arrayFilter.js
+11/29/2024  02:35 PM               526 _arrayIncludes.js
+11/29/2024  02:35 PM               615 _arrayIncludesWith.js
+11/29/2024  02:35 PM             1,778 _arrayLikeKeys.js
+11/29/2024  02:35 PM               556 _arrayMap.js
+11/29/2024  02:35 PM               437 _arrayPush.js
+11/29/2024  02:35 PM               787 _arrayReduce.js
+11/29/2024  02:35 PM               777 _arrayReduceRight.js
+11/29/2024  02:35 PM               363 _arraySample.js
+11/29/2024  02:35 PM               500 _arraySampleSize.js
+11/29/2024  02:35 PM               365 _arrayShuffle.js
+11/29/2024  02:35 PM               594 _arraySome.js
+11/29/2024  02:35 PM               271 _asciiSize.js
+11/29/2024  02:35 PM               257 _asciiToArray.js
+11/29/2024  02:35 PM               404 _asciiWords.js
+11/29/2024  02:35 PM               582 _assignMergeValue.js
+11/29/2024  02:35 PM               899 _assignValue.js
+11/29/2024  02:35 PM               487 _assocIndexOf.js
+11/29/2024  02:35 PM               746 _baseAggregator.js
+11/29/2024  02:35 PM               470 _baseAssign.js
+11/29/2024  02:35 PM               482 _baseAssignIn.js
+11/29/2024  02:35 PM               625 _baseAssignValue.js
+11/29/2024  02:35 PM               569 _baseAt.js
+11/29/2024  02:35 PM               571 _baseClamp.js
+11/29/2024  02:35 PM             5,609 _baseClone.js
+11/29/2024  02:35 PM               484 _baseConforms.js
+11/29/2024  02:35 PM               718 _baseConformsTo.js
+11/29/2024  02:35 PM               686 _baseCreate.js
+11/29/2024  02:35 PM               672 _baseDelay.js
+11/29/2024  02:35 PM             1,917 _baseDifference.js
+11/29/2024  02:35 PM               455 _baseEach.js
+11/29/2024  02:35 PM               491 _baseEachRight.js
+11/29/2024  02:35 PM               625 _baseEvery.js
+11/29/2024  02:35 PM               897 _baseExtremum.js
+11/29/2024  02:35 PM               843 _baseFill.js
+11/29/2024  02:35 PM               590 _baseFilter.js
+11/29/2024  02:35 PM               766 _baseFindIndex.js
+11/29/2024  02:35 PM               747 _baseFindKey.js
+11/29/2024  02:35 PM             1,201 _baseFlatten.js
+11/29/2024  02:35 PM               593 _baseFor.js
+11/29/2024  02:35 PM               456 _baseForOwn.js
+11/29/2024  02:35 PM               486 _baseForOwnRight.js
+11/29/2024  02:35 PM               477 _baseForRight.js
+11/29/2024  02:35 PM               552 _baseFunctions.js
+11/29/2024  02:35 PM               616 _baseGet.js
+11/29/2024  02:35 PM               739 _baseGetAllKeys.js
+11/29/2024  02:35 PM               792 _baseGetTag.js
+11/29/2024  02:35 PM               357 _baseGt.js
+11/29/2024  02:35 PM               559 _baseHas.js
+11/29/2024  02:35 PM               374 _baseHasIn.js
+11/29/2024  02:35 PM               659 _baseIndexOf.js
+11/29/2024  02:35 PM               660 _baseIndexOfWith.js
+11/29/2024  02:35 PM               612 _baseInRange.js
+11/29/2024  02:35 PM             2,262 _baseIntersection.js
+11/29/2024  02:35 PM               736 _baseInverter.js
+11/29/2024  02:35 PM               789 _baseInvoke.js
+11/29/2024  02:35 PM               488 _baseIsArguments.js
+11/29/2024  02:35 PM               504 _baseIsArrayBuffer.js
+11/29/2024  02:35 PM               504 _baseIsDate.js
+11/29/2024  02:35 PM             1,019 _baseIsEqual.js
+11/29/2024  02:35 PM             3,010 _baseIsEqualDeep.js
+11/29/2024  02:35 PM               478 _baseIsMap.js
+11/29/2024  02:35 PM             1,765 _baseIsMatch.js
+11/29/2024  02:35 PM               296 _baseIsNaN.js
+11/29/2024  02:35 PM             1,417 _baseIsNative.js
+11/29/2024  02:35 PM               511 _baseIsRegExp.js
+11/29/2024  02:35 PM               478 _baseIsSet.js
+11/29/2024  02:35 PM             2,222 _baseIsTypedArray.js
+11/29/2024  02:35 PM               895 _baseIteratee.js
+11/29/2024  02:35 PM               776 _baseKeys.js
+11/29/2024  02:35 PM               870 _baseKeysIn.js
+11/29/2024  02:35 PM               178 _baseLodash.js
+11/29/2024  02:35 PM               354 _baseLt.js
+11/29/2024  02:35 PM               668 _baseMap.js
+11/29/2024  02:35 PM               710 _baseMatches.js
+11/29/2024  02:35 PM             1,129 _baseMatchesProperty.js
+11/29/2024  02:35 PM               568 _baseMean.js
+11/29/2024  02:35 PM             1,328 _baseMerge.js
+11/29/2024  02:35 PM             3,069 _baseMergeDeep.js
+11/29/2024  02:35 PM               483 _baseNth.js
+11/29/2024  02:35 PM             1,558 _baseOrderBy.js
+11/29/2024  02:35 PM               501 _basePick.js
+11/29/2024  02:35 PM               791 _basePickBy.js
+11/29/2024  02:35 PM               360 _baseProperty.js
+11/29/2024  02:35 PM               391 _basePropertyDeep.js
+11/29/2024  02:35 PM               358 _basePropertyOf.js
+11/29/2024  02:35 PM             1,459 _basePullAll.js
+11/29/2024  02:35 PM               939 _basePullAt.js
+11/29/2024  02:35 PM               541 _baseRandom.js
+11/29/2024  02:35 PM               850 _baseRange.js
+11/29/2024  02:35 PM               909 _baseReduce.js
+11/29/2024  02:35 PM               952 _baseRepeat.js
+11/29/2024  02:35 PM               559 _baseRest.js
+11/29/2024  02:35 PM               359 _baseSample.js
+11/29/2024  02:35 PM               548 _baseSampleSize.js
+11/29/2024  02:35 PM             1,385 _baseSet.js
+11/29/2024  02:35 PM               456 _baseSetData.js
+11/29/2024  02:35 PM               641 _baseSetToString.js
+11/29/2024  02:35 PM               371 _baseShuffle.js
+11/29/2024  02:35 PM               756 _baseSlice.js
+11/29/2024  02:35 PM               619 _baseSome.js
+11/29/2024  02:35 PM               543 _baseSortBy.js
+11/29/2024  02:35 PM             1,429 _baseSortedIndex.js
+11/29/2024  02:35 PM             2,259 _baseSortedIndexBy.js
+11/29/2024  02:35 PM               758 _baseSortedUniq.js
+11/29/2024  02:35 PM               600 _baseSum.js
+11/29/2024  02:35 PM               504 _baseTimes.js
+11/29/2024  02:35 PM               539 _baseToNumber.js
+11/29/2024  02:35 PM               537 _baseToPairs.js
+11/29/2024  02:35 PM             1,154 _baseToString.js
+11/29/2024  02:35 PM               444 _baseTrim.js
+11/29/2024  02:35 PM               332 _baseUnary.js
+11/29/2024  02:35 PM             1,909 _baseUniq.js
+11/29/2024  02:35 PM               580 _baseUnset.js
+11/29/2024  02:35 PM               605 _baseUpdate.js
+11/29/2024  02:35 PM               534 _baseValues.js
+11/29/2024  02:35 PM               933 _baseWhile.js
+11/29/2024  02:35 PM               857 _baseWrapperValue.js
+11/29/2024  02:35 PM             1,099 _baseXor.js
+11/29/2024  02:35 PM               660 _baseZipObject.js
+11/29/2024  02:35 PM               337 _cacheHas.js
+11/29/2024  02:35 PM               381 _castArrayLikeObject.js
+11/29/2024  02:35 PM               326 _castFunction.js
+11/29/2024  02:35 PM               569 _castPath.js
+11/29/2024  02:35 PM               348 _castRest.js
+11/29/2024  02:35 PM               517 _castSlice.js
+11/29/2024  02:35 PM               600 _charsEndIndex.js
+11/29/2024  02:35 PM               636 _charsStartIndex.js
+11/29/2024  02:35 PM               449 _cloneArrayBuffer.js
+11/29/2024  02:35 PM             1,056 _cloneBuffer.js
+11/29/2024  02:35 PM               507 _cloneDataView.js
+11/29/2024  02:35 PM               439 _cloneRegExp.js
+11/29/2024  02:35 PM               524 _cloneSymbol.js
+11/29/2024  02:35 PM               527 _cloneTypedArray.js
+11/29/2024  02:35 PM             1,343 _compareAscending.js
+11/29/2024  02:35 PM             1,599 _compareMultiple.js
+11/29/2024  02:35 PM             1,323 _composeArgs.js
+11/29/2024  02:35 PM             1,388 _composeArgsRight.js
+11/29/2024  02:35 PM               454 _copyArray.js
+11/29/2024  02:35 PM             1,044 _copyObject.js
+11/29/2024  02:35 PM               446 _copySymbols.js
+11/29/2024  02:35 PM               470 _copySymbolsIn.js
+11/29/2024  02:35 PM               157 _coreJsData.js
+11/29/2024  02:35 PM               469 _countHolders.js
+11/29/2024  02:35 PM               789 _createAggregator.js
+11/29/2024  02:35 PM             1,042 _createAssigner.js
+11/29/2024  02:35 PM               886 _createBaseEach.js
+11/29/2024  02:35 PM               648 _createBaseFor.js
+11/29/2024  02:35 PM               853 _createBind.js
+11/29/2024  02:35 PM               811 _createCaseFirst.js
+11/29/2024  02:35 PM               635 _createCompounder.js
+11/29/2024  02:35 PM             1,482 _createCtor.js
+11/29/2024  02:35 PM             1,447 _createCurry.js
+11/29/2024  02:35 PM               853 _createFind.js
+11/29/2024  02:35 PM             2,249 _createFlow.js
+11/29/2024  02:35 PM             3,252 _createHybrid.js
+11/29/2024  02:35 PM               497 _createInverter.js
+11/29/2024  02:35 PM             1,104 _createMathOperation.js
+11/29/2024  02:35 PM               780 _createOver.js
+11/29/2024  02:35 PM             1,153 _createPadding.js
+11/29/2024  02:35 PM             1,382 _createPartial.js
+11/29/2024  02:35 PM               864 _createRange.js
+11/29/2024  02:35 PM             2,117 _createRecurry.js
+11/29/2024  02:35 PM               578 _createRelationalOperation.js
+11/29/2024  02:35 PM             1,193 _createRound.js
+11/29/2024  02:35 PM               501 _createSet.js
+11/29/2024  02:35 PM               789 _createToPairs.js
+11/29/2024  02:35 PM             3,714 _createWrap.js
+11/29/2024  02:35 PM               934 _customDefaultsAssignIn.js
+11/29/2024  02:35 PM             1,049 _customDefaultsMerge.js
+11/29/2024  02:35 PM               475 _customOmitClone.js
+11/29/2024  02:35 PM               210 _DataView.js
+11/29/2024  02:35 PM             3,411 _deburrLetter.js
+11/29/2024  02:35 PM               233 _defineProperty.js
+11/29/2024  02:35 PM             2,662 _equalArrays.js
+11/29/2024  02:35 PM             3,746 _equalByTag.js
+11/29/2024  02:35 PM             2,971 _equalObjects.js
+11/29/2024  02:35 PM               479 _escapeHtmlChar.js
+11/29/2024  02:35 PM               521 _escapeStringChar.js
+11/29/2024  02:35 PM               457 _flatRest.js
+11/29/2024  02:35 PM               173 _freeGlobal.js
+11/29/2024  02:35 PM               455 _getAllKeys.js
+11/29/2024  02:35 PM               488 _getAllKeysIn.js
+11/29/2024  02:35 PM               325 _getData.js
+11/29/2024  02:35 PM               756 _getFuncName.js
+11/29/2024  02:35 PM               280 _getHolder.js
+11/29/2024  02:35 PM               400 _getMapData.js
+11/29/2024  02:35 PM               573 _getMatchData.js
+11/29/2024  02:35 PM               483 _getNative.js
+11/29/2024  02:35 PM               163 _getPrototype.js
+11/29/2024  02:35 PM             1,139 _getRawTag.js
+11/29/2024  02:35 PM               886 _getSymbols.js
+11/29/2024  02:35 PM               754 _getSymbolsIn.js
+11/29/2024  02:35 PM             1,838 _getTag.js
+11/29/2024  02:35 PM               325 _getValue.js
+11/29/2024  02:35 PM             1,024 _getView.js
+11/29/2024  02:35 PM               479 _getWrapDetails.js
+11/29/2024  02:35 PM               747 _Hash.js
+11/29/2024  02:35 PM               281 _hashClear.js
+11/29/2024  02:35 PM               445 _hashDelete.js
+11/29/2024  02:35 PM               772 _hashGet.js
+11/29/2024  02:35 PM               626 _hashHas.js
+11/29/2024  02:35 PM               598 _hashSet.js
+11/29/2024  02:35 PM             1,085 _hasPath.js
+11/29/2024  02:35 PM               949 _hasUnicode.js
+11/29/2024  02:35 PM               491 _hasUnicodeWord.js
+11/29/2024  02:35 PM               692 _initCloneArray.js
+11/29/2024  02:35 PM             2,261 _initCloneByTag.js
+11/29/2024  02:35 PM               486 _initCloneObject.js
+11/29/2024  02:35 PM               748 _insertWrapDetails.js
+11/29/2024  02:35 PM               608 _isFlattenable.js
+11/29/2024  02:35 PM               759 _isIndex.js
+11/29/2024  02:35 PM               877 _isIterateeCall.js
+11/29/2024  02:35 PM               880 _isKey.js
+11/29/2024  02:35 PM               430 _isKeyable.js
+11/29/2024  02:35 PM               712 _isLaziable.js
+11/29/2024  02:35 PM               395 _isMaskable.js
+11/29/2024  02:35 PM               564 _isMasked.js
+11/29/2024  02:35 PM               480 _isPrototype.js
+11/29/2024  02:35 PM               414 _isStrictComparable.js
+11/29/2024  02:35 PM               360 _iteratorToArray.js
+11/29/2024  02:35 PM               657 _lazyClone.js
+11/29/2024  02:35 PM               491 _lazyReverse.js
+11/29/2024  02:35 PM             1,790 _lazyValue.js
+11/29/2024  02:35 PM               773 _LazyWrapper.js
+11/29/2024  02:35 PM               869 _ListCache.js
+11/29/2024  02:35 PM               218 _listCacheClear.js
+11/29/2024  02:35 PM               775 _listCacheDelete.js
+11/29/2024  02:35 PM               420 _listCacheGet.js
+11/29/2024  02:35 PM               403 _listCacheHas.js
+11/29/2024  02:35 PM               553 _listCacheSet.js
+11/29/2024  02:35 PM               611 _LodashWrapper.js
+11/29/2024  02:35 PM               195 _Map.js
+11/29/2024  02:35 PM               869 _MapCache.js
+11/29/2024  02:35 PM               393 _mapCacheClear.js
+11/29/2024  02:35 PM               450 _mapCacheDelete.js
+11/29/2024  02:35 PM               330 _mapCacheGet.js
+11/29/2024  02:35 PM               382 _mapCacheHas.js
+11/29/2024  02:35 PM               489 _mapCacheSet.js
+11/29/2024  02:35 PM               363 _mapToArray.js
+11/29/2024  02:35 PM               574 _matchesStrictComparable.js
+11/29/2024  02:35 PM               633 _memoizeCapped.js
+11/29/2024  02:35 PM             3,135 _mergeData.js
+11/29/2024  02:35 PM               143 _metaMap.js
+11/29/2024  02:35 PM               187 _nativeCreate.js
+11/29/2024  02:35 PM               204 _nativeKeys.js
+11/29/2024  02:35 PM               490 _nativeKeysIn.js
+11/29/2024  02:35 PM               995 _nodeUtil.js
+11/29/2024  02:35 PM               565 _objectToString.js
+11/29/2024  02:35 PM               382 _overArg.js
+11/29/2024  02:35 PM             1,096 _overRest.js
+11/29/2024  02:35 PM               436 _parent.js
+11/29/2024  02:35 PM               207 _Promise.js
+11/29/2024  02:35 PM                98 _realNames.js
+11/29/2024  02:35 PM               105 _reEscape.js
+11/29/2024  02:35 PM               108 _reEvaluate.js
+11/29/2024  02:35 PM               115 _reInterpolate.js
+11/29/2024  02:35 PM               900 _reorder.js
+11/29/2024  02:35 PM               785 _replaceHolders.js
+11/29/2024  02:35 PM               300 _root.js
+11/29/2024  02:35 PM               456 _safeGet.js
+11/29/2024  02:35 PM               195 _Set.js
+11/29/2024  02:35 PM               632 _SetCache.js
+11/29/2024  02:35 PM               424 _setCacheAdd.js
+11/29/2024  02:35 PM               316 _setCacheHas.js
+11/29/2024  02:35 PM               645 _setData.js
+11/29/2024  02:35 PM               345 _setToArray.js
+11/29/2024  02:35 PM               364 _setToPairs.js
+11/29/2024  02:35 PM               392 _setToString.js
+11/29/2024  02:35 PM               847 _setWrapToString.js
+11/29/2024  02:35 PM               941 _shortOut.js
+11/29/2024  02:35 PM               689 _shuffleSelf.js
+11/29/2024  02:35 PM               734 _Stack.js
+11/29/2024  02:35 PM               254 _stackClear.js
+11/29/2024  02:35 PM               405 _stackDelete.js
+11/29/2024  02:35 PM               271 _stackGet.js
+11/29/2024  02:35 PM               323 _stackHas.js
+11/29/2024  02:35 PM               853 _stackSet.js
+11/29/2024  02:35 PM               600 _strictIndexOf.js
+11/29/2024  02:35 PM               576 _strictLastIndexOf.js
+11/29/2024  02:35 PM               432 _stringSize.js
+11/29/2024  02:35 PM               450 _stringToArray.js
+11/29/2024  02:35 PM               840 _stringToPath.js
+11/29/2024  02:35 PM               118 _Symbol.js
+11/29/2024  02:35 PM               523 _toKey.js
+11/29/2024  02:35 PM               556 _toSource.js
+11/29/2024  02:35 PM               515 _trimmedEndIndex.js
+11/29/2024  02:35 PM               130 _Uint8Array.js
+11/29/2024  02:35 PM               493 _unescapeHtmlChar.js
+11/29/2024  02:35 PM             1,642 _unicodeSize.js
+11/29/2024  02:35 PM             1,588 _unicodeToArray.js
+11/29/2024  02:35 PM             3,060 _unicodeWords.js
+11/29/2024  02:35 PM             1,310 _updateWrapDetails.js
+11/29/2024  02:35 PM               207 _WeakMap.js
+11/29/2024  02:35 PM               658 _wrapperClone.js
+11/29/2024  02:35 PM               469 add.js
+11/29/2024  02:35 PM             1,060 after.js
+11/29/2024  02:35 PM             2,490 array.js
+11/29/2024  02:35 PM               857 ary.js
+11/29/2024  02:35 PM             1,566 assign.js
+11/29/2024  02:35 PM               906 assignIn.js
+11/29/2024  02:35 PM             1,256 assignInWith.js
+11/29/2024  02:35 PM             1,223 assignWith.js
+11/29/2024  02:35 PM               559 at.js
+11/29/2024  02:35 PM               931 attempt.js
+11/29/2024  02:35 PM             1,090 before.js
+11/29/2024  02:35 PM             1,694 bind.js
+11/29/2024  02:35 PM             1,125 bindAll.js
+11/29/2024  02:35 PM             2,071 bindKey.js
+11/29/2024  02:35 PM               701 camelCase.js
+11/29/2024  02:35 PM               529 capitalize.js
+11/29/2024  02:35 PM               768 castArray.js
+11/29/2024  02:35 PM               507 ceil.js
+11/29/2024  02:35 PM               851 chain.js
+11/29/2024  02:35 PM             1,411 chunk.js
+11/29/2024  02:35 PM               890 clamp.js
+11/29/2024  02:35 PM             1,065 clone.js
+11/29/2024  02:35 PM               679 cloneDeep.js
+11/29/2024  02:35 PM             1,046 cloneDeepWith.js
+11/29/2024  02:35 PM             1,194 cloneWith.js
+11/29/2024  02:35 PM             1,009 collection.js
+11/29/2024  02:35 PM               641 commit.js
+11/29/2024  02:35 PM               681 compact.js
+11/29/2024  02:35 PM             1,007 concat.js
+11/29/2024  02:35 PM             1,613 cond.js
+11/29/2024  02:35 PM               978 conforms.js
+11/29/2024  02:35 PM               954 conformsTo.js
+11/29/2024  02:35 PM               528 constant.js
+11/29/2024  02:35 PM           115,957 core.js
+11/29/2024  02:35 PM            12,684 core.min.js
+11/29/2024  02:35 PM             1,262 countBy.js
+11/29/2024  02:35 PM             1,032 create.js
+11/29/2024  02:35 PM             1,644 curry.js
+11/29/2024  02:35 PM             1,499 curryRight.js
+11/29/2024  02:35 PM                48 date.js
+11/29/2024  02:35 PM             6,100 debounce.js
+11/29/2024  02:35 PM             1,617 deburr.js
+11/29/2024  02:35 PM             1,754 defaults.js
+11/29/2024  02:35 PM               839 defaultsDeep.js
+11/29/2024  02:35 PM               608 defaultTo.js
+11/29/2024  02:35 PM               693 defer.js
+11/29/2024  02:35 PM               795 delay.js
+11/29/2024  02:35 PM             1,063 difference.js
+11/29/2024  02:35 PM             1,527 differenceBy.js
+11/29/2024  02:35 PM             1,395 differenceWith.js
+11/29/2024  02:35 PM               491 divide.js
+11/29/2024  02:35 PM               890 drop.js
+11/29/2024  02:35 PM               927 dropRight.js
+11/29/2024  02:35 PM             1,412 dropRightWhile.js
+11/29/2024  02:35 PM             1,384 dropWhile.js
+11/29/2024  02:35 PM                39 each.js
+11/29/2024  02:35 PM                44 eachRight.js
+11/29/2024  02:35 PM             1,098 endsWith.js
+11/29/2024  02:35 PM                39 entries.js
+11/29/2024  02:35 PM                41 entriesIn.js
+11/29/2024  02:35 PM               799 eq.js
+11/29/2024  02:35 PM             1,444 escape.js
+11/29/2024  02:35 PM               871 escapeRegExp.js
+11/29/2024  02:35 PM             1,869 every.js
+11/29/2024  02:35 PM                40 extend.js
+11/29/2024  02:35 PM                44 extendWith.js
+11/29/2024  02:35 PM             1,081 fill.js
+11/29/2024  02:35 PM             1,683 filter.js
+11/29/2024  02:35 PM             1,304 find.js
+11/29/2024  02:35 PM             1,654 findIndex.js
+11/29/2024  02:35 PM             1,329 findKey.js
+11/29/2024  02:35 PM               730 findLast.js
+11/29/2024  02:35 PM             1,761 findLastIndex.js
+11/29/2024  02:35 PM             1,346 findLastKey.js
+11/29/2024  02:35 PM                36 first.js
+11/29/2024  02:35 PM               812 flatMap.js
+11/29/2024  02:35 PM               796 flatMapDeep.js
+11/29/2024  02:35 PM               901 flatMapDepth.js
+11/29/2024  02:35 PM               489 flatten.js
+11/29/2024  02:35 PM               577 flattenDeep.js
+11/29/2024  02:35 PM               787 flattenDepth.js
+11/29/2024  02:35 PM               636 flip.js
+11/29/2024  02:35 PM               521 floor.js
+11/29/2024  02:35 PM               666 flow.js
+11/29/2024  02:35 PM               590 flowRight.js
+11/29/2024  02:35 PM             1,355 forEach.js
+11/29/2024  02:35 PM               924 forEachRight.js
+11/29/2024  02:35 PM             1,065 forIn.js
+11/29/2024  02:35 PM               929 forInRight.js
+11/29/2024  02:35 PM               992 forOwn.js
+11/29/2024  02:35 PM               866 forOwnRight.js
+11/29/2024  02:35 PM               101 fp.js
+11/29/2024  02:35 PM               596 fromPairs.js
+11/29/2024  02:35 PM               780 function.js
+11/29/2024  02:35 PM               685 functions.js
+11/29/2024  02:35 PM               714 functionsIn.js
+11/29/2024  02:35 PM               884 get.js
+11/29/2024  02:35 PM             1,399 groupBy.js
+11/29/2024  02:35 PM               596 gt.js
+11/29/2024  02:35 PM               635 gte.js
+11/29/2024  02:35 PM               757 has.js
+11/29/2024  02:35 PM               753 hasIn.js
+11/29/2024  02:35 PM               415 head.js
+11/29/2024  02:35 PM               370 identity.js
+11/29/2024  02:35 PM             1,772 includes.js
+11/29/2024  02:35 PM                37 index.js
+11/29/2024  02:35 PM             1,240 indexOf.js
+11/29/2024  02:35 PM               461 initial.js
+11/29/2024  02:35 PM             1,245 inRange.js
+11/29/2024  02:35 PM               953 intersection.js
+11/29/2024  02:35 PM             1,467 intersectionBy.js
+11/29/2024  02:35 PM             1,388 intersectionWith.js
+11/29/2024  02:35 PM             1,128 invert.js
+11/29/2024  02:35 PM             1,651 invertBy.js
+11/29/2024  02:35 PM               634 invoke.js
+11/29/2024  02:35 PM             1,440 invokeMap.js
+11/29/2024  02:35 PM             1,026 isArguments.js
+11/29/2024  02:35 PM               488 isArray.js
+11/29/2024  02:35 PM               732 isArrayBuffer.js
+11/29/2024  02:35 PM               830 isArrayLike.js
+11/29/2024  02:35 PM               742 isArrayLikeObject.js
+11/29/2024  02:35 PM               681 isBoolean.js
+11/29/2024  02:35 PM             1,114 isBuffer.js
+11/29/2024  02:35 PM               642 isDate.js
+11/29/2024  02:35 PM               574 isElement.js
+11/29/2024  02:35 PM             2,000 isEmpty.js
+11/29/2024  02:35 PM               986 isEqual.js
+11/29/2024  02:35 PM             1,352 isEqualWith.js
+11/29/2024  02:35 PM               961 isError.js
+11/29/2024  02:35 PM               793 isFinite.js
+11/29/2024  02:35 PM               993 isFunction.js
+11/29/2024  02:35 PM               669 isInteger.js
+11/29/2024  02:35 PM               802 isLength.js
+11/29/2024  02:35 PM               613 isMap.js
+11/29/2024  02:35 PM             1,078 isMatch.js
+11/29/2024  02:35 PM             1,329 isMatchWith.js
+11/29/2024  02:35 PM               911 isNaN.js
+11/29/2024  02:35 PM             1,221 isNative.js
+11/29/2024  02:35 PM               426 isNil.js
+11/29/2024  02:35 PM               381 isNull.js
+11/29/2024  02:35 PM               886 isNumber.js
+11/29/2024  02:35 PM               733 isObject.js
+11/29/2024  02:35 PM               614 isObjectLike.js
+11/29/2024  02:35 PM             1,650 isPlainObject.js
+11/29/2024  02:35 PM               646 isRegExp.js
+11/29/2024  02:35 PM               949 isSafeInteger.js
+11/29/2024  02:35 PM               613 isSet.js
+11/29/2024  02:35 PM               723 isString.js
+11/29/2024  02:35 PM               682 isSymbol.js
+11/29/2024  02:35 PM               695 isTypedArray.js
+11/29/2024  02:35 PM               416 isUndefined.js
+11/29/2024  02:35 PM               631 isWeakMap.js
+11/29/2024  02:35 PM               643 isWeakSet.js
+11/29/2024  02:35 PM             1,700 iteratee.js
+11/29/2024  02:35 PM               693 join.js
+11/29/2024  02:35 PM               659 kebabCase.js
+11/29/2024  02:35 PM             1,194 keyBy.js
+11/29/2024  02:35 PM               884 keys.js
+11/29/2024  02:35 PM               778 keysIn.js
+11/29/2024  02:35 PM             2,137 lang.js
+11/29/2024  02:35 PM               401 last.js
+11/29/2024  02:35 PM             1,358 lastIndexOf.js
+11/29/2024  02:35 PM           544,098 lodash.js
+11/29/2024  02:35 PM            73,015 lodash.min.js
+11/29/2024  02:35 PM               622 lowerCase.js
+11/29/2024  02:35 PM               470 lowerFirst.js
+11/29/2024  02:35 PM               590 lt.js
+11/29/2024  02:35 PM               629 lte.js
+11/29/2024  02:35 PM             1,621 map.js
+11/29/2024  02:35 PM             1,097 mapKeys.js
+11/29/2024  02:35 PM             1,338 mapValues.js
+11/29/2024  02:35 PM             1,441 matches.js
+11/29/2024  02:35 PM             1,454 matchesProperty.js
+11/29/2024  02:35 PM               482 math.js
+11/29/2024  02:35 PM               614 max.js
+11/29/2024  02:35 PM               991 maxBy.js
+11/29/2024  02:35 PM               422 mean.js
+11/29/2024  02:35 PM               879 meanBy.js
+11/29/2024  02:35 PM             2,224 memoize.js
+11/29/2024  02:35 PM             1,220 merge.js
+11/29/2024  02:35 PM             1,247 mergeWith.js
+11/29/2024  02:35 PM               860 method.js
+11/29/2024  02:35 PM               912 methodOf.js
+11/29/2024  02:35 PM               614 min.js
+11/29/2024  02:35 PM               991 minBy.js
+11/29/2024  02:35 PM             2,236 mixin.js
+11/29/2024  02:35 PM               530 multiply.js
+11/29/2024  02:35 PM             1,079 negate.js
+11/29/2024  02:35 PM               836 next.js
+11/29/2024  02:35 PM               250 noop.js
+11/29/2024  02:35 PM               520 now.js
+11/29/2024  02:35 PM               671 nth.js
+11/29/2024  02:35 PM               730 nthArg.js
+11/29/2024  02:35 PM               120 number.js
+11/29/2024  02:35 PM             1,674 object.js
+11/29/2024  02:35 PM             1,629 omit.js
+11/29/2024  02:35 PM               854 omitBy.js
+11/29/2024  02:35 PM               665 once.js
+11/29/2024  02:35 PM             1,620 orderBy.js
+11/29/2024  02:35 PM               558 over.js
+11/29/2024  02:35 PM             1,620 overArgs.js
+11/29/2024  02:35 PM               920 overEvery.js
+11/29/2024  02:35 PM             1,036 overSome.js
+11/29/2024  02:35 PM             1,289 pad.js
+11/29/2024  02:35 PM             1,017 padEnd.js
+11/29/2024  02:35 PM             1,026 padStart.js
+11/29/2024  02:35 PM             1,256 parseInt.js
+11/29/2024  02:35 PM             1,566 partial.js
+11/29/2024  02:35 PM             1,552 partialRight.js
+11/29/2024  02:35 PM             1,518 partition.js
+11/29/2024  02:35 PM               629 pick.js
+11/29/2024  02:35 PM             1,032 pickBy.js
+11/29/2024  02:35 PM             1,016 plant.js
+11/29/2024  02:35 PM               793 property.js
+11/29/2024  02:35 PM               732 propertyOf.js
+11/29/2024  02:35 PM               758 pull.js
+11/29/2024  02:35 PM               710 pullAll.js
+11/29/2024  02:35 PM             1,071 pullAllBy.js
+11/29/2024  02:35 PM             1,029 pullAllWith.js
+11/29/2024  02:35 PM             1,182 pullAt.js
+11/29/2024  02:35 PM             2,371 random.js
+11/29/2024  02:35 PM             1,151 range.js
+11/29/2024  02:35 PM               862 rangeRight.js
+11/29/2024  02:35 PM             1,023 rearg.js
+11/29/2024  02:35 PM             1,806 reduce.js
+11/29/2024  02:35 PM             1,156 reduceRight.js
+11/29/2024  02:35 PM             1,417 reject.js
+11/29/2024  02:35 PM             1,332 remove.js
+11/29/2024  02:35 PM               893 repeat.js
+11/29/2024  02:35 PM               754 replace.js
+11/29/2024  02:35 PM             1,182 rest.js
+11/29/2024  02:35 PM             1,464 result.js
+11/29/2024  02:35 PM               844 reverse.js
+11/29/2024  02:35 PM               501 round.js
+11/29/2024  02:35 PM               551 sample.js
+11/29/2024  02:35 PM             1,068 sampleSize.js
+11/29/2024  02:35 PM               507 seq.js
+11/29/2024  02:35 PM               960 set.js
+11/29/2024  02:35 PM             1,055 setWith.js
+11/29/2024  02:35 PM               678 shuffle.js
+11/29/2024  02:35 PM             1,137 size.js
+11/29/2024  02:35 PM             1,032 slice.js
+11/29/2024  02:35 PM               638 snakeCase.js
+11/29/2024  02:35 PM             1,608 some.js
+11/29/2024  02:35 PM             1,668 sortBy.js
+11/29/2024  02:35 PM               626 sortedIndex.js
+11/29/2024  02:35 PM             1,060 sortedIndexBy.js
+11/29/2024  02:35 PM               762 sortedIndexOf.js
+11/29/2024  02:35 PM               679 sortedLastIndex.js
+11/29/2024  02:35 PM             1,086 sortedLastIndexBy.js
+11/29/2024  02:35 PM               770 sortedLastIndexOf.js
+11/29/2024  02:35 PM               513 sortedUniq.js
+11/29/2024  02:35 PM               698 sortedUniqBy.js
+11/29/2024  02:35 PM             1,550 split.js
+11/29/2024  02:35 PM             1,734 spread.js
+11/29/2024  02:35 PM               714 startCase.js
+11/29/2024  02:35 PM             1,017 startsWith.js
+11/29/2024  02:35 PM             1,168 string.js
+11/29/2024  02:35 PM               390 stubArray.js
+11/29/2024  02:35 PM               280 stubFalse.js
+11/29/2024  02:35 PM               400 stubObject.js
+11/29/2024  02:35 PM               290 stubString.js
+11/29/2024  02:35 PM               272 stubTrue.js
+11/29/2024  02:35 PM               511 subtract.js
+11/29/2024  02:35 PM               453 sum.js
+11/29/2024  02:35 PM               908 sumBy.js
+11/29/2024  02:35 PM               457 tail.js
+11/29/2024  02:35 PM               851 take.js
+11/29/2024  02:35 PM               930 takeRight.js
+11/29/2024  02:35 PM             1,376 takeRightWhile.js
+11/29/2024  02:36 PM             1,335 takeWhile.js
+11/29/2024  02:36 PM               703 tap.js
+11/29/2024  02:36 PM            10,441 template.js
+11/29/2024  02:36 PM             1,411 templateSettings.js
+11/29/2024  02:36 PM             2,709 throttle.js
+11/29/2024  02:36 PM               674 thru.js
+11/29/2024  02:36 PM             1,367 times.js
+11/29/2024  02:36 PM             1,406 toArray.js
+11/29/2024  02:36 PM               868 toFinite.js
+11/29/2024  02:36 PM               760 toInteger.js
+11/29/2024  02:36 PM               403 toIterator.js
+11/29/2024  02:36 PM                44 toJSON.js
+11/29/2024  02:36 PM               868 toLength.js
+11/29/2024  02:36 PM               592 toLower.js
+11/29/2024  02:36 PM             1,519 toNumber.js
+11/29/2024  02:36 PM               699 toPairs.js
+11/29/2024  02:36 PM               737 toPairsIn.js
+11/29/2024  02:36 PM               804 toPath.js
+11/29/2024  02:36 PM               744 toPlainObject.js
+11/29/2024  02:36 PM               836 toSafeInteger.js
+11/29/2024  02:36 PM               580 toString.js
+11/29/2024  02:36 PM               592 toUpper.js
+11/29/2024  02:36 PM             2,280 transform.js
+11/29/2024  02:36 PM             1,381 trim.js
+11/29/2024  02:36 PM             1,216 trimEnd.js
+11/29/2024  02:36 PM             1,228 trimStart.js
+11/29/2024  02:36 PM             3,357 truncate.js
+11/29/2024  02:36 PM               469 unary.js
+11/29/2024  02:36 PM             1,056 unescape.js
+11/29/2024  02:36 PM               749 union.js
+11/29/2024  02:36 PM             1,320 unionBy.js
+11/29/2024  02:36 PM             1,255 unionWith.js
+11/29/2024  02:36 PM               688 uniq.js
+11/29/2024  02:36 PM             1,013 uniqBy.js
+11/29/2024  02:36 PM               562 uniqueId.js
+11/29/2024  02:36 PM               958 uniqWith.js
+11/29/2024  02:36 PM               804 unset.js
+11/29/2024  02:36 PM             1,282 unzip.js
+11/29/2024  02:36 PM             1,049 unzipWith.js
+11/29/2024  02:36 PM             1,076 update.js
+11/29/2024  02:36 PM             1,187 updateWith.js
+11/29/2024  02:36 PM               620 upperCase.js
+11/29/2024  02:36 PM               470 upperFirst.js
+11/29/2024  02:36 PM             1,177 util.js
+11/29/2024  02:36 PM                44 value.js
+11/29/2024  02:36 PM                44 valueOf.js
+11/29/2024  02:36 PM               733 values.js
+11/29/2024  02:36 PM               723 valuesIn.js
+11/29/2024  02:36 PM               858 without.js
+11/29/2024  02:36 PM             1,031 words.js
+11/29/2024  02:36 PM               871 wrap.js
+11/29/2024  02:36 PM             1,341 wrapperAt.js
+11/29/2024  02:36 PM               706 wrapperChain.js
+11/29/2024  02:36 PM             6,942 wrapperLodash.js
+11/29/2024  02:36 PM             1,019 wrapperReverse.js
+11/29/2024  02:36 PM               455 wrapperValue.js
+11/29/2024  02:36 PM               811 xor.js
+11/29/2024  02:36 PM             1,301 xorBy.js
+11/29/2024  02:36 PM             1,222 xorWith.js
+11/29/2024  02:36 PM               609 zip.js
+11/29/2024  02:36 PM               664 zipObject.js
+11/29/2024  02:36 PM               643 zipObjectDeep.js
+11/29/2024  02:36 PM               960 zipWith.js
+11/29/2024  02:36 PM               578 package.json
+11/29/2024  02:36 PM               963 flake.lock
+11/29/2024  02:36 PM             1,107 README.md
+11/29/2024  02:36 PM             2,035 release.md
+11/29/2024  02:36 PM               459 flake.nix
+             639 File(s)      1,323,548 bytes
+
+ Directory of D:\Creating an App\node_modules\lodash\fp
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM                43 __.js
+11/29/2024  02:35 PM            16,414 _baseConvert.js
+11/29/2024  02:35 PM               615 _convertBrowser.js
+11/29/2024  02:35 PM               113 _falseOptions.js
+11/29/2024  02:35 PM             9,955 _mapping.js
+11/29/2024  02:35 PM               524 _util.js
+11/29/2024  02:35 PM               151 add.js
+11/29/2024  02:35 PM               155 after.js
+11/29/2024  02:35 PM                37 all.js
+11/29/2024  02:35 PM                41 allPass.js
+11/29/2024  02:35 PM                40 always.js
+11/29/2024  02:35 PM                36 any.js
+11/29/2024  02:35 PM                40 anyPass.js
+11/29/2024  02:35 PM                38 apply.js
+11/29/2024  02:35 PM                83 array.js
+11/29/2024  02:35 PM               151 ary.js
+11/29/2024  02:35 PM               157 assign.js
+11/29/2024  02:35 PM               160 assignAll.js
+11/29/2024  02:35 PM               168 assignAllWith.js
+11/29/2024  02:35 PM               161 assignIn.js
+11/29/2024  02:35 PM               164 assignInAll.js
+11/29/2024  02:35 PM               172 assignInAllWith.js
+11/29/2024  02:35 PM               169 assignInWith.js
+11/29/2024  02:35 PM               165 assignWith.js
+11/29/2024  02:35 PM                35 assoc.js
+11/29/2024  02:35 PM                35 assocPath.js
+11/29/2024  02:35 PM               149 at.js
+11/29/2024  02:35 PM               159 attempt.js
+11/29/2024  02:35 PM               157 before.js
+11/29/2024  02:35 PM               153 bind.js
+11/29/2024  02:35 PM               159 bindAll.js
+11/29/2024  02:35 PM               159 bindKey.js
+11/29/2024  02:35 PM               191 camelCase.js
+11/29/2024  02:35 PM               193 capitalize.js
+11/29/2024  02:35 PM               163 castArray.js
+11/29/2024  02:35 PM               153 ceil.js
+11/29/2024  02:35 PM               183 chain.js
+11/29/2024  02:35 PM               155 chunk.js
+11/29/2024  02:35 PM               155 clamp.js
+11/29/2024  02:35 PM               183 clone.js
+11/29/2024  02:35 PM               191 cloneDeep.js
+11/29/2024  02:35 PM               171 cloneDeepWith.js
+11/29/2024  02:35 PM               163 cloneWith.js
+11/29/2024  02:35 PM                88 collection.js
+11/29/2024  02:35 PM               185 commit.js
+11/29/2024  02:35 PM               187 compact.js
+11/29/2024  02:35 PM                38 complement.js
+11/29/2024  02:35 PM                41 compose.js
+11/29/2024  02:35 PM               157 concat.js
+11/29/2024  02:35 PM               181 cond.js
+11/29/2024  02:35 PM                42 conforms.js
+11/29/2024  02:35 PM               165 conformsTo.js
+11/29/2024  02:35 PM               189 constant.js
+11/29/2024  02:35 PM                40 contains.js
+11/29/2024  02:35 PM               657 convert.js
+11/29/2024  02:35 PM               159 countBy.js
+11/29/2024  02:35 PM               157 create.js
+11/29/2024  02:35 PM               155 curry.js
+11/29/2024  02:35 PM               156 curryN.js
+11/29/2024  02:35 PM               165 curryRight.js
+11/29/2024  02:35 PM               166 curryRightN.js
+11/29/2024  02:35 PM                82 date.js
+11/29/2024  02:35 PM               161 debounce.js
+11/29/2024  02:35 PM               185 deburr.js
+11/29/2024  02:35 PM               161 defaults.js
+11/29/2024  02:35 PM               164 defaultsAll.js
+11/29/2024  02:35 PM               169 defaultsDeep.js
+11/29/2024  02:35 PM               172 defaultsDeepAll.js
+11/29/2024  02:35 PM               163 defaultTo.js
+11/29/2024  02:35 PM               183 defer.js
+11/29/2024  02:35 PM               155 delay.js
+11/29/2024  02:35 PM               165 difference.js
+11/29/2024  02:35 PM               169 differenceBy.js
+11/29/2024  02:35 PM               173 differenceWith.js
+11/29/2024  02:35 PM                37 dissoc.js
+11/29/2024  02:35 PM                37 dissocPath.js
+11/29/2024  02:35 PM               157 divide.js
+11/29/2024  02:35 PM               153 drop.js
+11/29/2024  02:35 PM                41 dropLast.js
+11/29/2024  02:35 PM                46 dropLastWhile.js
+11/29/2024  02:35 PM               163 dropRight.js
+11/29/2024  02:35 PM               173 dropRightWhile.js
+11/29/2024  02:35 PM               163 dropWhile.js
+11/29/2024  02:35 PM                39 each.js
+11/29/2024  02:35 PM                44 eachRight.js
+11/29/2024  02:35 PM               161 endsWith.js
+11/29/2024  02:35 PM                39 entries.js
+11/29/2024  02:35 PM                41 entriesIn.js
+11/29/2024  02:35 PM               149 eq.js
+11/29/2024  02:35 PM                39 equals.js
+11/29/2024  02:35 PM               185 escape.js
+11/29/2024  02:35 PM               197 escapeRegExp.js
+11/29/2024  02:35 PM               155 every.js
+11/29/2024  02:35 PM                40 extend.js
+11/29/2024  02:35 PM                43 extendAll.js
+11/29/2024  02:35 PM                47 extendAllWith.js
+11/29/2024  02:35 PM                44 extendWith.js
+11/29/2024  02:35 PM                41 F.js
+11/29/2024  02:35 PM               153 fill.js
+11/29/2024  02:35 PM               157 filter.js
+11/29/2024  02:35 PM               153 find.js
+11/29/2024  02:35 PM               157 findFrom.js
+11/29/2024  02:35 PM               163 findIndex.js
+11/29/2024  02:35 PM               167 findIndexFrom.js
+11/29/2024  02:35 PM               159 findKey.js
+11/29/2024  02:35 PM               161 findLast.js
+11/29/2024  02:35 PM               165 findLastFrom.js
+11/29/2024  02:35 PM               171 findLastIndex.js
+11/29/2024  02:35 PM               175 findLastIndexFrom.js
+11/29/2024  02:35 PM               167 findLastKey.js
+11/29/2024  02:35 PM                36 first.js
+11/29/2024  02:35 PM               159 flatMap.js
+11/29/2024  02:35 PM               167 flatMapDeep.js
+11/29/2024  02:35 PM               169 flatMapDepth.js
+11/29/2024  02:35 PM               187 flatten.js
+11/29/2024  02:35 PM               195 flattenDeep.js
+11/29/2024  02:35 PM               169 flattenDepth.js
+11/29/2024  02:35 PM               181 flip.js
+11/29/2024  02:35 PM               155 floor.js
+11/29/2024  02:35 PM               153 flow.js
+11/29/2024  02:35 PM               163 flowRight.js
+11/29/2024  02:35 PM               159 forEach.js
+11/29/2024  02:35 PM               169 forEachRight.js
+11/29/2024  02:35 PM               155 forIn.js
+11/29/2024  02:35 PM               165 forInRight.js
+11/29/2024  02:35 PM               157 forOwn.js
+11/29/2024  02:35 PM               167 forOwnRight.js
+11/29/2024  02:35 PM               163 fromPairs.js
+11/29/2024  02:35 PM                86 function.js
+11/29/2024  02:35 PM               191 functions.js
+11/29/2024  02:35 PM               195 functionsIn.js
+11/29/2024  02:35 PM               151 get.js
+11/29/2024  02:35 PM               153 getOr.js
+11/29/2024  02:35 PM               159 groupBy.js
+11/29/2024  02:35 PM               149 gt.js
+11/29/2024  02:35 PM               151 gte.js
+11/29/2024  02:35 PM               151 has.js
+11/29/2024  02:35 PM               155 hasIn.js
+11/29/2024  02:35 PM               181 head.js
+11/29/2024  02:35 PM                34 identical.js
+11/29/2024  02:35 PM               189 identity.js
+11/29/2024  02:35 PM               161 includes.js
+11/29/2024  02:35 PM               165 includesFrom.js
+11/29/2024  02:35 PM                37 indexBy.js
+11/29/2024  02:35 PM               159 indexOf.js
+11/29/2024  02:35 PM               163 indexOfFrom.js
+11/29/2024  02:35 PM                39 init.js
+11/29/2024  02:35 PM               187 initial.js
+11/29/2024  02:35 PM               159 inRange.js
+11/29/2024  02:35 PM               169 intersection.js
+11/29/2024  02:35 PM               173 intersectionBy.js
+11/29/2024  02:35 PM               177 intersectionWith.js
+11/29/2024  02:35 PM               157 invert.js
+11/29/2024  02:35 PM               161 invertBy.js
+11/29/2024  02:35 PM                38 invertObj.js
+11/29/2024  02:35 PM               157 invoke.js
+11/29/2024  02:35 PM               161 invokeArgs.js
+11/29/2024  02:35 PM               167 invokeArgsMap.js
+11/29/2024  02:35 PM               163 invokeMap.js
+11/29/2024  02:35 PM               195 isArguments.js
+11/29/2024  02:35 PM               187 isArray.js
+11/29/2024  02:35 PM               199 isArrayBuffer.js
+11/29/2024  02:35 PM               195 isArrayLike.js
+11/29/2024  02:35 PM               207 isArrayLikeObject.js
+11/29/2024  02:35 PM               191 isBoolean.js
+11/29/2024  02:35 PM               189 isBuffer.js
+11/29/2024  02:35 PM               185 isDate.js
+11/29/2024  02:35 PM               191 isElement.js
+11/29/2024  02:35 PM               187 isEmpty.js
+11/29/2024  02:35 PM               159 isEqual.js
+11/29/2024  02:35 PM               167 isEqualWith.js
+11/29/2024  02:35 PM               187 isError.js
+11/29/2024  02:35 PM               189 isFinite.js
+11/29/2024  02:35 PM               193 isFunction.js
+11/29/2024  02:35 PM               191 isInteger.js
+11/29/2024  02:35 PM               189 isLength.js
+11/29/2024  02:35 PM               183 isMap.js
+11/29/2024  02:35 PM               159 isMatch.js
+11/29/2024  02:35 PM               167 isMatchWith.js
+11/29/2024  02:35 PM               183 isNaN.js
+11/29/2024  02:35 PM               189 isNative.js
+11/29/2024  02:35 PM               183 isNil.js
+11/29/2024  02:35 PM               185 isNull.js
+11/29/2024  02:35 PM               189 isNumber.js
+11/29/2024  02:35 PM               189 isObject.js
+11/29/2024  02:35 PM               197 isObjectLike.js
+11/29/2024  02:35 PM               199 isPlainObject.js
+11/29/2024  02:35 PM               189 isRegExp.js
+11/29/2024  02:35 PM               199 isSafeInteger.js
+11/29/2024  02:35 PM               183 isSet.js
+11/29/2024  02:35 PM               189 isString.js
+11/29/2024  02:35 PM               189 isSymbol.js
+11/29/2024  02:35 PM               197 isTypedArray.js
+11/29/2024  02:35 PM               195 isUndefined.js
+11/29/2024  02:35 PM               191 isWeakMap.js
+11/29/2024  02:35 PM               191 isWeakSet.js
+11/29/2024  02:35 PM               161 iteratee.js
+11/29/2024  02:35 PM               153 join.js
+11/29/2024  02:35 PM                36 juxt.js
+11/29/2024  02:35 PM               191 kebabCase.js
+11/29/2024  02:35 PM               155 keyBy.js
+11/29/2024  02:35 PM               181 keys.js
+11/29/2024  02:35 PM               185 keysIn.js
+11/29/2024  02:35 PM                82 lang.js
+11/29/2024  02:35 PM               181 last.js
+11/29/2024  02:35 PM               167 lastIndexOf.js
+11/29/2024  02:35 PM               171 lastIndexOfFrom.js
+11/29/2024  02:35 PM               191 lowerCase.js
+11/29/2024  02:35 PM               193 lowerFirst.js
+11/29/2024  02:35 PM               149 lt.js
+11/29/2024  02:35 PM               151 lte.js
+11/29/2024  02:35 PM               151 map.js
+11/29/2024  02:35 PM               159 mapKeys.js
+11/29/2024  02:35 PM               163 mapValues.js
+11/29/2024  02:35 PM                39 matches.js
+11/29/2024  02:35 PM               175 matchesProperty.js
+11/29/2024  02:35 PM                82 math.js
+11/29/2024  02:35 PM               179 max.js
+11/29/2024  02:35 PM               155 maxBy.js
+11/29/2024  02:35 PM               181 mean.js
+11/29/2024  02:35 PM               157 meanBy.js
+11/29/2024  02:35 PM               159 memoize.js
+11/29/2024  02:35 PM               155 merge.js
+11/29/2024  02:35 PM               158 mergeAll.js
+11/29/2024  02:35 PM               166 mergeAllWith.js
+11/29/2024  02:35 PM               163 mergeWith.js
+11/29/2024  02:35 PM               157 method.js
+11/29/2024  02:35 PM               161 methodOf.js
+11/29/2024  02:35 PM               179 min.js
+11/29/2024  02:35 PM               155 minBy.js
+11/29/2024  02:35 PM               155 mixin.js
+11/29/2024  02:35 PM               161 multiply.js
+11/29/2024  02:35 PM                35 nAry.js
+11/29/2024  02:35 PM               185 negate.js
+11/29/2024  02:35 PM               181 next.js
+11/29/2024  02:35 PM               181 noop.js
+11/29/2024  02:35 PM               179 now.js
+11/29/2024  02:35 PM               151 nth.js
+11/29/2024  02:35 PM               157 nthArg.js
+11/29/2024  02:35 PM                84 number.js
+11/29/2024  02:35 PM                84 object.js
+11/29/2024  02:35 PM               153 omit.js
+11/29/2024  02:35 PM                36 omitAll.js
+11/29/2024  02:35 PM               157 omitBy.js
+11/29/2024  02:35 PM               181 once.js
+11/29/2024  02:35 PM               159 orderBy.js
+11/29/2024  02:35 PM               153 over.js
+11/29/2024  02:35 PM               161 overArgs.js
+11/29/2024  02:35 PM               163 overEvery.js
+11/29/2024  02:35 PM               161 overSome.js
+11/29/2024  02:35 PM               151 pad.js
+11/29/2024  02:35 PM               156 padChars.js
+11/29/2024  02:35 PM               162 padCharsEnd.js
+11/29/2024  02:35 PM               166 padCharsStart.js
+11/29/2024  02:35 PM               157 padEnd.js
+11/29/2024  02:35 PM               161 padStart.js
+11/29/2024  02:35 PM               161 parseInt.js
+11/29/2024  02:35 PM               159 partial.js
+11/29/2024  02:35 PM               169 partialRight.js
+11/29/2024  02:35 PM               163 partition.js
+11/29/2024  02:35 PM                35 path.js
+11/29/2024  02:35 PM                47 pathEq.js
+11/29/2024  02:35 PM                37 pathOr.js
+11/29/2024  02:35 PM                34 paths.js
+11/29/2024  02:35 PM               153 pick.js
+11/29/2024  02:35 PM                36 pickAll.js
+11/29/2024  02:35 PM               157 pickBy.js
+11/29/2024  02:35 PM                36 pipe.js
+11/29/2024  02:35 PM               105 placeholder.js
+11/29/2024  02:35 PM               183 plant.js
+11/29/2024  02:35 PM                35 pluck.js
+11/29/2024  02:35 PM                35 prop.js
+11/29/2024  02:35 PM                47 propEq.js
+11/29/2024  02:35 PM                35 property.js
+11/29/2024  02:35 PM               158 propertyOf.js
+11/29/2024  02:35 PM                37 propOr.js
+11/29/2024  02:35 PM                34 props.js
+11/29/2024  02:35 PM               153 pull.js
+11/29/2024  02:35 PM               159 pullAll.js
+11/29/2024  02:35 PM               163 pullAllBy.js
+11/29/2024  02:35 PM               167 pullAllWith.js
+11/29/2024  02:35 PM               157 pullAt.js
+11/29/2024  02:35 PM               157 random.js
+11/29/2024  02:35 PM               155 range.js
+11/29/2024  02:35 PM               165 rangeRight.js
+11/29/2024  02:35 PM               159 rangeStep.js
+11/29/2024  02:35 PM               169 rangeStepRight.js
+11/29/2024  02:35 PM               155 rearg.js
+11/29/2024  02:35 PM               157 reduce.js
+11/29/2024  02:35 PM               167 reduceRight.js
+11/29/2024  02:35 PM               157 reject.js
+11/29/2024  02:35 PM               157 remove.js
+11/29/2024  02:35 PM               157 repeat.js
+11/29/2024  02:35 PM               159 replace.js
+11/29/2024  02:35 PM               153 rest.js
+11/29/2024  02:35 PM               157 restFrom.js
+11/29/2024  02:35 PM               157 result.js
+11/29/2024  02:35 PM               159 reverse.js
+11/29/2024  02:35 PM               155 round.js
+11/29/2024  02:35 PM               185 sample.js
+11/29/2024  02:35 PM               165 sampleSize.js
+11/29/2024  02:35 PM                81 seq.js
+11/29/2024  02:35 PM               151 set.js
+11/29/2024  02:35 PM               159 setWith.js
+11/29/2024  02:35 PM               187 shuffle.js
+11/29/2024  02:35 PM               181 size.js
+11/29/2024  02:35 PM               155 slice.js
+11/29/2024  02:35 PM               191 snakeCase.js
+11/29/2024  02:35 PM               153 some.js
+11/29/2024  02:35 PM               157 sortBy.js
+11/29/2024  02:35 PM               167 sortedIndex.js
+11/29/2024  02:35 PM               171 sortedIndexBy.js
+11/29/2024  02:35 PM               171 sortedIndexOf.js
+11/29/2024  02:35 PM               175 sortedLastIndex.js
+11/29/2024  02:35 PM               179 sortedLastIndexBy.js
+11/29/2024  02:35 PM               179 sortedLastIndexOf.js
+11/29/2024  02:35 PM               193 sortedUniq.js
+11/29/2024  02:35 PM               169 sortedUniqBy.js
+11/29/2024  02:35 PM               155 split.js
+11/29/2024  02:35 PM               157 spread.js
+11/29/2024  02:35 PM               161 spreadFrom.js
+11/29/2024  02:35 PM               191 startCase.js
+11/29/2024  02:35 PM               165 startsWith.js
+11/29/2024  02:35 PM                84 string.js
+11/29/2024  02:35 PM               191 stubArray.js
+11/29/2024  02:35 PM               191 stubFalse.js
+11/29/2024  02:35 PM               193 stubObject.js
+11/29/2024  02:35 PM               193 stubString.js
+11/29/2024  02:35 PM               189 stubTrue.js
+11/29/2024  02:35 PM               161 subtract.js
+11/29/2024  02:35 PM               179 sum.js
+11/29/2024  02:35 PM               155 sumBy.js
+11/29/2024  02:35 PM                35 symmetricDifference.js
+11/29/2024  02:35 PM                37 symmetricDifferenceBy.js
+11/29/2024  02:35 PM                39 symmetricDifferenceWith.js
+11/29/2024  02:35 PM                40 T.js
+11/29/2024  02:35 PM               181 tail.js
+11/29/2024  02:35 PM               153 take.js
+11/29/2024  02:35 PM                41 takeLast.js
+11/29/2024  02:35 PM                46 takeLastWhile.js
+11/29/2024  02:35 PM               163 takeRight.js
+11/29/2024  02:35 PM               173 takeRightWhile.js
+11/29/2024  02:35 PM               163 takeWhile.js
+11/29/2024  02:36 PM               151 tap.js
+11/29/2024  02:36 PM               161 template.js
+11/29/2024  02:36 PM               205 templateSettings.js
+11/29/2024  02:36 PM               161 throttle.js
+11/29/2024  02:36 PM               153 thru.js
+11/29/2024  02:36 PM               155 times.js
+11/29/2024  02:36 PM               187 toArray.js
+11/29/2024  02:36 PM               189 toFinite.js
+11/29/2024  02:36 PM               191 toInteger.js
+11/29/2024  02:36 PM               193 toIterator.js
+11/29/2024  02:36 PM               185 toJSON.js
+11/29/2024  02:36 PM               189 toLength.js
+11/29/2024  02:36 PM               187 toLower.js
+11/29/2024  02:36 PM               189 toNumber.js
+11/29/2024  02:36 PM               187 toPairs.js
+11/29/2024  02:36 PM               191 toPairsIn.js
+11/29/2024  02:36 PM               185 toPath.js
+11/29/2024  02:36 PM               199 toPlainObject.js
+11/29/2024  02:36 PM               199 toSafeInteger.js
+11/29/2024  02:36 PM               189 toString.js
+11/29/2024  02:36 PM               187 toUpper.js
+11/29/2024  02:36 PM               163 transform.js
+11/29/2024  02:36 PM               153 trim.js
+11/29/2024  02:36 PM               158 trimChars.js
+11/29/2024  02:36 PM               164 trimCharsEnd.js
+11/29/2024  02:36 PM               168 trimCharsStart.js
+11/29/2024  02:36 PM               159 trimEnd.js
+11/29/2024  02:36 PM               163 trimStart.js
+11/29/2024  02:36 PM               161 truncate.js
+11/29/2024  02:36 PM                36 unapply.js
+11/29/2024  02:36 PM               183 unary.js
+11/29/2024  02:36 PM               189 unescape.js
+11/29/2024  02:36 PM               155 union.js
+11/29/2024  02:36 PM               159 unionBy.js
+11/29/2024  02:36 PM               163 unionWith.js
+11/29/2024  02:36 PM               181 uniq.js
+11/29/2024  02:36 PM               157 uniqBy.js
+11/29/2024  02:36 PM               161 uniqueId.js
+11/29/2024  02:36 PM               161 uniqWith.js
+11/29/2024  02:36 PM                39 unnest.js
+11/29/2024  02:36 PM               155 unset.js
+11/29/2024  02:36 PM               183 unzip.js
+11/29/2024  02:36 PM               163 unzipWith.js
+11/29/2024  02:36 PM               157 update.js
+11/29/2024  02:36 PM               165 updateWith.js
+11/29/2024  02:36 PM               191 upperCase.js
+11/29/2024  02:36 PM               193 upperFirst.js
+11/29/2024  02:36 PM                40 useWith.js
+11/29/2024  02:36 PM                82 util.js
+11/29/2024  02:36 PM               183 value.js
+11/29/2024  02:36 PM               187 valueOf.js
+11/29/2024  02:36 PM               185 values.js
+11/29/2024  02:36 PM               189 valuesIn.js
+11/29/2024  02:36 PM                42 where.js
+11/29/2024  02:36 PM                39 whereEq.js
+11/29/2024  02:36 PM               159 without.js
+11/29/2024  02:36 PM               155 words.js
+11/29/2024  02:36 PM               153 wrap.js
+11/29/2024  02:36 PM               191 wrapperAt.js
+11/29/2024  02:36 PM               197 wrapperChain.js
+11/29/2024  02:36 PM               199 wrapperLodash.js
+11/29/2024  02:36 PM               201 wrapperReverse.js
+11/29/2024  02:36 PM               197 wrapperValue.js
+11/29/2024  02:36 PM               151 xor.js
+11/29/2024  02:36 PM               155 xorBy.js
+11/29/2024  02:36 PM               159 xorWith.js
+11/29/2024  02:36 PM               151 zip.js
+11/29/2024  02:36 PM               154 zipAll.js
+11/29/2024  02:36 PM                41 zipObj.js
+11/29/2024  02:36 PM               163 zipObject.js
+11/29/2024  02:36 PM               171 zipObjectDeep.js
+11/29/2024  02:36 PM               159 zipWith.js
+             415 File(s)         88,867 bytes
+
+ Directory of D:\Creating an App\node_modules\follow-redirects
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             1,136 LICENSE
+11/29/2024  02:35 PM               315 debug.js
+11/29/2024  02:35 PM                37 http.js
+11/29/2024  02:35 PM                38 https.js
+11/29/2024  02:35 PM            20,647 index.js
+11/29/2024  02:35 PM             1,289 package.json
+11/29/2024  02:35 PM             6,456 README.md
+               7 File(s)         29,918 bytes
+
+ Directory of D:\Creating an App\node_modules\is-buffer
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             1,094 package.json
+11/29/2024  02:35 PM               698 index.js
+11/29/2024  02:35 PM             1,081 LICENSE
+11/29/2024  02:35 PM             1,744 README.md
+11/29/2024  02:35 PM    <DIR>          test
+               4 File(s)          4,617 bytes
+
+ Directory of D:\Creating an App\node_modules\is-buffer\test
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM               958 basic.js
+               1 File(s)            958 bytes
+
+ Directory of D:\Creating an App\node_modules\nanoid
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             1,095 LICENSE
+11/29/2024  02:35 PM    <DIR>          async
+11/29/2024  02:35 PM             1,801 format.browser.js
+11/29/2024  02:35 PM             2,333 format.js
+11/29/2024  02:35 PM               578 generate.js
+11/29/2024  02:35 PM    <DIR>          non-secure
+11/29/2024  02:35 PM             1,914 index.browser.js
+11/29/2024  02:35 PM               927 index.js
+11/29/2024  02:35 PM               136 random.browser.js
+11/29/2024  02:35 PM               608 random.js
+11/29/2024  02:35 PM               814 url.js
+11/29/2024  02:35 PM               824 package.json
+11/29/2024  02:35 PM             3,359 CHANGELOG.md
+11/29/2024  02:35 PM            10,691 README.md
+              12 File(s)         25,080 bytes
+
+ Directory of D:\Creating an App\node_modules\nanoid\async
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             1,882 format.browser.js
+11/29/2024  02:35 PM             2,531 format.js
+11/29/2024  02:35 PM               644 generate.js
+11/29/2024  02:35 PM             1,237 index.browser.js
+11/29/2024  02:35 PM             1,019 index.js
+11/29/2024  02:35 PM               282 random.browser.js
+11/29/2024  02:35 PM               876 random.js
+11/29/2024  02:35 PM               364 random.rn.js
+               8 File(s)          8,835 bytes
+
+ Directory of D:\Creating an App\node_modules\nanoid\non-secure
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM               740 generate.js
+11/29/2024  02:35 PM             1,187 index.js
+               2 File(s)          1,927 bytes
+
+ Directory of D:\Creating an App\node_modules\ultron
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             1,086 package.json
+11/29/2024  02:35 PM             3,109 index.js
+11/29/2024  02:35 PM             1,115 LICENSE
+11/29/2024  02:35 PM             4,014 README.md
+               4 File(s)          9,324 bytes
+
+ Directory of D:\Creating an App\node_modules\gemini-api
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             1,140 package.json
+11/29/2024  02:35 PM                40 .npmignore
+11/29/2024  02:35 PM             2,011 README.md
+11/29/2024  02:35 PM             9,049 .eslintrc.js
+11/29/2024  02:35 PM                39 .flowconfig
+11/29/2024  02:35 PM    <DIR>          dist
+11/29/2024  02:35 PM    <DIR>          test
+11/29/2024  02:35 PM               116 .babelrc
+11/29/2024  02:35 PM    <DIR>          src
+11/29/2024  02:35 PM           146,148 yarn.lock
+               7 File(s)        158,543 bytes
+
+ Directory of D:\Creating an App\node_modules\gemini-api\dist
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM               647 createRequestConfig.js
+11/29/2024  02:35 PM             3,731 index.js
+11/29/2024  02:35 PM             3,063 websocketClient.js
+               3 File(s)          7,441 bytes
+
+ Directory of D:\Creating an App\node_modules\gemini-api\test
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             1,949 index.js
+               1 File(s)          1,949 bytes
+
+ Directory of D:\Creating an App\node_modules\gemini-api\src
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM               428 createRequestConfig.js
+11/29/2024  02:35 PM             2,771 index.js
+11/29/2024  02:35 PM             2,515 websocketClient.js
+               3 File(s)          5,714 bytes
+
+ Directory of D:\Creating an App\node_modules\ws
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM    <DIR>          node_modules
+11/29/2024  02:35 PM             1,199 package.json
+11/29/2024  02:35 PM             6,843 README.md
+11/29/2024  02:35 PM             1,106 LICENSE
+11/29/2024  02:35 PM               356 index.js
+11/29/2024  02:35 PM    <DIR>          lib
+               4 File(s)          9,504 bytes
+
+ Directory of D:\Creating an App\node_modules\ws\node_modules
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM    <DIR>          safe-buffer
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\node_modules\ws\node_modules\safe-buffer
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM               812 package.json
+11/29/2024  02:35 PM            19,324 README.md
+11/29/2024  02:35 PM             1,081 LICENSE
+11/29/2024  02:35 PM                35 browser.js
+11/29/2024  02:35 PM             1,428 index.js
+11/29/2024  02:35 PM             2,806 test.js
+11/29/2024  02:35 PM                76 .travis.yml
+               7 File(s)         25,562 bytes
+
+ Directory of D:\Creating an App\node_modules\ws\lib
+
+11/29/2024  02:35 PM    <DIR>          .
+11/29/2024  02:35 PM    <DIR>          ..
+11/29/2024  02:35 PM             1,841 BufferUtil.js
+11/29/2024  02:35 PM               783 ErrorCodes.js
+11/29/2024  02:35 PM             3,713 EventTarget.js
+11/29/2024  02:35 PM             1,739 Extensions.js
+11/29/2024  02:35 PM               281 Constants.js
+11/29/2024  02:35 PM            13,087 Receiver.js
+11/29/2024  02:35 PM            10,424 Sender.js
+11/29/2024  02:35 PM               402 Validation.js
+11/29/2024  02:35 PM            20,871 WebSocket.js
+11/29/2024  02:35 PM             9,715 WebSocketServer.js
+11/29/2024  02:35 PM            10,739 PerMessageDeflate.js
+              11 File(s)         73,595 bytes
+
+ Directory of D:\Creating an App\scripts
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  12:45 PM             1,019 theme.js
+               1 File(s)          1,019 bytes
+
+ Directory of D:\Creating an App\server
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  10:50 AM             3,776 dataStorage.js
+11/26/2024  08:11 AM               672 timetableHandler.js
+11/28/2024  02:42 PM    <DIR>          routes
+               2 File(s)          4,448 bytes
+
+ Directory of D:\Creating an App\server\routes
+
+11/28/2024  02:42 PM    <DIR>          .
+11/28/2024  02:42 PM    <DIR>          ..
+11/28/2024  03:14 PM             2,732 subtasks.js
+               1 File(s)          2,732 bytes
+
+ Directory of D:\Creating an App\sounds
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/28/2024  05:21 AM            64,638 pop.mp3
+               1 File(s)         64,638 bytes
+
+ Directory of D:\Creating an App\styles
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/28/2024  04:52 AM             7,300 calendar.css
+11/27/2024  01:01 PM               414 index.css
+11/26/2024  02:53 PM            15,019 main.css
+11/27/2024  02:34 PM             3,850 study-spaces.css
+11/27/2024  03:52 PM             6,469 tasks.css
+               5 File(s)         33,052 bytes
+
+ Directory of D:\Creating an App\uploads
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:05 AM                 1 .gitkeep
+11/26/2024  04:58 AM                50 README.md
+11/28/2024  04:22 AM    <DIR>          default
+               2 File(s)             51 bytes
+
+ Directory of D:\Creating an App\uploads\default
+
+11/28/2024  04:35 AM    <DIR>          .
+11/28/2024  04:35 AM    <DIR>          ..
+11/26/2024  05:04 AM            11,177 image-1732579461232-788949872.avif
+11/26/2024  07:52 AM           348,935 image-1732589543717-403935461.png
+11/26/2024  08:05 AM            78,729 image-1732590318655-964870304.PNG
+11/26/2024  08:33 AM            78,729 image-1732592000086-814224384.PNG
+11/26/2024  08:35 AM            78,729 image-1732592122316-699001170.PNG
+11/26/2024  08:37 AM            78,729 image-1732592236266-95194259.PNG
+11/26/2024  08:39 AM            78,729 image-1732592390471-529581569.PNG
+11/26/2024  08:44 AM            78,729 image-1732592690026-536542048.PNG
+11/26/2024  08:45 AM            78,729 image-1732592709631-334330466.PNG
+11/26/2024  08:45 AM           348,935 image-1732592713170-576016821.png
+11/26/2024  08:45 AM            55,230 image-1732592716169-992113737.jpg
+11/26/2024  08:47 AM            78,729 image-1732592822832-979099085.PNG
+11/26/2024  08:47 AM            78,729 image-1732592841381-484398440.PNG
+11/26/2024  08:47 AM            78,729 image-1732592845636-848162219.PNG
+11/26/2024  08:47 AM            78,729 image-1732592848492-144262374.PNG
+11/26/2024  08:47 AM            78,729 image-1732592851327-112531886.PNG
+11/26/2024  10:54 AM            78,729 image-1732600452839-328172200.PNG
+11/26/2024  10:57 AM           130,314 image-1732600659543-206523209.PNG
+11/26/2024  11:02 AM           130,314 image-1732600943333-461470707.PNG
+11/26/2024  11:05 AM           130,314 image-1732601153906-856259396.PNG
+11/26/2024  11:11 AM           130,314 image-1732601469488-219596759.PNG
+11/26/2024  11:26 AM           130,314 image-1732602371601-29804403.PNG
+11/26/2024  11:26 AM           130,314 image-1732602403329-408985608.PNG
+11/26/2024  11:28 AM           130,314 image-1732602536212-815681537.PNG
+11/26/2024  11:29 AM            78,729 image-1732602566710-343512043.PNG
+11/26/2024  11:29 AM            78,729 image-1732602596940-409089044.PNG
+11/26/2024  11:30 AM            78,729 image-1732602644097-663961924.PNG
+11/26/2024  12:26 PM           130,314 image-1732605996470-848400140.PNG
+11/26/2024  03:00 PM            73,714 image-1732615201141-371091482.PNG
+11/26/2024  04:11 PM            79,067 image-1732619511845-772776538.png
+11/26/2024  04:23 PM            73,714 image-1732620210230-15997120.PNG
+11/26/2024  04:24 PM            73,714 image-1732620262639-895276401.PNG
+11/26/2024  04:25 PM           130,314 image-1732620343618-475356922.PNG
+11/26/2024  04:30 PM            71,971 image-1732620648456-721262359.PNG
+11/27/2024  08:55 AM            54,801 image-1732679739599-85462180.PNG
+11/27/2024  08:56 AM            54,801 image-1732679783475-369713894.PNG
+11/27/2024  11:30 AM            54,801 image-1732689040322-560250155.PNG
+11/27/2024  11:45 AM            73,714 image-1732689925308-644825392.PNG
+11/27/2024  11:50 AM            73,714 image-1732690227330-678336383.PNG
+11/27/2024  02:12 PM            55,504 image-1732698761896-360712059.jpg
+11/27/2024  02:27 PM           130,314 image-1732699620986-777739954.PNG
+11/27/2024  02:42 PM            54,801 image-1732700573679-743070572.PNG
+11/27/2024  04:28 PM            73,714 image-1732706904364-403772819.PNG
+11/28/2024  04:19 AM            54,801 image-1732749554068-590947980.PNG
+11/28/2024  04:21 AM            78,729 image-1732749717062-684653347.PNG
+11/28/2024  04:22 AM            78,729 image-1732749733259-843563255.PNG
+11/30/2024  11:19 AM               199 settings.json
+11/28/2024  04:50 AM            54,801 image-1732751420496-708168326.PNG
+11/28/2024  07:16 AM            54,801 image-1732760197916-325464671.PNG
+11/28/2024  07:27 AM           130,314 image-1732760842304-7618147.PNG
+11/28/2024  05:42 PM            73,714 image-1732797748740-823191504.PNG
+11/28/2024  05:42 PM            54,801 image-1732797766614-39561390.PNG
+11/28/2024  05:44 PM            54,801 image-1732797881091-623832537.PNG
+11/28/2024  05:45 PM           130,314 image-1732797901005-193843066.PNG
+11/29/2024  04:52 AM           130,314 image-1732837960997-325938940.PNG
+11/29/2024  05:02 AM           130,314 image-1732838553405-496053154.PNG
+11/29/2024  05:25 AM           130,314 image-1732839953048-86763601.PNG
+11/29/2024  05:27 AM           130,314 image-1732840042878-129967629.PNG
+11/29/2024  05:50 AM           130,314 image-1732841431470-897825949.PNG
+11/29/2024  06:17 AM           130,314 image-1732843068323-653708464.PNG
+11/29/2024  06:19 AM           130,314 image-1732843151248-36036156.PNG
+11/29/2024  07:15 AM            71,971 image-1732846508575-213395532.PNG
+11/29/2024  07:15 AM            73,714 image-1732846545160-493645044.PNG
+11/29/2024  07:31 AM            54,801 image-1732847514388-450248478.PNG
+11/29/2024  07:32 AM           130,314 image-1732847561888-384056758.PNG
+11/29/2024  07:35 AM           130,314 image-1732847698162-801466827.PNG
+11/29/2024  07:37 AM            54,801 image-1732847856124-451974442.PNG
+11/29/2024  07:39 AM            54,801 image-1732847995061-326842834.PNG
+11/29/2024  07:40 AM            54,801 image-1732848046609-525049164.PNG
+11/29/2024  07:43 AM           130,314 image-1732848227184-397887927.PNG
+11/29/2024  07:47 AM           130,314 image-1732848425929-857821658.PNG
+11/29/2024  07:48 AM           130,314 image-1732848537899-232958068.PNG
+11/29/2024  07:52 AM           130,314 image-1732848719720-737429281.PNG
+11/29/2024  08:17 AM            71,971 image-1732850230721-823899339.PNG
+11/29/2024  08:22 AM           130,314 image-1732850554425-365961927.PNG
+11/29/2024  08:35 AM           130,314 image-1732851319904-740437277.PNG
+11/29/2024  08:35 AM           130,314 image-1732851332694-720547491.PNG
+11/29/2024  08:39 AM            71,971 image-1732851589490-808146140.PNG
+11/29/2024  08:58 AM            71,971 image-1732852700047-174980699.PNG
+11/29/2024  09:01 AM           130,314 image-1732852872553-820630918.PNG
+11/29/2024  09:54 AM           130,314 image-1732856057169-180628067.PNG
+11/29/2024  09:54 AM            54,801 image-1732856084276-128033965.PNG
+11/29/2024  09:57 AM            54,801 image-1732856239191-131086653.PNG
+11/29/2024  09:59 AM            54,801 image-1732856350272-569880006.PNG
+11/29/2024  10:01 AM            54,801 image-1732856510359-488228846.PNG
+11/29/2024  10:04 AM           130,314 image-1732856693588-28177288.PNG
+11/29/2024  10:33 AM            87,990 image-1732858398167-373305146.jpg
+11/29/2024  10:47 AM            87,990 image-1732859225898-98663998.jpg
+11/29/2024  02:35 PM            54,462 image-1732872924297-455348616.PNG
+11/29/2024  02:36 PM            54,462 image-1732872971159-28342234.PNG
+11/29/2024  02:44 PM            87,990 image-1732873460376-387747542.jpg
+11/29/2024  06:13 PM            54,462 image-1732886025060-297000140.PNG
+11/29/2024  06:18 PM            87,990 image-1732886287248-668418863.jpg
+11/30/2024  04:10 AM            87,990 image-1732921809482-981276870.jpg
+11/30/2024  11:16 AM           654,952 image-1732947394515-681807177.png
+              95 File(s)      9,495,375 bytes
+
+ Directory of D:\Creating an App\assets
+
+11/28/2024  02:53 PM    <DIR>          .
+11/28/2024  02:53 PM    <DIR>          ..
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\icons
+
+11/28/2024  06:06 PM    <DIR>          .
+11/28/2024  06:06 PM    <DIR>          ..
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\alarm-sounds
+
+11/29/2024  03:30 AM    <DIR>          .
+11/29/2024  03:30 AM    <DIR>          ..
+11/29/2024  03:44 AM             1,110 README.md
+11/29/2024  03:41 AM           353,593 alarm1.mp3
+11/29/2024  03:40 AM           293,280 alarm2.mp3
+11/29/2024  03:48 AM            33,436 alarm3.mp3
+               4 File(s)        681,419 bytes
+
+ Directory of D:\Creating an App\api
+
+11/29/2024  11:02 AM    <DIR>          .
+11/29/2024  11:02 AM    <DIR>          ..
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\css
+
+11/29/2024  06:03 PM    <DIR>          .
+11/29/2024  06:03 PM    <DIR>          ..
+               0 File(s)              0 bytes
+
+ Directory of D:\Creating an App\public
+
+11/30/2024  06:09 PM    <DIR>          .
+11/30/2024  06:09 PM    <DIR>          ..
+11/30/2024  06:09 PM             1,808 404.html
+11/30/2024  06:09 PM             4,606 index.html
+               2 File(s)          6,414 bytes
+
+ Directory of D:\Creating an App\.firebase
+
+11/30/2024  06:18 PM    <DIR>          .
+11/30/2024  06:18 PM    <DIR>          ..
+11/30/2024  06:18 PM            17,928 hosting..cache
+               1 File(s)         17,928 bytes
+
+     Total Files Listed:
+            2068 File(s)     43,105,576 bytes
+             665 Dir(s)  29,644,390,400 bytes free

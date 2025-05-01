@@ -1,0 +1,293 @@
+/* Tasks Dashboard Styles */
+.tasks-dashboard {
+    margin: 2rem auto;
+    max-width: 1200px;
+    padding: 0 1rem;
+}
+
+/* Filters Section */
+.tasks-filters {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+/* Search Bar */
+.search-bar {
+    margin-bottom: 1.5rem;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px var(--secondary-color-transparent);
+    outline: none;
+}
+
+/* Filter Options Layout */
+.filter-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Quick Filter Buttons */
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--primary-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.filter-btn:hover {
+    background: var(--primary-color);
+    color: var(--card-bg);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px var(--primary-color-transparent);
+}
+
+.filter-btn.active {
+    background: var(--primary-color);
+    color: var(--card-bg);
+    box-shadow: 0 2px 8px var(--primary-color-transparent);
+}
+
+/* Filter Groups */
+.filter-group {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.filter-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5rem;
+}
+
+.filter-select:hover {
+    border-color: var(--secondary-color);
+}
+
+.filter-select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px var(--secondary-color-transparent);
+    outline: none;
+}
+
+/* Date Range Inputs */
+.date-range {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.date-input {
+    padding: 0.75rem 1rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.date-input:hover {
+    border-color: var(--secondary-color);
+}
+
+.date-input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px var(--secondary-color-transparent);
+    outline: none;
+}
+
+/* Clear Filters Button */
+.clear-filters-btn {
+    display: block;
+    width: auto;
+    padding: 0.75rem 2rem;
+    margin: 1rem 0 0 auto;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.clear-filters-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--card-bg);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px var(--primary-color-transparent);
+}
+
+/* Tasks List */
+.tasks-container {
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.tasks-list {
+    padding: 1rem;
+}
+
+.task-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 1rem;
+    border: 2px solid var(--primary-color);
+    background: var(--card-bg);
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s ease;
+    animation: slideInTask 0.3s ease-out forwards;
+}
+
+.task-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 8px var(--primary-color-transparent);
+}
+
+.task-checkbox {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--primary-color);
+    border-radius: 6px;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+    background-color: var(--card-bg);
+}
+
+.task-checkbox:hover {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px var(--secondary-color-transparent);
+}
+
+.task-checkbox.checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.task-checkbox.checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--card-bg);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+@keyframes slideInTask {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Priority Indicators */
+.priority-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.priority-1 { background-color: var(--primary-color); }
+.priority-2 { background-color: var(--secondary-color); }
+.priority-3 { background-color: var(--primary-color-transparent); }
+.priority-4 { background-color: var(--secondary-color-transparent); }
+
+/* Task Content */
+.task-content {
+    flex: 1;
+    color: var(--text-color);
+}
+
+.task-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.task-details {
+    font-size: 0.9rem;
+    color: var(--text-color-secondary);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .tasks-dashboard {
+        margin: 1rem;
+        padding: 0;
+    }
+
+    .filter-options {
+        grid-template-columns: 1fr;
+    }
+
+    .date-range {
+        grid-template-columns: 1fr;
+    }
+
+    .clear-filters-btn {
+        width: 100%;
+        margin: 1rem 0;
+    }
+
+    .task-item {
+        flex-direction: column;
+    }
+
+    .task-checkbox {
+        margin-bottom: 0.5rem;
+    }
+}

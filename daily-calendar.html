@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Daily Calendar</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="main.css">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <link href="css/daily-calendar.css" rel="stylesheet">
+    <link href="css/task-display.css" rel="stylesheet">
+
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-brand d-flex align-items-center">
+            <img
+                src="assets/images/gpace-logo-white.png"
+                alt="GPAce Logo"
+                style="height: 60px; margin-right: 0px;"
+            >
+            <a href="grind.html" style="text-decoration: none; color: inherit;">GPAce</a>
+        </div>
+        <div class="nav-links">
+            <a href="grind.html">Grind Mode</a>
+            <a href="study-spaces.html">Grind Station</a>
+            <a href="daily-calendar.html" class="active">Daily Drip</a>
+            <a href="academic-details.html">Brain Juice</a>
+            <a href="extracted.html">Hustle Hub</a>
+            <a href="subject-marks.html">Subject Marks</a>
+            <a href="flashcards.html">Flashcards</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Sleep Schedule Display -->
+        <div class="sleep-schedule">
+            <div class="schedule-item">
+                <i class="bi bi-sunrise"></i>
+                <div class="time-info">
+                    <span id="wakeTimeDisplay">Wake: --:--</span>
+                    <span id="wakeBufferDisplay" class="buffer-time">Buffer: -- min</span>
+                </div>
+            </div>
+            <div class="schedule-item total-time">
+                <i class="bi bi-clock"></i>
+                <div class="time-info">
+                    <span id="totalTimeDisplay">Available: -- hours -- minutes</span>
+                </div>
+            </div>
+            <div class="schedule-item">
+                <i class="bi bi-moon-stars"></i>
+                <div class="time-info">
+                    <span id="sleepTimeDisplay">Sleep: --:--</span>
+                    <span id="sleepBufferDisplay" class="buffer-time">Buffer: -- min</span>
+                </div>
+            </div>
+        </div>
+        <div id="currentTaskDisplay" class="current-task-header">
+            <h1 id="taskTitle">No Task Selected</h1>
+        </div>
+        <div class="time-summary">
+            <div class="time-stats">
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <span id="totalAvailableTime">Total Available: --:--</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-book"></i>
+                    <span id="freeStudyTime">Study Time: --:--</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <span id="scheduledTime">Scheduled: --:--</span>
+                </div>
+            </div>
+        </div>
+        <main class="calendar-container">
+            <div class="calendar-header">
+                <div class="view-controls">
+                    <button class="view-btn active" data-view="daily">
+                        <i class="bi bi-calendar-day"></i> Daily
+                    </button>
+                    <button class="view-btn" data-view="weekly">
+                        <i class="bi bi-calendar-week"></i> Weekly
+                    </button>
+                    <button class="view-btn" data-view="monthly">
+                        <i class="bi bi-calendar-month"></i> Monthly
+                    </button>
+                    <button class="view-btn" data-view="yearly">
+                        <i class="bi bi-calendar4"></i> Yearly
+                    </button>
+                </div>
+                <div class="date-controls">
+                    <button id="prevDay" class="nav-button"><i class="fas fa-chevron-left"></i></button>
+                    <h2 id="currentDate">Monday, March 18</h2>
+                    <button id="nextDay" class="nav-button"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="time-settings" style="display: none;">
+                    <label for="wakeTime">Wake time:</label>
+                    <input type="time" id="wakeTime" value="00:00">
+                    <label for="sleepTime">Sleep time:</label>
+                    <input type="time" id="sleepTime" value="23:59">
+                    <button id="applyTimes" class="settings-button">Apply</button>
+                </div>
+            </div>
+
+            <div class="calendar-grid-container">
+                <div class="time-axis">
+                    <!-- Time labels will be dynamically inserted -->
+                </div>
+                <div class="calendar-grid">
+                    <!-- Calendar blocks will be dynamically inserted -->
+                </div>
+            </div>
+
+            <div class="calendar-legend">
+                <div class="legend-item">
+                    <span class="legend-color class-block"></span>
+                    <span>Class</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color study-block"></span>
+                    <span>Study Time</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color break-block"></span>
+                    <span>Break</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color free-block"></span>
+                    <span>Free Time</span>
+                </div>
+            </div>
+
+            <div class="event-details" style="display: none;">
+                <!-- Event details will be shown here when clicking a time block -->
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-backdrop"></div>
+    <div class="event-edit-modal">
+        <div class="modal-header">
+            <h3 class="modal-title">Edit Event</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="eventTitle">Title</label>
+                <input type="text" id="eventTitle" placeholder="Event title">
+            </div>
+            <div class="form-group">
+                <label for="eventType">Type</label>
+                <select id="eventType">
+                    <option value="class">Class</option>
+                    <option value="study">Study</option>
+                    <option value="break">Break</option>
+                    <option value="free">Free Time</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="eventStart">Start Time</label>
+                <input type="time" id="eventStart">
+            </div>
+            <div class="form-group">
+                <label for="eventEnd">End Time</label>
+                <input type="time" id="eventEnd">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-delete" id="deleteEvent">Delete</button>
+            <button class="btn-cancel" id="cancelEdit">Cancel</button>
+            <button class="btn-save" id="saveEvent">Save</button>
+        </div>
+    </div>
+
+    <!-- New Event Creation Modal -->
+    <div class="event-create-modal">
+        <div class="modal-header">
+            <h3 class="modal-title">New Event</h3>
+            <button class="modal-close">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="newEventTitle">Event Title</label>
+                <input type="text" id="newEventTitle" class="form-control" placeholder="Enter event title">
+            </div>
+            <div class="form-group">
+                <label for="newEventType">Event Type</label>
+                <select id="newEventType" class="form-control">
+                    <option value="study">Study</option>
+                    <option value="class">Class</option>
+                    <option value="break">Break</option>
+                    <option value="meeting">Meeting</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="newEventStart">Start Time</label>
+                <input type="time" id="newEventStart" class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="newEventEnd">End Time</label>
+                <input type="time" id="newEventEnd" class="form-control">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="createEvent" class="btn btn-primary">Create Event</button>
+            <button id="cancelCreate" class="btn btn-secondary">Cancel</button>
+        </div>
+    </div>
+
+    <script src="js/sideDrawer.js"></script>
+    <!-- Firebase SDKs -->
+    <script type="module" src="js/firebaseAuth.js"></script>
+    <script src="js/sleepScheduleManager.js"></script>
+
+    <script type="module">
+        import { initializeCalendarUI } from './js/calendar-views.js';
+
+        // Initialize calendar UI
+        initializeCalendarUI();
+    </script>
+
+    <script src="js/calendarManager.js"></script>
+    <script src="js/timetableIntegration.js"></script>
+    <script src="js/currentTaskManager.js"></script>
+    <!-- Cross-Tab Synchronization -->
+    <script type="module" src="js/cross-tab-sync.js"></script>
+    <script src="/js/inject-header.js"></script>
+
+    <!-- Debug mode toggle functionality is now in currentTaskManager.js -->
+    </body>
+</html>

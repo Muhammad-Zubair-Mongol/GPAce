@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Instant Test Feedback</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
+    <link rel="preload" href="main.css" as="style">
+    <link rel="preload" href="css/sideDrawer.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" as="script">
+
+    <!-- Stylesheets -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="main.css">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <link href="grind.css" rel="stylesheet">
+    <link href="css/test-feedback.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-brand d-flex align-items-center">
+            <img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" style="height: 60px; margin-right: 0px;">
+            <a href="grind.html" style="text-decoration: none; color: inherit;">GPAce</a>
+        </div>
+        <div class="nav-links">
+            <a href="grind.html">Grind Mode</a>
+            <a href="instant-test-feedback.html" class="active">Test Feedback</a>
+            <a href="study-spaces.html">Grind Station</a>
+            <a href="daily-calendar.html">Daily Drip</a>
+            <a href="academic-details.html">Brain Juice</a>
+            <a href="extracted.html">Hustle Hub</a>
+            <a href="subject-marks.html">Subject Marks</a>
+            <a href="flashcards.html">Flashcards</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- API Settings Modal -->
+        <div class="modal fade" id="apiSettingsModal" tabindex="-1" aria-labelledby="apiSettingsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="apiSettingsModalLabel">API Settings</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="geminiApiKey" class="form-label">Google Gemini API Key</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="geminiApiKey" placeholder="Enter Gemini API Key">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="toggleApiVisibility('geminiApiKey')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                                <small class="text-muted">Get your API key from <a href="https://makersuite.google.com/app/apikey" target="_blank">Google MakerSuite</a></small>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="wolframAlphaApiKey" class="form-label">Wolfram Alpha API Key (Optional)</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="wolframAlphaApiKey" placeholder="Enter Wolfram Alpha API Key">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="toggleApiVisibility('wolframAlphaApiKey')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                                <small class="text-muted">For mathematical problem analysis</small>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="tavilyApiKey" class="form-label">Tavily API Key (Optional)</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" id="tavilyApiKey" placeholder="Enter Tavily API Key">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="toggleApiVisibility('tavilyApiKey')">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
+                                <small class="text-muted">For enhanced search capabilities</small>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="geminiModel" class="form-label">Gemini Model</label>
+                                <select class="form-select" id="geminiModel">
+                                    <option value="gemini-2.0-flash">Gemini 2.0 Flash (Faster)</option>
+                                    <option value="gemini-2.0-pro">Gemini 2.0 Pro (More Capable)</option>
+                                    <option value="gemini-1.5-flash">Gemini 1.5 Flash</option>
+                                    <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+                                </select>
+                                <small class="text-muted">Select the model to use for analysis</small>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="geminiTemperature" class="form-label">Response Creativity: <span id="temperatureDisplay">Balanced (0.4)</span></label>
+                                <input type="range" class="form-range" min="0" max="1" step="0.1" value="0.4" id="geminiTemperature" oninput="updateTemperatureDisplay(this.value)">
+                                <div class="d-flex justify-content-between">
+                                    <small>Precise</small>
+                                    <small>Balanced</small>
+                                    <small>Creative</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="apiQuota" class="form-label">Daily API Quota Limit</label>
+                                <input type="number" class="form-control" id="apiQuota" min="1" max="1000" placeholder="Enter daily quota limit">
+                                <small class="text-muted">Set a limit to prevent excessive API usage</small>
+                            </div>
+                        </div>
+                        <div id="apiKeyStatus" class="alert" style="display: none;"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="saveApiKeys()">Save Settings</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-feedback-header">
+            <h1>Instant Test Feedback</h1>
+            <p class="lead">Upload your test or assignment to get instant AI-powered feedback and marking</p>
+            <button class="btn btn-outline-primary" onclick="openApiSettings()">
+                <i class="fas fa-cog"></i> API Settings
+            </button>
+        </div>
+
+        <!-- Test Content Input Section -->
+        <div class="test-content-section">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Upload Test Content</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Text Input Tab -->
+                        <div class="col-md-6">
+                            <div class="input-method-card">
+                                <div class="input-method-header">
+                                    <i class="fas fa-keyboard"></i>
+                                    <h3>Text Input</h3>
+                                </div>
+                                <div class="input-method-body">
+                                    <div class="form-group">
+                                        <label for="testTitle">Test Title</label>
+                                        <input type="text" id="testTitle" class="form-control" placeholder="Enter test or assignment title">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="testContent">Test Content</label>
+                                        <textarea id="testContent" class="form-control" rows="8" placeholder="Paste your test questions and answers here..."></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="answerKey">Answer Key (Optional)</label>
+                                        <textarea id="answerKey" class="form-control" rows="4" placeholder="Paste the answer key here if available..."></textarea>
+                                    </div>
+                                    <button id="analyzeTextBtn" class="btn btn-primary">
+                                        <i class="fas fa-check-circle"></i> Analyze Text
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image Upload Tab -->
+                        <div class="col-md-6">
+                            <div class="input-method-card">
+                                <div class="input-method-header">
+                                    <i class="fas fa-image"></i>
+                                    <h3>Image Upload</h3>
+                                </div>
+                                <div class="input-method-body">
+                                    <div class="form-group">
+                                        <label for="imageTitle">Test Title</label>
+                                        <input type="text" id="imageTitle" class="form-control" placeholder="Enter test or assignment title">
+                                    </div>
+                                    <div class="drop-zone" id="imageDropZone">
+                                        <div class="drop-zone-prompt">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                            <p>Drag & drop test images here</p>
+                                            <p class="small">or</p>
+                                            <button type="button" class="btn btn-outline-primary btn-sm">Browse Files</button>
+                                        </div>
+                                        <input type="file" id="imageUpload" accept="image/*" multiple class="drop-zone-input" hidden>
+                                    </div>
+                                    <div id="uploadedImages" class="uploaded-images"></div>
+                                    <button id="analyzeImagesBtn" class="btn btn-primary" disabled>
+                                        <i class="fas fa-check-circle"></i> Analyze Images
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analysis Options -->
+        <div class="analysis-options">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Analysis Options</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="subjectSelect">Subject</label>
+                                <select id="subjectSelect" class="form-control">
+                                    <option value="">Select a subject...</option>
+                                    <!-- Will be populated dynamically -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="testType">Test Type</label>
+                                <select id="testType" class="form-control">
+                                    <option value="quiz">Quiz</option>
+                                    <option value="assignment">Assignment</option>
+                                    <option value="exam">Exam</option>
+                                    <option value="practice">Practice Test</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="feedbackDetail">Feedback Detail</label>
+                                <select id="feedbackDetail" class="form-control">
+                                    <option value="basic">Basic</option>
+                                    <option value="detailed" selected>Detailed</option>
+                                    <option value="comprehensive">Comprehensive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section (Initially Hidden) -->
+        <div id="resultsSection" class="results-section" style="display: none;">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h2>Test Feedback Results</h2>
+                    <div class="results-actions">
+                        <button id="downloadPdfBtn" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-file-pdf"></i> Download PDF
+                        </button>
+                        <button id="copyResultsBtn" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-copy"></i> Copy Results
+                        </button>
+                        <button id="saveResultsBtn" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-save"></i> Save Results
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Summary Section -->
+                    <div class="results-summary">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="score-display">
+                                    <div class="score-circle">
+                                        <div class="score-value" id="scoreValue">0%</div>
+                                    </div>
+                                    <div class="score-label">Overall Score</div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="summary-stats">
+                                    <div class="stat-item">
+                                        <div class="stat-label">Correct Answers</div>
+                                        <div class="stat-value" id="correctCount">0</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-label">Incorrect Answers</div>
+                                        <div class="stat-value" id="incorrectCount">0</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-label">Partially Correct</div>
+                                        <div class="stat-value" id="partialCount">0</div>
+                                    </div>
+                                    <div class="stat-item">
+                                        <div class="stat-label">Total Questions</div>
+                                        <div class="stat-value" id="totalCount">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Feedback -->
+                    <div class="detailed-feedback">
+                        <h3>Detailed Feedback</h3>
+                        <div id="feedbackContent" class="feedback-content">
+                            <!-- Will be populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Improvement Suggestions -->
+                    <div class="improvement-suggestions">
+                        <h3>Improvement Suggestions</h3>
+                        <div id="improvementContent" class="improvement-content">
+                            <!-- Will be populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="loading-indicator" style="display: none;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="loading-text">Analyzing your test...</div>
+            <div class="loading-subtext">This may take a moment depending on the content size</div>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMessage" class="error-message alert alert-danger" style="display: none;">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="errorText">An error occurred during analysis.</span>
+        </div>
+    </div>
+
+    <!-- GPAce Branding -->
+    <div class="gpace-branding">
+        Made by GPAce - A&A 230101017
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { saveSubjectsToFirestore, loadSubjectsFromFirestore } from './js/firestore.js';
+        import { GoogleGenerativeAI } from 'https://esm.run/@google/generative-ai';
+
+        // Make available globally
+        window.loadSubjectsFromFirestore = loadSubjectsFromFirestore;
+        window.GoogleGenerativeAI = GoogleGenerativeAI;
+    </script>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+        import { auth as importedAuth, signInWithGoogle, signOutUser } from './js/auth.js';
+        import { loadSubjectsFromFirestore } from './js/firestore.js';
+        window.auth = window.auth || importedAuth;
+        window.signInWithGoogle = window.signInWithGoogle || signInWithGoogle;
+        window.signOutUser = signOutUser;
+        window.loadSubjectsFromFirestore = loadSubjectsFromFirestore;
+    </script>
+
+    <script src="js/api-settings.js"></script>
+    <script src="js/api-optimization.js"></script>
+    <script src="js/test-feedback.js"></script>
+    <script src="js/gemini-api.js"></script>
+    <script src="/js/inject-header.js"></script>
+</body>
+
+</html>

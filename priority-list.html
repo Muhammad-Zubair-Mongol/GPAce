@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Priority List</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Priority List Styles -->
+    <link href="css/priority-list.css" rel="stylesheet">
+    <!-- Data Initialization -->
+    <script type="module" src="js/initFirestoreData.js"></script>
+    <!-- Common Initialization -->
+    <script type="module" src="js/common.js"></script>
+    <script src="/js/inject-header.js"></script>
+    <!-- Priority Sync Fix -->
+    <script type="module" src="js/priority-sync-fix.js"></script>
+    <!-- Priority List Sorting -->
+    <script src="js/priority-list-sorting.js"></script>
+    <!-- Priority List Utils -->
+    <script type="module" src="js/priority-list-utils.js"></script>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-brand d-flex align-items-center">
+            <img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" style="height: 80px; margin-right: 0px;">
+            <a href="grind.html" style="text-decoration: none; color: inherit;">GPAce</a>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <div class="list-header">
+            <div class="priority-score">Priority</div>
+            <div class="task-title">Task</div>
+            <div class="task-section">Section</div>
+            <div class="project-name">Project</div>
+            <div class="due-date">Due Date</div>
+        </div>
+
+        <div class="task-navigation">
+            <button onclick="navigateTask('prev')" class="nav-arrow" title="Previous Task">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <span class="navigation-text">Navigate Tasks</span>
+            <button onclick="navigateTask('next')" class="nav-arrow" title="Next Task">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+
+        <div id="taskList">
+            <!-- Tasks will be populated here -->
+        </div>
+    </div>
+
+    <a href="priority-calculator.html" class="back-button">
+        <i class="bi bi-arrow-left"></i> Back to Calculator
+    </a>
+
+    <!-- All JavaScript has been moved to js/priority-list-utils.js -->
+</body>
+
+</html>

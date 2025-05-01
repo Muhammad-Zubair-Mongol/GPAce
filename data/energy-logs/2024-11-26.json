@@ -1,0 +1,72 @@
+[
+  {
+    "energyLevel": 7,
+    "timestamp": "2024-11-26T07:21:26.364Z",
+    "taskId": "6flfs4501"
+  },
+  {
+    "energyLevel": 3,
+    "timestamp": "2024-11-26T07:21:36.514Z",
+    "taskId": "6flfs4501"
+  },
+  {
+    "energyLevel": 3,
+    "timestamp": "2024-11-26T07:21:56.127Z",
+    "taskId": "6flfs4501"
+  },
+  {
+    "energyLevel": 5,
+    "timestamp": "2024-11-26T07:24:05.648Z",
+    "taskId": "6flfs4501"
+  },
+  {
+    "energyLevel": 5,
+    "timestamp": "2024-11-26T07:24:10.260Z",
+    "taskId": "6flfs4501"
+  },
+  {
+    "energyLevel": 5,
+    "timestamp": "2024-11-26T07:24:33.800Z",
+    "taskId": "6flfs4501"
+  },
+  {
+    "energyLevel": 3,
+    "timestamp": "2024-11-26T07:26:01.239Z",
+    "taskId": null
+  },
+  {
+    "energyLevel": 5,
+    "timestamp": "2024-11-26T07:26:08.785Z",
+    "taskId": null
+  },
+  {
+    "energyLevel": 5,
+    "timestamp": "2024-11-26T07:26:14.805Z",
+    "taskId": null
+  },
+  {
+    "energyLevel": 5,
+    "timestamp": "2024-11-26T07:26:59.068Z",
+    "taskId": null
+  },
+  {
+    "energyLevel": 5,
+    "timestamp": "2024-11-26T07:29:51.530Z",
+    "taskId": null
+  },
+  {
+    "energyLevel": 7,
+    "timestamp": "2024-11-26T07:29:54.976Z",
+    "taskId": null
+  },
+  {
+    "energyLevel": 3,
+    "timestamp": "2024-11-26T07:33:31.970Z",
+    "taskId": null
+  },
+  {
+    "energyLevel": 5,
+    "timestamp": "2024-11-26T07:35:22.441Z",
+    "taskId": null
+  }
+]

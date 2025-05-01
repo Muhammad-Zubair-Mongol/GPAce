@@ -1,0 +1,345 @@
+/* SECTION: Container Styles */
+.links-container {
+    margin-block-start: 0.75rem; /* Using logical properties */
+    border-radius: 0.5rem;
+    background: var(--card-bg);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+}
+
+.links-container.expanded {
+    max-height: 31.25rem;
+    padding: 0.9375rem;
+    border: 1px solid var(--border-color);
+    opacity: 1;
+}
+
+/* Enhance the add link button */
+.add-link-btn {
+    margin-block-end: 0.75rem; /* Using logical properties */
+    width: 100%;
+    padding: 0.625rem;
+    border: 2px dashed var(--border-color);
+    border-radius: 0.375rem;
+    background: transparent;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem; /* Using gap instead of margins */
+    font-size: clamp(0.85rem, 2vw, 0.95rem); /* Using clamp for responsive typography */
+}
+
+.add-link-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: color-mix(in srgb, var(--primary-color) 10%, transparent); /* Using color-mix */
+}
+
+.add-link-btn i {
+    font-size: 1.1rem;
+}
+
+/* SECTION: Links List Layout */
+.links-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.75rem; /* Using gap instead of margins */
+    max-height: 25rem;
+    overflow-y: auto;
+    padding-inline-end: 0.5rem; /* Using logical properties */
+}
+
+/* SECTION: Link Item Styles */
+.link-item {
+    display: flex;
+    align-items: center;
+    padding: 0.625rem;
+    background: var(--bg-secondary);
+    border-radius: 0.375rem;
+    gap: 0.625rem; /* Using gap instead of margins */
+    transition: transform 0.2s ease;
+}
+
+/* Link Type Indicators */
+.link-item.youtube { border-inline-start: 3px solid #ff0000; } /* Using logical properties */
+.link-item.document { border-inline-start: 3px solid #4285f4; }
+.link-item.article { border-inline-start: 3px solid #34a853; }
+.link-item.github { border-inline-start: 3px solid #6e5494; }
+.link-item.link { border-inline-start: 3px solid #808080; }
+
+/* SECTION: Link Content Styles */
+.link-icon {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    width: 1.5rem;
+    text-align: center;
+}
+
+.link-content {
+    flex: 1; /* Using flex: 1 instead of fixed width */
+    min-width: 0;
+    padding-inline-end: 0.5rem; /* Using logical properties */
+}
+
+.link-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.link-url {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.link-url a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.link-url a:hover {
+    text-decoration: underline;
+}
+
+/* SECTION: Link Actions */
+.link-actions {
+    display: flex;
+    gap: 0.25rem; /* Using gap instead of margins */
+}
+
+.link-actions button {
+    padding: 0.25rem;
+    font-size: 0.9rem;
+}
+
+/* SECTION: Add Link Button */
+.add-link-btn {
+    margin-block-end: 0.75rem; /* Using logical properties */
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px dashed var(--border-color);
+    border-radius: 0.375rem;
+    background: transparent;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+}
+
+.add-link-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: color-mix(in srgb, var(--primary-color) 10%, transparent); /* Using color-mix */
+}
+
+/* SECTION: Add Link Modal */
+.add-link-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    background: var(--card-bg);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    width: 90%;
+    max-width: 31.25rem; /* Using max-width instead of fixed width */
+    box-shadow: 0 0.75rem 2.5rem rgba(0, 0, 0, 0.25);
+    z-index: 1000;
+    border: 1px solid var(--border-color);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease-in-out;
+}
+
+.add-link-modal.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+.add-link-modal h3 {
+    margin-block-end: 1.25rem; /* Using logical properties */
+    color: var(--text-primary);
+    font-size: clamp(1.1rem, 3vw, 1.25rem); /* Using clamp for responsive typography */
+}
+
+.add-link-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Using gap instead of margins */
+    position: relative;
+    background: linear-gradient(135deg, var(--card-bg) 0%, var(--bg-secondary) 100%);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Using gap instead of margins */
+    position: relative;
+}
+
+.form-group label {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-block-end: 0.25rem; /* Using logical properties */
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    width: 100%;
+    transition: all 0.2s ease;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-color) 20%, transparent); /* Using color-mix */
+    outline: none;
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+    border-color: var(--text-secondary);
+    background: var(--hover-bg);
+}
+
+.form-group select {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    font-size: 1rem;
+    width: 100%;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8.825L1.175 4 2.238 2.938 6 6.7l3.763-3.763L10.825 4z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-inline-end: 2.25rem; /* Using logical properties */
+}
+
+.form-group select:hover {
+    border-color: var(--text-secondary);
+    background-color: var(--hover-bg);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color) 15%, transparent); /* Using color-mix */
+    background: var(--card-bg);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem; /* Using gap instead of margins */
+    margin-block-start: 1.5rem; /* Using logical properties */
+}
+
+.modal-actions button {
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+}
+
+.modal-actions button:hover {
+    transform: translateY(-1px); /* Using translate instead of negative margin */
+}
+
+.modal-actions button.primary {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 4px color-mix(in srgb, var(--primary-color) 20%, transparent); /* Using color-mix */
+}
+
+.modal-actions button.primary:hover {
+    background: color-mix(in srgb, var(--primary-color) 90%, white); /* Using color-mix */
+    box-shadow: 0 4px 8px color-mix(in srgb, var(--primary-color) 30%, transparent);
+}
+
+.modal-actions button.secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.modal-actions button.secondary:hover {
+    background: var(--hover-bg);
+    border-color: var(--text-secondary);
+}
+
+.modal-btn:hover {
+    transform: translateY(-1px); /* Using translate instead of negative margin */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-overlay {
+    position: fixed;
+    inset: 0; /* Using inset instead of top/right/bottom/left */
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+}
+
+/* Animation for modal */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -48%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.add-link-modal {
+    animation: modalFadeIn 0.3s ease forwards;
+}
+
+/* Parent-based styling using :has() */
+.links-list:has(.link-item:hover) {
+    background: color-mix(in srgb, var(--bg-secondary) 95%, var(--primary-color)); /* Using color-mix */
+}
+
+/* Responsive image container if needed */
+.link-image-container {
+    aspect-ratio: 16/9; /* Using aspect-ratio */
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0.375rem;
+}

@@ -1,0 +1,532 @@
+/* priority-list.css - Styles for the priority list page */
+
+:root {
+    --primary-color: #fe2c55;
+    --secondary-color: #25f4ee;
+    --background-color: #121212;
+    --text-color: #ffffff;
+    --card-bg: #1e1e1e;
+    --hover-bg: #2d2d2d;
+    --nav-bg: #1a1a1a;
+    --border-color: #333;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    min-height: 100vh;
+    padding-top: 60px;
+    padding-bottom: 80px;
+    /* Space for back button */
+}
+
+.top-nav {
+    background-color: var(--nav-bg);
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    height: 60px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.nav-brand {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.nav-links {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.nav-links a.active {
+    font-weight: bold;
+}
+
+.task-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.main-task {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.expand-btn {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s ease;
+}
+
+.expand-btn.expanded i {
+    transform: rotate(180deg);
+}
+
+.subtasks-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.subtasks-container.expanded {
+    max-height: 500px;
+    transition: max-height 0.5s ease-in;
+}
+
+.subtask-item {
+    padding: 10px 20px 10px 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.subtask-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.subtask-title {
+    flex: 1;
+    font-size: 0.9em;
+    color: var(--text-color);
+    opacity: 0.9;
+}
+
+.subtask-item.completed .subtask-title {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.loading-spinner {
+    padding: 20px;
+    text-align: center;
+}
+
+.priority-score {
+    min-width: 60px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.task-title {
+    flex: 2;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.task-section {
+    min-width: 100px;
+    color: var(--secondary-color);
+    text-align: right;
+}
+
+.project-name {
+    min-width: 150px;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: right;
+}
+
+.due-date {
+    min-width: 120px;
+    color: var(--text-color);
+    opacity: 0.8;
+    text-align: right;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.due-date i {
+    font-size: 1rem;
+    color: var(--secondary-color);
+}
+
+.due-date.overdue {
+    color: var(--primary-color);
+}
+
+.due-date.due-soon {
+    color: #ffc107;
+}
+
+.light-theme .project-name {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.list-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.back-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.light-theme {
+    --background-color: #f5f5f5;
+    --text-color: #333333;
+    --card-bg: #ffffff;
+    --hover-bg: #f0f0f0;
+    --nav-bg: #ffffff;
+    --border-color: #e0e0e0;
+}
+
+.light-theme .sorting-controls,
+.light-theme .sorting-controls select {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+.light-theme .task-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.light-theme .task-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.no-tasks {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+.subtask-error {
+    padding: 15px;
+    color: #dc3545;
+    text-align: center;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.subtask-error i {
+    font-size: 1.2em;
+}
+
+.profile-icon {
+    position: fixed;
+    top: -40px;
+    /* Start off-screen */
+    right: 20px;
+    z-index: 1001;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--card-bg);
+    padding: 8px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+}
+
+.profile-icon.visible {
+    top: 15px;
+}
+
+.profile-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.profile-icon i {
+    font-size: 18px;
+    color: var(--text-color);
+}
+
+/* Task action buttons styles */
+.task-actions {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.task-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+    color: var(--text-color);
+    transition: all 0.2s ease;
+    padding: 0;
+}
+
+.task-btn:hover {
+    background-color: var(--hover-bg);
+    transform: scale(1.1);
+}
+
+.task-btn i {
+    font-size: 16px;
+}
+
+.complete-btn:hover {
+    color: #28a745;
+}
+
+.skip-btn:hover {
+    color: #ffc107;
+}
+
+.interleave-btn:hover {
+    color: var(--primary-color);
+}
+
+.interleave-btn.interleaved {
+    color: var(--secondary-color);
+}
+
+.task-card.selected {
+    border-left: 3px solid var(--primary-color);
+    box-shadow: 0 0 10px rgba(254, 44, 85, 0.3);
+}
+
+/* Task navigation styles */
+.task-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.nav-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.nav-arrow:hover {
+    background-color: var(--hover-bg);
+    border-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.nav-arrow i {
+    font-size: 20px;
+}
+
+.navigation-text {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+/* Sorting Controls Styles */
+.sorting-controls {
+    background-color: var(--card-bg);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sorting-controls .form-select {
+    min-width: 150px;
+    max-width: 200px;
+}
+
+.sorting-controls select,
+.sorting-controls button {
+    height: 35px;
+    display: flex;
+    align-items: center;
+}
+
+.sorting-controls select {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+    padding: 0 30px 0 12px;
+}
+
+.sorting-controls select:focus {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(254, 44, 85, 0.25);
+}
+
+.sorting-controls button {
+    width: 35px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+.sorting-controls button:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    background-color: transparent;
+}
+
+.sorting-controls label {
+    color: var(--text-color);
+    opacity: 0.8;
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+/* Interleave group header styles */
+.interleave-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.interleave-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.group-count {
+    font-size: 0.8rem;
+    background-color: var(--card-bg);
+    padding: 3px 8px;
+    border-radius: 12px;
+}
+
+/* Notification styles */
+.navigation-notification,
+.completion-notification,
+.skip-notification {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 12px 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Sync button styles */
+.sync-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    background-color: #ff4081;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.sync-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sync-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}

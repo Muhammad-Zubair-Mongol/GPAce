@@ -1,0 +1,49 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Image → YouTube Search</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Search YouTube by Image or Label</h1>
+
+    <!-- API Key Inputs -->
+    <div class="api-keys">
+      <input id="youtubeApiKeyInput" placeholder="YouTube API key">
+      <input id="geminiApiKeyInput" placeholder="Gemini 2.5 Flash API key">
+    </div>
+
+    <!-- Manual Label Search -->
+    <div class="label-search">
+      <input id="labelInput" placeholder="Enter labels (comma separated)">
+      <button id="labelButton" class="primary-button">🔍 Search by Label</button>
+    </div>
+
+    <!-- Image Upload Search -->
+    <div class="image-search">
+      <input type="file" id="imgInput" accept="image/*">
+      <img id="imgPreview" alt="Preview" hidden>
+    </div>
+
+    <!-- Results Grid -->
+    <div id="videoResults" class="grid"></div>
+
+    <!-- Search History -->
+    <div id="searchHistory" class="history"></div>
+  </div>
+
+  <!-- TF.js & MobileNet -->
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/mobilenet"></script>
+
+  <!-- Sentiment.js (optional) -->
+  <script src="https://cdn.jsdelivr.net/npm/sentiment@5.0.2/build/sentiment.min.js"></script>
+
+  <!-- Your app logic -->
+  <script src="app.js"></script>
+</body>
+</html>

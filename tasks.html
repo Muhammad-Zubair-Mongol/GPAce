@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Academic Task Manager</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #fe2c55;
+            --secondary-color: #25f4ee;
+            --background-color: #121212;
+            --text-color: #ffffff;
+            --card-bg: #1e1e1e;
+            --hover-bg: #2d2d2d;
+            --nav-bg: #1a1a1a;
+            --border-color: #333;
+            --primary-color-transparent: rgba(254, 44, 85, 0.2);
+            --secondary-color-transparent: rgba(37, 244, 238, 0.2);
+        }
+
+        body.light-theme {
+            --background-color: #f8f9fa;
+            --text-color: #212529;
+            --card-bg: #ffffff;
+            --hover-bg: #e9ecef;
+            --nav-bg: #ffffff;
+            --border-color: #dee2e6;
+            --primary-color-transparent: rgba(254, 44, 85, 0.1);
+            --secondary-color-transparent: rgba(37, 244, 238, 0.1);
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            min-height: 100vh;
+            padding-top: 60px;
+        }
+
+        .top-nav {
+            background-color: var(--nav-bg);
+            padding: 10px 30px; /* Match extracted.html */
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            height: 60px; /* Match extracted.html */
+            backdrop-filter: blur(10px); /* Match extracted.html */
+        }
+
+        .nav-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: var(--hover-bg);
+        }
+
+        .nav-links a.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .main-header {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-section h1 {
+            color: var(--primary-color);
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: var(--secondary-color);
+            font-size: 20px;
+        }
+
+        .account-section {
+            margin-top: 20px;
+        }
+
+        .todoist-integration {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .todoist-login-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #todoistLogin, #todoistLogout {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        #todoistLogin:hover, #todoistLogout:hover {
+            background-color: var(--primary-color);
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #todoistLogin {
+            background-color: var(--primary-color);
+        }
+
+        #todoistLogout {
+            background-color: #dc3545;
+        }
+
+        .todoist-status {
+            color: var(--secondary-color);
+            font-size: 14px;
+            margin-left: 15px;
+        }
+
+        .login-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Using the global logout-btn styling from main.css */
+
+        .sound-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .sound-toggle {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sound-toggle:hover {
+            background-color: var(--hover-bg);
+        }
+
+        /* Theme toggle button */
+        .theme-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1001;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--hover-bg);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-icon {
+            font-size: 16px;
+        }
+
+        /* Light theme */
+        body.light-theme {
+            --background-color: #f5f5f5;
+            --text-color: #333333;
+            --card-bg: #ffffff;
+            --hover-bg: #f0f0f0;
+            --nav-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        /* Tasks specific styles */
+        .tasks-dashboard {
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        .tasks-filters {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar input,
+        .filter-select,
+        .date-input {
+            background-color: var(--hover-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            padding: 10px 15px;
+            border-radius: 5px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus,
+        .filter-select:focus,
+        .date-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px var(--primary-color-transparent);
+        }
+
+        .filter-btn {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn i {
+            font-size: 1.1em;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .tasks-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-item {
+            background-color: var(--hover-bg);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            animation: slideIn 0.3s ease-out forwards;
+        }
+
+        .task-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .task-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--primary-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background-color: var(--card-bg);
+        }
+
+        .task-checkbox.checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .task-checkbox.checked i {
+            color: white;
+            font-size: 1rem;
+        }
+
+        .task-checkbox.checking {
+            animation: pulse 0.3s ease;
+        }
+
+        .task-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .task-content.completed {
+            opacity: 0.6;
+        }
+
+        .task-content.completed .task-title {
+            text-decoration: line-through;
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .task-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-color);
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .priority-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .priority-4 { background-color: var(--primary-color); }
+        .priority-3 { background-color: var(--primary-color); opacity: 0.8; }
+        .priority-2 { background-color: var(--secondary-color); }
+        .priority-1 { background-color: var(--secondary-color); opacity: 0.8; }
+
+        .task-details {
+            font-size: 0.875rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .task-project {
+            font-size: 0.75rem;
+            color: var(--primary-color);
+            background: var(--primary-color-transparent);
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-top: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .task-placeholder {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-color);
+            opacity: 0.6;
+        }
+
+        .task-placeholder i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Task filters and task list styles */
+        .tasks-filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .tasks-filters select {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 5px;
+            flex-grow: 1;
+            transition: all 0.3s ease;
+        }
+
+        .tasks-filters select:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .tasks-filters select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px var(--primary-color-transparent);
+        }
+
+        #tasksList {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .task-item {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .task-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .task-item h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .task-item p {
+            margin: 5px 0;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+
+        #tasksList {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .task-item {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .task-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        .task-item h3 {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+
+        .task-item .task-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .task-item .task-detail {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 0.9em;
+        }
+
+        .task-item .task-detail i {
+            color: var(--secondary-color);
+            font-size: 1.2em;
+        }
+
+        .task-item .task-priority {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8em;
+        }
+
+        .task-item .task-priority.priority-1 {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .task-item .task-priority.priority-2 {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .task-item .task-priority.priority-3 {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .task-item .task-priority.priority-4 {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        /* Empty state styling */
+        #tasksList.empty {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+            text-align: center;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            margin: 20px;
+        }
+
+        #tasksList.empty::before {
+            content: '🌱';
+            font-size: 4em;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        #tasksList.empty p {
+            color: var(--text-color);
+            opacity: 0.7;
+            font-size: 1.2em;
+        }
+
+        .task-completion-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .task-completion-checkbox {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .task-completion-checkbox i {
+            position: absolute;
+            transition: all 0.3s ease;
+        }
+
+        .task-completion-checkbox .bi-circle {
+            color: var(--text-color);
+            opacity: 0.5;
+        }
+
+        .task-completion-checkbox .bi-check-circle-fill {
+            color: var(--primary-color);
+            opacity: 0;
+            transform: scale(0.7);
+        }
+
+        .task-completion-checkbox.completed .bi-circle {
+            opacity: 0.3;
+            transform: scale(0.9);
+        }
+
+        .task-completion-checkbox.completed .bi-check-circle-fill {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .task-completion-checkbox.completed + h3 {
+            text-decoration: line-through;
+            color: var(--text-color);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-brand d-flex align-items-center">
+            <img
+                src="assets/images/gpace-logo-white.png"
+                alt="GPAce Logo"
+                style="height: 60px; margin-right: 0px;"
+            >
+            <a href="grind.html" style="text-decoration: none; color: inherit;">GPAce</a>
+        </div>
+        <div class="nav-links">
+            <a href="grind.html">Grind Mode</a>
+            <a href="study-spaces.html">Grind Station</a>
+            <a href="daily-calendar.html">Daily Drip</a>
+            <a href="academic-details.html">Brain Juice</a>
+            <a href="extracted.html">Hustle Hub</a>
+            <a href="subject-marks.html">Subject Marks</a>
+            <a href="flashcards.html">Flashcards</a>
+        </div>
+    </nav>
+
+    <!-- Sound Controls -->
+    <div class="sound-controls">
+        <button id="toggleSound" class="sound-toggle" aria-label="Toggle Sound">
+            <span class="sound-icon">🔊</span>
+        </button>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="container">
+        <header class="main-header fade-in">
+            <div class="logo-section">
+                <h1>GPAce</h1>
+                <p class="tagline">Academic Task Manager</p>
+            </div>
+            <div class="account-section">
+                <div id="userInfo"></div>
+                <div id="accountInfo"></div>
+                <div class="todoist-integration">
+                    <div class="todoist-login-section">
+                        <button id="todoistLogin" class="login-btn">Connect with Todoist</button>
+                        <button id="todoistLogout" class="logout-btn" style="display: none;">Logout</button>
+                    </div>
+                    <div class="todoist-status">
+                        <!-- Todoist status will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="container tasks-dashboard">
+            <div class="tasks-filters">
+                <select id="projectFilter">
+                    <option value="">All Projects</option>
+                </select>
+                <select id="sectionFilter">
+                    <option value="">All Sections</option>
+                </select>
+                <select id="sortFilter">
+                    <option value="dateAddedDesc">Recently Added</option>
+                    <option value="dateAddedAsc">Oldest First</option>
+                    <option value="priorityDesc">Highest Priority</option>
+                    <option value="priorityAsc">Lowest Priority</option>
+                    <option value="dueDateAsc">Earliest Due Date</option>
+                    <option value="dueDateDesc">Latest Due Date</option>
+                </select>
+            </div>
+            <div id="tasksList" class="tasks-list">
+                <!-- Tasks will be dynamically populated here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/todoistIntegration.js"></script>
+    <script src="js/sideDrawer.js"></script>
+    <script src="js/tasksManager.js"></script>
+    <script src="js/taskFilters.js"></script>
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        // Initialize Firebase with config
+        const app = initializeApp({
+            apiKey: "AIzaSyCdxGGpfoWD_M_6BwWFqWZ-6MAOKTUjIrI",
+            authDomain: "mzm-gpace.firebaseapp.com",
+            projectId: "mzm-gpace",
+            storageBucket: "mzm-gpace.firebasestorage.app",
+            messagingSenderId: "949014366726",
+            appId: "1:949014366726:web:3aa05a6e133e2066c45187"
+        });
+
+        // Set up auth
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
+
+        // Make available globally
+        window.auth = auth;
+        window.signInWithGoogle = () => signInWithPopup(auth, provider);
+    </script>
+    <script>
+        // Sound toggle functionality
+        const toggleSoundBtn = document.getElementById('toggleSound');
+        const soundIcon = document.querySelector('.sound-icon');
+        let isSoundEnabled = true;
+
+        toggleSoundBtn.addEventListener('click', () => {
+            isSoundEnabled = !isSoundEnabled;
+            soundIcon.textContent = isSoundEnabled ? '🔊' : '🔈';
+            // Additional sound toggle logic here
+        });
+
+        // Task management functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize task filters
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    // Additional filter logic here
+                });
+            });
+
+            // Initialize task search
+            const searchInput = document.getElementById('taskSearch');
+            searchInput.addEventListener('input', function() {
+                // Search functionality here
+            });
+        });
+    </script>
+<script src="/js/inject-header.js"></script>
+    </body>
+</html>

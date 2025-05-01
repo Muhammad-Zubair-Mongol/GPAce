@@ -1,0 +1,4578 @@
+/* ==========================================================================
+   1. Global Styles & Variables
+   ========================================================================== */
+
+/**
+ * Root variables for theming and base font size.
+ * Defines colors for dark theme (default) and base font size for rem calculations.
+ */
+ :root {
+  --primary-color: #fe2c55; /* Main brand color */
+  --secondary-color: #25f4ee; /* Accent color */
+  --background-color: #121212; /* Default background (dark) */
+  --text-color: #ffffff; /* Default text color (dark theme) */
+  --card-bg: #1e1e1e; /* Background for card elements */
+  --hover-bg: #2d2d2d; /* Background for hover states */
+  --nav-bg: #1a1a1a; /* Background for navigation */
+  --border-color: #333; /* Border color for elements */
+  --text-muted: #6c757d; /* Muted text color (e.g., completed tasks) */
+  --primary-hover-color: color-mix(in srgb, var(--primary-color) 90%, black); /* Example hover derivation */
+  --hover-bg-dark: color-mix(in srgb, var(--hover-bg) 90%, black); /* Darker hover bg */
+  --text-secondary: var(--text-color); /* Secondary text (can be same as primary or different) */
+  --progress: 0%; /* Initial progress for progress bars */
+
+  /* Base font size assumed 16px for rem calculations */
+  font-size: 16px;
+
+  --space-xs: 0.25rem;  /* 4px */
+  --space-sm: 0.5rem;   /* 8px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+  --space-xxl: 4rem;    /* 64px */
+
+  --border-radius-sm: 0.25rem; /* 4px */
+  --border-radius-md: 0.5rem;  /* 8px */
+  --border-radius-lg: 0.75rem; /* 12px */
+  --border-radius-xl: 1.25rem; /* 20px */
+  --border-radius-pill: 50rem; /* For pill shapes */
+  --border-radius-circle: 50%; /* For circles */
+  --content-block-max-width: 100rem;
+  --footer-ai-bar-height: 65px;
+  --button-spacing: 9rem; /* Space between fixed buttons */
+  --button-top-position: 5rem; /* Standard top position for buttons */
+  --button-top-position-mobile: 4rem; /* Top position for buttons on mobile */
+  --button-right-position: -100%rem; /* Standard right position for buttons */
+  --button-right-position-secondary: -100%rem; /* Secondary right position for buttons */
+}
+
+/**
+ * Base body styles.
+ * Sets default background, text color, and base font size.
+ * Includes transition for smooth theme changes.
+ * Adds padding to prevent content overlap with fixed elements.
+ */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  /* Adjusted padding to match new nav height */
+  padding-block-start: 60px; /* Match extracted.html */
+  padding-block-end: 25rem;
+  min-height: 100vh; /* Ensure body takes at least full viewport height */
+  margin: 0; /* Remove default body margin */
+  font-size: 1rem; /* Set base font size for the document */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Modern font stack */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth theme transitions */
+}
+
+/**
+ * General container for centering content.
+ * Uses max-width and auto margins for centering.
+ * Applies padding and transitions for workspace panel interaction.
+ */
+.container {
+  max-width: 75rem; /* 1200px */
+  margin-inline: auto; /* Center horizontally using logical properties */
+  padding-block: 0rem; /* Vertical padding */
+  padding-inline: 1.25rem; /* Horizontal padding */
+  position: relative; /* Needed for absolute positioning of children or pseudo-elements */
+  transition: all 0.3s ease; /* Smooth transition for width/margin changes (workspace) */
+  min-height: calc(100vh - 5rem); /* Ensure container fills height minus fixed nav */
+  flex-direction: column;
+  gap: 1.25rem; /* Spacing between direct children */
+  box-sizing: border-box; /* Include padding and border in element's total width/height */
+  width: 100%; /* Start with full width, max-width will constrain */
+}
+
+/* ==========================================================================
+   2. Theme Styles (Light Theme Override)
+   ========================================================================== */
+
+/**
+ * Overrides root variables when the light theme is active.
+ */
+body.light-theme {
+  --background-color: #f8f9fa;
+  --text-color: #212529;
+  --card-bg: #ffffff;
+  --hover-bg: #e9ecef;
+  --nav-bg: #ffffff;
+  --border-color: #dee2e6;
+  --text-muted: #6c757d;
+  --primary-hover-color: color-mix(in srgb, var(--primary-color) 90%, white);
+  --hover-bg-dark: color-mix(in srgb, var(--hover-bg) 90%, black);
+  --text-secondary: #495057;
+}
+
+/**
+ * Theme toggle button styles.
+ * Fixed position for easy access.
+ */
+.theme-toggle {
+  position: fixed;
+  inset-block-start: 5rem; /* Position below nav */
+  inset-inline-end: var(--button-right-position-secondary); /* Position on the right, but offset from edge */
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 0.625rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between icon and text */
+  z-index: 1000; /* Ensure it's above most content */
+  transition: background-color 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background: rgba(128, 128, 128, 0.1); /* Subtle background on hover */
+}
+
+.theme-text {
+  font-size: 0.875rem; /* 14px */
+}
+
+
+/* ==========================================================================
+   3. Navigation (Top Bar & Profile)
+   ========================================================================== */
+
+/**
+ * Top navigation bar styles.
+ * Fixed position at the top.
+ */
+.top-nav {
+  background-color: var(--nav-bg);
+  padding: 10px 30px; /* Match extracted.html */
+  position: fixed;
+  inset-block-start: 0; /* Stick to top */
+  inset-inline: 0; /* Stretch across width */
+  z-index: 1000; /* Ensure it's above most content */
+  display: flex;
+  justify-content: space-between; /* Space out brand/links and actions */
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Match extracted.html */
+  height: 60px; /* Match extracted.html */
+  backdrop-filter: blur(10px); /* Match extracted.html */
+}
+
+/**
+ * Left section of the navbar (menu toggle, brand).
+ */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Space between items */
+}
+
+/**
+ * Brand/logo in the navigation.
+ */
+.nav-brand {
+  font-size: 1.5rem; /* 24px */
+  font-weight: bold;
+  color: var(--primary-color);
+  text-decoration: none; /* Remove underline if it's a link */
+}
+
+/**
+ * Container for navigation links.
+ */
+.nav-links {
+  display: flex;
+  gap: 20px; /* Match extracted.html */
+}
+
+/**
+ * Individual navigation links.
+ */
+.nav-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 5px 10px; /* Match extracted.html */
+  border-radius: 5px; /* Match extracted.html */
+  transition: background-color 0.3s;
+  font-size: 16px; /* Match extracted.html */
+}
+
+.nav-links a:hover {
+  background-color: var(--hover-bg);
+}
+
+.nav-links a.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/**
+ * Hamburger menu toggle button (for potential mobile view).
+ */
+.menu-toggle {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.5rem; /* Icon size */
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  border-radius: 0.5rem; /* 8px */
+}
+
+.menu-toggle:hover {
+  background: var(--hover-bg);
+  transform: scale(1.1);
+}
+
+.menu-toggle:active {
+  transform: scale(0.95);
+}
+
+/**
+ * Authentication button (Login/Signup or User Profile).
+ */
+.auth-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between icon/avatar and text */
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem; /* 8px */
+  background: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+  transform: translateY(-0.125rem); /* -2px slight lift */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); /* 4px 8px shadow */
+}
+
+.user-avatar {
+  width: 1.5rem; /* 24px */
+  aspect-ratio: 1 / 1; /* Maintain square shape */
+  border-radius: 50%; /* Circular avatar */
+  object-fit: cover; /* Ensure image covers space */
+  margin-right: 0.5rem; /* 8px spacing */
+}
+
+.user-name {
+  max-width: 9.375rem; /* 150px limit before ellipsis */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Prevent wrapping */
+  margin-right: 0.5rem; /* 8px spacing */
+}
+
+/**
+ * Sign Out Button styling
+ */
+.logout-btn {
+  padding: 0.375rem 0.75rem; /* 6px 12px */
+  border-radius: 0.25rem; /* 4px */
+  background: rgba(255, 255, 255, 0.15); /* Slightly transparent white */
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(5px); /* Glass effect */
+  -webkit-backdrop-filter: blur(5px); /* For Safari */
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * User profile dropdown/popup (initially hidden).
+ */
+.user-profile {
+  position: absolute;
+  inset-block-start: 4.375rem; /* Position below nav */
+  inset-inline-end: 1.25rem; /* Align with right side */
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1); /* 4px 12px shadow */
+  z-index: 1000; /* Above nav content */
+  display: none; /* Hidden by default, shown via JS */
+}
+
+/**
+ * Profile icon (alternative trigger for user profile).
+ * Appears when scrolling down (controlled by JS).
+ */
+.profile-icon {
+  position: fixed;
+  /* Start off-screen using transform for smoother animation */
+  transform: translateY(-150%);
+  inset-block-start: 0.9375rem; /* Target visible position (15px from top) */
+  inset-inline-end: 1.25rem; /* 20px from right */
+  z-index: 1001; /* Above navigation bar */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--card-bg);
+  padding: 0.5rem; /* 8px */
+  border-radius: 50%;
+  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.2); /* 2px 5px shadow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1875rem; /* 35px */
+  height: 2.1875rem; /* 35px */
+}
+
+/* Class added by JS to show the icon */
+.profile-icon.visible {
+  transform: translateY(0); /* Slide into view */
+}
+
+.profile-icon:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
+  box-shadow: 0 0.1875rem 0.5rem rgba(0, 0, 0, 0.3); /* 3px 8px shadow */
+}
+
+.profile-icon i {
+  font-size: 1.125rem; /* 18px */
+  color: var(--text-color);
+}
+
+
+/* ==========================================================================
+   4. Task Management
+   ========================================================================== */
+
+/**
+ * General layout for task sections.
+ */
+.task-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 1.25rem; /* 20px gap */
+  margin-block-start: 1.25rem; /* 20px margin top */
+}
+
+/**
+ * Header displaying the current task focus.
+ */
+.current-task-header {
+  text-align: center;
+  padding: 0.9375rem; /* 15px */
+  background: var(--card-bg);
+  border-radius: 0.75rem; /* 12px */
+  margin-block-end: 0.75rem; /* 12px margin bottom */
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); /* 4px 6px */
+  transition: transform 0.3s ease;
+  width: 100%; /* Allow shrinking in flex/grid */
+  max-width: var(--content-block-max-width); /* Prevent overflow */
+  box-sizing: border-box; /* Include padding in width */
+  margin-inline: auto;
+}
+
+/**
+ * Container for the priority task display.
+ */
+ .priority-task-box {
+  background-color: var(--card-bg);
+  border-radius: var(--radius-lg); /* Use variable */
+  padding: var(--space-lg);        /* Use variable */
+  margin-block: var(--space-lg);   /* Use variable */
+  margin-inline: auto; /* Ensures centering */
+  max-width: var(--content-block-max-width); /* APPLY CONSISTENT MAX-WIDTH */
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);             /* Use variable */
+  position: relative;
+  z-index: 10;
+  min-height: 9.375rem;
+  width: 100%; /* Allow shrinking */
+  box-sizing: border-box;
+}
+
+/**
+ * Inner content area of the priority task box.
+ */
+.priority-task-content {
+  display: flex;
+  align-items: center; /* Vertically align items */
+  justify-content: space-between; /* Space out info and actions */
+  margin-block-end: 0.625rem; /* 10px margin bottom */
+  position: relative; /* Stacking context */
+  z-index: 11; /* Above parent's base */
+  min-height: 5rem; /* 80px */
+}
+
+.task-info {
+  flex-grow: 1; /* Take available space */
+  margin-inline-end: 0.9375rem; /* 15px margin right */
+  min-height: 3.125rem; /* 50px */
+}
+
+.task-title {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  margin-block-end: 0.3125rem; /* 5px margin bottom */
+}
+
+.task-details {
+  font-size: 0.9rem;
+  color: var(--secondary-color); /* Use accent color for details */
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.625rem; /* 10px space between buttons */
+}
+
+/**
+ * General styling for action buttons within a task context.
+ */
+.task-btn {
+  padding-block: 0.5rem; /* 8px vertical padding */
+  padding-inline: 0.9375rem; /* 15px horizontal padding */
+  border: none;
+  border-radius: 1.25rem; /* 20px pill shape */
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.task-btn:hover {
+  transform: translateY(-0.125rem); /* -2px slight lift */
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.2); /* 2px 8px shadow */
+}
+
+.complete-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.interleave-btn {
+  background-color: var(--secondary-color);
+  color: black; /* Ensure contrast with secondary color */
+  position: relative; /* For pseudo-element positioning */
+}
+
+/* Indicator dot for interleaved task */
+.interleave-btn.interleaved::after {
+  content: '';
+  position: absolute;
+  inset-block-start: -0.3125rem; /* -5px position top */
+  inset-inline-end: -0.3125rem; /* -5px position right */
+  width: 0.625rem; /* 10px */
+  height: 0.625rem; /* 10px */
+  background-color: var(--primary-color);
+  border-radius: 50%;
+}
+
+/* Timestamp tooltip for interleaved task */
+.interleave-timestamp {
+  position: absolute;
+  inset-block-end: -1.5625rem; /* Position below button */
+  inset-inline-start: 50%; /* Center horizontally */
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: var(--text-color);
+  opacity: 0.7;
+  white-space: nowrap; /* Prevent wrapping */
+  background-color: var(--card-bg);
+  padding-block: 0.125rem; /* 2px */
+  padding-inline: 0.375rem; /* 6px */
+  border-radius: 0.625rem; /* 10px */
+  display: none; /* Hidden by default */
+  z-index: 15; /* Ensure visibility above other elements */
+}
+
+/* Show timestamp on hover or when interleaved */
+.interleave-btn.interleaved .interleave-timestamp,
+.interleave-btn:hover .interleave-timestamp {
+  display: block;
+}
+
+.skip-btn {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+/**
+ * Container for priority task navigation arrows.
+ * Positioned absolutely within the priority task box.
+ */
+.task-navigation {
+  position: absolute;
+  inset-block-start: 50%; /* Vertically center */
+  inset-inline: 0; /* Span width */
+  /* Adjust vertical position slightly above true center */
+  transform: translateY(-120%); /* Experiment with this value */
+  display: flex;
+  justify-content: space-between; /* Place arrows at ends */
+  padding-inline: 0.625rem; /* Padding from edges */
+  pointer-events: none; /* Allow clicks through container */
+  z-index: 12; /* Above task content, below tooltip */
+  max-height: 2.5rem; /* Limit height */
+}
+
+/**
+ * Individual navigation arrow buttons (Prev/Next Task).
+ */
+.nav-arrow {
+  width: 2.5rem; /* 40px */
+  height: 2.5rem; /* 40px */
+  border-radius: 50%;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  pointer-events: auto; /* Enable clicks on arrows */
+  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* 2px 5px */
+  z-index: 20; /* Ensure they are clickable */
+}
+
+.nav-arrow:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+.nav-arrow i {
+  font-size: 1.2rem;
+}
+
+/**
+ * Task card styling (alternative display or list item).
+ */
+.task-card {
+  background: var(--card-bg);
+  border-radius: 0.75rem; /* 12px */
+  padding: 1.25rem; /* 20px */
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); /* 4px 6px */
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem; /* 20px */
+}
+
+/**
+ * Container for subtasks (expandable).
+ */
+.subtasks-container {
+  display: none; /* Hidden by default */
+  width: 100%;
+  margin-block-start: 0.625rem; /* 10px top margin */
+  background-color: var(--card-bg);
+  border-radius: 0.625rem; /* 10px */
+  padding: 0.9375rem; /* 15px */
+  box-shadow: 0 0.125rem 0.3125rem rgba(0, 0, 0, 0.1); /* 2px 5px */
+}
+
+.subtasks-container.expanded {
+  display: block; /* Show when expanded */
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  margin-block-end: 0.625rem; /* 10px bottom margin */
+}
+
+.subtask-checkbox {
+  margin-inline-end: 0.625rem; /* 10px right margin */
+  accent-color: var(--primary-color); /* Style the checkbox color */
+}
+
+/* Style completed subtasks */
+.subtask-item.completed .subtask-title {
+  text-decoration: line-through;
+  color: var(--text-muted, #6c757d); /* Use muted color */
+}
+
+/**
+ * Add Task floating action button (FAB).
+ */
+ .add-task-button {
+  position: fixed;
+  /* Position relative to top using CSS variable */
+  top: var(--button-top-position);
+  inset-inline-end: 1.25rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 25%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Add hover effect - move up */
+.add-task-button:hover {
+  transform: translateY(-0.3125rem); /* Move up by 5px */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3); /* Larger shadow when lifted */
+}
+
+/* Add active effect - move down */
+.add-task-button:active {
+  transform: translateY(0.1875rem); /* Move down by 3px */
+  box-shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.2); /* Smaller shadow when pressed */
+}
+
+/**
+ * Animation for task completion.
+ */
+@keyframes taskComplete {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%); /* Slide out to the right */
+    opacity: 0;
+  }
+}
+
+.task-completing {
+  animation: taskComplete 0.5s ease-out forwards;
+}
+
+
+/* ==========================================================================
+   5. Pomodoro Timer
+   ========================================================================== */
+
+/**
+ * Main container for the Pomodoro timer widget.
+ */
+.pomodoro-container {
+  background: var(--card-bg);
+  padding: 1.875rem; /* 30px */
+  border-radius: 1.25rem; /* 20px */
+  text-align: center;
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1); /* 8px 32px */
+  /* Note: Some timer elements are redefined below with updated styles */
+  flex: 1; /* Make it take equal space as stats container */
+  min-height: 400px; /* Ensure minimum height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/**
+ * Header section within the timer (optional, e.g., for session info).
+ */
+.timer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-block-end: 1.25rem; /* 20px */
+}
+
+/**
+ * Grouping for timer mode buttons (Pomodoro, Short Break, Long Break).
+ * Used in the older layout structure.
+ */
+.timer-controls-group {
+  display: flex;
+  gap: 0.625rem; /* 10px */
+  margin-block-end: 0.9375rem; /* 15px */
+  align-items: center;
+}
+
+/**
+ * Buttons for selecting timer mode (Work/Break) - Older Style.
+ */
+.timer-mode-btn,
+.break-mode-btn {
+  padding-block: 0.5rem; /* 8px */
+  padding-inline: 1rem; /* 16px */
+  border: 2px solid var(--primary-color);
+  border-radius: 0.5rem; /* 8px */
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  background: var(--card-bg);
+  color: var(--text-color);
+}
+
+.timer-mode-btn.active,
+.break-mode-btn.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+.timer-mode-btn:hover,
+.break-mode-btn:hover {
+  transform: translateY(-0.125rem); /* -2px */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px 8px */
+}
+
+/**
+ * Container for break control buttons (Start Break, Skip Break) - Older Style.
+ */
+.break-controls {
+  display: flex;
+  gap: 0.625rem; /* 10px */
+  margin-block-start: 0.9375rem; /* 15px */
+  justify-content: center;
+}
+
+/**
+ * Buttons specific to break actions - Older Style.
+ */
+.break-btn {
+  padding-block: 0.5rem; /* 8px */
+  padding-inline: 1rem; /* 16px */
+  border: none;
+  border-radius: 0.5rem; /* 8px */
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem; /* 5px */
+  background: var(--hover-bg);
+  color: var(--text-color);
+}
+
+.break-btn:hover {
+  transform: translateY(-0.125rem); /* -2px */
+  background: var(--primary-color);
+  color: white;
+}
+
+/**
+ * Container for timer mode selection buttons (updated style).
+ */
+.timer-mode-selector {
+  display: flex;
+  gap: 1rem; /* Space between mode buttons */
+  margin-block-end: 2rem; /* Margin below selector */
+  justify-content: center;
+  align-items: center;
+}
+
+/**
+ * Modern version of the timer mode selector
+ */
+.timer-mode-selector.modern {
+  gap: 1.25rem; /* Slightly more space */
+  margin-block-end: 1.5rem; /* Less margin */
+  padding: 0.5rem;
+  background: rgba(30, 30, 30, 0.5); /* Semi-transparent background */
+  border-radius: 1rem;
+  backdrop-filter: blur(5px); /* Glass effect */
+  -webkit-backdrop-filter: blur(5px); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
+  max-width: 30rem; /* Limit width */
+  margin-inline: auto; /* Center */
+}
+
+/**
+ * Individual timer mode button (Pomodoro, Short, Long) - Updated Style.
+ */
+.timer-mode-btn { /* Re-definition/Update from earlier style */
+  background: var(--hover-bg);
+  border: none;
+  padding: 0.75rem 1.5rem; /* Larger padding */
+  border-radius: 0.75rem; /* 12px */
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between icon and text */
+  font-size: 0.9rem; /* Consistent font size */
+}
+
+/**
+ * Modern version of the timer mode button
+ */
+.timer-mode-btn.modern {
+  background: rgba(40, 40, 40, 0.6); /* Darker, semi-transparent background */
+  padding: 0.625rem 1.25rem; /* Slightly smaller padding */
+  border-radius: 0.5rem; /* 8px - smaller radius */
+  color: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
+  font-size: 0.875rem; /* 14px */
+  font-weight: 500;
+}
+
+/* Active state remains the same */
+.timer-mode-btn.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* Modern active state */
+.timer-mode-btn.modern.active {
+  background: linear-gradient(135deg, var(--primary-color), rgba(255, 45, 85, 0.8));
+  box-shadow: 0 0.25rem 0.5rem rgba(255, 45, 85, 0.3); /* Colored shadow */
+  border: none;
+}
+
+/* Hover state remains the same */
+.timer-mode-btn:hover:not(.active) {
+  transform: translateY(-0.125rem); /* -2px */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px 8px */
+}
+
+/* Modern hover state */
+.timer-mode-btn.modern:hover:not(.active) {
+  background: rgba(50, 50, 50, 0.7); /* Slightly lighter on hover */
+  color: white;
+  transform: translateY(-0.125rem); /* -2px */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+}
+
+
+/**
+ * Input field for setting custom timer durations.
+ */
+.custom-time-input {
+  display: flex;
+  align-items: center;
+  gap: 0.3125rem; /* 5px */
+  background: var(--card-bg); /* Changed from transparent */
+  border: 1px solid var(--border-color); /* Use border instead of primary color */
+  border-radius: 0.5rem; /* 8px */
+  padding-block: 0.25rem; /* 4px */
+  padding-inline: 0.5rem; /* 8px */
+  color: var(--text-color);
+  transition: border-color 0.3s ease;
+}
+
+/**
+ * Modern version of the custom time input
+ */
+.custom-time-input.modern {
+  background: rgba(40, 40, 40, 0.6); /* Darker, semi-transparent background */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  border-radius: 0.5rem; /* 8px */
+  padding: 0.375rem 0.75rem; /* 6px 12px */
+  color: white;
+}
+
+.custom-time-input:focus-within {
+  border-color: var(--primary-color); /* Highlight border on focus */
+}
+
+.custom-time-input.modern:focus-within {
+  border-color: rgba(255, 45, 85, 0.5); /* Highlight border on focus with transparency */
+  box-shadow: 0 0 0.5rem rgba(255, 45, 85, 0.3); /* Subtle glow */
+}
+
+.custom-time-input input {
+  width: 3.75rem; /* 60px */ /* Updated width */
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-size: 1rem; /* Updated size */
+  text-align: center;
+  padding: 0.25rem; /* 4px */
+  appearance: textfield; /* Remove spinners */
+  -moz-appearance: textfield; /* Remove spinners in Firefox */
+  outline: none; /* Remove default focus outline */
+}
+
+.custom-time-input.modern input {
+  color: white;
+  font-family: 'Roboto Mono', monospace; /* Monospaced font for consistent spacing */
+}
+
+/* Remove spinners in WebKit browsers */
+.custom-time-input input::-webkit-outer-spin-button,
+.custom-time-input input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.custom-time-input span {
+  font-size: 0.9rem;
+  white-space: nowrap; /* Prevent "min" from wrapping */
+}
+
+.custom-time-input.modern span {
+  color: rgba(255, 255, 255, 0.7); /* Slightly transparent white */
+  font-size: 0.875rem; /* 14px */
+}
+
+/**
+ * Button to confirm custom time input (if needed).
+ */
+.custom-time-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 0.25rem; /* 4px */
+  padding-block: 0.25rem; /* 4px */
+  padding-inline: 0.5rem; /* 8px */
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.custom-time-btn:hover {
+  transform: translateY(-0.0625rem); /* -1px */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); /* 2px 4px */
+}
+
+
+/**
+ * Container for the main timer display (circle/progress).
+ */
+.timer-display-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-block: 2rem; /* Vertical margin */
+  margin-inline: 0;
+  width: 100%;
+}
+
+/**
+ * Modern version of the timer display container
+ */
+.timer-display-container.modern {
+  margin-block: 1.5rem;
+}
+
+/**
+ * Circular background/container for the timer display.
+ */
+.timer-circle {
+  position: relative; /* For absolute positioning of progress */
+  width: 100%;
+  height: 10rem; /* 160px */
+  border-radius: 1.5rem; /* 24px */
+  background: var(--hover-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  max-width: 50rem; /* 800px limit */
+  margin-inline: auto; /* Center */
+  overflow: hidden; /* Clip the progress bar */
+}
+
+.timer-circle:hover {
+  transform: scale(1.01); /* Slight zoom on hover */
+}
+
+/**
+ * Modern version of the timer circle
+ */
+.timer-circle.modern {
+  height: 12rem; /* 192px - slightly taller */
+  border-radius: 1rem; /* 16px */
+  background: rgba(30, 30, 30, 0.7); /* Darker, semi-transparent background */
+  backdrop-filter: blur(10px); /* Glass effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); /* Stronger shadow */
+  max-width: 40rem; /* 640px - slightly narrower */
+}
+
+.timer-circle.modern:hover {
+  transform: scale(1.02); /* Slightly more zoom on hover */
+  box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.25); /* Enhanced shadow on hover */
+}
+
+/**
+ * Progress bar overlay within the timer circle.
+ * Uses a CSS variable `--progress` for width, animated via JS/CSS.
+ */
+.timer-progress {
+  position: absolute;
+  inset: 0; /* Cover the entire circle */
+  border-radius: 1.5rem; /* 24px */
+  background: linear-gradient(90deg,
+      var(--primary-color) var(--progress, 0%),
+      transparent var(--progress, 0%));
+  /* --progress is set by JS, defaults to 0% */
+  transition: --progress 1s linear; /* Animate the custom property */
+  filter: drop-shadow(0 0 0.625rem var(--primary-color)); /* 10px glow */
+  opacity: 0.9; /* Slight transparency */
+}
+
+/**
+ * Modern version of the timer progress
+ */
+.timer-progress.modern {
+  border-radius: 1rem; /* Match modern timer circle */
+  background: linear-gradient(90deg,
+      rgba(255, 45, 85, 0.8) var(--progress, 0%),
+      rgba(40, 40, 40, 0.3) var(--progress, 0%));
+  filter: drop-shadow(0 0 1rem rgba(255, 45, 85, 0.6)); /* Enhanced glow */
+  opacity: 0.95;
+}
+
+/**
+ * Container for the time text and label inside the circle.
+ */
+.timer-text {
+  position: relative; /* Ensure it's above the progress bar */
+  text-align: center;
+  z-index: 1; /* Above progress */
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem; /* Space between time and label */
+}
+
+/**
+ * The main timer digits (MM:SS).
+ */
+.timer-time {
+  font-size: 4rem;
+  font-weight: bold;
+  /* margin: 20px 0; -> 1.25rem 0 */
+  margin-block: 1.25rem; /* Vertical margin */
+  margin-inline: 0;
+  color: var(--text-color);
+  text-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); /* 2px 4px */
+  transition: color 0.3s ease;
+  font-family: 'Roboto Mono', monospace; /* Monospaced font for consistent spacing */
+  letter-spacing: 0.125rem; /* 2px */
+  min-width: 15rem; /* 240px ensure space */
+  text-align: center;
+}
+
+/**
+ * Modern version of the timer time
+ */
+.timer-time.modern {
+  font-size: 5rem; /* Larger font */
+  font-weight: 700;
+  margin-block: 0.5rem; /* Reduced margin */
+  color: white;
+  text-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  letter-spacing: 0.25rem; /* 4px - more spacing */
+}
+
+/**
+ * Label indicating the current timer mode (e.g., "WORK", "BREAK").
+ */
+.timer-label {
+  font-size: 1.2rem;
+  color: var(--text-secondary, var(--text-color)); /* Use secondary text color */
+  text-transform: uppercase;
+  letter-spacing: 0.125rem; /* 2px */
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+/**
+ * Modern version of the timer label
+ */
+.timer-label.modern {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.2rem; /* 3.2px */
+  font-weight: 600;
+}
+
+/**
+ * Container for the main timer control buttons (Start/Pause, Reset, Skip).
+ */
+.timer-controls {
+   display: flex;
+   justify-content: center;
+   gap: 1.5rem; /* Space between control buttons */
+   margin-block-start: 2rem; /* Margin above controls */
+}
+
+/**
+ * Modern version of the timer controls
+ */
+.timer-controls.modern {
+   gap: 2rem; /* More space between buttons */
+   margin-block-start: 1.5rem; /* Slightly less margin */
+}
+
+/**
+ * Individual timer control buttons (Start/Pause, Reset, Skip) - Updated Style.
+ */
+.timer-btn {
+  width: 3.75rem; /* 60px standard size */
+  height: 3.75rem; /* 60px */
+  border-radius: 50%;
+  border: none;
+  background: var(--hover-bg); /* Default background */
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth cubic transition */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem; /* Icon size */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); /* 2px 4px subtle shadow */
+}
+
+/**
+ * Modern version of the timer button
+ */
+.timer-btn.modern {
+  width: 4rem; /* 64px - slightly larger */
+  height: 4rem; /* 64px */
+  background: rgba(40, 40, 40, 0.6); /* Darker, semi-transparent background */
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+  backdrop-filter: blur(5px); /* Glass effect */
+  -webkit-backdrop-filter: blur(5px); /* For Safari */
+}
+
+.timer-btn.modern:hover {
+  transform: translateY(-0.25rem); /* 4px lift */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.25); /* Deeper shadow */
+}
+
+.timer-btn.modern.primary {
+  background: linear-gradient(135deg, var(--primary-color), rgba(255, 45, 85, 0.8));
+  box-shadow: 0 0.25rem 0.75rem rgba(255, 45, 85, 0.3); /* Colored shadow */
+}
+
+.timer-btn:hover {
+  transform: scale(1.1); /* Enlarge on hover */
+  background: var(--primary-color); /* Change background on hover */
+  color: white;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2); /* 4px 12px more shadow on hover */
+}
+
+.timer-btn:active {
+  transform: scale(0.95); /* Shrink slightly on click */
+}
+
+/* Specific style for the main Start/Pause button */
+.timer-btn.primary {
+  background: var(--primary-color); /* Primary color background */
+  color: white;
+  width: 4.375rem; /* 70px larger size */
+  height: 4.375rem; /* 70px */
+  font-size: 1.8rem; /* Larger icon */
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.2); /* 4px 12px initial shadow */
+}
+
+.timer-btn.primary:hover {
+  transform: scale(1.15); /* Larger scale on hover */
+  box-shadow: 0 0.375rem 1rem rgba(0, 0, 0, 0.3); /* 6px 16px deeper shadow */
+}
+
+/* Style based on timer state (controlled by JS adding data attributes) */
+/* Default state (paused) is already handled by .primary class */
+
+.timer-btn[data-state="running"] {
+  /* Change appearance when timer is running (e.g., Pause button) */
+  background-color: color-mix(in srgb, var(--primary-color) 80%, #ff0000); /* Slightly different shade */
+}
+
+.timer-btn i {
+  /* font-size is set on .timer-btn itself */
+  line-height: 1; /* Ensure icon is centered vertically */
+}
+
+
+/**
+ * Older progress bar style (linear).
+ */
+.progress-container {
+  width: 100%;
+  height: 0.5rem; /* 8px */
+  background: var(--card-bg); /* Use card background */
+  border-radius: 0.25rem; /* 4px */
+  margin-block: 1.25rem; /* 20px vertical margin */
+  margin-inline: 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary-color);
+  transition: width 1s linear; /* Smooth width transition */
+  border-radius: 0.25rem; /* 4px */
+  width: var(--progress, 0%); /* Controlled by JS setting the variable */
+}
+
+/**
+ * Information about the current session (e.g., Pomodoro count).
+ */
+.session-info {
+  text-align: end; /* Align text to the right */
+  margin-block-end: 1.25rem; /* 20px margin bottom */
+  color: var(--text-color);
+}
+
+.session-type {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-block-end: 0.625rem; /* 10px margin bottom */
+  color: var(--primary-color);
+}
+
+/**
+ * Display for the current system time.
+ */
+.current-time {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-block-start: 0.3125rem; /* 5px margin top */
+}
+
+
+/* ==========================================================================
+   6. Statistics & Visualization
+   ========================================================================== */
+
+/**
+ * Container for displaying various stats (e.g., completed sessions).
+ */
+.stats-container {
+  background: var(--card-bg);
+  padding: 0.9375rem; /* 15px */
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); /* 4px 6px */
+  flex: 1; /* Make it take equal space as pomodoro container */
+  min-height: 400px; /* Match pomodoro container's min-height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: auto; /* Add scrolling if content exceeds min-height */
+}
+
+/**
+ * Modern version of the stats container
+ */
+.stats-container.modern {
+  background: rgba(30, 30, 30, 0.7); /* Darker, semi-transparent background */
+  backdrop-filter: blur(10px); /* Glass effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); /* Stronger shadow */
+  /* Maintain the flex properties from the base stats-container */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/**
+ * Layout for progress-related stats within the stats container.
+ */
+.progress-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem; /* 10px */
+}
+
+/**
+ * A row containing multiple stat cards.
+ */
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.625rem; /* 10px */
+  margin-block-end: -0.3125rem; /* -5px */
+}
+
+/**
+ * Modern version of the stat row
+ */
+.stat-row.modern-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem; /* Increased spacing */
+  margin-block-end: 0; /* Remove negative margin */
+  padding: 0.5rem;
+}
+
+/**
+ * Individual card for displaying a single statistic.
+ */
+.stat-card {
+  background: var(--card-bg);
+  padding: 1.25rem; /* 20px */
+  border-radius: 0.75rem; /* 12px */
+  text-align: center;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); /* 4px 6px */
+  transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+.stat-card:hover {
+  transform: translateY(-0.3125rem); /* -5px lift on hover */
+}
+
+/**
+ * Modern version of the stat card
+ */
+.stat-card.modern {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: rgba(40, 40, 40, 0.6); /* Slightly lighter than container */
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.stat-card.modern:hover {
+  transform: translateY(-0.125rem); /* Subtle lift */
+  background: rgba(50, 50, 50, 0.7); /* Slightly lighter on hover */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15);
+}
+
+/**
+ * Icon container for modern stat cards
+ */
+.stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: linear-gradient(135deg, var(--primary-color), rgba(255, 45, 85, 0.7));
+  margin-right: 0.75rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(255, 45, 85, 0.2);
+}
+
+.stat-icon i {
+  font-size: 1.25rem;
+  color: white;
+}
+
+/**
+ * Content container for modern stat cards
+ */
+.stat-content {
+  flex: 1;
+}
+
+/**
+ * Compact version of the stat card (used within stat rows).
+ */
+.stat-card.compact {
+  flex: 1; /* Allow cards to grow equally */
+  padding: 0.625rem; /* 10px */
+  background: var(--background-color); /* Slightly different background */
+  border-radius: 0.5rem; /* 8px */
+  text-align: center;
+  transition: transform 0.2s ease; /* Faster transition */
+}
+
+.stat-card.compact:hover {
+  transform: translateY(-0.125rem); /* -2px smaller lift */
+}
+
+/**
+ * The numerical value of the statistic.
+ */
+.stat-value {
+  font-size: 1.5rem; /* 24px */
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-block: 0.625rem; /* 10px top/bottom margin */
+  margin-inline: 0;
+}
+
+/* Value style within compact card */
+.stat-card.compact .stat-value {
+  font-size: 1.125rem; /* 18px */
+  /* Inherits color and weight */
+}
+
+/* Value style within modern card */
+.stat-card.modern .stat-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 0.25rem 0;
+  font-family: 'Roboto Mono', monospace; /* Monospaced font for consistent spacing */
+}
+
+/**
+ * The label describing the statistic.
+ */
+.stat-label {
+  color: var(--text-color);
+  opacity: 0.8; /* Slightly muted */
+  font-size: 0.9rem;
+}
+
+/* Label style within compact card */
+.stat-card.compact .stat-label {
+  font-size: 0.75rem; /* 12px */
+  opacity: 0.8;
+  margin-block-start: 0.125rem; /* 2px margin top */
+}
+
+/* Label style within modern card */
+.stat-card.modern .stat-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+/**
+ * Container for timer-specific stats (e.g., sessions, breaks).
+ * Displayed below the main timer controls.
+ */
+.timer-stats {
+  display: flex;
+  justify-content: center;
+  gap: 1rem; /* Space between stat items */
+  margin-block-start: 1.5rem; /* Margin above stats */
+  padding: 0.75rem; /* Padding around stats */
+  background: var(--hover-bg);
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1); /* 2px 4px */
+  transition: all 0.3s ease;
+  max-width: 25rem; /* 400px limit */
+  margin-inline: auto; /* Center */
+}
+
+/**
+ * Modern version of the timer stats container
+ */
+.timer-stats.modern {
+  background: rgba(30, 30, 30, 0.6); /* Darker, semi-transparent background */
+  backdrop-filter: blur(5px); /* Glass effect */
+  -webkit-backdrop-filter: blur(5px); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
+  border-radius: 1rem; /* 16px */
+  padding: 0.875rem; /* 14px */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+  max-width: 20rem; /* 320px - slightly narrower */
+}
+
+.timer-stats:hover {
+  transform: translateY(-0.125rem); /* -2px lift */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); /* 4px 8px shadow */
+}
+
+.timer-stats.modern:hover {
+  transform: translateY(-0.1875rem); /* -3px lift */
+  box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.25); /* Enhanced shadow */
+}
+
+/**
+ * Individual stat item within the timer stats container.
+ */
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between icon and text */
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem; /* 8px */
+  transition: all 0.3s ease;
+  min-width: 6.25rem; /* 100px ensure minimum width */
+}
+
+/**
+ * Modern version of the stat item
+ */
+.stat-item.modern {
+  background: rgba(40, 40, 40, 0.5); /* Slightly lighter than container */
+  padding: 0.625rem 1rem; /* 10px 16px */
+  border-radius: 0.75rem; /* 12px */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
+  min-width: 7.5rem; /* 120px - slightly wider */
+}
+
+.stat-item i {
+  font-size: 1rem; /* Icon size */
+  color: var(--primary-color);
+  opacity: 0.9;
+}
+
+.stat-item.modern i {
+  font-size: 1.125rem; /* 18px - slightly larger */
+  color: rgba(255, 45, 85, 0.9); /* Primary color with transparency */
+}
+
+.stat-item span {
+  font-size: 1.1rem; /* Stat value font size */
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.stat-item.modern span {
+  font-size: 1rem; /* 16px */
+  color: white;
+  font-family: 'Roboto Mono', monospace; /* Monospaced font for consistent spacing */
+}
+
+.stat-item:hover {
+  background: var(--card-bg); /* Change background on hover */
+  transform: translateY(-0.0625rem); /* -1px minimal lift */
+}
+
+.stat-item.modern:hover {
+  background: rgba(50, 50, 50, 0.6); /* Slightly lighter on hover */
+  transform: translateY(-0.125rem); /* -2px lift */
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.15); /* Subtle shadow */
+}
+
+/**
+ * Container for the hologram effect.
+ */
+.hologram-container {
+  height: 7.5rem; /* 120px */
+  min-height: 7.5rem; /* 120px */
+  width: 100%;
+  background: var(--background-color);
+  border-radius: 0.5rem; /* 8px */
+  position: relative;
+  overflow: hidden;
+  /* Negative margin for visual overlap */
+  /* Consider adjusting padding on adjacent elements instead */
+  margin-block-end: -0.625rem; /* -10px */
+}
+
+.hologram-overlay {
+  position: absolute;
+  inset: 0; /* Cover entire container */
+  background: linear-gradient(45deg,
+      rgba(37, 244, 238, 0), /* Transparent secondary */
+      rgba(254, 44, 85, 0)); /* Transparent primary */
+  /* Gradient likely animated or changed via JS */
+  pointer-events: none; /* Allow interaction with elements below */
+}
+
+/**
+ * Container for the energy graph visualization (using Chart.js canvas).
+ */
+.energy-graph-container {
+  position: relative; /* For pseudo-elements or absolutely positioned children */
+  width: 100%;
+  height: 12.5rem; /* Reduced from 15.625rem (250px) to 12.5rem (200px) */
+  min-height: 10rem; /* Reduced from 13.75rem to 10rem for better balance */
+  margin-block-start: 1.25rem; /* 20px margin top */
+  padding: 0.9375rem; /* 15px */ /* Added padding from duplicate */
+  background: var(--hover-bg); /* Updated background */
+  border-radius: 0.5rem; /* 8px */ /* Updated radius */
+  overflow: hidden; /* Hide overflowing elements */
+  flex-shrink: 1; /* Allow it to shrink if needed to fit container */
+}
+
+/* Optional top border effect */
+.energy-graph-container::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0; /* Position at the top */
+  inset-inline: 0; /* Span width */
+  height: 1px; /* Fine line */
+  background: linear-gradient(90deg,
+      rgba(254, 44, 85, 0.1) 0%, /* Faded primary */
+      rgba(254, 44, 85, 0.3) 50%,
+      rgba(254, 44, 85, 0.1) 100%);
+}
+
+.energy-graph-container h3 {
+  margin: 0; /* Remove default margin */
+  margin-block-end: 0.625rem; /* 10px margin bottom */
+  color: var(--text-color);
+  font-size: 1.2rem;
+  text-align: center;
+  font-weight: 500; /* Added for clarity */
+}
+
+.energy-graph-container canvas {
+  padding-block: 0.625rem; /* 10px vertical padding */
+  padding-inline: 0.3125rem; /* 5px horizontal padding */
+  width: 100%; /* Ensure canvas fills container width */
+  height: calc(100% - 2rem - 1.2rem); /* Adjust height based on padding and title */
+  box-sizing: border-box; /* Include padding in dimensions */
+}
+
+
+/* ==========================================================================
+   7. UI Components (Notifications, Modals, Buttons, Upload, Quotes, etc.)
+   ========================================================================== */
+
+/**
+ * General notification popup.
+ * Fixed position, slides in from bottom right.
+ */
+.notification {
+  position: fixed;
+  inset-block-end: 1.25rem; /* 20px from bottom */
+  inset-inline-end: 1.25rem; /* 20px from right */
+  padding-block: 0.9375rem; /* 15px */
+  padding-inline: 1.5625rem; /* 25px */
+  background: var(--primary-color);
+  color: white;
+  border-radius: 0.5rem; /* 8px */
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1); /* 4px 6px */
+  transform: translateY(150%); /* Start off-screen below */
+  transition: transform 0.3s ease;
+  z-index: 1000; /* Above most content */
+}
+
+.notification.show {
+  transform: translateY(0); /* Slide into view */
+}
+
+/**
+ * Timer-specific notification (e.g., "Time's up!").
+ * Fixed position, slides in from top right.
+ */
+.timer-notification {
+  position: fixed;
+  inset-block-start: 1.25rem; /* 20px from top */
+  inset-inline-end: 1.25rem; /* 20px from right */
+  padding-block: 0.75rem; /* 12px */
+  padding-inline: 1.25rem; /* 20px */
+  border-radius: 0.5rem; /* 8px */
+  color: white;
+  font-weight: 500;
+  display: none; /* Hidden by default */
+  z-index: 1000;
+  animation: slideInFromEnd 0.3s ease-out; /* Slide-in animation */
+}
+.timer-notification.show { /* Class added by JS */
+    display: block;
+}
+
+.timer-notification.info {
+  background-color: var(--primary-color); /* Standard info color */
+}
+
+.timer-notification.error {
+  background-color: #dc3545; /* Red for errors */
+}
+
+/* Animation for timer notification */
+@keyframes slideInFromEnd { /* Specific name */
+  from {
+    transform: translateX(100%); /* Start off-screen right */
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/**
+ * Alert messages (e.g., success, error for API/Search).
+ */
+.alert {
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem; /* 8px */
+  margin-block-end: 1rem; /* Space below alert */
+  animation: slideInFromBlockStart 0.3s ease; /* Slide down animation */
+  border: 1px solid transparent; /* Base border */
+}
+
+.alert-success {
+  background: rgba(40, 167, 69, 0.1); /* Light green background */
+  border-color: rgba(40, 167, 69, 0.3); /* Green border */
+  color: #2ecc71; /* Green text */
+}
+
+.alert-danger {
+  background: rgba(220, 53, 69, 0.1); /* Light red background */
+  border-color: rgba(220, 53, 69, 0.3); /* Red border */
+  color: #ff6b6b; /* Red text */
+}
+
+/* Animation for alerts */
+@keyframes slideInFromBlockStart { /* Specific name */
+  from {
+    transform: translateY(-100%); /* Start off-screen above */
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/**
+ * Modal styles (Task Add/Edit Modal).
+ */
+.task-modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  inset: 0; /* Cover viewport */
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+  z-index: 1001; /* High stacking order */
+  backdrop-filter: blur(5px); /* Background blur effect */
+  overflow-y: auto; /* Allow scrolling if content overflows */
+}
+.task-modal.show { /* Class added by JS */
+    display: flex; /* Use flex to help center content */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Prevent body scrolling when modal is open */
+body.modal-open {
+  overflow: hidden;
+  /* Compensate for scrollbar width to prevent layout shift */
+  padding-inline-end: 0.9375rem; /* ~15px */
+}
+
+.task-modal-content {
+  position: relative; /* For close button positioning */
+  background: var(--card-bg);
+  margin: 2% auto; /* Vertical margin, auto horizontal */
+  padding: 1.25rem; /* 20px */
+  width: 90%; /* Responsive width */
+  max-width: 31.25rem; /* 500px limit */
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 0.625rem 1.5625rem rgba(0, 0, 0, 0.2); /* 10px 25px */
+  max-height: 90vh; /* Limit height */
+  overflow-y: auto; /* Enable scrolling within modal */
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  scrollbar-width: thin; /* Firefox scrollbar */
+  scrollbar-color: var(--primary-color) var(--card-bg); /* Firefox scrollbar colors */
+}
+
+/* WebKit scrollbar styles for modal content */
+.task-modal-content::-webkit-scrollbar {
+  width: 0.5rem; /* 8px */
+}
+.task-modal-content::-webkit-scrollbar-track {
+  background: var(--card-bg);
+  border-radius: 0.25rem; /* 4px */
+}
+.task-modal-content::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 0.25rem; /* 4px */
+}
+.task-modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+.modal-close {
+  position: absolute;
+  inset-inline-end: 1.25rem; /* 20px from right */
+  inset-block-start: 1.25rem; /* 20px from top */
+  font-size: 1.5rem; /* 24px */
+  cursor: pointer;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+  line-height: 1; /* Prevent extra spacing */
+  padding: 0.25rem; /* Clickable area */
+}
+
+.modal-close:hover {
+  color: var(--primary-color);
+}
+
+/**
+ * Form group styling within modals or forms.
+ */
+.form-group {
+  margin-block-end: 0rem; /* 20px bottom margin */
+}
+
+.form-group label {
+  display: block; /* Ensure label is on its own line */
+  margin-block-end: 0.5rem; /* 8px space below label */
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea {
+  width: 100%; /* Take full width of container */
+  padding: 0.75rem; /* 12px padding */
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem; /* 8px */
+  background: var(--card-bg);
+  color: var(--text-color);
+  font-size: 0.875rem; /* 14px */
+  transition: all 0.3s ease;
+  box-sizing: border-box; /* Include padding/border in width */
+}
+
+/* Focus styles for form elements */
+.form-group select:focus,
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(var(--primary-color), 0.2); /* Outline effect */
+  outline: none; /* Remove default outline */
+}
+
+/**
+ * Submit button for task creation/editing form.
+ */
+.create-task-btn {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding-block: 0.75rem; /* 12px */
+  padding-inline: 1.5rem; /* 24px */
+  border-radius: 0.5rem; /* 8px */
+  cursor: pointer;
+  font-size: 1rem; /* 16px */
+  font-weight: 500;
+  transition: all 0.3s ease;
+  width: 100%; /* Full width button */
+}
+
+.create-task-btn:hover {
+  transform: translateY(-0.125rem); /* -2px lift */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2); /* 4px 8px shadow */
+}
+
+/**
+ * Fatigue logging modal styles.
+ */
+.fatigue-modal {
+  position: fixed;
+  inset: 0; /* Cover viewport */
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* High stacking order */
+}
+
+.fatigue-modal.show {
+  display: flex; /* Show the modal */
+}
+
+.fatigue-modal-content {
+  background: var(--card-bg);
+  border-radius: 1.25rem; /* 20px */
+  padding: 1.5rem;
+  max-width: 31.25rem; /* 500px */
+  width: 90%; /* Responsive width */
+  box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.1); /* 8px 32px shadow */
+}
+
+.fatigue-modal-content h2 {
+  margin: 0; /* Remove default margin */
+  margin-block-end: 0.75rem; /* Space below heading */
+  color: var(--text-color);
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.fatigue-modal-content p {
+  color: var(--text-secondary, var(--text-color)); /* Use secondary text color */
+  text-align: center;
+  margin-block-start: 0.5rem;
+  margin-block-end: 1rem; /* Space below paragraph */
+  font-size: 0.9rem;
+}
+
+/* Grid layout for fatigue level options */
+.fatigue-levels {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two columns */
+  gap: 0.75rem; /* Increased gap */
+  margin-block-end: 1rem; /* Space below levels */
+}
+
+/* Individual fatigue level selection button */
+.fatigue-level {
+  background: var(--hover-bg);
+  border-radius: 0.5rem; /* 8px */
+  padding: 0.75rem;
+  text-align: start; /* Align text left */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Increased gap */
+  border: 1px solid transparent; /* Placeholder for selected state */
+}
+
+.fatigue-level:hover {
+  transform: translateY(-0.125rem); /* -2px lift */
+  background: var(--hover-bg-dark, var(--hover-bg)); /* Use darker hover */
+}
+
+.fatigue-level.selected {
+  background: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color); /* Visible border */
+  transform: translateY(-0.125rem); /* Keep lift */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+.fatigue-level.selected i {
+    background: rgba(255, 255, 255, 0.2); /* Adjusted background for selected icon */
+}
+.fatigue-level.selected p {
+    display: block; /* Show description */
+    margin-block-start: 0.25rem; /* Space above description */
+    opacity: 0.9; /* Slightly less prominent */
+}
+
+
+.fatigue-level i {
+  font-size: 1.2rem; /* Larger icon */
+  width: 1.875rem; /* 30px */
+  height: 1.875rem; /* 30px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(128, 128, 128, 0.1); /* Subtle background */
+  border-radius: 50%;
+  flex-shrink: 0; /* Prevent icon shrinking */
+}
+
+.fatigue-level h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.fatigue-level p {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  display: none; /* Hide description by default */
+}
+
+/* Container for modal action buttons (Cancel, Submit) */
+.fatigue-modal-buttons {
+  display: flex;
+  justify-content: flex-end; /* Align buttons right */
+  gap: 0.5rem;
+  margin-block-start: 1rem; /* Space above buttons */
+}
+
+/**
+ * General button style for modals.
+ */
+.modal-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem; /* 6px */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  background: var(--hover-bg);
+  color: var(--text-color);
+}
+
+.modal-btn:hover:not(:disabled) {
+  background: var(--hover-bg-dark, var(--hover-bg)); /* Darker hover */
+}
+
+.modal-btn.primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.modal-btn.primary:disabled {
+  opacity: 0.5; /* Indicate disabled state */
+  cursor: not-allowed;
+}
+
+.modal-btn.primary:not(:disabled):hover {
+  transform: translateY(-0.125rem); /* -2px lift on hover */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+
+/**
+ * File upload area styles.
+ */
+.file-upload-area {
+  border: 2px dashed var(--border-color);
+  border-radius: 0.5rem; /* 8px */
+  padding: 0.9375rem; /* 15px */
+  text-align: center;
+  margin-block-end: 0.625rem; /* 10px */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: var(--text-muted); /* Hint text color */
+}
+
+.file-upload-area:hover {
+  border-color: var(--primary-color);
+  background-color: rgba(254, 44, 85, 0.05); /* Subtle primary tint */
+  color: var(--primary-color); /* Highlight text */
+}
+
+/* Style when dragging file over */
+.file-upload-area.drag-over {
+  border-color: var(--primary-color);
+  background-color: rgba(254, 44, 85, 0.1); /* Stronger primary tint */
+}
+
+.file-upload-hint {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-block-start: 0.3125rem; /* 5px */
+}
+
+/**
+ * Container for displaying previews of uploaded files.
+ */
+.upload-preview {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap */
+  gap: 0.625rem; /* 10px */
+  margin-top: 0.5rem; /* Space above previews */
+}
+
+.upload-preview-item {
+  position: relative; /* For remove button positioning */
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem; /* 4px */
+  padding: 0.3125rem; /* 5px */
+  width: 5rem; /* 80px */
+  text-align: center;
+  background: var(--hover-bg); /* Background for items */
+}
+
+.upload-preview-icon {
+  font-size: 1.5rem; /* 24px */
+  margin-block-end: 0.3125rem; /* 5px */
+  color: var(--primary-color); /* Icon color */
+}
+
+.upload-preview-name {
+  font-size: 0.7rem;
+  overflow: hidden; /* Prevent long names from breaking layout */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-color);
+}
+
+/* Remove button ('x') for uploaded file preview */
+.upload-preview-remove {
+  position: absolute;
+  inset-block-start: -0.3125rem; /* -5px */
+  inset-inline-end: -0.3125rem; /* -5px */
+  background: rgba(220, 53, 69, 0.8); /* Semi-transparent red */
+  color: white;
+  border-radius: 50%;
+  width: 1.125rem; /* 18px */
+  height: 1.125rem; /* 18px */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.625rem; /* 10px */
+  cursor: pointer;
+  line-height: 1; /* Ensure 'x' is centered */
+  transition: background-color 0.2s ease;
+}
+.upload-preview-remove:hover {
+    background: rgba(220, 53, 69, 1); /* Solid red on hover */
+}
+
+/**
+ * Progress bar display during file upload.
+ */
+.upload-progress {
+  margin-block-start: 1rem; /* Space above progress */
+  padding: 1rem;
+  border-radius: 0.5rem; /* 8px */
+  background: var(--card-bg);
+}
+
+/* General progress bar container (used by upload and timer) */
+.progress {
+  height: 0.5rem; /* 8px */
+  background-color: var(--hover-bg);
+  border-radius: 0.25rem; /* 4px */
+  overflow: hidden;
+  margin-bottom: 0.5rem; /* Space below bar */
+}
+/* Actual progress bar fill */
+.progress-bar { /* Duplicate: Assuming styles from timer section apply */
+  height: 100%;
+  background: var(--primary-color);
+  transition: width 0.3s ease;
+  border-radius: 0.25rem; /* 4px */
+  width: var(--progress, 0%); /* Controlled via JS */
+}
+
+/* Text indicating upload status (e.g., "Uploading 50%") */
+.upload-status {
+  display: flex;
+  justify-content: space-between;
+  color: var(--text-color);
+  opacity: 0.8;
+  font-size: 0.85rem;
+}
+
+/**
+ * Container for displaying quotes.
+ */
+ .quote-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Removed justify-content: center; height is now content-based */
+  max-width: var(--content-block-max-width); /* Keep consistent width */
+  margin-block: var(--space-lg);          /* Consistent vertical margin */
+  margin-inline: auto;                      /* Center horizontally */
+  /* --- ADJUSTMENTS --- */
+  /* padding-block: 0.9375rem;  OLD */
+  padding-block: var(--space-md);          /* REDUCED vertical padding (e.g., 1rem or 0.75rem) */
+  /* padding-inline: 1.25rem;  OLD */
+  padding-inline: var(--space-xl);         /* Consistent horizontal padding (e.g., 1.5rem or 1.25rem) */
+  /* min-height: 11.25rem;     REMOVED */
+  /* --- END ADJUSTMENTS --- */
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);        /* Consistent radius */
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Container specifically for dynamically loaded quotes */
+#dynamicQuoteContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-block-end: 0.3125rem; /* 5px */
+}
+
+/* Image associated with the quote */
+.quote-image {
+  flex-shrink: 0; /* Prevent image from shrinking */
+  width: 7.5rem; /* 120px */
+  aspect-ratio: 1 / 1; /* Square image */
+  object-fit: cover; /* Cover the area */
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1); /* 4px 8px */
+  margin-block-end: 0.625rem; /* 10px space below image */
+}
+
+/* Content area for quote text and author */
+.quote-content {
+  flex: 1; /* Allow it to take necessary space */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  /* --- ADJUSTMENTS --- */
+  /* min-height: 6.25rem; REMOVED */
+  /* padding: 0.3125rem; REMOVED or reduce - parent padding is likely sufficient */
+  /* --- END ADJUSTMENTS --- */
+}
+
+.quote-text {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.05rem; /* Keep or adjust if needed */
+  line-height: 1.5;
+  /* margin-block-end: 0.625rem; OLD */
+  margin-block-end: var(--space-sm); /* Consistent small margin */
+  color: var(--text-color);
+  /* Add max-width if text tends to get very long */
+   max-width: 90%; /* Example: constrain text line length slightly */
+}
+
+.quote-author {
+  text-align: end;
+  font-weight: 500;
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  /* margin-block-end: 0.625rem; OLD */
+  margin-block-end: var(--space-md); /* Consistent medium margin before controls */
+  align-self: flex-end;
+  width: 100%;
+  padding-inline-end: 10%; /* Align with text max-width, roughly */
+}
+
+/* Controls for navigating quotes (Prev/Next) */
+.quote-controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg); /* Consistent gap */
+  /* margin-block-start: 0.625rem; OLD */
+  margin-block-start: var(--space-sm); /* Smaller gap above controls */
+}
+
+.quote-nav-btn {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-circle); /* Use variable */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Use consistent size, maybe smaller */
+  width: 2.5rem;  /* Example: 40px */
+  height: 2.5rem; /* Example: 40px */
+  font-size: 1rem;  /* Example: Adjust icon size */
+  padding: 0;
+}
+
+.quote-nav-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+}
+
+/**
+ * Feedback button.
+ * Fixed position, top right.
+ */
+.feedback-button {
+  position: fixed;
+  /* Position relative to top using CSS variable */
+  top: calc(var(--button-top-position) + 60.5rem); /* Move down to avoid overlap with navigation */
+  right: var(--button-right-position-secondary); /* Position on the right side with offset */
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 1.875rem; /* 30px pill shape */
+  padding-block: 0.1rem; /* 10px */
+  padding-inline: 1.25rem; /* 20px */
+  font-size: 0.875rem; /* 14px */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* 8px space between icon and text */
+  text-decoration: none; /* Remove underline if it's a link */
+  box-shadow: 0 0.25rem 0.625rem rgba(0, 0, 0, 0.2), 0 0 0.625rem var(--primary-color); /* 4px 10px shadow + glow */
+  transition: all 0.3s ease;
+  z-index: 1000; /* Above most content */
+}
+
+.feedback-button:hover {
+  transform: translateY(-0.1875rem); /* -3px lift */
+  box-shadow: 0 0.375rem 0.9375rem rgba(0, 0, 0, 0.3), 0 0 0.9375rem var(--primary-color); /* 6px 15px shadow + glow */
+}
+
+/**
+ * Loading spinner animation.
+ */
+.loading-spinner {
+  border-width: 0.25rem; /* 4px */
+  border-style: solid;
+  border-color: var(--hover-bg); /* Light base color */
+  border-block-start-color: var(--primary-color); /* Primary color for moving part */
+  border-radius: 50%;
+  width: 1.875rem; /* 30px */
+  height: 1.875rem; /* 30px */
+  animation: spin 1s linear infinite;
+  margin-inline: auto; /* Center horizontally */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Spinner used in AI search results */
+.spinner-border { /* Bootstrap class name */
+  width: 3rem; /* Larger spinner */
+  height: 3rem;
+  border: 0.25rem solid var(--primary-color);
+  border-inline-end-color: transparent; /* Make one side transparent */
+  border-radius: 50%;
+  animation: spinner-border 0.75s linear infinite;
+}
+
+@keyframes spinner-border {
+  to { transform: rotate(360deg); }
+}
+
+/**
+ * Relaxed mode toggle button.
+ */
+.relaxed-mode-btn {
+    position: fixed;
+    /* Position relative to top using CSS variable */
+    top: calc(var(--button-top-position) + 62.5rem); /* Position below feedback button */
+    right: var(--button-right-position); /* Position on the right side */
+    padding: 0.1rem 1rem; /* 8px 16px */
+    background: linear-gradient(135deg, #ffc078, #ff9f43); /* Warm gradient */
+    color: white;
+    border: none;
+    border-radius: 0.5rem; /* 8px */
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000; /* Consistent z-index */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* 8px */
+    box-shadow: 0 4px 15px rgba(255, 159, 67, 0.2); /* Soft shadow matching gradient */
+}
+.relaxed-mode-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 159, 67, 0.3);
+}
+.relaxed-mode-btn i {
+    font-size: 1.2rem; /* Icon size */
+}
+
+
+/* ==========================================================================
+   8. AI Features (Search, Research Panel)
+   ========================================================================== */
+
+/**
+ * Container for the inline AI search box (e.g., in nav or header).
+ */
+ .ai-search-container {
+  margin-block: 0.1rem;
+  width: 60%;
+  margin-inline: auto;
+  background: transparent;
+  border-radius: 0.1rem;
+  padding: 0.1rem;
+  position: relative; /* Add position relative */
+}
+
+.ai-search-box {
+  position: relative; /* For potential absolute elements inside */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.1rem; /* Small gap between elements */
+  background: rgba(255, 255, 255, 0.05); /* Subtle background */
+  border-radius: 0.1rem; /* 6px */
+  padding: 0.1rem; /* Inner padding */
+  transition: background 0.3s ease;
+  margin-inline: auto; /* Center horizontally */
+}
+.ai-search-box:focus-within {
+    background: rgba(255, 255, 255, 0.1); /* Highlight when focused */
+}
+
+.ai-search-input {
+  flex: 1; /* Take most space */
+  padding: 0.1rem 0.1rem;
+  font-size: 0.1rem;
+  color: var(--text-color);
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.ai-model-select {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-size: 0.1rem; /* Small font size */
+  padding: 0.1rem 0.1rem;
+  cursor: pointer;
+  opacity: 0.7; /* Slightly muted */
+  transition: opacity 0.3s ease;
+  -webkit-appearance: none; /* Remove default styling */
+  -moz-appearance: none;
+  appearance: none;
+  /* Add custom arrow icon via background image if needed */
+}
+.ai-model-select:hover {
+    opacity: 1;
+}
+
+.ai-search-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.4rem 0.5rem; /* Adjusted padding */
+  border-radius: 0.25rem; /* 4px */
+  font-size: 0.9rem; /* Adjusted size */
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  line-height: 1; /* Ensure text/icon vertical alignment */
+}
+
+.ai-search-button:hover {
+  background: color-mix(in srgb, var(--primary-color) 90%, white); /* Lighter shade */
+  transform: scale(1.05);
+}
+
+/**
+ * Container for displaying the AI response inline.
+ */
+.ai-response-container {
+  margin-block-start: 0.3rem; /* Space below search box */
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.03); /* Very subtle background */
+  border-radius: 0.375rem; /* 6px */
+  display: none; /* Hidden by default */
+  font-size: 0.8rem;
+  color: var(--text-color);
+  opacity: 0.9;
+}
+
+/* Indicator shown while AI is processing */
+.ai-thinking {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  color: var(--text-color);
+  font-style: italic;
+  font-size: 0.7rem;
+  opacity: 0.7;
+}
+
+/**
+ * Container for the fixed AI Researcher panel at the bottom.
+ */
+.ai-researcher-container {
+  /* Core Positioning */
+  position: fixed;
+  bottom: 0; /* Stick to bottom */
+  left: 0;   /* Align to left */
+  right: 0;  /* Align to right */
+  z-index: 50; /* Lower z-index so workspace can overlay */
+  padding-bottom: 1rem; /* Add padding to avoid overlap with buttons */
+  padding-top: 20px; /* Add padding at top to accommodate the toggle button */
+
+  /* Styling */
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+
+  box-sizing: border-box;
+  transition: all 0.3s ease; /* Transition all properties including height */
+  min-height: 18.5rem; /* Minimum height */
+  max-height: 18.5rem; /* Maximum height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: visible; /* Allow horizontal overflow for the toggle button */
+
+  /* Center the container content */
+  display: flex;
+  justify-content: center;
+}
+
+/**
+ * AI Container Toggle Button
+ */
+.ai-container-toggle {
+  /* Change to fixed position to avoid clipping issues */
+  position: fixed;
+  bottom: 18.5rem; /* Position just above the AI container */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px; /* Even larger */
+  height: 40px; /* Even larger */
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  border: 3px solid white; /* Solid white border for maximum visibility */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10000; /* Highest possible z-index */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Stronger shadow */
+  transition: all 0.3s ease;
+  overflow: visible; /* Ensure content isn't clipped */
+}
+
+.ai-container-toggle:hover {
+  background-color: var(--primary-hover, #4338ca);
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.ai-container-toggle i {
+  transition: transform 0.3s ease;
+  font-size: 1.2rem; /* Larger icon */
+}
+
+.ai-researcher-container.hidden ~ .ai-container-toggle i,
+.ai-researcher-container.hidden .ai-container-toggle i {
+  transform: rotate(180deg);
+}
+
+/**
+ * Modern version of the AI Researcher container
+ */
+.ai-researcher-container.modern {
+  background-color: rgba(25, 25, 25, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+  min-height: 6rem; /* Reduced minimum height */
+  max-height: 50vh; /* Allow more vertical space when needed */
+  backdrop-filter: blur(10px); /* Glass effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  padding: 1rem;
+  overflow-x: visible; /* Allow horizontal overflow for the toggle button */
+  transition: all 0.3s ease; /* Add transition for smooth expansion */
+
+  /* Center the container content */
+  display: flex;
+  justify-content: center;
+}
+
+/**
+ * Expanded state for the AI Researcher container
+ */
+.ai-researcher-container.modern.expanded {
+  min-height: 100vh; /* Full viewport height */
+  max-height: 100vh; /* Full viewport height */
+  height: 100vh; /* Full viewport height */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  padding: 1rem;
+  border-top: none;
+  border-radius: 0;
+  overflow: auto; /* Allow scrolling */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgba(25, 25, 25, 0.98); /* Slightly more opaque */
+}
+
+/* Add a close button to the expanded AI container */
+.ai-researcher-container.modern.expanded::after {
+  content: '\00d7';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 45, 85, 0.7);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  z-index: 1001;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.ai-researcher-container.modern.expanded::after:hover {
+  background-color: rgba(255, 45, 85, 0.9);
+  transform: scale(1.1);
+}
+
+/* Adjust toggle button position for modern container */
+.ai-researcher-container.modern ~ .ai-container-toggle {
+  bottom: 6rem; /* Position just above the modern container */
+}
+
+/* Add this to adjust the container when workspace is open */
+body.workspace-open .ai-researcher-container {
+  right: 50%; /* Match the width of workspace panel */
+  height: var(--footer-ai-bar-height); /* Fixed height when workspace is open */
+  z-index: 10; /* Further reduce z-index when workspace is open to prevent overlap */
+  transform: translateY(0); /* Ensure it stays in place */
+  bottom: 0; /* Ensure it stays at the bottom */
+}
+
+body.workspace-open .ai-researcher-container.modern {
+  right: 50%; /* Match the width of workspace panel */
+  min-height: 6rem; /* Smaller height when workspace is open */
+  max-height: 40vh; /* Limit maximum height when workspace is open */
+}
+
+/* Hidden state for AI container */
+.ai-researcher-container.hidden {
+  transform: translateY(100%); /* Hide container completely */
+  box-shadow: none;
+  opacity: 0.95;
+}
+
+.ai-researcher-container.hidden.modern {
+  min-height: 0;
+  max-height: 0; /* Completely hidden */
+  overflow: hidden;
+  padding-top: 0; /* Remove top padding when hidden */
+  padding-bottom: 0; /* Remove bottom padding when hidden */
+  border-top: none; /* Remove border when hidden */
+}
+
+/* For mobile responsiveness */
+@media (max-width: 768px) {
+  body.workspace-open .ai-researcher-container {
+    right: 0;
+    bottom: 50%; /* Position above workspace on mobile */
+    height: auto;
+    max-height: 30vh; /* Limit height on mobile */
+  }
+
+  .ai-researcher-container.modern {
+    min-height: 5rem; /* Even smaller on mobile */
+    padding: 0.75rem;
+  }
+
+  /* Adjust button positions for mobile */
+  .add-task-button {
+    top: var(--button-top-position-mobile); /* Position from top using CSS variable */
+    inset-inline-end: 0.75rem; /* Closer to edge */
+  }
+
+  .relaxed-mode-btn {
+    top: var(--button-top-position-mobile); /* Position from top using CSS variable */
+    inset-inline-start: 0.75rem; /* Closer to edge */
+    padding: 0.1rem 0.75rem; /* Smaller padding */
+    font-size: 0.8rem; /* Smaller font */
+  }
+
+  .feedback-button {
+    top: calc(var(--button-top-position-mobile) + 3rem); /* Position below relaxed mode button */
+    inset-inline-start: 0.75rem; /* Closer to edge */
+    padding-inline: 0.75rem; /* Smaller padding */
+    font-size: 0.8rem; /* Smaller font */
+  }
+
+  .workspace-toggle {
+    top: calc(var(--button-top-position-mobile) + 3rem); /* Position below add task button */
+    inset-inline-end: 0.75rem; /* Closer to edge */
+  }
+}
+
+/* Adjustments for elements inside the researcher panel */
+.ai-researcher-container .input-group {
+  margin-bottom: 0; /* Remove bottom margin if present */
+  align-items: center;
+}
+
+.ai-researcher-container #searchQuery, /* Specific ID for input */
+.ai-researcher-container button { /* General button style */
+  padding-top: 0rem;
+  padding-bottom: 0rem; /* Slimmer padding */
+  font-size: 1rem; /* Slightly smaller font */
+  height: 1.5rem; /* Let padding define height */
+  margin-bottom: 0;
+}
+
+/**
+ * Main card/container for the AI Researcher interface (within a page/modal).
+ */
+.research-card {
+  /* Padding/background might be handled by container or specific sections */
+  /* border: none; Optional: remove border if container has one */
+  /* background: none; Optional: remove bg if container has one */
+  /* padding: 0; Optional: remove padding if handled by sections */
+  width: 100%;
+  max-width: var(--content-block-max-width); /* Match other content blocks */
+}
+
+/**
+ * Modern version of the research card
+ */
+.research-card.modern {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  max-width: var(--content-block-max-width); /* Match other content blocks */
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+/**
+ * Expanded state for the research card
+ */
+.ai-researcher-container.modern.expanded .research-card.modern {
+  max-width: 90%; /* Wider in expanded mode */
+  height: auto;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: visible; /* Allow content to be visible */
+}
+
+.research-card h3 {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-block-end: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.research-card.modern h3 {
+  color: white;
+  font-size: 1.25rem;
+  margin-block-end: 1rem;
+  font-weight: 500;
+}
+
+.research-card h3 i {
+  color: var(--secondary-color); /* Accent color for icon */
+}
+
+.research-card.modern h3 i {
+  color: var(--primary-color);
+}
+
+/**
+ * Section for configuring API keys (Groq, etc.).
+ */
+.api-config {
+  background: rgba(0, 0, 0, 0.2); /* Darker background section */
+  padding: 1.5rem;
+  border-radius: 0.75rem; /* 12px */
+  margin-block-end: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
+}
+
+/**
+ * Modern version of the API config section
+ */
+.api-config.modern {
+  background: rgba(30, 30, 30, 0.8);
+  padding: 1.25rem;
+  border-radius: 1rem;
+  margin-block-end: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+}
+
+/**
+ * API config header with title and close button
+ */
+.api-config-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.api-config-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  color: white;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#toggleApiConfig {
+  padding: 0.5rem;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+#toggleApiConfig:hover {
+  background-color: var(--hover-bg-dark);
+  transform: scale(1.05);
+}
+
+.api-config label {
+  color: var(--text-color);
+  font-size: 0.9rem;
+  margin-block-end: 0.5rem;
+  opacity: 0.9;
+  display: block;
+}
+
+.api-config.modern label {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+  margin-block-end: 0.375rem;
+  opacity: 1;
+}
+
+/* Grouping for input and potentially a button (e.g., show/hide key) */
+.input-group {
+  display: flex;
+  gap: 0.5rem;
+  margin-block-end: 1rem;
+}
+
+.input-group.modern {
+  display: flex;
+  gap: 0.25rem;
+  margin-block-end: 0.75rem;
+  position: relative;
+}
+
+.input-group input {
+  flex: 1; /* Take available space */
+  background: rgba(0, 0, 0, 0.3); /* Dark input background */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  color: var(--text-color);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem; /* 8px */
+  font-size: 0.9rem;
+}
+
+.input-group.modern input.modern {
+  padding: 0.625rem 0.875rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  color: white;
+  font-size: 0.875rem;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(254, 44, 85, 0.2); /* Primary focus glow */
+}
+
+.input-group.modern input.modern:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(255, 45, 85, 0.3);
+}
+
+/* Button within the input group (e.g., show/hide API key) */
+.input-group button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem; /* 8px */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0; /* Prevent button shrinking */
+}
+
+.input-group.modern .eye-btn {
+  padding: 0.5rem;
+  border-radius: 0.375rem;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.input-group button:hover {
+  background: rgba(255, 255, 255, 0.05); /* Subtle hover */
+}
+
+.input-group.modern .eye-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Main save/submit button for API config */
+.api-config .form-group { /* Use form-group for consistency */
+  margin-block-end: 0.9375rem; /* 15px */
+}
+
+.api-config.modern .form-group.modern {
+  margin-block-end: 0.75rem;
+}
+
+.api-config.modern .form-text {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  line-height: 1.2;
+}
+
+.api-config.modern select.form-control {
+  background-color: var(--input-bg, rgba(0, 0, 0, 0.3));
+  color: var(--text-color);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  appearance: auto;
+  width: 100%;
+}
+
+.api-config.modern select.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(255, 45, 85, 0.2);
+  outline: none;
+}
+
+.api-config button.save-btn { /* More specific selector */
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem; /* 8px */
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%; /* Full width */
+}
+
+.api-config.modern button.save-btn.modern {
+  background: linear-gradient(135deg, var(--primary-color), rgba(255, 45, 85, 0.8));
+  color: white;
+  border: none;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: 100%;
+  margin-top: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(255, 45, 85, 0.3);
+}
+
+.api-config button.save-btn:hover {
+  transform: translateY(-0.125rem); /* -2px lift */
+  box-shadow: 0 0.25rem 0.75rem rgba(254, 44, 85, 0.3); /* 4px 12px primary glow */
+}
+
+.api-config.modern button.save-btn.modern:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.375rem 1rem rgba(255, 45, 85, 0.4);
+}
+
+
+/**
+ * Section for the main search query input and button.
+ */
+.search-interface {
+  margin-block-start: 1.5rem; /* Space above search */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/**
+ * Modern version of the search interface
+ */
+.search-interface.modern {
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+/**
+ * Expanded state for the search interface
+ */
+.ai-researcher-container.modern.expanded .search-interface.modern {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  max-height: 100vh;
+  overflow: auto;
+  padding-bottom: 2rem; /* Add padding at the bottom */
+}
+
+/**
+ * Search container for modern interface
+ */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.search-interface .drop-zone-container {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+/**
+ * Modern version of the drop zone container
+ */
+.drop-zone-container.modern {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.search-interface .button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/**
+ * Search actions container
+ */
+.search-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+/**
+ * Search tools container
+ */
+.search-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/**
+ * File info container
+ */
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.file-name {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.search-interface label {
+  color: var(--text-color);
+  font-size: 1rem;
+  margin-block-end: 0.5rem;
+  opacity: 0.9;
+  display: block;
+}
+
+.search-interface textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-color);
+  padding: 1rem;
+  border-radius: 0.75rem; /* 12px */
+  font-size: 1rem;
+  resize: vertical; /* Allow vertical resize */
+  min-height: 0%; /* 100px */
+  margin-block-end: 1rem;
+  box-sizing: border-box; /* Include padding/border */
+}
+
+.search-interface textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(254, 44, 85, 0.2);
+}
+
+/* Drag and drop zone integrated with textarea */
+.search-interface .drop-zone {
+  flex: 1;
+  position: relative; /* Contains pseudo-elements/text */
+  border: 2px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem; /* 12px */
+  transition: all 0.3s ease;
+  padding: 0; /* Padding is on textarea */
+}
+
+/**
+ * Modern version of the drop zone
+ */
+.drop-zone.modern {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  background: rgba(40, 40, 40, 0.6);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  overflow: hidden;
+}
+
+.search-interface .drop-zone textarea {
+  /* Ensure textarea looks integrated */
+  border: none;
+  border-radius: calc(0.75rem - 2px); /* Adjust for parent border */
+  margin-bottom: 0; /* Remove margin if drop zone is wrapper */
+}
+
+.drop-zone.modern textarea {
+  background: transparent;
+  border: none;
+  color: white;
+  padding: 0.875rem 1.25rem;
+  border-radius: 1.5rem;
+  font-size: 1rem;
+  resize: none;
+  min-height: 3rem;
+  margin: 0;
+  font-family: inherit;
+}
+
+.drop-zone.modern textarea:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.search-interface .drop-zone.drag-over {
+  border-color: var(--primary-color);
+  background: rgba(254, 44, 85, 0.1); /* Highlight drop zone */
+}
+
+.drop-zone.modern.drag-over {
+  border-color: var(--primary-color);
+  background: rgba(255, 45, 85, 0.1);
+}
+
+.search-interface .drop-zone.drag-over textarea {
+  background: transparent; /* Make textarea see through to highlight */
+}
+
+/* Text shown when dragging over */
+.search-interface .drop-zone-text {
+  display: none;
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--text-color);
+  font-size: 1rem;
+  text-align: center;
+  pointer-events: none; /* Don't interfere with drop */
+}
+
+.drop-zone.modern .drop-zone-text {
+  color: white;
+  font-size: 0.875rem;
+}
+
+.search-interface .drop-zone.drag-over .drop-zone-text {
+  display: block; /* Show text */
+}
+
+/**
+ * Tool button styling
+ */
+.tool-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  position: relative;
+  padding: 0; /* Remove any padding that might affect centering */
+  line-height: 1; /* Ensure consistent line height */
+  box-sizing: border-box; /* Ensure box model is consistent */
+}
+
+/* Ensure icons are perfectly centered */
+.tool-btn i,
+.tool-btn svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Perfect centering */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em; /* Use em for proportional sizing */
+  height: 1em;
+}
+
+.tool-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* Ensure the icon stays centered even when the button moves */
+.tool-btn:hover i,
+.tool-btn:hover svg {
+  transform: translate(-50%, -50%); /* Keep centered without inheriting parent's translateY */
+}
+
+/**
+ * Search button styling
+ */
+.search-btn {
+  background: linear-gradient(135deg, var(--primary-color), rgba(255, 45, 85, 0.8));
+  color: white;
+  border: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.125rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(255, 45, 85, 0.3);
+}
+
+.search-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0.375rem 0.75rem rgba(255, 45, 85, 0.4);
+}
+
+/**
+ * Clear button styling
+ */
+.clear-btn {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  border: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.75rem;
+}
+
+.clear-btn:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Legacy button styles */
+.search-interface button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.1 0.1rem;
+  border-radius: 5rem ; /* 8px */
+  font-size: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap:0 ;
+}
+
+.search-interface button:hover:not(:disabled) {
+  transform: translateY(-0.125rem); /* -2px lift */
+  box-shadow: 0 0.25rem 0.75rem rgba(254, 44, 85, 0.3);
+}
+
+.search-interface button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.search-interface button i {
+  font-size: 1.1rem;
+}
+
+/**
+ * Area where search results are displayed.
+ */
+.results-area {
+  margin-block-start: 1.5rem; /* Space above results */
+  background: rgba(0, 0, 0, 0.2); /* Slightly different background */
+  border-radius: 0.75rem; /* 12px */
+  border: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
+  max-height: 31.25rem; /* 500px limit */
+  overflow-y: auto; /* Enable scrolling */
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--primary-color) rgba(0, 0, 0, 0.1); /* Firefox scrollbar */
+  padding: 0.5rem; /* Add some base padding */
+  width: 100%; /* Take full width of parent */
+}
+
+/**
+ * Modern version of the results area
+ */
+.results-area.modern {
+  margin-block-start: 1rem;
+  background: rgba(30, 30, 30, 0.6);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-height: 300px; /* Default collapsed height */
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 45, 85, 0.5) rgba(0, 0, 0, 0.2);
+  padding: 0.75rem;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* For positioning the expand button */
+  transition: all 0.3s ease;
+  /* Ensure it's not expanded by default */
+  position: static;
+  width: auto;
+  height: auto;
+}
+
+/**
+ * Expanded state for results area in expanded container
+ */
+.ai-researcher-container.modern.expanded .results-area.modern {
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  width: 100% !important;
+  height: auto !important; /* Auto height */
+  min-height: 40vh !important; /* Reduced to 40% of the viewport height */
+  max-height: none !important;
+  z-index: 1 !important;
+  box-shadow: none !important;
+  background-color: rgba(30, 30, 30, 0.6) !important;
+  border-radius: 1rem !important;
+  overflow: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  margin: 0 0 1rem 0 !important; /* Add bottom margin */
+  padding: 0 !important;
+  flex: 1 !important;
+}
+
+/* Adjust the content area to take up all available space */
+.ai-researcher-container.modern.expanded .research-response.modern {
+  flex: 1 !important;
+  overflow: auto !important;
+  padding: 20px !important;
+  max-height: none !important;
+  height: auto !important; /* Auto height to accommodate content */
+  min-height: 40vh !important; /* Reduced to 40% of the viewport height */
+  font-size: 1rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Make sure the actions bar stays at the top */
+.results-area.modern.expanded .results-actions {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  width: 100% !important;
+  padding: 10px !important;
+}
+
+/* Add a close button to the expanded view */
+.results-area.modern.expanded::after {
+  content: '×';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  background-color: rgba(255, 45, 85, 0.7);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 1001;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.results-area.modern.expanded::after:hover,
+.results-area.modern.expanded::after:active {
+  background-color: rgba(255, 45, 85, 0.9);
+  transform: scale(1.1);
+}
+
+/**
+ * Toggle button for expanding/collapsing results
+ * Now integrated with the tool buttons
+ */
+.results-toggle-btn {
+  display: none; /* Hidden by default, shown via JS when results are available */
+}
+
+/* No longer needed as we're using the tool-btn class */
+
+/* WebKit scrollbar styles for results area */
+.results-area::-webkit-scrollbar {
+  width: 0.5rem; /* 8px */
+}
+
+.results-area.modern::-webkit-scrollbar {
+  width: 0.375rem; /* 6px - slightly thinner */
+}
+
+.results-area::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem; /* 4px */
+}
+
+.results-area.modern::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 0.1875rem; /* 3px */
+}
+
+.results-area::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 0.25rem; /* 4px */
+}
+
+.results-area.modern::-webkit-scrollbar-thumb {
+  background: rgba(255, 45, 85, 0.5);
+  border-radius: 0.1875rem; /* 3px */
+}
+
+.results-area::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary-color);
+}
+
+.results-area.modern::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 45, 85, 0.7);
+}
+
+/**
+ * Research timer styling
+ */
+.research-timer {
+  font-size: 0.9rem;
+  color: var(--primary-color); /* Use primary color instead of text-secondary */
+  margin-top: 0.5rem;
+  opacity: 1; /* Full opacity */
+  font-weight: 600; /* Make it bold */
+  background-color: rgba(0, 0, 0, 0.2); /* Add slight background */
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  display: inline-block;
+}
+
+/**
+ * Styling for the formatted research response content (Markdown).
+ */
+.research-response {
+  color: var(--text-color);
+  font-size: 1rem;
+  line-height: 1.6; /* Improve readability */
+  padding: 1.5rem; /* Padding inside the results area */
+}
+
+/**
+ * Modern version of the research response
+ */
+.research-response.modern {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  padding: 1rem;
+  flex: 1;
+}
+
+.research-response h1,
+.research-response h2,
+.research-response h3 {
+  color: var(--primary-color); /* Highlight headings */
+  margin-block-start: 1.5rem;
+  margin-block-end: 1rem;
+  font-weight: 600;
+}
+
+.research-response.modern h1,
+.research-response.modern h2,
+.research-response.modern h3 {
+  color: white;
+  margin-block-start: 1.25rem;
+  margin-block-end: 0.75rem;
+  font-weight: 600;
+}
+
+.research-response h1 { font-size: 1.8em; }
+.research-response h2 { font-size: 1.5em; }
+.research-response h3 { font-size: 1.2em; }
+
+.research-response.modern h1 { font-size: 1.5em; }
+.research-response.modern h2 { font-size: 1.3em; }
+.research-response.modern h3 { font-size: 1.1em; }
+
+.research-response p {
+  margin-block-end: 1rem;
+  opacity: 0.9;
+}
+
+.research-response.modern p {
+  margin-block-end: 0.875rem;
+  opacity: 0.9;
+}
+
+.research-response code {
+  background: rgba(0, 0, 0, 0.3); /* Inline code background */
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem; /* 4px */
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em; /* Slightly smaller */
+  color: var(--secondary-color); /* Accent color for code */
+}
+
+.research-response.modern code {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.1875rem 0.375rem;
+  border-radius: 0.1875rem; /* 3px */
+  font-size: 0.85em;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.research-response pre {
+  background: rgba(0, 0, 0, 0.3); /* Code block background */
+  padding: 1rem;
+  border-radius: 0.5rem; /* 8px */
+  overflow-x: auto; /* Allow horizontal scrolling for long lines */
+  margin-block: 1rem;
+  margin-inline: 0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.research-response.modern pre {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0.875rem;
+  border-radius: 0.375rem; /* 6px */
+  margin-block: 0.875rem;
+}
+
+.research-response pre code {
+  background: none; /* Reset background for code inside pre */
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em; /* Normal size */
+  color: inherit; /* Inherit color */
+}
+
+.research-response.modern pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 0.9em;
+}
+
+.research-response ul,
+.research-response ol {
+  margin-block: 1rem;
+  margin-inline: 0;
+  padding-inline-start: 1.5rem; /* Indent lists */
+}
+
+.research-response.modern ul,
+.research-response.modern ol {
+  margin-block: 0.875rem;
+  padding-inline-start: 1.25rem;
+}
+
+.research-response.modern li {
+  margin-bottom: 0.5rem;
+}
+
+.research-response li {
+  margin-block-end: 0.5rem;
+}
+
+.research-response blockquote {
+  border-inline-start: 0.25rem solid var(--primary-color); /* Left border */
+  padding-inline-start: 1rem; /* Indent blockquote text */
+  margin-block: 1rem;
+  margin-inline: 0;
+  font-style: italic;
+  opacity: 0.8;
+  color: var(--text-secondary, var(--text-color));
+}
+
+
+/* ==========================================================================
+   9. Workspace Panel
+   ========================================================================== */
+
+/**
+ * Sliding side panel for workspace (e.g., embedded content).
+ */
+.workspace-panel {
+  position: fixed;
+  inset-block-start: 0; /* Align to top */
+  /* Start off-screen to the right */
+  inset-inline-end: -50%; /* Use percentage for relative width */
+  width: 50%; /* Panel takes half the screen width */
+  height: 100vh; /* Full viewport height */
+  background: var(--background-color);
+  z-index: 100; /* Below modals/nav dropdowns, above main content */
+  transition: inset-inline-end 0.3s ease; /* Animate the slide */
+  display: flex;
+  flex-direction: column;
+  border-inline-start: 1px solid var(--border-color); /* Border on the left */
+  box-shadow: -5px 0 15px rgba(0,0,0,0.2); /* Shadow effect */
+}
+
+/* State when the panel is open */
+.workspace-panel.open {
+  inset-inline-end: 0; /* Slide into view */
+}
+
+.workspace-header {
+  flex: 0 0 auto; /* Don't grow or shrink */
+  padding-block: 0.75rem; /* 12px */
+  padding-inline: 1rem; /* 16px */
+  border-block-end: 1px solid var(--border-color); /* Bottom border */
+  display: flex;
+  justify-content: space-between; /* Space title and close button */
+  align-items: center;
+  background: var(--card-bg); /* Slightly different header background */
+}
+
+.workspace-header h2 {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 1rem; /* 16px */
+  font-weight: 500;
+}
+
+.workspace-close {
+  background: none;
+  border: none;
+  color: var(--text-color);
+  font-size: 1.25rem; /* 20px icon size */
+  cursor: pointer;
+  padding: 0.25rem; /* 4px clickable area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem; /* 4px */
+  transition: all 0.2s ease;
+  line-height: 1;
+}
+
+.workspace-close:hover {
+  background: var(--hover-bg);
+  color: var(--primary-color); /* Highlight on hover */
+}
+
+/* Content area of the workspace panel (e.g., iframe) */
+.workspace-content {
+  flex: 1 1 auto; /* Grow and shrink to fill space */
+  overflow: hidden; /* Hide iframe scrollbars if possible */
+  background: var(--background-color); /* Match panel bg */
+  position: relative; /* For absolute positioning of iframe */
+  display: flex; /* Needed if content isn't absolutely positioned */
+}
+
+.workspace-content iframe {
+  flex: 1; /* Ensure iframe takes space if using flex */
+  width: 100%;
+  height: 100%;
+  border: none; /* Remove iframe border */
+  /* Position absolutely to guarantee filling the container */
+  position: absolute;
+  inset: 0;
+}
+
+/**
+ * Adjustments to the main content container when the workspace is open.
+ */
+.container.workspace-open {
+  /* Shrink main content to make space for the panel */
+  /* Use max-width to limit size and margin to push it left */
+  max-width: calc(50% - 1.25rem); /* Half width minus padding */
+  margin-inline-end: calc(50% + 1.25rem); /* Push left by panel width + padding */
+  margin-inline-start: auto; /* Let browser calculate left margin */
+  width: auto; /* Reset width to allow max-width to work */
+}
+
+/**
+ * Toggle button to open/close the workspace panel.
+ * Fixed position, typically on the right edge.
+ */
+.workspace-toggle {
+  position: fixed;
+  inset-inline-end: 1.25rem; /* Position from right edge */ /* Adjusted position */
+  inset-block-start: calc(var(--button-top-position) + 3.5rem); /* Position below add task button */
+  transform: none; /* Remove vertical centering */
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  width: 2.5rem; /* 40px */
+  height: 2.5rem; /* 40px */
+  border-radius: 0.5rem; /* Fully rounded corners */
+  cursor: pointer;
+  z-index: 101; /* Above panel toggle trigger area */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.workspace-toggle:hover {
+  /* Adjust scale/background without vertical centering */
+  transform: scale(1.05);
+  background: var(--primary-hover-color, color-mix(in srgb, var(--primary-color) 90%, black));
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+/* Adjust position when workspace is open */
+.workspace-panel.open + .workspace-toggle {
+    inset-inline-end: calc(50% + 1px); /* Position next to the open panel */
+    border-radius: 0.5rem; /* Keep fully rounded corners */
+}
+
+
+.workspace-toggle i {
+  font-size: 1.125rem; /* 18px */
+  transition: transform 0.3s ease; /* Animate icon rotation */
+}
+/* Rotate icon when panel is open */
+.workspace-panel.open + .workspace-toggle i {
+    transform: rotate(180deg);
+}
+
+
+/* ==========================================================================
+   10. Subject Materials Section
+   ========================================================================== */
+
+/**
+ * Container for subject-specific materials/links.
+ */
+.subject-materials {
+  margin-block-start: 1.25rem; /* 20px space above */
+  padding: 0.9375rem; /* 15px */
+  border-radius: 0.5rem; /* 8px */
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  position: relative; /* For positioning the add button */
+}
+
+.subject-materials h5 {
+  color: var(--text-color);
+  margin: 0; /* Reset margin */
+  margin-block-end: 0.9375rem; /* 15px space below heading */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* 8px space between icon and text */
+  font-size: 1rem; /* Consistent heading size */
+  font-weight: 500;
+}
+
+/* Icon for the subject materials header */
+.subject-materials h5::before {
+  content: '\F3FA'; /* Bootstrap Icons: journal-bookmark-fill */
+  font-family: 'Bootstrap Icons'; /* Ensure icon font is loaded */
+  font-size: 1.1em; /* Slightly larger icon */
+  color: var(--primary-color); /* Brand color for icon */
+}
+
+.subject-materials-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem; /* 10px space between items */
+  margin-block-end: 0.9375rem; /* 15px space below list */
+}
+
+.subject-material-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space info and actions */
+  padding-block: 0.5rem; /* 8px */
+  padding-inline: 0.75rem; /* 12px */
+  background: var(--hover-bg); /* Use hover background for items */
+  border-radius: 0.375rem; /* 6px */
+  transition: all 0.2s ease;
+}
+
+.subject-material-item:hover {
+  transform: translateX(0.3125rem); /* 5px slide right on hover */
+  background: var(--hover-bg-dark); /* Darker hover */
+}
+
+.material-info {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem; /* 10px */
+  /* Allow text to wrap if needed */
+  overflow: hidden;
+  flex: 1; /* Allow info section to grow */
+  margin-inline-end: 0.5rem; /* Space before actions */
+}
+.material-info span { /* Assuming span holds the title/link */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+/* Badge indicating material type (PDF, Link, etc.) */
+.material-type-badge {
+  padding-block: 0.125rem; /* 2px */
+  padding-inline: 0.5rem; /* 8px */
+  border-radius: 0.75rem; /* 12px pill shape */
+  font-size: 0.8em; /* Relative font size */
+  background: var(--primary-color);
+  color: white;
+  white-space: nowrap; /* Prevent badge text wrapping */
+  flex-shrink: 0; /* Prevent badge shrinking */
+}
+
+/* Action buttons for each material (Open, Delete, etc.) */
+.material-actions {
+  display: flex;
+  gap: 0.5rem; /* 8px */
+  flex-shrink: 0; /* Prevent actions shrinking */
+}
+
+/* Add Subject Material Button - Centered with animation */
+.add-subject-material-btn {
+  display: block;
+  margin: 0 auto; /* Center horizontally */
+  background: linear-gradient(135deg, var(--primary-color), rgba(255, 45, 85, 0.8));
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem; /* Fully rounded */
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0.25rem 0.5rem rgba(255, 45, 85, 0.3);
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.add-subject-material-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-color), rgba(255, 45, 85, 0.8), var(--primary-color));
+  z-index: -1;
+  animation: spin-gradient 2s linear infinite;
+}
+
+@keyframes spin-gradient {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.add-subject-material-btn:hover {
+  transform: translateY(-0.25rem);
+  box-shadow: 0 0.375rem 0.75rem rgba(255, 45, 85, 0.4);
+}
+
+.add-subject-material-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 0.125rem 0.375rem rgba(255, 45, 85, 0.3);
+}
+
+.material-actions button {
+  padding: 0.25rem 0.5rem; /* Symmetrical padding */
+  border: none;
+  border-radius: 0.25rem; /* 4px */
+  background: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem; /* Icon size */
+  line-height: 1;
+}
+
+.material-actions button:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: scale(1.1);
+}
+
+
+/* ==========================================================================
+   11. Responsive Design
+   ========================================================================== */
+
+/* Larger Desktops */
+@media (min-width: 87.5em) { /* 1400px */
+  .container { max-width: 82.5rem; /* 1320px */ }
+  /* Adjust workspace open state if needed */
+  .container.workspace-open { max-width: calc(50% - 1.25rem); margin-inline-end: calc(50% + 1.25rem); }
+}
+
+/* Standard Desktops */
+@media (min-width: 75em) and (max-width: 87.49em) { /* 1200px - 1399px */
+  .container { max-width: 100rem; /* 1140px */ }
+  .container.workspace-open { max-width: calc(50% - 1.25rem); margin-inline-end: calc(50% + 1.25rem); }
+}
+
+/* Smaller Desktops / Large Tablets */
+@media (min-width: 62em) and (max-width: 74.99em) { /* 992px - 1199px */
+  .container { max-width: 60rem; /* 960px */ }
+  .container.workspace-open { max-width: calc(50% - 1.25rem); margin-inline-end: calc(50% + 1.25rem); }
+}
+
+/* Tablets */
+@media (min-width: 48em) and (max-width: 61.99em) { /* 768px - 991px */
+  .container { max-width: 45rem; /* 720px */ }
+  .container.workspace-open { max-width: calc(50% - 1.25rem); margin-inline-end: calc(50% + 1.25rem); }
+  .task-container { grid-template-columns: 1fr; } /* Stack task columns */
+}
+
+/* Mobile Devices */
+@media (max-width: 47.99em) { /* Below 768px */
+  /* Adjust container padding and remove max-width */
+  .container {
+    padding: 0.9375rem; /* 15px */
+    max-width: none;
+  }
+
+  /* Make workspace panel full width and hide main content */
+  .workspace-panel {
+    width: 100%;
+    inset-inline-end: -100%; /* Start fully off-screen */
+    border-inline-start: none; /* Remove border */
+  }
+  .workspace-panel.open {
+    inset-inline-end: 0;
+  }
+  .container.workspace-open {
+    display: none; /* Hide main content when panel is open */
+    /* Reset margin/width overrides */
+    max-width: none;
+    margin-inline: auto;
+    width: 100%;
+  }
+  .workspace-toggle {
+      /* Adjust toggle position if needed for full-width panel */
+      inset-inline-end: 1rem;
+  }
+  .workspace-panel.open + .workspace-toggle {
+     inset-inline-end: calc(100% + 1px); /* Position next to open panel edge */
+  }
+
+
+  /* Stack task columns */
+  .task-container {
+    grid-template-columns: 1fr;
+  }
+
+  /* Adjust Add Task button size and position */
+  .add-task-button {
+    inset-block-end: 1.25rem; /* 20px */
+    inset-inline-end: 1.25rem; /* 20px */
+    width: 3.125rem; /* 50px */
+    height: 3.125rem; /* 50px */
+    font-size: 1.25rem; /* 20px */
+  }
+
+   /* Adjust task modal content */
+  .task-modal-content {
+    width: 95%;
+    margin-block: 0.625rem; /* 10px */
+    margin-inline: auto;
+    max-height: 85vh;
+  }
+
+  /* Adjust timer display */
+  .timer-time {
+      font-size: 3rem; /* Slightly smaller time */
+      min-width: auto; /* Remove min-width */
+  }
+  .timer-label {
+      font-size: 1rem;
+  }
+  .timer-circle {
+      height: 8rem; /* Smaller circle */
+  }
+  .timer-controls {
+      gap: 1rem; /* Reduce gap */
+  }
+  .timer-btn {
+      width: 3.25rem; /* Smaller buttons */
+      height: 3.25rem;
+      font-size: 1.3rem;
+  }
+  .timer-btn.primary {
+      width: 3.75rem; /* Smaller primary button */
+      height: 3.75rem;
+      font-size: 1.6rem;
+  }
+  .timer-stats {
+      flex-direction: column; /* Stack stats vertically */
+      gap: 0.5rem;
+      max-width: 90%;
+  }
+  .stat-item {
+      min-width: auto; /* Remove min-width */
+      justify-content: center; /* Center stat items */
+  }
+
+  /* Adjust Nav */
+  .top-nav {
+      padding-inline: 1rem; /* Reduce nav padding */
+      height: 4.5rem; /* Slightly shorter nav */
+  }
+  .nav-links {
+      display: none; /* Hide links (implement mobile menu toggle) */
+  }
+  .menu-toggle {
+      display: flex; /* Show hamburger menu */
+  }
+  .auth-button {
+      padding: 0.4rem 0.8rem; /* Smaller auth button */
+      font-size: 0.9rem;
+  }
+  .user-name {
+      display: none; /* Hide username next to avatar */
+  }
+
+  /* Adjust quote container */
+  .quote-container {
+      padding: 0.75rem;
+      min-height: auto; /* Remove min height */
+  }
+  .quote-image {
+      width: 5rem; /* Smaller image */
+  }
+  .quote-text {
+      font-size: 1rem;
+  }
+  .quote-nav-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1rem;
+  }
+
+  /* Adjust fatigue modal grid */
+    .fatigue-levels {
+        grid-template-columns: 1fr; /* Stack levels */
+    }
+
+    /* Adjust relaxed mode button position */
+    .relaxed-mode-btn {
+        right: var(--button-right-position);
+        top: calc(var(--button-top-position-mobile) + 7rem);
+    }
+    .feedback-button {
+        right: var(--button-right-position-secondary);
+        top: calc(var(--button-top-position-mobile) + 3.5rem);
+    }
+    .theme-toggle {
+        inset-block-start: var(--button-top-position-mobile);
+        inset-inline-end: var(--button-right-position-secondary);
+    }
+}
+
+/* Ensure fixed buttons remain visible on very short screens */
+@media (max-height: 31.25em) { /* 500px */
+  /* These elements are already fixed, this media query might be redundant */
+  /* .add-task-button { position: fixed; } */
+  /* Consider adjusting bottom positioning if overlap occurs */
+}
+
+/* ==========================================================================
+   9. Interactive Simulation Feature
+   ========================================================================== */
+
+/**
+ * Controls for generating a simulation
+ */
+.simulation-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/**
+ * Button to generate a simulation
+ */
+.simulation-btn {
+  background: linear-gradient(135deg, var(--primary-color), rgba(255, 45, 85, 0.8));
+  color: white;
+  border: none;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(255, 45, 85, 0.3);
+}
+
+.simulation-btn:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.375rem 0.75rem rgba(255, 45, 85, 0.4);
+}
+
+.simulation-btn:active {
+  transform: translateY(0.0625rem);
+}
+
+.simulation-btn i {
+  font-size: 1rem;
+}
+
+/**
+ * Container for the simulation
+ */
+.simulation-container {
+  background: rgba(30, 30, 30, 0.7);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+/**
+ * Simulation container in expanded AI container
+ */
+.ai-researcher-container.modern.expanded .simulation-container {
+  flex: 1;
+  margin: 1rem 0;
+  height: auto;
+  min-height: 40vh; /* Reduced to 40% of the viewport height */
+  max-height: none;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/**
+ * Ensure simulation preview is visible in expanded mode
+ */
+.ai-researcher-container.modern.expanded .simulation-preview {
+  height: auto;
+  min-height: 40vh;
+  flex: 1;
+  display: flex;
+}
+
+/**
+ * Ensure simulation frame is visible in expanded mode
+ */
+.ai-researcher-container.modern.expanded #simulationFrame {
+  height: 100%;
+  min-height: 40vh;
+  width: 100%;
+  display: block;
+}
+
+/**
+ * Header for the simulation container
+ */
+.simulation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: rgba(40, 40, 40, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.simulation-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.simulation-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 500;
+}
+
+.simulation-indicators {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.simulation-image-indicator,
+.simulation-model-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.simulation-image-indicator i {
+  color: var(--primary-color);
+  font-size: 0.875rem;
+}
+
+.simulation-model-indicator i {
+  color: #4CAF50;
+  font-size: 0.875rem;
+}
+
+/**
+ * Action buttons in the simulation header
+ */
+.simulation-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-0.125rem);
+}
+
+/**
+ * Container for the simulation code
+ */
+.simulation-code {
+  padding: 1rem;
+  background: rgba(20, 20, 20, 0.8);
+  color: #e0e0e0;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  max-height: 15rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/**
+ * Container for the simulation preview
+ */
+.simulation-preview {
+  height: 30rem;
+  overflow: hidden;
+  background: white;
+  position: relative;
+  border-radius: 0 0 1rem 1rem;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1; /* Allow it to grow */
+  transition: all 0.3s ease;
+}
+
+/**
+ * Simulation preview in expanded AI container
+ */
+.ai-researcher-container.modern.expanded .simulation-preview {
+  height: auto; /* Let it fill the available space */
+  flex: 1;
+  min-height: 30rem;
+}
+
+/**
+ * Ready message for simulation
+ */
+.simulation-ready-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: white;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+}
+
+/**
+ * Ready message in expanded AI container
+ */
+.ai-researcher-container.modern.expanded .simulation-ready-message {
+  min-height: 30rem;
+}
+
+.ready-icon {
+  font-size: 3rem;
+  color: #4CAF50;
+  margin-bottom: 1rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.simulation-ready-message h3 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.simulation-ready-message p {
+  color: #666;
+  margin-bottom: 1.5rem;
+  max-width: 80%;
+}
+
+.run-simulation-btn {
+  background: linear-gradient(135deg, var(--primary-color), rgba(255, 45, 85, 0.8));
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(255, 45, 85, 0.3);
+}
+
+.run-simulation-btn:hover {
+  transform: translateY(-0.125rem);
+  box-shadow: 0 0.375rem 0.75rem rgba(255, 45, 85, 0.4);
+}
+
+.run-simulation-btn:active {
+  transform: translateY(0.0625rem);
+}
+
+.run-simulation-btn i {
+  font-size: 1rem;
+}
+
+/**
+ * iframe for rendering the simulation
+ */
+#simulationFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: white;
+  display: block;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  flex: 1;
+}
+
+/**
+ * iframe in expanded AI container
+ */
+.ai-researcher-container.modern.expanded #simulationFrame {
+  min-height: 30rem;
+  height: 100%;
+}
+
+/**
+ * Loading indicator for simulation generation
+ */
+.simulation-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: white;
+  gap: 1rem;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+}
+
+/**
+ * Loading indicator in expanded AI container
+ */
+.ai-researcher-container.modern.expanded .simulation-loading {
+  min-height: 30rem;
+}
+
+.simulation-loading .spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 0.25rem solid rgba(255, 45, 85, 0.3);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: simulation-spinner 1s linear infinite;
+}
+
+@keyframes simulation-spinner {
+  to { transform: rotate(360deg); }
+}
+
+/**
+ * Progress bar for simulation generation
+ */
+.simulation-progress {
+  background: rgba(20, 20, 20, 0.8);
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-container {
+  height: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.25rem;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), rgba(255, 45, 85, 0.7));
+  border-radius: 0.25rem;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.75rem;
+}
+
+#simulationProgressPercent {
+  font-weight: bold;
+  color: white;
+}
+
+#simulationProgressTime {
+  font-style: italic;
+}
+
+#simulationProgressTokens {
+  font-family: 'Roboto Mono', monospace;
+}
+
+/* Responsive adjustments for simulation container */
+@media (max-width: 768px) {
+  .simulation-preview {
+    height: 20rem;
+  }
+
+  .simulation-code {
+    max-height: 10rem;
+  }
+
+  .progress-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  #simulationProgressPercent {
+    font-size: 0.875rem;
+  }
+
+  .simulation-ready-message h3 {
+    font-size: 1.25rem;
+  }
+
+  .simulation-ready-message p {
+    font-size: 0.875rem;
+    max-width: 95%;
+  }
+
+  .ready-icon {
+    font-size: 2.5rem;
+  }
+
+  .run-simulation-btn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}

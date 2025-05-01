@@ -1,0 +1,1441 @@
+:root {
+    /* Main colors */
+    --primary-color: #4f46e5; /* Modern indigo */
+    --primary-hover: #4338ca;
+    --secondary-color: #06b6d4; /* Cyan */
+    --accent-color: #8b5cf6; /* Purple */
+
+    /* Dark theme (default) */
+    --background-color: #111827;
+    --surface-color: #1f2937;
+    --card-bg: #374151;
+    --hover-bg: #4b5563;
+    --border-color: #6b7280;
+    --text-color: #f9fafb;
+    --text-secondary: #d1d5db;
+    --text-tertiary: #9ca3af;
+
+    /* Feedback colors */
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --info-color: #3b82f6;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+
+    /* Border radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-full: 9999px;
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 350ms ease;
+
+    /* Z-index layers */
+    --z-dropdown: 10;
+    --z-sticky: 20;
+    --z-fixed: 30;
+    --z-modal: 40;
+    --z-popover: 50;
+    --z-tooltip: 60;
+
+    /* For rgba usage */
+    --primary-color-rgb: 79, 70, 229;
+}
+
+body.light-theme {
+    /* Light theme colors */
+    --background-color: #f9fafb;
+    --surface-color: #f3f4f6;
+    --card-bg: #ffffff;
+    --hover-bg: #e5e7eb;
+    --border-color: #d1d5db;
+    --text-color: #111827;
+    --text-secondary: #374151;
+    --text-tertiary: #6b7280;
+
+    /* Shadows for light theme */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Keep vh for full height */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* Transition specific properties for better performance */
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+    /* Base font size for rem calculations */
+    font-size: var(--font-size-md); /* 16px */
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.workspace-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Keep vh */
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+    overflow: hidden;
+    box-sizing: border-box; /* Good practice */
+    background-color: var(--background-color);
+    position: relative;
+}
+
+.toolbar {
+    flex: 0 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    align-items: center;
+    border: 1px solid var(--border-color);
+    min-block-size: 2.75rem;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+}
+
+.toolbar-group {
+    display: flex;
+    gap: var(--spacing-xs);
+    padding-inline: var(--spacing-sm);
+    border-inline-end: 1px solid var(--border-color);
+    position: relative;
+}
+
+.toolbar-group:last-child {
+    border-inline-end: none;
+}
+
+.tool-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-color);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    transition: all var(--transition-fast);
+    position: relative;
+    min-height: 2rem;
+}
+
+.tool-btn:hover {
+    background: var(--hover-bg);
+    border-color: var(--border-color);
+}
+
+.tool-btn:active {
+    transform: translateY(1px);
+}
+
+.tool-btn.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-hover);
+}
+
+.tool-btn i {
+    /* font-size: 14px; -> 0.875rem (Rule 2) */
+    font-size: 0.875rem;
+}
+
+.editor-section {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    min-height: 0; /* Important for flex overflow */
+    position: relative;
+    min-block-size: 0;
+    box-shadow: var(--shadow-md);
+    transition: box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.editor-section:focus-within {
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+#editor {
+    flex: 1 1 auto;
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-size: var(--font-size-md);
+    line-height: 1.6;
+    resize: none;
+    padding: var(--spacing-md);
+    margin: 0;
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    transition: background-color var(--transition-normal);
+    outline: none;
+}
+
+#editor:focus {
+    outline: none;
+}
+
+
+
+.status-bar {
+    flex: 0 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--surface-color);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    color: var(--text-secondary);
+    min-block-size: 2rem;
+    border-top: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.word-count {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+}
+
+.word-count span {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.status-message {
+    position: fixed;
+    /* bottom: 20px; right: 20px; -> 1.25rem (Rule 2) */
+    inset-block-end: 1.25rem; /* (Rule 5) */
+    inset-inline-end: 1.25rem; /* (Rule 5) */
+    /* padding: 10px 20px; -> 0.625rem 1.25rem (Rule 2) */
+    padding: 0.625rem 1.25rem;
+    border-radius: 0.25rem; /* 4px */
+    z-index: 1000;
+    animation: slideInFromEnd 0.3s ease; /* Renamed keyframe */
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+.status-message.success {
+    background-color: rgba(40, 167, 69, 0.2);
+    border-color: rgba(40, 167, 69, 0.3);
+    color: #2ecc71;
+}
+
+.status-message.error {
+    background-color: rgba(220, 53, 69, 0.2);
+    border-color: rgba(220, 53, 69, 0.3);
+    color: #ff6b6b;
+}
+
+@keyframes slideInFromEnd { /* Renamed */
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+
+
+/* File menu dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    /* top: 100%; left: 0; */
+    inset-block-start: 100%; /* (Rule 5) */
+    inset-inline-start: 0; /* (Rule 5) */
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem; /* 4px */
+    /* min-width: 160px; -> 10rem (Rule 1 & 2) */
+    min-inline-size: 10rem; /* (Rule 5) */
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.2); /* 2px 8px */
+    z-index: 1000;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-item {
+    /* padding: 6px 12px; -> 0.375rem 0.75rem (Rule 2) */
+    padding: 0.375rem 0.75rem;
+    display: flex;
+    align-items: center;
+    /* gap: 8px; -> 0.5rem (Rule 2 & 3) */
+    gap: 0.5rem;
+    cursor: pointer;
+    /* font-size: 13px; -> 0.8125rem (Rule 2) */
+    font-size: 0.8125rem;
+    color: var(--text-color);
+    transition: background-color 0.2s ease; /* Specific transition */
+}
+
+.dropdown-item:hover {
+    background: var(--hover-bg);
+}
+
+.dropdown-item i {
+    /* font-size: 14px; -> 0.875rem (Rule 2) */
+    font-size: 0.875rem;
+    opacity: 0.8;
+}
+
+.keyboard-shortcut {
+    /* margin-left: auto; */
+    margin-inline-start: auto; /* (Rule 5) */
+    opacity: 0.6;
+    /* font-size: 11px; -> 0.6875rem (Rule 2) */
+    font-size: 0.6875rem;
+}
+
+/* Task Attachments Styles - OneNote-like design */
+.attachments-section {
+    flex: 0 0 auto;
+    background-color: var(--card-bg);
+    border-radius: 0.375rem; /* 6px */
+    border: 1px solid var(--border-color);
+    /* margin-top: 8px; margin-bottom: 8px; -> 0.5rem (Rule 2) */
+    margin-block: 0.5rem; /* (Rule 5) */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* max-height: 300px; -> 18.75rem (Rule 2) */
+    max-block-size: 18.75rem; /* (Rule 5) */
+}
+
+.attachments-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 8px 12px; -> 0.5rem 0.75rem (Rule 2) */
+    padding: 0.5rem 0.75rem;
+    /* border-bottom: 1px solid var(--border-color); */
+    border-block-end: 1px solid var(--border-color); /* (Rule 5) */
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.attachments-header h3 {
+    margin: 0;
+    /* font-size: 16px; -> 1rem (Rule 2) */
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.task-select {
+    background-color: var(--hover-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    /* padding: 4px 8px; -> 0.25rem 0.5rem (Rule 2) */
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem; /* 4px */
+    /* font-size: 13px; -> 0.8125rem (Rule 2) */
+    font-size: 0.8125rem;
+    /* min-width: 200px; -> 12.5rem (Rule 1 & 2) */
+    min-inline-size: 12.5rem; /* (Rule 5) */
+    appearance: none; /* Basic styling reset */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+.attachments-container {
+    /* padding: 12px; -> 0.75rem (Rule 2) */
+    padding: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    /* gap: 12px; -> 0.75rem (Rule 2 & 3) */
+    gap: 0.75rem;
+    overflow-y: auto;
+    flex: 1; /* (Rule 8 - Good usage) */
+}
+
+.no-attachments-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    /* padding: 40px 0; -> 2.5rem 0 (Rule 2) */
+    padding-block: 2.5rem; /* (Rule 5) */
+    padding-inline: 0; /* (Rule 5) */
+    color: var(--text-color);
+    opacity: 0.5;
+}
+
+.no-attachments-message i {
+    /* font-size: 32px; -> 2rem (Rule 2) */
+    font-size: 2rem;
+    /* margin-bottom: 10px; -> 0.625rem (Rule 2) */
+    margin-block-end: 0.625rem; /* (Rule 5) */
+}
+
+.no-attachments-message p {
+    margin: 0;
+    /* font-size: 14px; -> 0.875rem (Rule 2) */
+    font-size: 0.875rem;
+}
+
+.attachment-card {
+    /* width: 150px; -> 9.375rem (Rule 1 & 2) - Keep fixed for grid layout? */
+    inline-size: 9.375rem; /* (Rule 5) */
+    border: 1px solid var(--border-color);
+    border-radius: 0.375rem; /* 6px */
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; /* Specific transitions */
+    background-color: var(--background-color);
+    position: relative;
+}
+
+.attachment-card:hover {
+    transform: translateY(-0.1875rem); /* -3px (Rule 4) */
+    box-shadow: 0 0.3125rem 0.625rem rgba(0, 0, 0, 0.2); /* 5px 10px */
+    border-color: var(--primary-color);
+}
+
+.attachment-preview {
+    /* height: 100px; -> 6.25rem (Rule 2) */
+    block-size: 6.25rem; /* (Rule 5) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.attachment-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    max-inline-size: 100%; /* (Rule 5) */
+    max-block-size: 100%; /* (Rule 5) */
+    object-fit: contain; /* Add object-fit */
+}
+
+.attachment-preview i {
+    /* font-size: 36px; -> 2.25rem (Rule 2) */
+    font-size: 2.25rem;
+    opacity: 0.8;
+}
+
+.attachment-info {
+    /* padding: 8px; -> 0.5rem (Rule 2) */
+    padding: 0.5rem;
+}
+
+.attachment-name {
+    /* font-size: 12px; -> 0.75rem (Rule 2) */
+    font-size: 0.75rem;
+    font-weight: 500;
+    /* margin: 0 0 4px 0; -> margin-block-end: 0.25rem (Rule 2 & 5) */
+    margin: 0;
+    margin-block-end: 0.25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.attachment-meta {
+    color: var(--text-color);
+    opacity: 0.6;
+    /* font-size: 10px; -> 0.625rem (Rule 2) */
+    font-size: 0.625rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.attachment-actions {
+    position: absolute;
+    /* top: 5px; right: 5px; -> 0.3125rem (Rule 2) */
+    inset-block-start: 0.3125rem; /* (Rule 5) */
+    inset-inline-end: 0.3125rem; /* (Rule 5) */
+    display: flex;
+    /* gap: 4px; -> 0.25rem (Rule 2 & 3) */
+    gap: 0.25rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.attachment-card:hover .attachment-actions {
+    opacity: 1;
+}
+
+.attachment-action-btn {
+    /* width: 24px; height: 24px; -> 1.5rem (Rule 2) */
+    inline-size: 1.5rem; /* (Rule 5) */
+    block-size: 1.5rem; /* (Rule 5) */
+    /* aspect-ratio: 1 / 1; (Rule 9) - Alternative */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    /* font-size: 12px; -> 0.75rem (Rule 2) */
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease; /* Specific transitions */
+    border: none;
+}
+
+.attachment-action-btn:hover {
+    background-color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+.attachment-action-btn.delete-btn {
+    background-color: rgba(220, 53, 69, 0.6);
+}
+
+.attachment-action-btn.delete-btn:hover {
+    background-color: rgb(220, 53, 69); /* Use rgb for full opacity */
+    transform: scale(1.1);
+}
+
+/* PDF Preview */
+.pdf-preview {
+    position: fixed;
+    /* top: 0; left: 0; */
+    inset: 0; /* (Rule 5) */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    /* padding: 20px; -> 1.25rem (Rule 2) */
+    padding: 1.25rem;
+    box-sizing: border-box;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+}
+
+.pdf-preview.active {
+    display: flex;
+}
+
+.pdf-preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* padding: 10px 20px; -> 0.625rem 1.25rem (Rule 2) */
+    padding: 0.625rem 1.25rem;
+    background-color: var(--card-bg);
+    border-radius: 0.375rem 0.375rem 0 0; /* 6px */
+    width: 90%; /* Keep % */
+    /* max-width: 1200px; -> 75rem (Rule 1 & 2) */
+    max-inline-size: 75rem; /* (Rule 5) */
+    box-sizing: border-box; /* Add box-sizing */
+}
+
+.pdf-preview-title {
+    /* font-size: 16px; -> 1rem (Rule 2) */
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pdf-preview-close {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    /* font-size: 24px; -> 1.5rem (Rule 2) */
+    font-size: 1.5rem;
+    cursor: pointer;
+    /* padding: 5px 10px; -> 0.3125rem 0.625rem (Rule 2) */
+    padding: 0.3125rem 0.625rem;
+    border-radius: 0.25rem; /* 4px */
+    transition: background-color 0.2s ease, transform 0.2s ease; /* Specific transitions */
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.pdf-preview-close:hover {
+    background-color: var(--hover-bg);
+    transform: scale(1.1);
+}
+
+.pdf-preview-content {
+    flex: 1; /* Use available space */
+    background-color: var(--card-bg);
+    overflow: auto; /* Allow scrolling for content */
+    display: flex; /* Keep flex for centering */
+    justify-content: center;
+    /* align-items: center; /* Remove align center to allow top alignment */
+    /* padding: 20px; -> 1.25rem (Rule 2) */
+    padding: 1.25rem;
+    width: 90%; /* Keep % */
+    /* max-width: 1200px; -> 75rem (Rule 1 & 2) */
+    max-inline-size: 75rem; /* (Rule 5) */
+    max-height: 80vh; /* Keep vh */
+    max-block-size: 80vh; /* (Rule 5) */
+    border-radius: 0 0 0.375rem 0.375rem; /* 6px */
+    box-sizing: border-box; /* Add box-sizing */
+}
+
+.pdf-preview-canvas {
+    /* max-width: 100%; max-height: 100%; - Set by parent */
+    display: block; /* Remove potential extra space */
+    margin-inline: auto; /* Center if smaller than container */
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.3); /* 10px */
+    border-radius: 0.25rem; /* 4px */
+}
+
+/* PDF iframe container */
+.pdf-iframe-container {
+    width: 100%;
+    height: 100%;
+    min-height: 60vh;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.3);
+}
+
+/* PDF loading indicator */
+.pdf-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-height: 20vh;
+    color: var(--text-color);
+}
+
+/* PDF error message */
+.pdf-error {
+    padding: 1.25rem;
+    text-align: center;
+    background-color: rgba(239, 68, 68, 0.1);
+    border: 1px solid var(--error-color);
+    border-radius: 0.25rem;
+    margin: 1.25rem;
+}
+
+.pdf-error a {
+    color: var(--primary-color);
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.pdf-error a:hover {
+    text-decoration: none;
+}
+
+.pdf-preview-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 10px; -> 0.625rem (Rule 2) */
+    padding: 0.625rem;
+    background-color: var(--card-bg);
+    border-radius: 0 0 0.375rem 0.375rem; /* 6px */
+    /* gap: 10px; -> 0.625rem (Rule 2 & 3) */
+    gap: 0.625rem;
+    width: 90%; /* Match content width */
+    max-inline-size: 75rem; /* Match content width */
+    box-sizing: border-box;
+    margin-block-start: 0.625rem; /* Add space above footer */
+}
+
+.pdf-nav-btn {
+    background-color: var(--hover-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    /* padding: 5px 15px; -> 0.3125rem 0.9375rem (Rule 2) */
+    padding: 0.3125rem 0.9375rem;
+    border-radius: 0.25rem; /* 4px */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    /* gap: 5px; -> 0.3125rem (Rule 2 & 3) */
+    gap: 0.3125rem;
+    /* font-size: 12px; -> 0.75rem (Rule 2) */
+    font-size: 0.75rem;
+    transition: background-color 0.2s ease, color 0.2s ease; /* Specific transitions */
+}
+
+.pdf-nav-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.pdf-page-info {
+    /* font-size: 12px; -> 0.75rem (Rule 2) */
+    font-size: 0.75rem;
+    color: var(--text-color);
+}
+
+/* Image Preview */
+#imagePreview {
+    position: fixed;
+    /* top: 0; left: 0; */
+    inset: 0; /* (Rule 5) */
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* padding: 20px; -> 1.25rem (Rule 2) */
+    padding: 1.25rem;
+    box-sizing: border-box;
+}
+
+#imagePreview.active {
+    display: flex;
+}
+
+/* Re-use PDF header styles for Image preview header */
+#imagePreview .pdf-preview-header {
+    width: 90%;
+    max-inline-size: 75rem; /* 1200px */
+    /* margin-bottom: 10px; -> 0.625rem (Rule 2) */
+    margin-block-end: 0.625rem; /* (Rule 5) */
+}
+
+/* Re-use PDF content styles for Image preview content */
+#imagePreview .pdf-preview-content {
+    width: 90%;
+    max-inline-size: 75rem; /* 1200px */
+    max-block-size: 80vh;
+    background-color: var(--card-bg);
+    border-radius: 0.375rem; /* 6px */
+    padding: 1.25rem; /* 20px */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevent internal scroll */
+}
+
+#imagePreview img {
+    max-width: 100%;
+    /* max-height: calc(80vh - 100px); -> Use rem, account for padding/header */
+    max-block-size: calc(80vh - 2.5rem - 2.5rem - 0.625rem); /* 80vh - content padding - header height - margin */
+    object-fit: contain;
+    border-radius: 0.25rem; /* 4px */
+    display: block; /* Remove extra space */
+}
+
+/* Responsive adjustments - Mobile First Approach */
+
+/* Small phones (up to 480px) */
+@media (max-width: 30em) {
+    .workspace-container {
+        padding: 0.25rem;
+        gap: 0.25rem;
+    }
+
+    .toolbar-group:not(:first-child) {
+        /* Consider hiding less critical groups on very small screens */
+    }
+
+    .toolbar-button[data-tooltip]:hover::after {
+        display: none; /* Tooltips often unusable on touch */
+    }
+
+    .toolbar-button {
+        padding: 0.25rem;
+        min-inline-size: 1.5rem; /* Even smaller for tiny screens */
+        block-size: 1.5rem;
+    }
+
+    .toolbar-select {
+        max-inline-size: 5rem; /* Smaller on tiny screens */
+    }
+
+    .status-item span {
+        display: none; /* Compact view */
+    }
+
+    .attachment-card {
+        inline-size: 100%; /* Full width on tiny screens */
+    }
+
+    .pdf-preview, #imagePreview {
+        padding: 0.25rem;
+    }
+
+    .pdf-preview-header, .pdf-preview-content,
+    #imagePreview .pdf-preview-header, #imagePreview .pdf-preview-content {
+        width: 100%;
+    }
+}
+
+/* Phones (480px - 767px) */
+@media (min-width: 30.0625em) and (max-width: 47.9375em) {
+    .workspace-container {
+        padding: 0.25rem;
+        gap: 0.25rem;
+    }
+
+    .toolbar {
+        padding: 0.25rem;
+        min-block-size: 2.25rem;
+    }
+
+    #editor {
+        padding: 0.625rem !important;
+    }
+
+    .status-bar {
+        min-block-size: 1.5rem;
+    }
+
+    .toolbar-button {
+        padding: 0.25rem;
+        min-inline-size: 1.75rem;
+        block-size: 1.75rem;
+    }
+
+    .toolbar-select {
+        max-inline-size: 6.25rem;
+    }
+
+    .status-item span {
+        display: none; /* Compact view */
+    }
+
+    .pdf-preview, #imagePreview {
+        padding: 0.5rem;
+    }
+
+    .pdf-preview-header, .pdf-preview-content,
+    #imagePreview .pdf-preview-header, #imagePreview .pdf-preview-content {
+        width: 95%;
+    }
+}
+
+/* Tablets (768px - 1023px) */
+@media (min-width: 48em) and (max-width: 63.9375em) {
+    .workspace-container {
+        padding: 0.375rem;
+        gap: 0.375rem;
+    }
+
+    .toolbar {
+        padding: 0.375rem;
+    }
+
+    .attachment-card {
+        inline-size: 8rem; /* Slightly smaller cards on tablets */
+    }
+
+    .pdf-preview-header, .pdf-preview-content,
+    #imagePreview .pdf-preview-header, #imagePreview .pdf-preview-content {
+        width: 90%;
+        max-inline-size: 60rem;
+    }
+}
+
+/* Small laptops (1024px - 1279px) */
+@media (min-width: 64em) and (max-width: 79.9375em) {
+    .pdf-preview-header, .pdf-preview-content,
+    #imagePreview .pdf-preview-header, #imagePreview .pdf-preview-content {
+        width: 85%;
+        max-inline-size: 70rem;
+    }
+}
+
+/* Low height screens */
+@media (max-height: 31.25em) {
+    .workspace-container {
+        gap: 0.25rem;
+    }
+
+    #editor {
+        padding: 0.5rem !important; /* Override Quill */
+    }
+
+    .attachment-preview {
+        block-size: 5rem; /* Smaller previews on low height screens */
+    }
+
+    .attachments-section {
+        max-block-size: 12.5rem; /* Smaller attachment section */
+    }
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    position: fixed;
+    /* bottom: 20px; right: 20px; -> 1.25rem (Rule 2) */
+    inset-block-end: 1.25rem; /* (Rule 5) */
+    inset-inline-end: 1.25rem; /* (Rule 5) */
+    z-index: 1000;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    /* padding: 8px 16px; -> 0.5rem 1rem (Rule 2) */
+    padding: 0.5rem 1rem;
+    border-radius: 1.25rem; /* 20px */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    /* gap: 8px; -> 0.5rem (Rule 2 & 3) */
+    gap: 0.5rem;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Specific transitions */
+    /* font-size: 14px; -> 0.875rem (Rule 2) */
+    font-size: 0.875rem;
+    box-shadow: 0 0.125rem 0.625rem rgba(0, 0, 0, 0.1); /* 2px 10px */
+}
+
+.theme-toggle:hover {
+    background-color: var(--hover-bg);
+    transform: translateY(-0.125rem); /* -2px (Rule 4) */
+    box-shadow: 0 0.25rem 0.9375rem rgba(0, 0, 0, 0.2); /* 4px 15px */
+}
+
+.theme-icon {
+    /* font-size: 16px; -> 1rem (Rule 2) */
+    font-size: 1rem;
+}
+
+/* === Editor specific styles (Duplicated / More specific) === */
+/* Many selectors are duplicated from above, ensure consistency or refactor */
+
+.editor-container { /* This seems like a higher-level wrapper? */
+    display: flex;
+    flex-direction: column;
+    background: var(--card-bg);
+    border-radius: 0.5rem; /* 8px */
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    /* height: calc(100vh - 250px); -> Use rem */
+    block-size: calc(100vh - 15.625rem); /* (Rule 2 & 5) */
+    /* margin-bottom: 16px; -> 1rem (Rule 2) */
+    margin-block-end: 1rem; /* (Rule 5) */
+}
+
+.toolbar-container { /* Wrapper for toolbar rows */
+    background: var(--card-bg);
+    /* border-bottom: 1px solid var(--border-color); */
+    border-block-end: 1px solid var(--border-color); /* (Rule 5) */
+    /* padding: 4px; -> 0.25rem (Rule 2) */
+    padding: 0.25rem;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.toolbar-row {
+    display: flex;
+    /* gap: 8px; -> 0.5rem (Rule 2 & 3) */
+    gap: 0.5rem;
+    /* padding: 4px; -> 0.25rem (Rule 2) */
+    padding: 0.25rem;
+    flex-wrap: wrap; /* Allow wrapping */
+}
+
+.toolbar-row:not(:last-child) {
+    /* border-bottom: 1px solid var(--border-color); */
+    border-block-end: 1px solid var(--border-color); /* (Rule 5) */
+}
+
+/* .toolbar-group (Duplicate) - Applied above */
+.toolbar-group {
+    /* padding: 0 8px; -> 0 0.5rem (Rule 2) */
+    padding-inline: 0.5rem; /* (Rule 5) */
+    align-items: center; /* Ensure vertical alignment */
+}
+
+.toolbar-button { /* More specific potentially */
+    background: transparent;
+    border: none;
+    color: var(--text-color);
+    /* padding: 6px; -> 0.375rem (Rule 2) */
+    padding: 0.375rem;
+    border-radius: 0.25rem; /* 4px */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* min-width: 32px; height: 32px; -> 2rem (Rule 2) */
+    min-inline-size: 2rem; /* (Rule 5) */
+    block-size: 2rem; /* (Rule 5) */
+    transition: background-color 0.2s ease, color 0.2s ease; /* Specific transitions */
+    position: relative; /* For tooltip */
+}
+
+.toolbar-button:hover {
+    background: var(--hover-bg);
+}
+
+.toolbar-button.active { /* Combined with Quill's active below */
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white !important; /* Override Quill */
+}
+
+/* Tooltip using data attribute */
+.toolbar-button[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    /* bottom: 100%; left: 50%; */
+    inset-block-end: 100%; /* (Rule 5) */
+    inset-inline-start: 50%; /* (Rule 5) */
+    transform: translateX(-50%);
+    background: var(--card-bg);
+    /* padding: 4px 8px; -> 0.25rem 0.5rem (Rule 2) */
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem; /* 4px */
+    /* font-size: 12px; -> 0.75rem (Rule 2) */
+    font-size: 0.75rem;
+    white-space: nowrap;
+    box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.2); /* 2px 8px */
+    z-index: 1000;
+    margin-block-end: 0.25rem; /* Add small gap */
+}
+
+.toolbar-select {
+    background: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem; /* 4px */
+    /* padding: 4px 8px; -> 0.25rem 0.5rem (Rule 2) */
+    padding: 0.25rem 0.5rem;
+    /* font-size: 13px; -> 0.8125rem (Rule 2) */
+    font-size: 0.8125rem;
+    /* height: 32px; -> 2rem (Rule 2) */
+    block-size: 2rem; /* (Rule 5) */
+    appearance: none; /* Basic styling reset */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+.toolbar-color-picker {
+    /* width: 32px; height: 32px; -> 2rem (Rule 2) */
+    inline-size: 2rem; /* (Rule 5) */
+    block-size: 2rem; /* (Rule 5) */
+    /* padding: 2px; -> 0.125rem (Rule 2) */
+    padding: 0.125rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem; /* 4px */
+    cursor: pointer;
+    background-color: transparent; /* Ensure background doesn't interfere */
+}
+
+/* Editor Content Styles */
+.editor-content { /* Wrapper around #editor */
+    flex: 1;
+    position: relative;
+    background: var(--background-color);
+    /* padding: 20px; -> 1.25rem (Rule 2) */
+    padding: 1.25rem;
+    overflow: auto; /* Allow scrolling */
+}
+
+#editor { /* Re-styling #editor inside .editor-content */
+    background: var(--card-bg);
+    border-radius: 0.25rem; /* 4px */
+    min-height: 100%; /* Fill wrapper */
+    min-block-size: 100%; /* (Rule 5) */
+    /* padding: 20px; -> 1.25rem (Rule 2) */
+    /* Padding applied by .ql-editor */
+    box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.1); /* 2px 8px */
+    width: auto; /* Reset width */
+    height: auto; /* Reset height */
+    flex: none; /* Reset flex */
+    margin: 0; /* Reset margin */
+}
+
+.editor-placeholder { /* This is likely handled by Quill's ::before */
+    /* position: absolute; */
+    /* top: 40px; left: 40px; -> Use padding on editor */
+    /* color: var(--text-color); */
+    /* opacity: 0.5; */
+    /* pointer-events: none; */
+    display: none; /* Hide if Quill handles it */
+}
+
+.drop-zone { /* For drag/drop overlay */
+    position: absolute;
+    /* top: 0; left: 0; right: 0; bottom: 0; */
+    inset: 0; /* (Rule 5) */
+    background: rgba(var(--primary-color-rgb, 254, 44, 85), 0.1); /* Use RGB var */
+    border: 2px dashed var(--primary-color);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* gap: 12px; -> 0.75rem (Rule 2 & 3) */
+    gap: 0.75rem;
+    z-index: 100;
+    border-radius: inherit; /* Match parent radius */
+}
+
+.drop-zone.active {
+    display: flex;
+}
+
+/* Status Bar Styles */
+.editor-statusbar {
+    display: flex;
+    justify-content: space-between;
+    /* padding: 8px 16px; -> 0.5rem 1rem (Rule 2) */
+    padding: 0.5rem 1rem;
+    background: var(--card-bg);
+    /* border-top: 1px solid var(--border-color); */
+    border-block-start: 1px solid var(--border-color); /* (Rule 5) */
+    /* font-size: 12px; -> 0.75rem (Rule 2) */
+    font-size: 0.75rem;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.statusbar-left, .statusbar-right {
+    display: flex;
+    /* gap: 16px; -> 1rem (Rule 2 & 3) */
+    gap: 1rem;
+    align-items: center;
+}
+
+.status-item {
+    display: flex;
+    align-items: center;
+    /* gap: 6px; -> 0.375rem (Rule 2 & 3) */
+    gap: 0.375rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.status-item i {
+    /* font-size: 14px; -> 0.875rem (Rule 2) */
+    font-size: 0.875rem;
+}
+
+.zoom-controls {
+    display: flex;
+    align-items: center;
+    /* gap: 8px; -> 0.5rem (Rule 2 & 3) */
+    gap: 0.5rem;
+}
+
+#zoomLevel {
+    /* min-width: 48px; -> 3rem (Rule 1 & 2) */
+    min-inline-size: 3rem; /* (Rule 5) */
+    text-align: center;
+}
+
+
+
+/* === Quill Specific Fixes === */
+
+/* Fix editor placeholder */
+.ql-editor.ql-blank::before {
+    font-style: normal; /* Keep Quill style */
+    color: var(--text-color);
+    opacity: 0.5;
+    /* font-size: 14px; -> Inherit from editor */
+    position: absolute; /* Keep Quill style */
+    content: 'Start typing or paste your content here...'; /* Keep Quill style */
+    /* left: 20px; -> Handled by padding */
+    inset-inline-start: 0.9375rem; /* Match editor padding (Rule 5) */
+    inset-block-start: 0.9375rem; /* Match editor padding (Rule 5) */
+    pointer-events: none; /* Keep Quill style */
+}
+
+/* Image options dropdown (Duplicate) - Applied above */
+.editor-dropdown { /* Generic dropdown wrapper */
+    position: relative;
+    display: inline-block;
+}
+.image-options-dropdown {
+    display: none;
+    position: absolute;
+    inset-block-start: 100%; /* (Rule 5) */
+    inset-inline-start: 0; /* (Rule 5) */
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem; /* 4px */
+    box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.2); /* 2px 8px */
+    z-index: 1000;
+    min-inline-size: 12.5rem; /* 200px (Rule 1, 2, 5) */
+}
+.image-options-dropdown.show {
+    display: block;
+}
+/* .dropdown-item (Duplicate) - Applied above */
+.dropdown-item {
+    padding: 0.5rem 0.75rem; /* 8px 12px */
+}
+
+/* Fix editor content padding using Quill's class */
+.ql-editor {
+    padding: var(--spacing-md) !important;
+    min-height: 100%;
+    min-block-size: 100%;
+    font-family: var(--font-family);
+    font-size: var(--font-size-md);
+    line-height: 1.6;
+    box-sizing: border-box;
+    transition: background-color var(--transition-normal);
+}
+
+/* Floating formatting toolbar */
+.floating-toolbar {
+    position: absolute;
+    background: var(--card-bg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: var(--spacing-xs);
+    display: flex;
+    gap: var(--spacing-xs);
+    z-index: var(--z-popover);
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+    border: 1px solid var(--border-color);
+}
+
+.floating-toolbar.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.floating-toolbar .tool-btn {
+    min-height: 1.75rem;
+    min-width: 1.75rem;
+    padding: var(--spacing-xs);
+}
+
+/* Fix toolbar button active states using Quill classes */
+.ql-toolbar button.ql-active,
+.ql-toolbar .ql-picker-label.ql-active,
+.ql-toolbar .ql-picker-item.ql-selected {
+    color: var(--primary-color) !important; /* Ensure override */
+    background-color: transparent; /* Reset background */
+}
+
+/* Ensure hover states match active visually */
+.ql-toolbar button:hover,
+.ql-toolbar button:focus,
+.ql-toolbar .ql-picker-label:hover,
+.ql-toolbar .ql-picker-item:hover {
+    color: var(--primary-color) !important; /* Ensure override */
+    background-color: var(--hover-bg); /* Consistent hover */
+}
+
+/* Override Quill specific active background if needed */
+.ql-snow.ql-toolbar button:hover,
+.ql-snow .ql-toolbar button:hover,
+.ql-snow.ql-toolbar button:focus,
+.ql-snow .ql-toolbar button:focus,
+.ql-snow.ql-toolbar button.ql-active,
+.ql-snow .ql-toolbar button.ql-active,
+.ql-snow.ql-toolbar .ql-picker-label:hover,
+.ql-snow .ql-toolbar .ql-picker-label:hover,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active,
+.ql-snow .ql-toolbar .ql-picker-label.ql-active,
+.ql-snow.ql-toolbar .ql-picker-item:hover,
+.ql-snow .ql-toolbar .ql-picker-item:hover,
+.ql-snow.ql-toolbar .ql-picker-item.ql-selected,
+.ql-snow .ql-toolbar .ql-picker-item.ql-selected {
+    color: var(--primary-color) !important;
+}
+.ql-snow.ql-toolbar button:hover,
+.ql-snow .ql-toolbar button:hover {
+   background-color: var(--hover-bg);
+}
+.ql-snow.ql-toolbar button.ql-active,
+.ql-snow .ql-toolbar button.ql-active {
+   background-color: transparent; /* Use color primarily for active */
+}
+
+
+/* Editor Links */
+.ql-editor a {
+    color: var(--primary-color);
+    text-decoration: underline;
+    cursor: pointer;
+}
+.ql-editor a:hover {
+    text-decoration: none;
+}
+
+/* Link Preview (Likely part of Quill Tooltip Module) */
+.link-preview-buttons {
+    display: flex;
+    /* gap: 8px; -> 0.5rem (Rule 2 & 3) */
+    gap: 0.5rem;
+    /* margin-top: 8px; -> 0.5rem (Rule 2) */
+    margin-block-start: 0.5rem; /* (Rule 5) */
+}
+.link-preview-button {
+    /* padding: 4px 8px; -> 0.25rem 0.5rem (Rule 2) */
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem; /* 4px */
+    border: 1px solid var(--border-color);
+    background: var(--background-color);
+    color: var(--text-color);
+    cursor: pointer;
+    /* font-size: 12px; -> 0.75rem (Rule 2) */
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    /* gap: 4px; -> 0.25rem (Rule 2 & 3) */
+    gap: 0.25rem;
+    transition: background-color 0.2s ease; /* Specific transition */
+}
+.link-preview-button:hover {
+    background: var(--hover-bg);
+}
+
+/* Toast notifications */
+.status-message {
+    position: fixed;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    background-color: var(--surface-color);
+    color: var(--text-color);
+    box-shadow: var(--shadow-md);
+    z-index: var(--z-tooltip);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-xs);
+    max-width: 250px;
+    opacity: 0;
+    transition: all var(--transition-normal);
+    margin-bottom: var(--spacing-xs);
+    transform: translateY(-10px) scale(0.95);
+    border-left: 3px solid var(--primary-color);
+}
+
+.status-message.success {
+    background-color: rgba(16, 185, 129, 0.1);
+    color: var(--success-color);
+    border-left-color: var(--success-color);
+}
+
+.status-message.error {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: var(--error-color);
+    border-left-color: var(--error-color);
+}
+
+.status-message.info {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--info-color);
+    border-left-color: var(--info-color);
+}
+
+.status-message.warning {
+    background-color: rgba(245, 158, 11, 0.1);
+    color: var(--warning-color);
+    border-left-color: var(--warning-color);
+}
+
+.toast-close {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    margin-left: auto;
+    padding: 0 0 0 var(--spacing-xs);
+    opacity: 0.7;
+    line-height: 1;
+    transition: all var(--transition-fast);
+}
+
+.toast-close:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Live Lecture Recording Styles */
+
+/* Recording indicator styles */
+.recording-active #speechRecognitionBtn {
+    color: var(--error-color);
+    animation: pulse 1.5s infinite;
+}
+
+.recording-timer {
+    display: inline-block;
+    color: var(--text-color);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background-color: var(--surface-color);
+    border-radius: var(--radius-sm);
+    margin-left: var(--spacing-sm);
+    min-width: 80px;
+    text-align: center;
+}
+
+.recording-active .recording-timer {
+    color: var(--error-color);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

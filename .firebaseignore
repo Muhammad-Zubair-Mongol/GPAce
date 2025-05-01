@@ -1,0 +1,6 @@
+*.exe
+*.dll
+*.bat
+*.sh
+node_modules
+.git

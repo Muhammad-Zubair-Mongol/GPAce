@@ -1,0 +1,4828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Current Task</title>
+
+    <!-- Timer Title Updater Script -->
+    <script defer>
+      // Global timer state for title updates
+      const titleUpdater = {
+        isRunning: false,
+        timerType: 'Focus',
+        timeLeftSeconds: 0,
+        originalTitle: document.title,
+        interval: null
+      };
+
+      // Function to start updating the title with timer info
+      function startTimerTitleUpdates(timeLeftSeconds, timerType) {
+        console.log('Starting title updates with', timeLeftSeconds, timerType);
+
+        // Store the timer state
+        titleUpdater.isRunning = true;
+        titleUpdater.timerType = timerType;
+        titleUpdater.timeLeftSeconds = timeLeftSeconds;
+
+        // Clear any existing interval
+        if (titleUpdater.interval) {
+          clearInterval(titleUpdater.interval);
+        }
+
+        // Update the title immediately
+        updateTimerTitle();
+
+        // Set up a new interval that runs every second
+        titleUpdater.interval = setInterval(() => {
+          if (titleUpdater.timeLeftSeconds > 0) {
+            titleUpdater.timeLeftSeconds--;
+            updateTimerTitle();
+          } else {
+            clearInterval(titleUpdater.interval);
+          }
+        }, 1000);
+
+        // Store the original title if not already stored
+        if (!titleUpdater.originalTitle) {
+          titleUpdater.originalTitle = document.title;
+        }
+      }
+
+      // Function to update the timer title
+      function updateTimerTitle() {
+        // Calculate minutes and seconds
+        const minutes = Math.floor(titleUpdater.timeLeftSeconds / 60);
+        const seconds = titleUpdater.timeLeftSeconds % 60;
+        // Format the display
+        const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        // Update the document title
+        document.title = `${display} - ${titleUpdater.timerType} - GPAce`;
+      }
+
+      // Function to stop updating the title with timer info
+      function stopTimerTitleUpdates() {
+        console.log('Stopping title updates');
+
+        // Clear the interval
+        if (titleUpdater.interval) {
+          clearInterval(titleUpdater.interval);
+          titleUpdater.interval = null;
+        }
+
+        // Reset the timer state
+        titleUpdater.isRunning = false;
+
+        // Reset to current time
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        document.title = `${formattedTime} - GPAce`;
+      }
+
+      // Handle visibility changes to ensure title updates work when tab is not in focus
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          // Tab is now visible, update the title if timer is running
+          if (titleUpdater.isRunning) {
+            updateTimerTitle();
+          } else {
+            // Reset to current time
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+            document.title = `${formattedTime} - GPAce`;
+          }
+        }
+      });
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style">
+    <link rel="preload" href="main.css" as="style">
+    <link rel="preload" href="css/sideDrawer.css" as="style">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" as="script">
+
+
+    <link rel="stylesheet" href="css/taskLinks.css">
+    <link rel="stylesheet" href="css/search-modal.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="main.css">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <link href="grind.css" rel="stylesheet">
+    <link href="css/task-display.css" rel="stylesheet">
+    <link href="css/text-expansion.css" rel="stylesheet">
+    <link href="css/simulation-enhancer.css" rel="stylesheet">
+
+    <link href="css/ai-search-response.css" rel="stylesheet">
+    <link href="css/task-notes.css" rel="stylesheet">
+
+
+</head>
+
+
+  <body>
+      <button onclick="window.location.href='relaxed-mode/index.html'" class="relaxed-mode-btn">
+        <i class="bi bi-cloud-sun"></i>
+        Relaxed Mode
+      </button>
+      <button class="workspace-toggle" id="workspaceToggle">
+          <i class="fas fa-code"></i>
+        </button>
+
+        <div class="workspace-overlay" id="workspaceOverlay"></div>
+
+        <div class="workspace-panel" id="workspacePanel">
+          <div class="workspace-header">
+            <h2>Workspace</h2>
+            <button class="workspace-close" id="workspaceClose">&times;</button>
+          </div>
+          <div class="workspace-content">
+            <iframe src="workspace.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>
+          </div>
+        </div>
+
+        <!-- Add Link Modal -->
+<div id="addLinkModal" class="modal-overlay" style="display: none;">
+  <div class="add-link-modal">
+      <h3>Add New Link</h3>
+      <form class="add-link-form" id="addLinkForm">
+          <div class="form-group">
+              <label for="linkUrl">URL</label>
+              <input type="url" id="linkUrl" required placeholder="https://...">
+          </div>
+          <div class="form-group">
+              <label for="linkTitle">Title</label>
+              <input type="text" id="linkTitle" required placeholder="Enter link title">
+          </div>
+          <div class="form-group">
+              <label for="linkDescription">Description (optional)</label>
+              <textarea id="linkDescription" rows="3" placeholder="Enter link description"></textarea>
+          </div>
+          <div class="modal-actions">
+              <button type="button" class="modal-btn cancel" onclick="closeAddLinkModal()">Cancel</button>
+              <button type="submit" class="modal-btn save">Save Link</button>
+          </div>
+      </form>
+  </div>
+</div>
+
+        <div class="priority-task-container">
+          <div class="task-header">
+            <h3 class="task-title"></h3>
+            <span class="task-project"></span>
+          </div>
+        </div>
+
+        <!-- Add Subject Material Modal -->
+        <div class="modal fade" id="addSubjectMaterialModal" tabindex="-1" aria-labelledby="addSubjectMaterialModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addSubjectMaterialModalLabel">Add Subject Material</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="console.log('Modal closed')"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="subjectSelect" class="form-label">Subject</label>
+                  <select class="form-select" id="subjectSelect" onchange="console.log('Subject selected:', this.value)">
+                    <option value="">Select a subject...</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="materialType" class="form-label">Material Type</label>
+                  <select class="form-select" id="materialType" onchange="console.log('Material type selected:', this.value)">
+                    <option value="textbook">Textbook</option>
+                    <option value="notes">Course Notes</option>
+                    <option value="syllabus">Syllabus</option>
+                    <option value="slides">Lecture Slides</option>
+                    <option value="reference">Reference Material</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="subjectMaterialFile" class="form-label">Choose File</label>
+                  <input type="file" class="form-control" id="subjectMaterialFile" onchange="console.log('File selected:', this.files[0])">
+                  <div class="form-text">Upload files related to this subject (PDF, Word, PowerPoint, etc.)</div>
+                </div>
+                <!-- Add progress bar container -->
+                <div class="upload-progress d-none">
+                  <div class="progress mb-2">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="upload-status small text-muted">
+                    <span class="upload-percentage">0%</span> -
+                    <span class="upload-speed">0 KB/s</span> -
+                    <span class="upload-remaining">Calculating...</span>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="console.log('Upload cancelled')">Cancel</button>
+                <button type="button" class="btn btn-primary" id="uploadSubjectMaterial" onclick="handleSubjectMaterialUpload()">Upload</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <nav class="top-nav">
+          <div class="nav-brand d-flex align-items-center">
+            <img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" style="height: 60px; margin-right: 0px;">
+            <a href="grind.html" style="text-decoration: none; color: inherit;">GPAce</a>
+          </div>
+          <div class="nav-links">
+            <a href="grind.html" class="active">Grind Mode</a>
+            <a href="instant-test-feedback.html">Test Feedback</a>
+            <a href="study-spaces.html">Grind Station</a>
+            <a href="daily-calendar.html">Daily Drip</a>
+            <a href="academic-details.html">Brain Juice</a>
+            <a href="extracted.html">Hustle Hub</a>
+            <a href="subject-marks.html">Subject Marks</a>
+            <a href="flashcards.html">Flashcards</a>
+          </div>
+        </nav>
+
+        <div class="container">
+          <div class="priority-task-box" id="priorityTaskBox">
+            <!-- Priority task will be displayed here -->
+          </div>
+
+          <div id="currentTaskDisplay" class="current-task-header">
+            <h1 id="taskTitle">No Current Task</h1>
+          </div>
+
+          <!-- Motivational Quote Section -->
+          <div class="quote-container">
+            <div id="dynamicQuoteContainer">
+              <img class="quote-image" src="" alt="Quote Image" style="display: none;">
+              <div class="quote-content">
+                <p class="quote-text"></p>
+                <p class="quote-author"></p>
+              </div>
+            </div>
+            <div class="quote-controls">
+              <button onclick="rotateQuote(-1)" class="quote-nav-btn">
+                <i class="bi bi-chevron-left"></i>
+              </button>
+              <button onclick="rotateQuote(1)" class="quote-nav-btn">
+                <i class="bi bi-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+
+
+
+          <div class="task-container">
+            <div class="pomodoro-container">
+              <div class="timer-mode-selector modern">
+                <button class="timer-mode-btn modern active" data-time="25" data-mode="focus">
+                  <i class="fas fa-brain"></i> Focus
+                </button>
+                <button class="timer-mode-btn modern" data-time="5" data-mode="break">
+                  <i class="fas fa-coffee"></i> Break
+                </button>
+                <div class="custom-time-input modern">
+                  <input type="number" id="customTimeInput" min="1" max="60" value="25">
+                  <span>min</span>
+                </div>
+              </div>
+
+              <div class="timer-display-container modern">
+                <div class="timer-circle modern">
+                  <div class="timer-progress modern"></div>
+                  <div class="timer-text">
+                    <div class="timer-time modern" id="timer">25:00</div>
+                    <div class="timer-label modern">Focus Time</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="timer-controls modern">
+                <button class="timer-btn modern primary" id="startBtn" data-state="paused">
+                  <i class="fas fa-play"></i>
+                </button>
+                <button class="timer-btn modern" id="resetBtn" data-state="reset">
+                  <i class="fas fa-redo-alt"></i>
+                </button>
+              </div>
+
+              <div class="timer-stats modern">
+                <div class="stat-item modern">
+                  <i class="fas fa-check-circle"></i>
+                  <span id="pomodoroCount">0</span>
+                </div>
+                <div class="stat-item modern">
+                  <i class="fas fa-clock"></i>
+                  <span id="currentTime"></span>
+                </div>
+              </div>
+            </div>
+            <div class="stats-container modern">
+              <div class="progress-stats">
+                <div class="stat-row modern-stats">
+                  <div class="stat-card modern">
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                    <div class="stat-content">
+                      <div class="stat-value" id="totalWorkTime">00:00:00</div>
+                      <div class="stat-label">Time Worked</div>
+                    </div>
+                  </div>
+                  <div class="stat-card modern">
+                    <div class="stat-icon"><i class="fas fa-moon"></i></div>
+                    <div class="stat-content">
+                      <div class="stat-value" id="sleepTimeDisplay">Not Set</div>
+                      <div class="stat-label">Time Until Sleep</div>
+                    </div>
+                  </div>
+                  <div class="stat-card modern">
+                    <div class="stat-icon"><i class="fas fa-chart-pie"></i></div>
+                    <div class="stat-content">
+                      <div class="stat-value" id="timeUtilization">0%</div>
+                      <div class="stat-label">Time Utilization</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="hologram-container" id="hologramContainer">
+                  <div class="hologram-overlay"></div>
+                </div>
+                <div class="energy-graph-container">
+                  <h3>Today's Energy Levels</h3>
+                  <canvas id="energyGraph"></canvas>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="notification" id="notification">
+          Session Complete!
+        </div>
+
+        <button class="add-task-button" onclick="showTaskModal()">
+          <i class="bi bi-plus-lg"></i>
+        </button>
+
+        <a href="https://forms.gle/LnMspth72dFMeVV17" target="_blank" class="feedback-button">
+          <i class="fas fa-comment"></i>
+          <span>Feedback</span>
+        </a>
+
+        <!-- Task Creation Modal -->
+        <div id="taskModal" class="task-modal">
+          <div class="task-modal-content">
+            <span class="modal-close" onclick="hideTaskModal()">
+              <i class="fas fa-times"></i>
+            </span>
+            <h2>Add New Task</h2>
+            <div class="form-group">
+              <label for="projectSelect">Project</label>
+              <select id="projectSelect" onchange="loadSubcategories()"></select>
+            </div>
+            <div class="form-group">
+              <label for="subcategorySelect">Subcategory</label>
+              <select id="subcategorySelect"></select>
+            </div>
+            <div class="form-group">
+              <label for="taskTitleInput">Task Title</label>
+              <input type="text" id="taskTitleInput" required>
+            </div>
+            <div class="form-group">
+              <label for="taskDescription">Description</label>
+              <textarea id="taskDescription" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="taskDueDate">Due Date</label>
+              <input type="datetime-local" id="taskDueDate">
+            </div>
+            <div class="form-group">
+              <label for="taskPriority">Priority</label>
+              <select id="taskPriority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+            <!-- File Attachment Section -->
+            <div class="form-group">
+              <label>Attachments</label>
+              <div class="file-upload-area" id="modalFileUploadArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <div>Drag and drop files here</div>
+                <div class="file-upload-hint">or click to select files</div>
+                <input type="file" id="modalFileUploadInput" multiple style="display: none">
+              </div>
+              <div class="upload-preview mt-2" id="modalUploadPreview"></div>
+            </div>
+            <button class="create-task-btn" onclick="createTask()">Create Task</button>
+          </div>
+        </div>
+
+        <!-- Fatigue Level Modal -->
+        <div class="fatigue-modal" id="fatigueModal">
+          <div class="fatigue-modal-content">
+            <h2>How's your energy level?</h2>
+            <p>Select your current energy state to start the session</p>
+
+            <div class="fatigue-levels">
+              <div class="fatigue-level" data-level="1">
+                <i class="fas fa-bolt"></i>
+                <div>
+                  <h3>1. Fully Alert</h3>
+                  <p>Peak energy, wide awake</p>
+                </div>
+              </div>
+              <div class="fatigue-level" data-level="2">
+                <i class="fas fa-sun"></i>
+                <div>
+                  <h3>2. Very Lively</h3>
+                  <p>High energy, responsive</p>
+                </div>
+              </div>
+              <div class="fatigue-level" data-level="3">
+                <i class="fas fa-smile"></i>
+                <div>
+                  <h3>3. Okay, Fresh</h3>
+                  <p>Good energy, clear-minded</p>
+                </div>
+              </div>
+              <div class="fatigue-level" data-level="4">
+                <i class="fas fa-meh"></i>
+                <div>
+                  <h3>4. A Little Tired</h3>
+                  <p>Mild fatigue, functional</p>
+                </div>
+              </div>
+              <div class="fatigue-level" data-level="5">
+                <i class="fas fa-frown"></i>
+                <div>
+                  <h3>5. Moderately Tired</h3>
+                  <p>Noticeable fatigue</p>
+                </div>
+              </div>
+              <div class="fatigue-level" data-level="6">
+                <i class="fas fa-tired"></i>
+                <div>
+                  <h3>6. Extremely Tired</h3>
+                  <p>Struggling to focus</p>
+                </div>
+              </div>
+              <div class="fatigue-level" data-level="7">
+                <i class="fas fa-bed"></i>
+                <div>
+                  <h3>7. Completely Exhausted</h3>
+                  <p>Unable to function well</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="fatigue-modal-buttons">
+              <button class="modal-btn" id="cancelFatigue">
+                <i class="fas fa-times"></i> Skip
+              </button>
+              <button class="modal-btn primary" id="confirmFatigue" disabled>
+                <i class="fas fa-check"></i> Start
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+          <!-- AI Container Toggle Button (Outside container for better visibility) -->
+          <button id="aiContainerToggle" class="ai-container-toggle" title="Hide/Show AI Container (Alt+A)">
+            <i class="fas fa-chevron-down fa-lg"></i>
+          </button>
+
+          <!-- AI Researcher Section -->
+          <div class="ai-researcher-container modern">
+            <div class="research-card modern">
+              <!-- API Configuration -->
+              <div class="api-config modern" id="apiConfigSection" style="display: none;">
+                <div class="api-config-header">
+                  <h3>API Configuration</h3>
+                  <button class="close-btn" onclick="toggleApiConfig()">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                <div class="form-group modern">
+                  <label for="geminiApiKey">Google Gemini API Key</label>
+                  <div class="input-group modern">
+                    <input type="password" class="form-control modern" id="geminiApiKey" placeholder="Enter Gemini API Key">
+                    <button type="button" class="eye-btn" onclick="toggleApiVisibility('geminiApiKey')">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="form-group modern">
+                  <label for="geminiModel">Gemini Model Selection</label>
+                  <select class="form-control modern" id="geminiModel">
+                    <option value="gemini-2.5-pro-preview-03-25">Gemini 2.5 Pro Preview 03-25 (NEW)</option>
+                    <option value="gemini-2.5-flash-preview-04-17">Gemini 2.5 Flash Preview 04-17 (NEW)</option>
+                    <option value="gemini-2.5-pro-exp-03-25">Gemini 2.5 Pro Experimental (Best quality)</option>
+                    <option value="gemini-2.0-flash" selected>Gemini 2.0 Flash (Balanced)</option>
+                    <option value="gemini-1.5-pro">Gemini 1.5 Pro (Legacy)</option>
+                  </select>
+                  <small class="form-text text-muted">Select the model to use for both content research and simulation generation. Gemini 2.5 Pro offers the highest quality results but may be slower.</small>
+                </div>
+
+                <div class="form-group modern">
+                  <label for="geminiTemperature">Response Creativity</label>
+                  <div class="d-flex align-items-center">
+                    <span class="me-2 small">Precise</span>
+                    <input type="range" class="form-range flex-grow-1" id="geminiTemperature" min="0" max="1" step="0.1" value="0.4">
+                    <span class="ms-2 small">Creative</span>
+                  </div>
+                  <div class="text-center mt-1">
+                    <span id="temperatureDisplay" class="badge bg-primary">Balanced (0.4)</span>
+                  </div>
+                  <small class="form-text text-muted">Adjust how creative or precise the AI responses will be. Lower values produce more predictable responses, higher values produce more varied and creative ones.</small>
+                </div>
+
+                <div class="form-group modern">
+                  <label for="wolframAlphaApiKey">Wolfram Alpha API Key</label>
+                  <div class="input-group modern">
+                    <input type="password" class="form-control modern" id="wolframAlphaApiKey" placeholder="Enter Wolfram Alpha API Key">
+                    <button type="button" class="eye-btn" onclick="toggleApiVisibility('wolframAlphaApiKey')">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="form-group modern">
+                  <label for="tavilyApiKey">Tavily API Key</label>
+                  <div class="input-group modern">
+                    <input type="password" class="form-control modern" id="tavilyApiKey" placeholder="Enter Tavily API Key">
+                    <button type="button" class="eye-btn" onclick="toggleApiVisibility('tavilyApiKey')">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <button class="save-btn modern" onclick="saveApiKeys()">Save API Keys</button>
+              </div>
+
+              <!-- Search Interface -->
+              <div class="search-interface modern">
+                <div class="search-container">
+                  <div class="drop-zone-container modern">
+                    <div class="drop-zone modern">
+                      <textarea id="searchQuery" rows="1" placeholder="How can I help you?"></textarea>
+                      <div class="drop-zone-text">Drop image or PDF here</div>
+                    </div>
+                    <div class="search-actions">
+                      <div class="search-tools">
+                        <label for="imageUpload" class="tool-btn" title="Upload an image for analysis">
+                          <i class="fas fa-image"></i>
+                        </label>
+                        <input type="file" id="imageUpload" accept="image/*,application/pdf" style="display: none;">
+                        <label for="pdfUpload" class="tool-btn" title="Upload a PDF for analysis">
+                          <i class="fas fa-file-pdf"></i>
+                        </label>
+                        <input type="file" id="pdfUpload" accept="application/pdf" style="display: none;">
+                        <button id="toggleApiConfig" class="tool-btn" title="Configure API Keys">
+                          <i class="fas fa-cog"></i>
+                        </button>
+                        <button id="resultsToggleBtn" class="tool-btn" title="Expand AI Container to Full Screen" style="display: none;">
+                          <i class="fas fa-expand-alt"></i>
+                        </button>
+                        <button onclick="performAISearch()" class="search-btn">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+                      <div class="file-info" id="fileInfo" style="display: none;">
+                        <span id="selectedFileName" class="file-name"></span>
+                        <button class="clear-btn" id="clearImage" style="display: none;">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Results Area -->
+              <div class="results-area modern" style="display: none;">
+                <div class="results-actions">
+                  <button id="copyResultsBtn" class="action-btn" title="Copy results to clipboard">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                  <button id="downloadResultsPdfBtn" class="action-btn" title="Download results as PDF">
+                    <i class="fas fa-file-pdf"></i>
+                  </button>
+                  <div class="tts-controls">
+                    <button id="speakResultsBtn" class="action-btn" title="Read results aloud">
+                      <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button id="pauseResumeTextToSpeechBtn" class="action-btn" title="Pause/Resume reading" disabled>
+                      <i class="fas fa-pause"></i>
+                    </button>
+                    <button id="stopTextToSpeechBtn" class="action-btn" title="Stop reading" disabled>
+                      <i class="fas fa-stop"></i>
+                    </button>
+                    <div class="speed-control-container">
+                      <button id="decreaseSpeedBtn" class="action-btn speed-btn" title="Decrease speed" disabled>
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <div id="currentSpeed" class="current-speed" title="Current playback speed">1x</div>
+                      <button id="increaseSpeedBtn" class="action-btn speed-btn" title="Increase speed" disabled>
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                    <div class="voice-selector-container">
+                      <button id="voiceSettingsBtn" class="action-btn" title="Voice settings">
+                        <i class="fas fa-cog"></i>
+                      </button>
+                      <div id="voiceSettingsDropdown" class="voice-settings-dropdown">
+                        <div class="dropdown-header">Voice Settings</div>
+                        <div class="dropdown-item">
+                          <label for="voiceSelector">Voice:</label>
+                          <select id="voiceSelector" class="voice-selector"></select>
+                        </div>
+                        <div class="dropdown-item">
+                          <label for="rateSelector">Speed:</label>
+                          <select id="rateSelector" class="rate-selector">
+                            <option value="0.5">Very Slow</option>
+                            <option value="0.75">Slow</option>
+                            <option value="1" selected>Normal</option>
+                            <option value="1.25">Fast</option>
+                            <option value="1.5">Very Fast</option>
+                            <option value="2">2x</option>
+                            <option value="2.5">2.5x</option>
+                            <option value="3">3x</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="searchResults" class="research-response modern">
+                  <!-- Results will be displayed here -->
+                </div>
+                <div class="simulation-controls">
+                  <button id="generateSimulationBtn" class="simulation-btn" title="Generate an interactive simulation">
+                    <i class="fas fa-cube"></i> Generate Simulation
+                  </button>
+                </div>
+                <div id="simulationContainer" class="simulation-container" style="display: none;">
+                  <div class="simulation-header">
+                    <div class="simulation-title">
+                      <h3>Interactive Simulation</h3>
+                      <div class="simulation-indicators">
+                        <div id="simulationImageIndicator" class="simulation-image-indicator" style="display: none;">
+                          <i class="fas fa-image"></i>
+                          <span>Image-based</span>
+                        </div>
+                        <div id="simulationModelIndicator" class="simulation-model-indicator">
+                          <i class="fas fa-microchip"></i>
+                          <span id="simulationModelName">Gemini 2.0</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="simulation-actions">
+                      <button id="popoutSimulation" class="action-btn" title="Pop out simulation into draggable window">
+                        <i class="fas fa-external-link-alt"></i>
+                      </button>
+                      <button id="reloadSimulation" class="action-btn" title="Regenerate simulation">
+                        <i class="fas fa-redo-alt"></i>
+                      </button>
+                      <button id="downloadSimulation" class="action-btn" title="Download simulation as HTML file">
+                        <i class="fas fa-download"></i>
+                      </button>
+                      <button id="copySimulationCode" class="action-btn" title="Copy simulation code">
+                        <i class="fas fa-copy"></i>
+                      </button>
+                      <button id="closeSimulation" class="action-btn" title="Close simulation">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div id="simulationProgress" class="simulation-progress" style="display: none;">
+                    <div class="progress-container">
+                      <div class="progress-bar" id="simulationProgressBar"></div>
+                    </div>
+                    <div class="progress-info">
+                      <span id="simulationProgressPercent">0%</span>
+                      <span id="simulationProgressTime">Estimating time...</span>
+                      <span id="simulationProgressTokens">0 tokens</span>
+                    </div>
+                  </div>
+                  <div id="simulationCode" class="simulation-code"></div>
+                  <div id="simulationPreview" class="simulation-preview">
+                    <div id="simulationReadyMessage" class="simulation-ready-message" style="display: none;">
+                      <div class="ready-icon">
+                        <i class="fas fa-check-circle"></i>
+                      </div>
+                      <h3>Simulation Ready!</h3>
+                      <p>Your interactive simulation has been generated and is ready to run.</p>
+                      <button id="runSimulationBtn" class="run-simulation-btn">
+                        <i class="fas fa-play"></i> Run Simulation
+                      </button>
+                    </div>
+                    <iframe id="simulationFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-pointer-lock" frameborder="0" style="display: none;"></iframe>
+                  </div>
+                </div>
+                <!-- Old toggle button removed -->
+              </div>
+            </div>
+          </div>
+
+<!-- HEREE STARTS THE SCRIPTS -->
+  <!-- PDF.js library for PDF processing -->
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script defer src="js/ai-latex-conversion.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+
+  <script type="importmap">
+    {
+            "imports": {
+                "three": "https://unpkg.com/three@0.157.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.157.0/examples/jsm/",
+                "@google/generative-ai": "https://esm.run/@google/generative-ai"
+            }
+        }
+    </script>
+
+
+
+  <script type="module">
+    import dataSyncManager from './js/data-sync-manager.js';
+    // Initialize data sync after Firebase initialization
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Wait for auth to be ready
+      await new Promise(resolve => {
+        const checkAuth = setInterval(() => {
+          if (window.auth) {
+            clearInterval(checkAuth);
+            resolve();
+          }
+        }, 100);
+      });
+      // Initialize data sync
+      await dataSyncManager.initializeDataSync(true);
+      // Start periodic sync
+      dataSyncManager.startPeriodicSync();
+    });
+    // Listen for sync completion
+    window.addEventListener('dataSyncComplete', (event) => {
+      console.log('🔄 Data sync completed at:', new Date(event.detail.timestamp).toLocaleString());
+      // Refresh priority task display only if needed
+      if (typeof displayPriorityTask === 'function') {
+        // Check if tasks have changed before refreshing
+        const tasksJson = localStorage.getItem('calculatedPriorityTasks') || '[]';
+        const currentHash = hashString(tasksJson);
+        if (currentHash !== lastTasksHash) {
+          console.log('Tasks changed during sync, refreshing display');
+          displayPriorityTask();
+        } else {
+          console.log('Tasks unchanged during sync, skipping refresh');
+        }
+      }
+    });
+  </script>
+  <script defer src="/js/inject-header.js"></script>
+
+
+    <script type="module">
+      import googleDriveAPI from './js/googleDriveApi.js';
+      import taskAttachments from './js/taskAttachments.js';
+      // Make them available globally
+      window.googleDriveAPI = googleDriveAPI;
+      window.taskAttachments = taskAttachments;
+      // Initialize Google Drive API
+
+      // Handle clicking any 'Add Subject Material' button using event delegation
+      document.addEventListener('click', (e) => {
+        const addMaterialBtn = e.target.closest('.add-subject-material-btn');
+        if (addMaterialBtn) {
+          // Always populate the dropdown immediately before showing
+          populateSubjectDropdown(); // Make sure this function exists and is accessible
+
+          // Use a single modal instance
+          const modalElement = document.getElementById('addSubjectMaterialModal');
+          if (modalElement) {
+            // Get or create the Bootstrap modal instance
+            let modal = bootstrap.Modal.getInstance(modalElement);
+            if (!modal) {
+              modal = new bootstrap.Modal(modalElement);
+            }
+            modal.show();
+          } else {
+            console.warn('Add subject material modal element not found.');
+          }
+        }
+      });
+      document.addEventListener('DOMContentLoaded', async () => {
+        await googleDriveAPI.initialize();
+
+        // Set up subject material modal
+      });
+
+      // Function to populate the subject dropdown
+      function populateSubjectDropdown() {
+        const subjectSelect = document.getElementById('subjectSelect');
+        if (!subjectSelect) return;
+
+        // Clear existing options except the first one
+        while (subjectSelect.options.length > 1) {
+          subjectSelect.remove(1);
+        }
+
+        // Get subjects from localStorage
+        const subjects = JSON.parse(localStorage.getItem('academicSubjects') || '[]');
+
+        // Add options for each subject
+        subjects.forEach(subject => {
+          const option = document.createElement('option');
+          option.value = subject.tag;
+          option.textContent = subject.name;
+          subjectSelect.appendChild(option);
+        });
+      }
+    </script>
+    <script type="module" src="js/cross-tab-sync.js"></script>
+    <script type="module" src="js/initFirestoreData.js"></script>
+    <script type="module" src="js/common.js"></script>
+    <script type="module">
+    import {
+      initHologram,
+      updateEnergyVisualization
+    } from './js/energyHologram.js';
+    // Initialize hologram after DOM content is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      initHologram('hologramContainer');
+    });
+    // Update the hologram when fatigue level is selected
+    document.querySelectorAll('.fatigue-level').forEach(level => {
+      level.addEventListener('click', function() {
+
+        const energyLevel = parseInt(this.dataset.level);
+        const description = this.querySelector('h3').textContent;
+        console.log('Selected energy level:', energyLevel, description);
+        // Store the energy level
+        localStorage.setItem('currentEnergyLevel', energyLevel.toString());
+        // Update hologram
+        updateEnergyVisualization(energyLevel);
+        // Log the energy level with description
+        const entry = energyTracker.addEnergyLevel(energyLevel, description);
+        // Update the energy graph immediately
+        const ctx = document.getElementById('energyGraph').getContext('2d');
+        const chart = Chart.getChart(ctx);
+        if (chart) {
+          const todayLevels = energyTracker.getTodayEnergyLevels();
+          chart.data.labels = todayLevels.map(entry => {
+            const date = new Date(entry.timestamp);
+            return date.toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit'
+            });
+          });
+          chart.data.datasets[0].data = todayLevels.map(entry => entry.level);
+          chart.update();
+        }
+        // Close the fatigue modal
+        hideFatigueModal();
+        // Update selection UI
+        document.querySelectorAll('.fatigue-level').forEach(l => l.classList.remove('selected'));
+        // Add selected class to clicked level
+        this.classList.add('selected');
+      });
+    });
+  </script>
+    <script type="module">
+    import {
+      updateHologramEnergy
+    } from './js/energyHologram.js';
+    // Add event listeners to fatigue levels
+    document.querySelectorAll('.fatigue-level').forEach(level => {
+      level.addEventListener('click', function() {
+        const energyLevel = parseInt(this.dataset.level);
+        // Update hologram
+        updateHologramEnergy(energyLevel);
+        // Store the energy level
+        localStorage.setItem('currentEnergyLevel', energyLevel.toString());
+        // Remove selected class from all levels
+        document.querySelectorAll('.fatigue-level').forEach(l => l.classList.remove('selected'));
+        // Add selected class to clicked level
+        this.classList.add('selected');
+        // Hide modal and start timer
+        hideFatigueModal();
+        startTimer();
+      });
+    });
+    // Check for stored energy level on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      const storedLevel = localStorage.getItem('currentEnergyLevel');
+      if (storedLevel) {
+        const level = parseInt(storedLevel);
+        // Update hologram
+        updateHologramEnergy(level);
+        // Select the corresponding fatigue level
+        const fatigueLevel = document.querySelector(`.fatigue-level[data-level="${level}"]`);
+        if (fatigueLevel) {
+          fatigueLevel.classList.add('selected');
+        }
+      }
+    });
+  </script>
+    <script type="module">
+    import {
+      initializeAuth,
+      signInWithGoogle
+    } from './js/auth.js';
+    // Initialize authentication
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeAuth();
+      // Set initial click handler for auth button
+      const authButton = document.getElementById('authButton');
+      if (authButton) {
+        authButton.onclick = signInWithGoogle;
+      }
+    });
+  </script>
+    <script type="module">
+      import {
+        saveTasksToFirestore,
+        loadTasksFromFirestore,
+        saveCompletedTaskToFirestore
+      } from './js/firestore.js';
+      // Make functions available globally
+      window.saveTasksToFirestore = saveTasksToFirestore;
+      window.loadTasksFromFirestore = loadTasksFromFirestore;
+      window.saveCompletedTaskToFirestore = saveCompletedTaskToFirestore;
+    </script>
+<!-- Add this script to provide global firebase namespace for legacy code -->
+<script type="module">
+  // Import Firebase modules
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+  import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+  import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+  import { firebaseConfig } from './js/firebaseConfig.js';
+
+  // Initialize Firebase safely
+  let app;
+  try {
+    app = initializeApp(firebaseConfig);
+    console.log("Firebase initialized via compatibility layer");
+  } catch (e) {
+    if (e.code === 'app/duplicate-app') {
+      console.log("Firebase already initialized, using existing app");
+      // Assuming the existing app can be retrieved this way if needed,
+      // but the goal is usually just to not crash.
+      // The getOrCreateFirebaseApp function handles this better,
+      // but this script runs directly in HTML.
+      // Let's try getting the default app instance if initialization failed due to duplicate.
+      try {
+         // Need to import firebase/app again to get the app() function if using v9 modular SDK style globally
+         // Or rely on the fact that initializeApp might return the existing app in some versions/scenarios.
+         // For simplicity here, we'll assume `app` holds the instance if it existed.
+         // If not, we might need a more complex check like `firebase.app()` if using v8 compat.
+         // Given the context, let's assume the catch block just prevents re-initialization error.
+         // We'll rely on the fact that `getFirestore` and `getAuth` below might work with the implicitly existing app.
+         // If this proves problematic, we might need to import `getApp` from firebase/app.
+         app = initializeApp(); // Attempt to get existing app
+      } catch(getAppError) {
+         console.error("Could not get existing Firebase app instance.", getAppError);
+      }
+    } else {
+      console.error("Firebase initialization error:", e);
+    }
+  }
+
+  // Create window.firebase compatibility object for older scripts
+  if (!window.firebase) {
+    window.firebase = {
+      apps: app ? [app] : [], // Include app if successfully initialized/retrieved
+      initializeApp: (config) => {
+        console.warn("Firebase already initialized via module script. Returning existing app.");
+        // Return the existing app instance if available
+        return app || initializeApp(config); // Fallback to re-init if app is null, though ideally caught above
+      },
+      // Ensure firestore and auth are initialized only if app exists
+      firestore: () => app ? getFirestore(app) : null,
+      auth: () => app ? getAuth(app) : null
+    };
+    // Add db to window for cross-compatibility if app exists
+    if (app) {
+       window.db = getFirestore(app);
+       window.auth = getAuth(app); // Explicitly set window.auth here
+    } else {
+       console.error("Firebase app instance is not available. Cannot set window.db or window.auth.");
+    }
+  } else {
+     // If window.firebase already exists, ensure it has the necessary methods
+     if (!window.firebase.firestore && app) window.firebase.firestore = () => getFirestore(app);
+     if (!window.firebase.auth && app) window.firebase.auth = () => getAuth(app);
+     if (!window.auth && app) window.auth = getAuth(app); // Also ensure window.auth is set
+     if (!window.db && app) window.db = getFirestore(app); // Ensure db is set even if window.firebase existed
+  }
+</script>
+<script defer>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Wait for auth to be ready
+        setTimeout(() => {
+          // Check if we have subjects in localStorage
+          const subjects = JSON.parse(localStorage.getItem('academicSubjects') || '[]');
+          if (subjects.length === 0) {
+            console.log('🔄 No subjects found in localStorage, initializing data...');
+            if (typeof window.initializeFirestoreData === 'function') {
+              window.initializeFirestoreData();
+            }
+          } else {
+            console.log('✅ Subjects found in localStorage:', subjects.length);
+          }
+        }, 1500);
+      });
+    </script>
+    <script type="module" src="js/userGuidance.js"></script>
+
+
+
+
+    <script async src="https://unpkg.com/es-module-shims@1.8.0/dist/es-module-shims.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="https://kit.fontawesome.com/51198d7b97.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/es-module-shims"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <script defer src="js/storageManager.js"></script>
+    <script defer src="js/grind-speech-synthesis.js"></script>
+<!-- Add this before loading taskLinks.js -->
+<script defer>
+  // Ensure firebase config is available for taskLinks.js
+  if (!localStorage.getItem('firebaseConfig')) {
+    localStorage.setItem('firebaseConfig', JSON.stringify({
+      apiKey: "AIzaSyCdxGGpfoWD_M_6BwWFqWZ-6MAOKTUjIrI",
+      authDomain: "mzm-gpace.firebaseapp.com",
+      projectId: "mzm-gpace",
+      storageBucket: "mzm-gpace.firebasestorage.app",
+      messagingSenderId: "949014366726",
+      appId: "1:949014366726:web:3aa05a6e133e2066c45187"
+    }));
+  }
+</script>
+    <script defer src="js/taskLinks.js"></script>
+    <script defer src="js/currentTaskManager.js"></script>
+    <script defer src="priority-calculator.js"></script>
+    <script defer src="js/sleepTimeCalculator.js"></script>
+    <script defer src="js/energyLevels.js"></script>
+    <script defer src="js/sideDrawer.js"></script>
+    <script defer src="js/pomodoroTimer.js"></script>
+    <script defer src="js/task-notes-injector.js"></script>
+    <script defer src="js/task-notes.js"></script>
+
+
+
+    <script defer>
+      // Global wrapper for getCurrentTask - defined at the top of document
+      function getCurrentTask() {
+        if (window.currentTaskManager) {
+          return window.currentTaskManager.getCurrentTask();
+        }
+        return null;
+      }
+    </script>
+    <script defer>
+      // Function to detect workspace opening and adjust AI researcher container
+      function detectWorkspaceOpen() {
+        // Check if workspace is open by looking for specific elements or classes
+        const workspaceElement = document.querySelector('.workspace-container');
+        if (workspaceElement && window.getComputedStyle(workspaceElement).display !== 'none') {
+          document.body.classList.add('workspace-open');
+        } else {
+          document.body.classList.remove('workspace-open');
+        }
+      }
+
+      // Run on page load
+      document.addEventListener('DOMContentLoaded', function() {
+        detectWorkspaceOpen();
+
+        // Set up a mutation observer to detect changes in the DOM
+        const observer = new MutationObserver(function(mutations) {
+          detectWorkspaceOpen();
+        });
+
+        // Start observing the document with the configured parameters
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+
+      async function handleSubjectMaterialUpload() {
+        const fileInput = document.getElementById('subjectMaterialFile');
+        const materialTypeSelect = document.getElementById('materialType');
+        const materialType = materialTypeSelect ? materialTypeSelect.value : 'general';
+        const progressContainer = document.querySelector('.upload-progress');
+
+        if (!fileInput || !fileInput.files.length) {
+          alert('Please select a file first');
+          return;
+        }
+
+        const file = fileInput.files[0];
+        console.log('Upload started for:', file.name);
+
+        // Show progress container
+        if (progressContainer) {
+          progressContainer.classList.remove('d-none');
+          const progressBar = progressContainer.querySelector('.progress-bar');
+          const percentageEl = progressContainer.querySelector('.upload-percentage');
+          const speedEl = progressContainer.querySelector('.upload-speed');
+          const remainingEl = progressContainer.querySelector('.upload-remaining');
+
+          let uploadStartTime = Date.now();
+          let lastLoaded = 0;
+
+          // Create upload progress handler
+          const updateProgress = (event) => {
+            if (event.lengthComputable) {
+              const percent = Math.round((event.loaded / event.total) * 100);
+              if (progressBar) {
+                progressBar.style.width = percent + '%';
+                progressBar.setAttribute('aria-valuenow', percent);
+              }
+              if (percentageEl) {
+                percentageEl.textContent = percent + '%';
+              }
+
+              // Calculate speed
+              const elapsed = Date.now() - uploadStartTime;
+              const speed = event.loaded / (elapsed / 1000); // bytes per second
+              if (speedEl) {
+                speedEl.textContent = formatSpeed(speed);
+              }
+
+              // Calculate remaining time
+              const remaining = (event.total - event.loaded) / speed;
+              if (remainingEl) {
+                remainingEl.textContent = formatTime(remaining);
+              }
+            }
+          };
+
+          try {
+            // Get the selected subject tag
+            const subjectSelect = document.getElementById('subjectSelect');
+            const subjectTag = subjectSelect ? subjectSelect.value : null;
+
+            if (!subjectTag) {
+              throw new Error('Please select a subject');
+            }
+
+            // Upload file using the subject-specific upload method
+            if (window.googleDriveAPI && typeof window.googleDriveAPI.uploadSubjectFile === 'function') {
+              // Register for progress updates
+              window.addEventListener('file-upload-progress', function progressHandler(e) {
+                updateProgress(e.detail);
+                if (e.detail.completed) {
+                  window.removeEventListener('file-upload-progress', progressHandler);
+                }
+              });
+
+              await window.googleDriveAPI.uploadSubjectFile(file, subjectTag, materialType);
+
+              // Upload complete
+              if (progressBar) {
+                progressBar.style.width = '100%';
+                progressBar.setAttribute('aria-valuenow', 100);
+              }
+              if (percentageEl) {
+                percentageEl.textContent = '100%';
+              }
+              if (speedEl) {
+                speedEl.textContent = 'Complete';
+              }
+              if (remainingEl) {
+                remainingEl.textContent = 'Finished';
+              }
+
+              alert('File uploaded successfully!');
+              // Close modal
+              const modal = bootstrap.Modal.getInstance(document.getElementById('addSubjectMaterialModal'));
+              if (modal) {
+                modal.hide();
+              }
+            } else {
+              throw new Error('Google Drive API not available');
+            }
+          } catch (error) {
+            console.error('Upload error:', error);
+            alert('Error uploading file: ' + error.message);
+          }
+        } else {
+          console.error('Progress container not found');
+          alert('Error: Progress tracking not available');
+        }
+      }
+
+      function formatSpeed(bytesPerSecond) {
+        if (bytesPerSecond > 1024 * 1024) {
+          return Math.round(bytesPerSecond / (1024 * 1024)) + ' MB/s';
+        } else if (bytesPerSecond > 1024) {
+          return Math.round(bytesPerSecond / 1024) + ' KB/s';
+        }
+        return Math.round(bytesPerSecond) + ' B/s';
+      }
+
+      function formatTime(seconds) {
+        if (seconds < 60) {
+          return Math.round(seconds) + ' seconds';
+        } else if (seconds < 3600) {
+          return Math.round(seconds / 60) + ' minutes';
+        }
+        return Math.round(seconds / 3600) + ' hours';
+      }
+
+      // Enhanced interleaveTask function with feedback
+  function interleaveTask() {
+    try {
+      const priorityTasks = JSON.parse(localStorage.getItem('calculatedPriorityTasks') || '[]');
+      if (priorityTasks.length > 1) {
+        // Find the current task
+        const taskInfo = document.querySelector('.task-info');
+        if (!taskInfo) {
+          console.error('Cannot find task info element');
+          return;
+        }
+
+        const taskTitle = taskInfo.querySelector('.task-title')?.textContent?.trim() || '';
+        const taskDetails = taskInfo.querySelector('.task-details')?.textContent?.trim() || '';
+        const projectName = taskDetails.split('•')[1]?.trim() || '';
+        const projectId = taskInfo.dataset.projectId;
+
+        // Find this task in the priority list
+        let taskIndex = -1;
+        let currentTask = null;
+
+        for (let i = 0; i < priorityTasks.length; i++) {
+          const task = priorityTasks[i];
+          if ((task.title === taskTitle || task.title.trim() === taskTitle) &&
+              (task.projectId === projectId || task.projectName === projectName)) {
+            taskIndex = i;
+            currentTask = task;
+            break;
+          }
+        }
+
+        if (taskIndex === -1 || !currentTask) {
+          console.error('Cannot find current task in priority list');
+          return;
+        }
+
+        // Remove task from its current position
+        priorityTasks.splice(taskIndex, 1);
+
+        // Mark as interleaved and add to end
+        currentTask.lastInterleaved = new Date().toISOString();
+        priorityTasks.push(currentTask);
+
+        // Save to localStorage
+        localStorage.setItem('calculatedPriorityTasks', JSON.stringify(priorityTasks));
+
+        // Dispatch storage event to notify other tabs/pages
+        window.dispatchEvent(new StorageEvent('storage', {
+          key: 'calculatedPriorityTasks',
+          newValue: JSON.stringify(priorityTasks),
+          url: window.location.href
+        }));
+
+        // Update the task in its original project task list
+        const projId = currentTask.projectId;
+        if (projId) {
+          const tasksKey = `tasks-${projId}`;
+          const projectTasks = JSON.parse(localStorage.getItem(tasksKey) || '[]');
+          // Find and update the task in the project tasks
+          const projTaskIndex = projectTasks.findIndex(t => t.id === currentTask.id);
+          if (projTaskIndex !== -1) {
+            projectTasks[projTaskIndex].lastInterleaved = currentTask.lastInterleaved;
+            localStorage.setItem(tasksKey, JSON.stringify(projectTasks));
+            // If Firestore is available, save the updated tasks
+            if (typeof window.saveTasksToFirestore === 'function') {
+              window.saveTasksToFirestore(projId, projectTasks).catch(error => {
+                console.error('Error saving interleaved task to Firestore:', error);
+              });
+            }
+          }
+        }
+
+        // Show interleave notification
+        const notification = document.createElement('div');
+        notification.className = 'interleave-notification';
+        notification.innerHTML = `
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="bi bi-arrow-repeat" style="font-size: 1.2rem; color: var(--secondary-color);"></i>
+            <div>
+              <strong>Task Interleaved</strong>
+              <div>${currentTask.title}</div>
+            </div>
+          </div>
+        `;
+        notification.style.position = 'fixed';
+        notification.style.bottom = '80px';
+        notification.style.right = '20px';
+        notification.style.backgroundColor = 'var(--card-bg)';
+        notification.style.color = 'var(--text-color)';
+        notification.style.padding = '15px';
+        notification.style.borderRadius = '5px';
+        notification.style.boxShadow = '0 3px 15px rgba(0,0,0,0.3)';
+        notification.style.border = '1px solid var(--secondary-color)';
+        notification.style.zIndex = '1000';
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        notification.style.transform = 'translateY(20px)';
+
+        document.body.appendChild(notification);
+
+        // Animate in and out
+        setTimeout(() => {
+          notification.style.opacity = '1';
+          notification.style.transform = 'translateY(0)';
+        }, 10);
+        setTimeout(() => {
+          notification.style.opacity = '0';
+          notification.style.transform = 'translateY(20px)';
+        }, 3000);
+        setTimeout(() => { document.body.removeChild(notification); }, 3500);
+
+        // If PriorityListSorter is available globally, use it to sort tasks
+        if (typeof window.PriorityListSorter !== 'undefined') {
+          try {
+            const sorter = new window.PriorityListSorter();
+            sorter.sortTasks();
+          } catch (e) {
+            console.error('Error using PriorityListSorter:', e);
+          }
+        }
+
+        // Display the next task after a brief delay (force refresh since we know the order changed)
+        setTimeout(() => {
+          displayPriorityTask(true);
+        }, 100);
+      }
+    } catch (error) {
+      console.error('Error in interleaveTask:', error);
+    }
+  }
+
+
+      // Add Link Modal Functions
+      function addNewLink(taskId) {
+          const modal = document.getElementById('addLinkModal');
+          modal.style.display = 'block';
+
+          const form = document.getElementById('addLinkForm');
+          form.onsubmit = async (e) => {
+              e.preventDefault();
+              const url = document.getElementById('linkUrl').value;
+              const title = document.getElementById('linkTitle').value;
+              const description = document.getElementById('linkDescription').value;
+
+              // Add link to task
+              await saveTaskLink(taskId, { url, title, description });
+
+              // Clear form and close modal
+              form.reset();
+              closeAddLinkModal();
+
+              // Refresh links display
+              displayTaskLinks(taskId);
+          };
+      }
+
+      function closeAddLinkModal() {
+          const modal = document.getElementById('addLinkModal');
+          modal.style.display = 'none';
+      }
+
+      // Close modal when clicking outside
+      document.addEventListener('click', (e) => {
+          const modal = document.getElementById('addLinkModal');
+          if (e.target === modal) {
+              closeAddLinkModal();
+          }
+      });
+
+
+
+</script>
+    <script defer>
+      // Add these at the top of your document, just like you did with interleaveTask
+
+  // Complete Task Function
+  window.completeTask = function(projectId, taskId) {
+    try {
+      // Get the priority tasks list
+      const priorityTasks = JSON.parse(localStorage.getItem('calculatedPriorityTasks') || '[]');
+
+      // Find and remove the completed task
+      const taskIndex = priorityTasks.findIndex(task =>
+        (task.id === taskId || task.id === String(taskId)) &&
+        (task.projectId === projectId || task.projectId === String(projectId))
+      );
+
+      if (taskIndex === -1) {
+        console.error('Task not found:', taskId, projectId);
+        alert('Task not found. Please try again or refresh the page.');
+        return;
+      }
+
+      const completedTask = priorityTasks.splice(taskIndex, 1)[0];
+
+      // Save updated priority tasks list
+      localStorage.setItem('calculatedPriorityTasks', JSON.stringify(priorityTasks));
+
+      // Optional: Add to completed tasks list
+      const completedTasks = JSON.parse(localStorage.getItem('completedTasks') || '[]');
+      completedTask.completedDate = new Date().toISOString();
+      completedTasks.push(completedTask);
+      localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+
+      // Remove the original task from its project's task list
+      if (projectId) {
+        const projectTasks = JSON.parse(localStorage.getItem(`tasks-${projectId}`) || '[]');
+        const projTaskIndex = projectTasks.findIndex(t => t.id === taskId);
+
+        if (projTaskIndex !== -1) {
+          projectTasks.splice(projTaskIndex, 1);
+          localStorage.setItem(`tasks-${projectId}`, JSON.stringify(projectTasks));
+
+          // If Firestore is available, save the updated tasks
+          if (typeof window.saveTasksToFirestore === 'function') {
+            window.saveTasksToFirestore(projectId, projectTasks).catch(error => {
+              console.error('Error saving completed task to Firestore:', error);
+            });
+          }
+        }
+      }
+
+      // Show completion message
+      const notification = document.createElement('div');
+      notification.className = 'completion-notification';
+      notification.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <i class="bi bi-check-circle-fill" style="font-size: 1.5rem; color: var(--secondary-color);"></i>
+          <div>
+            <strong>Task Completed!</strong>
+            <div>${completedTask.title}</div>
+          </div>
+        </div>
+      `;
+      notification.style.position = 'fixed';
+      notification.style.bottom = '80px';
+      notification.style.right = '20px';
+      notification.style.backgroundColor = 'var(--card-bg)';
+      notification.style.color = 'var(--text-color)';
+      notification.style.padding = '15px';
+      notification.style.borderRadius = '5px';
+      notification.style.boxShadow = '0 3px 15px rgba(0,0,0,0.3)';
+      notification.style.border = '1px solid var(--secondary-color)';
+      notification.style.zIndex = '1000';
+      notification.style.opacity = '0';
+      notification.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+      notification.style.transform = 'translateY(20px)';
+
+      document.body.appendChild(notification);
+
+      // Animate in and out
+      setTimeout(() => {
+        notification.style.opacity = '1';
+        notification.style.transform = 'translateY(0)';
+      }, 10);
+      setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transform = 'translateY(20px)';
+      }, 3000);
+      setTimeout(() => { document.body.removeChild(notification); }, 3500);
+
+      // Display the next task (force refresh since we know a task was removed)
+      displayPriorityTask(true);
+
+    } catch (error) {
+      console.error('Error completing task:', error);
+      alert('Error completing task: ' + error.message);
+    }
+  };
+
+  // Subtasks Toggle Function
+  window.toggleSubtasks = async function(button, taskId) {
+    console.group(`Toggle Subtasks for Task ID: ${taskId}`);
+
+    try {
+      // Find the specific container for this task
+      const container = document.getElementById(`subtasks-${taskId}`);
+
+      if (!container) {
+        console.error(`No container found for task ID: ${taskId}`);
+        console.groupEnd();
+        return;
+      }
+
+      const spinner = container.querySelector('.loading-spinner');
+      const subtasksList = container.querySelector('.subtasks-list');
+
+      // Toggle expanded state
+      container.classList.toggle('expanded');
+      if (button.classList) button.classList.toggle('expanded');
+
+      // If we're expanding and there are no subtasks yet, generate them
+      if (container.classList.contains('expanded')) {
+        if (!subtasksList.children.length) {
+          try {
+            if (spinner) spinner.classList.remove('d-none');
+            const tasks = JSON.parse(localStorage.getItem('calculatedPriorityTasks') || '[]');
+
+            // Find task by ID or index
+            const taskData = tasks.find((t) => String(t.id) === String(taskId));
+
+            if (!taskData) {
+              throw new Error(`Task not found for ID: ${taskId}`);
+            }
+
+            const subtasks = await generateSubtasks(taskId, taskData);
+
+            subtasksList.innerHTML = subtasks.map((subtask, index) => `
+              <div class="subtask-item" data-subtask-id="${taskId}-${index}">
+                <input type="checkbox" class="subtask-checkbox" onchange="toggleSubtaskComplete(this)">
+                <div class="subtask-title">${subtask}</div>
+              </div>
+            `).join('');
+
+            // Load any previously saved completion status
+            loadCompletionStatus();
+          } catch (error) {
+            console.error('Error in toggleSubtasks:', error);
+            subtasksList.innerHTML = `
+              <div class="subtask-error">
+                <i class="bi bi-exclamation-triangle"></i>
+                ${error.message}
+              </div>
+            `;
+          } finally {
+            if (spinner) spinner.classList.add('d-none');
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error toggling subtasks:', error);
+    }
+
+    console.groupEnd();
+  };
+
+  // Generate Subtasks Function
+  window.generateSubtasks = async function(taskId, taskData) {
+    const prompt = `Break down this academic task into specific, actionable steps that require minimal decision-making:
+  Task: ${taskData.title}
+  Section: ${taskData.section}
+  Project: ${taskData.projectName}
+  Priority Score: ${taskData.priorityScore}
+
+  Generate a numbered list of specific steps to complete this task. Each step should:
+  1. Be concrete and actionable (start with verbs)
+  2. Focus on a single, clear action
+  3. Require minimal decision making
+  4. Include any necessary preparation
+  5. Build towards the final goal
+
+  Important: Do not include any time estimates or duration information.
+
+  Example format:
+  1. Gather textbook and class notes
+  2. Review chapter introduction
+  3. Create main topic outline
+  etc.`;
+
+    try {
+      console.log('Sending request with task data:', taskData);
+      const response = await fetch('/api/generate-subtasks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          prompt
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.details || 'Failed to generate subtasks');
+      }
+
+      const data = await response.json();
+      console.log('Received subtasks:', data);
+
+      if (!data.subtasks || data.subtasks.length === 0) {
+        throw new Error('No subtasks were generated');
+      }
+
+      return data.subtasks;
+    } catch (error) {
+      console.error('Error generating subtasks:', error);
+      return [`Error: ${error.message}. Please try again.`];
+    }
+  };
+
+  // Toggle Subtask Complete Function
+  window.toggleSubtaskComplete = function(checkbox) {
+    const subtaskItem = checkbox.closest('.subtask-item');
+    subtaskItem.classList.toggle('completed', checkbox.checked);
+
+    // Save completion status
+    const subtaskId = subtaskItem.dataset.subtaskId;
+    const completedSubtasks = JSON.parse(localStorage.getItem('completedSubtasks') || '{}');
+    completedSubtasks[subtaskId] = checkbox.checked;
+    localStorage.setItem('completedSubtasks', JSON.stringify(completedSubtasks));
+  };
+
+  // Load Completion Status Function
+  window.loadCompletionStatus = function() {
+    const completedSubtasks = JSON.parse(localStorage.getItem('completedSubtasks') || '{}');
+    Object.entries(completedSubtasks).forEach(([subtaskId, completed]) => {
+      const subtaskItem = document.querySelector(`[data-subtask-id="${subtaskId}"]`);
+      if (subtaskItem) {
+        const checkbox = subtaskItem.querySelector('.subtask-checkbox');
+        checkbox.checked = completed;
+        subtaskItem.classList.toggle('completed', completed);
+      }
+    });
+  };
+
+  // Skip Task Function (if needed)
+  window.skipTask = function() {
+    try {
+      const priorityTasks = JSON.parse(localStorage.getItem('calculatedPriorityTasks') || '[]');
+      if (priorityTasks.length <= 1) return;
+
+      // Move first task to the end (without marking as interleaved)
+      const firstTask = priorityTasks.shift();
+      priorityTasks.push(firstTask);
+
+      // Save to localStorage
+      localStorage.setItem('calculatedPriorityTasks', JSON.stringify(priorityTasks));
+
+      // Display the next task (force refresh since we know the order changed)
+      displayPriorityTask(true);
+
+      // Show skip message
+      const notification = document.createElement('div');
+      notification.className = 'skip-notification';
+      notification.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <i class="bi bi-skip-forward-fill" style="font-size: 1.2rem;"></i>
+          <div>
+            <strong>Task Skipped</strong>
+            <div>${firstTask.title}</div>
+          </div>
+        </div>
+      `;
+      notification.style.position = 'fixed';
+      notification.style.bottom = '80px';
+      notification.style.right = '20px';
+      notification.style.backgroundColor = 'var(--card-bg)';
+      notification.style.color = 'var(--text-color)';
+      notification.style.padding = '12px 15px';
+      notification.style.borderRadius = '5px';
+      notification.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+      notification.style.zIndex = '1000';
+      notification.style.opacity = '0';
+      notification.style.transition = 'opacity 0.3s ease';
+
+      document.body.appendChild(notification);
+
+      // Fade in and out
+      setTimeout(() => { notification.style.opacity = '1'; }, 10);
+      setTimeout(() => { notification.style.opacity = '0'; }, 2000);
+      setTimeout(() => { document.body.removeChild(notification); }, 2500);
+
+    } catch (error) {
+      console.error('Error in skipTask:', error);
+    }
+  };
+    </script>
+    <script>
+    // Constants
+    const TIMER_STATES = {
+      FOCUS: 'focus',
+      BREAK: 'break',
+      PAUSED: 'paused'
+    };
+    const TIMER_DURATIONS = {
+      POMODORO: 25 * 60,
+      SHORT_BREAK: 5 * 60,
+      LONG_BREAK: 15 * 60
+    };
+    // State management
+    let state = {
+      timeLeft: TIMER_DURATIONS.POMODORO,
+      currentState: TIMER_STATES.FOCUS,
+      pomodoroCount: 0,
+      timerInterval: null,
+      startTime: null,
+      isRunning: false
+    };
+    // Load saved state
+    function loadState() {
+      const saved = localStorage.getItem('pomodoroState');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        state = {
+          ...state,
+          ...parsed
+        };
+        updateDisplay();
+      }
+    }
+    // Save state
+    function saveState() {
+      localStorage.setItem('pomodoroState', JSON.stringify({
+        timeLeft: state.timeLeft,
+        currentState: state.currentState,
+        pomodoroCount: state.pomodoroCount,
+        startTime: state.startTime,
+        isRunning: state.isRunning
+      }));
+    }
+
+    function startTimer() {
+      // Check if timer is already running
+      if (state.timerInterval) {
+        return;
+      }
+      // Get the current display time
+      const timerDisplay = document.getElementById('timer');
+      const [minutes, seconds] = timerDisplay.textContent.split(':').map(Number);
+      state.timeLeft = minutes * 60 + seconds;
+      // Reset start time if timer was not paused
+      if (!state.isRunning) {
+        state.startTime = Date.now();
+      }
+      state.isRunning = true;
+      state.timerInterval = setInterval(() => {
+        if (state.timeLeft <= 0) {
+          handleTimerComplete();
+          return;
+        }
+        state.timeLeft--;
+        updateDisplay();
+      }, 1000);
+
+      // Start updating the title with timer info
+      const timerType = state.currentState === TIMER_STATES.FOCUS ? 'Focus' : 'Break';
+      startTimerTitleUpdates(state.timeLeft, timerType);
+
+      // Force an immediate title update
+      document.title = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} - ${timerType} - GPAce`;
+
+      // Update UI: change start button to pause button, show reset button
+      const startBtn = document.getElementById('startBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      startBtn.style.display = 'block';
+      startBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      startBtn.setAttribute('data-state', 'running');
+      resetBtn.style.display = 'block';
+      resetBtn.setAttribute('data-state', 'reset');
+      saveState();
+      // Update display to ensure title is updated immediately
+      updateDisplay();
+      showNotification('Timer started', 'success');
+    }
+
+    function pauseTimer() {
+      if (state.timerInterval) {
+        clearInterval(state.timerInterval);
+        state.timerInterval = null;
+      }
+      state.isRunning = false;
+      saveState();
+      // Update UI
+      const startBtn = document.getElementById('startBtn');
+      startBtn.innerHTML = '<i class="fas fa-play"></i>';
+      startBtn.setAttribute('data-state', 'paused');
+      // Update display to ensure title is updated immediately
+      updateDisplay();
+
+      // Stop updating the title with timer info
+      stopTimerTitleUpdates();
+      console.log('Timer paused, stopping title updates');
+
+      // Force an immediate title update with current time
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+      document.title = `${formattedTime} - GPAce`;
+
+      showNotification('Timer paused', 'info');
+    }
+
+    function resetTimer() {
+      clearInterval(state.timerInterval);
+      state.timerInterval = null;
+      state.isRunning = false;
+      // Calculate and save time spent in current focus session first
+      if (stats.activeTimerStart && state.currentState === TIMER_STATES.FOCUS) {
+        const activeTime = Math.floor((Date.now() - stats.activeTimerStart - stats.pausedTime) / 1000);
+        stats.totalWorkTime += activeTime;
+        stats.activeTimerStart = null;
+        updateStatsDisplay();
+        saveStats();
+      }
+      // Reset timer state
+      state.timeLeft = TIMER_DURATIONS.POMODORO;
+      state.currentState = TIMER_STATES.FOCUS;
+      state.startTime = null;
+      fatigueLogged = false;
+      updateDisplay();
+      // Update UI
+      const startBtn = document.getElementById('startBtn');
+      startBtn.innerHTML = '<i class="fas fa-play"></i>';
+      startBtn.setAttribute('data-state', 'paused');
+      saveState();
+      // Stop updating the title with timer info
+      stopTimerTitleUpdates();
+
+      // Force an immediate title update with current time
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+      document.title = `${formattedTime} - GPAce`;
+
+      showNotification('Timer reset', 'info');
+    }
+
+    function handleTimerComplete() {
+      clearInterval(state.timerInterval);
+      state.timerInterval = null;
+      let notificationLoop;
+      const playNotification = () => {
+        // Create an AudioContext for better background tab support
+        try {
+          const audioContext = new(window.AudioContext || window.webkitAudioContext)();
+          const audio = new Audio('sounds/notification.mp3');
+          const source = audioContext.createMediaElementSource(audio);
+          source.connect(audioContext.destination);
+          audio.play().catch(error => {
+            console.warn('Could not play notification sound:', error);
+          });
+        } catch (error) {
+          // Fallback to simple Audio API
+          const audio = new Audio('sounds/notification.mp3');
+          audio.play().catch(error => {
+            console.warn('Could not play notification sound:', error);
+          });
+        }
+      };
+      // Start the notification loop
+      playNotification();
+      notificationLoop = setInterval(playNotification, 1000);
+      // Show browser notification if permission granted
+      if ('Notification' in window && Notification.permission === 'granted') {
+        const title = state.currentState === TIMER_STATES.FOCUS ?
+          'Break Time!' : 'Focus Time!';
+        const message = state.currentState === TIMER_STATES.FOCUS ?
+          'Great job! Take a break.' : 'Break is over. Time to focus!';
+        const notification = new Notification(title, {
+          body: message,
+          icon: '/icons/timer-icon.png',
+          silent: false // Allow browser notification sound
+        });
+        // Auto close after 5 seconds
+        setTimeout(() => notification.close(), 5000);
+      }
+      // Add one-time event listener for reset button
+      const resetBtn = document.getElementById('resetBtn');
+      const stopNotification = () => {
+        clearInterval(notificationLoop);
+        resetBtn.removeEventListener('click', stopNotification);
+      };
+      resetBtn.addEventListener('click', stopNotification);
+      if (state.currentState === TIMER_STATES.FOCUS) {
+        // Update final work time before transitioning
+        const currentTime = Date.now();
+        const elapsedSeconds = Math.floor((currentTime - stats.activeTimerStart - stats.pausedTime) / 1000);
+        updateStatsDisplay();
+        saveStats();
+        state.pomodoroCount++;
+        startBreak();
+      } else {
+        startFocus();
+      }
+      saveState();
+      // Ensure the title is updated with the new timer state
+      updateDisplay();
+
+      // Stop any existing title updates and start new ones
+      stopTimerTitleUpdates();
+      const timerType = state.currentState === TIMER_STATES.FOCUS ? 'Focus' : 'Break';
+      startTimerTitleUpdates(state.timeLeft, timerType);
+
+      // Force an immediate title update
+      const minutes = Math.floor(state.timeLeft / 60);
+      const seconds = state.timeLeft % 60;
+      const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      document.title = `${display} - ${timerType} - GPAce`;
+    }
+
+    function startBreak() {
+      state.currentState = TIMER_STATES.BREAK;
+      state.timeLeft = (state.pomodoroCount % 4 === 0) ?
+        TIMER_DURATIONS.LONG_BREAK : TIMER_DURATIONS.SHORT_BREAK;
+      state.startTime = Date.now();
+      updateDisplay();
+
+      // Stop any existing title updates
+      stopTimerTitleUpdates();
+
+      startTimer();
+    }
+
+    function startFocus() {
+      state.currentState = TIMER_STATES.FOCUS;
+      state.timeLeft = TIMER_DURATIONS.POMODORO;
+      state.startTime = Date.now();
+      updateDisplay();
+
+      // Stop any existing title updates
+      stopTimerTitleUpdates();
+
+      startTimer();
+    }
+
+    function updateDisplay() {
+      const minutes = Math.floor(state.timeLeft / 60);
+      const seconds = state.timeLeft % 60;
+      const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      document.getElementById('timer').textContent = display;
+      const sessionTypeElement = document.querySelector('.session-type');
+      if (sessionTypeElement) {
+        sessionTypeElement.textContent =
+          state.currentState === TIMER_STATES.FOCUS ? 'Focus Time' :
+          (state.pomodoroCount % 4 === 0 ? 'Long Break' : 'Short Break');
+      }
+      // Update progress
+      const totalTime = state.currentState === TIMER_STATES.FOCUS ?
+        TIMER_DURATIONS.POMODORO :
+        (state.pomodoroCount % 4 === 0 ? TIMER_DURATIONS.LONG_BREAK : TIMER_DURATIONS.SHORT_BREAK);
+      const progress = ((totalTime - state.timeLeft) / totalTime) * 100;
+      document.querySelector('.timer-progress').style.setProperty('--progress', `${progress}%`);
+
+      // Title updates are now handled by the dedicated timer title updater
+    }
+
+    // Event listeners
+    document.getElementById('startBtn').addEventListener('click', () => {
+      const startBtn = document.getElementById('startBtn');
+      const state = startBtn.getAttribute('data-state');
+
+      if (state === 'paused') {
+        showFatigueModal();
+      } else if (state === 'running') {
+        pauseTimer();
+      }
+    });
+    safeAddEventListener('#resetBtn', 'click', () => {
+      resetTimer();
+    });
+    document.getElementById('customTimeBtn').addEventListener('click', () => {
+      const minutes = parseInt(document.getElementById('customTimeInput').value);
+      if (minutes > 0 && minutes <= 60) {
+        setCustomTime(minutes);
+      }
+    });
+    // Initialize
+    loadState();
+    setInterval(() => saveState(), 30000); // Auto-save every 30 seconds
+  </script>
+    <script>
+    let energyChart; // Global chart reference
+    function updateEnergyChart() {
+      const todayLevels = energyTracker.getTodayEnergyLevels();
+      console.log('Updating chart with levels:', todayLevels);
+      if (!energyChart) {
+        initEnergyGraph();
+        return;
+      }
+      energyChart.data.labels = todayLevels.map(entry => {
+        const date = new Date(entry.timestamp);
+        return date.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      });
+      energyChart.data.datasets[0].data = todayLevels.map(entry => entry.level);
+      energyChart.update('none'); // Update without animation for immediate feedback
+    }
+
+    function initEnergyGraph() {
+      const ctx = document.getElementById('energyGraph').getContext('2d');
+      const todayLevels = energyTracker.getTodayEnergyLevels();
+      console.log('Initializing chart with levels:', todayLevels);
+      const energyLabels = {
+        1: 'Fully Alert',
+        2: 'Very Lively',
+        3: 'Okay',
+        4: 'A Little Tired',
+        5: 'Moderately Tired',
+        6: 'Extremely Tired',
+        7: 'Exhausted'
+      };
+      energyChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: todayLevels.map(entry => {
+            const date = new Date(entry.timestamp);
+            return date.toLocaleTimeString('en-US', {
+              hour: '2-digit',
+              minute: '2-digit'
+            });
+          }),
+          datasets: [{
+            label: 'Energy',
+            data: todayLevels.map(entry => entry.level),
+            borderColor: '#fe2c55',
+            backgroundColor: 'rgba(254, 44, 85, 0.05)',
+            borderWidth: 2.5,
+            fill: true,
+            tension: 0.35,
+            pointRadius: 0,
+            pointHoverRadius: 6,
+            pointBackgroundColor: '#fe2c55',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointHoverBorderWidth: 2,
+            pointHoverBackgroundColor: '#fe2c55',
+            pointHoverBorderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          layout: {
+            padding: {
+              top: 5,
+              right: 5,
+              bottom: 5,
+              left: 5
+            }
+          },
+          animation: {
+            duration: 750,
+            easing: 'easeInOutQuart'
+          },
+          interaction: {
+            intersect: false,
+            mode: 'index'
+          },
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              backgroundColor: 'rgba(30, 30, 30, 0.95)',
+              titleColor: '#fff',
+              bodyColor: '#fff',
+              padding: 10,
+              cornerRadius: 6,
+              displayColors: false,
+              callbacks: {
+                label: function(context) {
+                  const entry = todayLevels[context.dataIndex];
+                  return `Level ${entry.level}: ${energyLabels[entry.level]}`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              reverse: true,
+              min: 0.5,
+              max: 7.5,
+              border: {
+                display: false
+              },
+              ticks: {
+                stepSize: 1,
+                color: 'rgba(255, 255, 255, 0.7)',
+                font: {
+                  size: 11,
+                  weight: '500',
+                  family: "'Inter', system-ui, -apple-system, sans-serif"
+                },
+                padding: 4,
+                callback: function(value) {
+                  return Number.isInteger(value) ? value : '';
+                }
+              },
+              grid: {
+                color: 'rgba(255, 255, 255, 0.03)',
+                drawBorder: false,
+                lineWidth: 1
+              }
+            },
+            x: {
+              border: {
+                display: false
+              },
+              ticks: {
+                color: 'rgba(255, 255, 255, 0.7)',
+                maxRotation: 0,
+                minRotation: 0,
+                font: {
+                  size: 10,
+                  weight: '400',
+                  family: "'Inter', system-ui, -apple-system, sans-serif"
+                },
+                padding: 4,
+                maxTicksLimit: 8,
+                autoSkip: true
+              },
+              grid: {
+                display: false,
+                drawBorder: false
+              }
+            }
+          }
+        }
+      });
+      // Update chart every 10 seconds
+      setInterval(updateEnergyChart, 600000);
+    }
+    // Initialize the graph when the page loads
+    document.addEventListener('DOMContentLoaded', initEnergyGraph);
+    // Listen for energy updates from the hologram
+    document.getElementById('hologramContainer').addEventListener('energyUpdated', function(e) {
+      const level = e.detail.level;
+      const currentLevel = localStorage.getItem('currentEnergyLevel');
+      // Only update if the level has changed
+      if (currentLevel !== level.toString()) {
+        updateEnergyVisualization(level);
+      }
+    });
+    // Energy visualization and chart update function
+    function updateEnergyVisualization(level, description) {
+      console.log('Updating energy visualization:', level, description);
+      // Update hologram
+      const hologramContainer = document.getElementById('hologramContainer');
+      if (hologramContainer) {
+        const event = new CustomEvent('updateEnergy', {
+          detail: {
+            level: level
+          }
+        });
+        hologramContainer.dispatchEvent(event);
+      }
+      // Log the energy level
+      if (description) {
+        energyTracker.addEnergyLevel(level, description);
+      }
+      // Update chart immediately
+      updateEnergyChart();
+    }
+    // Fatigue level click handler
+    document.querySelectorAll('.fatigue-level').forEach(level => {
+      level.addEventListener('click', function() {
+        const energyLevel = parseInt(this.dataset.level);
+        const description = this.querySelector('h3').textContent;
+        console.log('Fatigue level selected:', energyLevel, description);
+        // Store the energy level
+        localStorage.setItem('currentEnergyLevel', energyLevel.toString());
+        // Update both visualizations
+        updateEnergyVisualization(energyLevel, description);
+        // Close the fatigue modal
+        hideFatigueModal();
+        // Update selection UI
+        document.querySelectorAll('.fatigue-level').forEach(l => l.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+  </script>
+    <script>
+    // Initialize energy tracker globally
+    window.energyTracker = new EnergyTracker();
+    // Make updateEnergyChart available globally
+    window.updateEnergyChart = function() {
+      const todayLevels = window.energyTracker.getTodayEnergyLevels();
+      console.log('Updating chart with levels:', todayLevels);
+      if (!energyChart) {
+        initEnergyGraph();
+        return;
+      }
+      energyChart.data.labels = todayLevels.map(entry => {
+        const date = new Date(entry.timestamp);
+        return date.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      });
+      energyChart.data.datasets[0].data = todayLevels.map(entry => entry.level);
+      energyChart.update('none'); // Update without animation for immediate feedback
+    };
+  </script>
+    <script>
+    // Update current time
+    function updateCurrentTime() {
+      const timeElement = document.getElementById('currentTime');
+      const updateTime = () => {
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        });
+        timeElement.textContent = timeString;
+      };
+      // Update immediately and then every second
+      updateTime();
+      setInterval(updateTime, 1000);
+    }
+    // Initialize time display when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCurrentTime();
+    });
+  </script>
+
+
+
+    <script>
+    // Quote Management
+    const defaultQuotes = [{
+        text: "Success is not final, failure is not fatal: it is the courage to continue that counts.",
+        author: "Winston Churchill"
+      },
+      {
+        text: "Believe you can and you're halfway there.",
+        author: "Theodore Roosevelt"
+      },
+      {
+        text: "The only way to do great work is to love what you do.",
+        author: "Steve Jobs"
+      },
+      {
+        text: "Don't watch the clock; do what it does. Keep going.",
+        author: "Sam Levenson"
+      },
+      {
+        text: "Your time is limited, don't waste it living someone else's life.",
+        author: "Steve Jobs"
+      }
+    ];
+
+    function getQuotes() {
+      // Get custom quotes from localStorage
+      const storedQuotes = JSON.parse(localStorage.getItem('customQuotes') || '[]');
+      // Get role model quotes from localStorage
+      const roleModels = JSON.parse(localStorage.getItem('roleModels') || '[]');
+      // Extract quotes from role model research
+      const roleModelQuotes = roleModels.flatMap(model =>
+        model.research ? model.research.map(research => ({
+          text: research.description,
+          author: `About ${model.name}`,
+          image: research.image || model.image
+        })) : []
+      );
+      // Combine quotes, with custom quotes taking priority
+      const combinedQuotes = [...storedQuotes, ...roleModelQuotes, ...defaultQuotes];
+      return combinedQuotes.length > 0 ? combinedQuotes : defaultQuotes;
+    }
+    let currentQuoteIndex = 0;
+
+    function rotateQuote() {
+      const quotes = getQuotes();
+      const quoteContainer = document.getElementById('dynamicQuoteContainer');
+      if (quotes.length > 0) {
+        // Create a new container with a transition
+        const newQuoteContent = document.createElement('div');
+        newQuoteContent.className = 'quote-container';
+        newQuoteContent.style.opacity = '0';
+        newQuoteContent.style.transition = 'opacity 0.3s ease';
+        const quote = quotes[currentQuoteIndex];
+        newQuoteContent.innerHTML = `
+                    ${quote.image ? `<img class="quote-image" src="${quote.image}" alt="Quote Image" width="120" height="120" style="display: block;">` : '<div style="height: 20px;"></div>'}
+                    <div class="quote-content">
+                        <p class="quote-text">"${quote.text}"</p>
+                        <p class="quote-author">- ${quote.author}</p>
+                    </div>
+                `;
+        // Replace the old container with the new one
+        if (quoteContainer.firstChild) {
+          quoteContainer.replaceChild(newQuoteContent, quoteContainer.firstChild);
+        } else {
+          quoteContainer.appendChild(newQuoteContent);
+        }
+        // Fade in the new quote
+        setTimeout(() => {
+          newQuoteContent.style.opacity = '1';
+        }, 50);
+        // Increment index, loop back to 0 if at the end
+        currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+      }
+    }
+    // Rotate quote on page load
+    document.addEventListener('DOMContentLoaded', rotateQuote);
+    // Set up automatic quote rotation every minute
+    setInterval(rotateQuote, 60000);
+  </script>
+    <script>
+
+
+
+    const groups = {};
+    tasks.forEach(task => {
+      let groupKey = 'not-interleaved';
+      if (task.lastInterleaved) {
+        const date = new Date(task.lastInterleaved);
+        groupKey = date.toISOString().split('T')[0]; // Get yyyy-mm-dd format
+      }
+      // Create group if it doesn't exist
+      if (!groups[groupKey]) {
+        groups[groupKey] = [];
+      }
+      // Add task to its group
+      groups[groupKey].push(task);
+    });
+    // Sort tasks within each group by priority score (highest first)
+    Object.values(groups).forEach(groupTasks => {
+      groupTasks.sort((a, b) => b.priorityScore - a.priorityScore);
+    });
+    // Convert groups object to array of [key, tasks] and sort by date
+    const sortedGroups = Object.entries(groups).sort((a, b) => {
+      // 'not-interleaved' should come first
+      if (a[0] === 'not-interleaved') return -1;
+      if (b[0] === 'not-interleaved') return 1;
+      // Then sort interleaved tasks by date (oldest first)
+      return new Date(a[0]) - new Date(b[0]);
+    });
+    // Convert back to object
+    const result = {};
+    sortedGroups.forEach(([key, value]) => {
+      result[key] = value;
+    });
+    // return result; // Commented out invalid return statement
+
+  </script>
+    <script>
+    // Debounce mechanism to prevent multiple rapid refreshes
+    let displayPriorityTaskTimeout = null;
+    let lastTasksHash = null;
+
+    async function displayPriorityTask(force = false) {
+      // Clear any pending refresh
+      if (displayPriorityTaskTimeout) {
+        console.log('Cancelling pending priority task refresh');
+        clearTimeout(displayPriorityTaskTimeout);
+      }
+
+      // Schedule a new refresh with a short delay to collapse multiple calls
+      displayPriorityTaskTimeout = setTimeout(async () => {
+        await _displayPriorityTaskImpl(force);
+        displayPriorityTaskTimeout = null;
+      }, 50);
+    }
+
+    async function _displayPriorityTaskImpl(force = false) {
+      console.log('Displaying priority task...');
+      // IMPORTANT: Add flag to prevent recursive calls
+      if (window._isDisplayingPriorityTask) {
+        console.warn('Already displaying priority task, skipping to avoid recursion');
+        return;
+      }
+
+      // Get tasks and check if they've changed
+      const tasksJson = localStorage.getItem('calculatedPriorityTasks') || '[]';
+      const tasksHash = hashString(tasksJson);
+
+      if (!force && tasksHash === lastTasksHash) {
+        console.log('Priority tasks unchanged, skipping refresh');
+        return;
+      }
+
+      // Update the hash
+      lastTasksHash = tasksHash;
+
+      window._isDisplayingPriorityTask = true;
+      try {
+        // NEW CODE: First check if we need to sync with Firestore, but with safeguards
+        let syncPerformed = false;
+        if (window.prioritySyncFix && typeof window.prioritySyncFix.autoFixInIncognito === 'function') {
+          try {
+            const result = await window.prioritySyncFix.autoFixInIncognito();
+            syncPerformed = result.success;
+          } catch (syncError) {
+            console.error('Error during priority sync:', syncError);
+          }
+        }
+        // Then get the priority tasks (which should now be up-to-date)
+        const priorityTasks = JSON.parse(localStorage.getItem('calculatedPriorityTasks') || '[]');
+        console.log(`Priority tasks from storage: ${priorityTasks.length} tasks`);
+        // MODIFIED: Only sort if we haven't just performed a sync (to avoid loop)
+        if (!syncPerformed && priorityTasks.length > 0 && window.PriorityListSorter) {
+          console.log('Ensuring tasks are properly sorted');
+          try {
+            // Instead of creating a new sorter instance each time, use a static method
+            if (typeof window.PriorityListSorter.sortTasksIfNeeded === 'function') {
+              window.PriorityListSorter.sortTasksIfNeeded();
+            } else {
+              console.log('sortTasksIfNeeded not available - skipping sort to avoid recursion');
+            }
+          } catch (sortError) {
+            console.error('Error sorting tasks:', sortError);
+            // Continue with unsorted tasks rather than failing
+          }
+        }
+        const taskBox = document.getElementById('priorityTaskBox');
+        console.log('Task box element:', taskBox);
+        // Create a placeholder with the same height as the current taskBox
+        const currentHeight = taskBox.offsetHeight || 150;
+        taskBox.style.minHeight = `${currentHeight}px`;
+        if (priorityTasks.length === 0) {
+          taskBox.innerHTML = '<div class="task-info" style="display: flex; align-items: center; justify-content: center; height: 100%;">No tasks available</div>';
+          return;
+        }
+        // Group tasks by interleave date
+        const groupedTasks = groupTasksByInterleaveDate(priorityTasks);
+        console.log('Grouped tasks:', groupedTasks);
+        // Get the first group of tasks (non-interleaved or oldest interleaved)
+        const firstGroupKey = Object.keys(groupedTasks)[0];
+        if (!firstGroupKey) {
+          console.error('No group keys found after grouping!');
+          taskBox.innerHTML = '<div class="task-info">Error grouping tasks</div>';
+          return;
+        }
+        const firstGroupTasks = groupedTasks[firstGroupKey];
+        if (!firstGroupTasks || firstGroupTasks.length === 0) {
+          console.error('No tasks found in the first group!');
+          taskBox.innerHTML = '<div class="task-info">No top task found</div>';
+          return;
+        }
+        // Get the top task from the first group (already sorted by priority)
+        const topTask = firstGroupTasks[0];
+        console.log('Top task to display:', topTask);
+        console.log('Interleave status:', topTask.lastInterleaved ?
+          `Interleaved on ${new Date(topTask.lastInterleaved).toLocaleString()}` : 'Never interleaved');
+        // Get subject information
+        const subjects = JSON.parse(localStorage.getItem('academicSubjects') || '[]');
+        const subject = subjects.find(s => s.tag === topTask.projectId);
+        // Check if task has been interleaved
+        const interleaveClass = topTask.lastInterleaved ? 'interleaved' : '';
+        const interleaveTimestamp = topTask.lastInterleaved ?
+          `<span class="interleave-timestamp">Last interleaved: ${new Date(topTask.lastInterleaved).toLocaleString()}</span>` : '';
+        // Create new content with opacity 0
+        const newContent = document.createElement('div');
+        newContent.style.opacity = '0';
+        newContent.style.transition = 'opacity 0.3s ease';
+
+        newContent.innerHTML = `
+    <div class="task-navigation">
+        <button onclick="navigateTask('prev')" class="nav-arrow" title="Previous Task">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button onclick="navigateTask('next')" class="nav-arrow" title="Next Task">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+
+    <div class="priority-task-content">
+        <div class="task-info" data-task-id="${topTask.id}" data-project-id="${topTask.projectId}">
+            <div class="task-title">${topTask.title}</div>
+            <div class="task-details">
+                ${topTask.section} • ${subject ? subject.name : topTask.projectName}
+            </div>
+        </div>
+        <div class="task-actions">
+            <button onclick="completeTask('${topTask.projectId}', '${topTask.id}')" class="task-btn complete-btn">
+                Complete
+            </button>
+            <button onclick="interleaveTask()" class="task-btn interleave-btn ${interleaveClass}">
+                Interleave
+                ${interleaveTimestamp}
+            </button>
+            <button onclick="skipTask()" class="task-btn skip-btn">
+                Skip
+            </button>
+            <button onclick="toggleSubtasks(this, '${topTask.id}')" class="task-btn subtasks-btn">
+                Subtasks
+            </button>
+            <!-- Add Links Button -->
+            <button onclick="toggleTaskLinks('${topTask.id}')" class="task-btn links-btn">
+                <i class="bi bi-link"></i> Links
+                <span class="links-count">${topTask.links?.length || 0}</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Add Links Container -->
+    <div id="links-${topTask.id}" class="links-container">
+        <button class="add-link-btn" onclick="addNewLink('${topTask.id}')">
+            <i class="bi bi-plus-circle"></i> Add New Link
+        </button>
+        <div class="links-list"></div>
+    </div>
+    <div id="subtasks-${topTask.id}" class="subtasks-container">
+        <div class="loading-spinner d-none"></div>
+        <div class="subtasks-list"></div>
+    </div>
+    <div id="task-attachments-${topTask.id}" class="task-attachments-container mt-3">
+        <h5>Task Attachments</h5>
+        <div class="attachment-list"></div>
+        <button class="btn btn-sm btn-outline-primary add-attachment-btn">
+            <i class="bi bi-paperclip"></i> Add Attachment
+        </button>
+    </div>
+    ${subject ? `
+        <div class="subject-materials mt-3">
+            <h5>
+                <i class="bi bi-book"></i>
+                ${subject.name} Materials
+            </h5>
+            <div class="subject-materials-list">
+                <div class="spinner-border spinner-border-sm" role="status"></div>
+            </div>
+            <button class="btn btn-sm btn-outline-success add-subject-material-btn" data-subject-tag="${subject.tag}">
+                <i class="bi bi-plus-circle"></i> Add Subject Material
+            </button>
+        </div>
+    ` : ''}`;
+     // Clear the taskBox and append the new content
+        taskBox.innerHTML = '';
+        taskBox.appendChild(newContent);
+        // Fade in the new content
+        setTimeout(() => {
+          newContent.style.opacity = '1';
+        }, 50);
+        // Initialize file attachments for the task
+        setTimeout(() => {
+          const container = document.getElementById(`task-attachments-${topTask.id}`);
+          if (container) {
+            if (typeof taskAttachments !== 'undefined' && taskAttachments.init) {
+              taskAttachments.init(topTask.id, container);
+            } else {
+              console.warn('taskAttachments object not available');
+            }
+          }
+          // Load subject materials if subject exists
+          if (subject) {
+            if (typeof loadSubjectMaterials === 'function') {
+              loadSubjectMaterials(subject.tag);
+            } else {
+              console.warn('loadSubjectMaterials function not available');
+            }
+          }
+          // Add event listener for subject material upload
+        }, 100);
+      } catch (error) {
+        console.error('Error in displayPriorityTask:', error);
+        const taskBox = document.getElementById('priorityTaskBox');
+        if (taskBox) {
+          taskBox.innerHTML = `<div class="task-info">Error displaying task: ${error.message}</div>`;
+        }
+      } finally {
+        // IMPORTANT: Always clear the flag when done, even if there was an error
+        window._isDisplayingPriorityTask = false;
+      }
+    }
+  </script>
+    <script>
+    function groupTasksByInterleaveDate(tasks) {
+      // Group tasks by interleave date (yyyy-mm-dd format or 'not-interleaved')
+      const groups = {};
+      tasks.forEach((task, index) => {
+        // Store original index for reference
+        task.index = index;
+        let groupKey = 'not-interleaved';
+        if (task.lastInterleaved) {
+          const date = new Date(task.lastInterleaved);
+          groupKey = date.toISOString().split('T')[0]; // Get yyyy-mm-dd format
+        }
+        // Create group if it doesn't exist
+        if (!groups[groupKey]) {
+          groups[groupKey] = [];
+        }
+        // Add task to its group
+        groups[groupKey].push(task);
+      });
+      // Convert groups object to array of [key, tasks] and sort by date
+      const sortedGroups = Object.entries(groups).sort((a, b) => {
+        // 'not-interleaved' should come first
+        if (a[0] === 'not-interleaved') return -1;
+        if (b[0] === 'not-interleaved') return 1;
+        // Then sort interleaved tasks by date (oldest first)
+        return new Date(a[0]) - new Date(b[0]);
+      });
+      // Convert back to object
+      const result = {};
+      sortedGroups.forEach(([key, value]) => {
+        result[key] = value;
+      });
+      return result;
+    }
+  </script>
+    <script>
+
+
+function navigateTask(direction) {
+  console.group(`📊 Task Navigation (${direction})`);
+
+  try {
+    // Get all priority tasks
+    let priorityTasks = JSON.parse(localStorage.getItem('calculatedPriorityTasks') || '[]');
+
+    if (priorityTasks.length < 2) {
+      console.warn('Not enough tasks to navigate');
+      return;
+    }
+
+    // Group tasks by interleave date first - this is essential
+    const groupedTasks = groupTasksByInterleaveDate(priorityTasks);
+    console.log('Task groups:', groupedTasks);
+
+    // Removed re-sorting block to preserve priority list's custom sort order
+
+    // Flatten grouped tasks into a single array while maintaining group order
+    const orderedTasks = [];
+    Object.values(groupedTasks).forEach(tasksInGroup => {
+      orderedTasks.push(...tasksInGroup);
+    });
+
+    console.log('Ordered tasks:', orderedTasks.map((t, idx) => ({
+      index: idx,
+      title: t.title,
+      group: t.lastInterleaved ? 'interleaved' : 'not-interleaved',
+      priority: t.priorityScore
+    })));
+
+    // Get current task title and project
+    const taskInfo = document.querySelector('.task-info');
+    const currentTitle = taskInfo?.querySelector('.task-title')?.textContent?.trim() || '';
+    const currentDetails = taskInfo?.querySelector('.task-details')?.textContent?.trim() || '';
+    const currentProject = currentDetails.split('•')[1]?.trim() || '';
+
+    console.log('Looking for current task:', {
+      title: currentTitle,
+      project: currentProject
+    });
+
+    // Find current task index
+    let currentIndex = -1;
+    for (let i = 0; i < orderedTasks.length; i++) {
+      const task = orderedTasks[i];
+      const normalizedTaskTitle = task.title.replace(/\s+/g, ' ').trim();
+      const normalizedCurrentTitle = currentTitle.replace(/\s+/g, ' ').trim();
+      const taskProject = task.projectName || task.projectId;
+
+      console.log(`Comparing task ${i}:`, {
+        taskTitle: normalizedTaskTitle,
+        currentTitle: normalizedCurrentTitle,
+        taskProject: taskProject,
+        currentProject: currentProject,
+        interleaved: task.lastInterleaved ? 'yes' : 'no',
+        titleMatches: normalizedTaskTitle === normalizedCurrentTitle,
+        projectMatches: taskProject === currentProject
+      });
+
+      // Match both title and project
+      if (normalizedTaskTitle === normalizedCurrentTitle &&
+          (taskProject === currentProject || task.projectId === currentProject)) {
+        currentIndex = i;
+        break;
+      }
+    }
+
+    if (currentIndex === -1) {
+      console.error('Current task not found in list');
+      console.log('Current task we are looking for:', {
+        title: currentTitle,
+        project: currentProject
+      });
+      return;
+    }
+
+    console.log('Found current task at index:', currentIndex);
+
+    // Calculate next index
+    let nextIndex;
+    if (direction === 'next') {
+      nextIndex = (currentIndex + 1) % orderedTasks.length;
+    } else {
+      nextIndex = (currentIndex - 1 + orderedTasks.length) % orderedTasks.length;
+    }
+
+    console.log('Moving to index:', nextIndex);
+
+    // Get next task
+    const nextTask = orderedTasks[nextIndex];
+    console.log('Next task:', {
+      title: nextTask.title,
+      project: nextTask.projectName || nextTask.projectId,
+      priority: nextTask.priorityScore,
+      interleaved: nextTask.lastInterleaved ? 'yes' : 'no',
+      index: nextIndex
+    });
+
+    // Display the task without modifying the list
+    const taskBox = document.getElementById('priorityTaskBox');
+    if (!taskBox) {
+      console.error('Task box not found');
+      return;
+    }
+
+    // Get subject information
+    const subjects = JSON.parse(localStorage.getItem('academicSubjects') || '[]');
+    const subject = subjects.find(s => s.tag === nextTask.projectId);
+
+    // Create new content
+    const newContent = document.createElement('div');
+    newContent.style.opacity = '0';
+    newContent.style.transition = 'opacity 0.3s ease';
+
+    const interleaveClass = nextTask.lastInterleaved ? 'interleaved' : '';
+    const interleaveTimestamp = nextTask.lastInterleaved ?
+      `<span class="interleave-timestamp">Last interleaved: ${new Date(nextTask.lastInterleaved).toLocaleString()}</span>` : '';
+
+    // Store both task index and project for tracking
+    newContent.dataset.taskIndex = nextIndex;
+    newContent.dataset.projectId = nextTask.projectId;
+    newContent.dataset.interleaved = nextTask.lastInterleaved ? 'yes' : 'no';
+
+    newContent.innerHTML = `
+    <div class="task-navigation">
+        <button onclick="navigateTask('prev')" class="nav-arrow" title="Previous Task">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+        <button onclick="navigateTask('next')" class="nav-arrow" title="Next Task">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+    <div class="priority-task-content">
+        <div class="task-info" data-task-index="${nextIndex}" data-project-id="${nextTask.projectId}" data-interleaved="${nextTask.lastInterleaved ? 'yes' : 'no'}">
+            <div class="task-title">${nextTask.title}</div>
+            <div class="task-details">
+                ${nextTask.section} • ${subject ? subject.name : nextTask.projectName}
+            </div>
+        </div>
+        <div class="task-actions">
+            <button onclick="completeTask('${nextTask.projectId}', '${nextTask.id}')" class="task-btn complete-btn">
+                Complete
+            </button>
+            <button onclick="interleaveTask()" class="task-btn interleave-btn ${interleaveClass}">
+                Interleave
+                ${interleaveTimestamp}
+            </button>
+            <button onclick="skipTask()" class="task-btn skip-btn">
+                Skip
+            </button>
+            <button onclick="toggleSubtasks(this, '${nextTask.id}')" class="task-btn subtasks-btn">
+                Subtasks
+            </button>
+            <!-- Add Links Button -->
+            <button onclick="toggleTaskLinks('${nextTask.id}')" class="task-btn links-btn">
+                <i class="bi bi-link"></i> Links
+                <span class="links-count">${nextTask.links?.length || 0}</span>
+            </button>
+        </div>
+    </div>
+    <!-- Add Links Container -->
+    <div id="links-${nextTask.id}" class="links-container">
+        <button class="add-link-btn" onclick="addNewLink('${nextTask.id}')">
+            <i class="bi bi-plus-circle"></i> Add New Link
+        </button>
+        <div class="links-list"></div>
+    </div>
+    <div id="subtasks-${nextTask.id}" class="subtasks-container">
+        <div class="loading-spinner d-none"></div>
+        <div class="subtasks-list"></div>
+    </div>
+    <div id="task-attachments-${nextTask.id}" class="task-attachments-container mt-3">
+        <h5>Task Attachments</h5>
+        <div class="attachment-list"></div>
+        <button class="btn btn-sm btn-outline-primary add-attachment-btn">
+            <i class="bi bi-paperclip"></i> Add Attachment
+        </button>
+    </div>
+    ${subject ? `
+        <div class="subject-materials mt-3">
+            <h5>
+                <i class="bi bi-book"></i>
+                ${subject.name} Materials
+            </h5>
+            <div class="subject-materials-list">
+                <div class="spinner-border spinner-border-sm" role="status"></div>
+            </div>
+            <button class="btn btn-sm btn-outline-success add-subject-material-btn" data-subject-tag="${subject.tag}">
+                <i class="bi bi-plus-circle"></i> Add Subject Material
+            </button>
+        </div>
+    ` : ''}`;
+    // Clear the taskBox and append the new content
+    taskBox.innerHTML = '';
+    taskBox.appendChild(newContent);
+
+    // Fade in the new content
+    setTimeout(() => {
+      newContent.style.opacity = '1';
+    }, 50);
+
+    // Initialize attachments and materials
+    setTimeout(() => {
+      const container = document.getElementById(`task-attachments-${nextTask.id}`);
+      if (container) {
+        if (typeof taskAttachments !== 'undefined' && taskAttachments.init) {
+          taskAttachments.init(nextTask.id, container);
+        }
+      }
+      if (subject) {
+        if (typeof loadSubjectMaterials === 'function') {
+          loadSubjectMaterials(subject.tag);
+        }
+      }
+    }, 100);
+
+  } catch (error) {
+    console.error('Navigation error:', error);
+    console.error('Error stack:', error.stack);
+  }
+
+  console.groupEnd();
+}
+
+
+    // Helper function to group tasks by interleave date - exact same logic as in priority-list.html
+    function groupTasksByInterleaveDate(tasks) {
+      // Group tasks by interleave date (yyyy-mm-dd format or 'not-interleaved')
+      const groups = {};
+
+      tasks.forEach((task, index) => {
+        // Store original index for reference
+        task.index = index;
+
+        let groupKey = 'not-interleaved';
+
+        if (task.lastInterleaved) {
+          const date = new Date(task.lastInterleaved);
+          groupKey = date.toISOString().split('T')[0]; // Get yyyy-mm-dd format
+        }
+
+        // Create group if it doesn't exist
+        if (!groups[groupKey]) {
+          groups[groupKey] = [];
+        }
+
+        // Add task to its group
+        groups[groupKey].push(task);
+      });
+
+      // Convert groups object to array of [key, tasks] and sort by date
+      const sortedGroups = Object.entries(groups).sort((a, b) => {
+        // 'not-interleaved' should come first
+        if (a[0] === 'not-interleaved') return -1;
+        if (b[0] === 'not-interleaved') return 1;
+
+        // Then sort interleaved tasks by date (oldest first)
+        return new Date(a[0]) - new Date(b[0]);
+      });
+
+      // Convert back to object
+      const result = {};
+      sortedGroups.forEach(([key, value]) => {
+        result[key] = value;
+      });
+
+      return result;
+    }
+  </script>
+    <script>
+    // Simple string hashing function for comparing task lists
+    function hashString(str) {
+      let hash = 0;
+      if (str.length === 0) return hash;
+
+      for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32bit integer
+      }
+
+      return hash;
+    }
+
+    // This initialization code ensures consistent task display
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Initializing priority task handling...');
+      // Listen for storage changes from other tabs/pages
+      window.addEventListener('storage', function(e) {
+        if (e.key === 'calculatedPriorityTasks') {
+          console.log('Priority tasks updated in another tab, refreshing display...');
+          // Force refresh only if the data has actually changed
+          const newTasksHash = hashString(e.newValue || '[]');
+          if (newTasksHash !== lastTasksHash) {
+            displayPriorityTask();
+          } else {
+            console.log('Storage event with unchanged data, skipping refresh');
+          }
+        }
+      });
+      // Load the priority list sorting script dynamically if it's not already loaded
+      if (typeof window.PriorityListSorter === 'undefined') {
+        console.log('Loading PriorityListSorter script...');
+        const script = document.createElement('script');
+        script.src = 'js/priority-list-sorting.js';
+        script.onload = function() {
+          console.log('PriorityListSorter script loaded, applying sort...');
+          if (typeof window.PriorityListSorter !== 'undefined') {
+            try {
+              window.PriorityListSorter.applySavedSort();
+            } catch (e) {
+              console.error('Error applying saved sort:', e);
+              displayPriorityTask();
+            }
+          } else {
+            console.warn('PriorityListSorter not available after loading script');
+            displayPriorityTask();
+          }
+        };
+        script.onerror = function() {
+          console.error('Failed to load PriorityListSorter script');
+          displayPriorityTask();
+        };
+        document.body.appendChild(script);
+      } else {
+        // If the sorter is already loaded, apply saved sort
+        console.log('PriorityListSorter already loaded, applying sort...');
+        try {
+          window.PriorityListSorter.applySavedSort();
+        } catch (e) {
+          console.error('Error applying saved sort:', e);
+          displayPriorityTask();
+        }
+      }
+    });
+  </script>
+  <script>
+    // Profile icon scroll behavior
+    let lastScrollTop = 0;
+    // Using safeToggleClass below handles cases where profileIcon might not be found
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop < lastScrollTop || scrollTop < 100) {
+        // Scrolling up or near top
+        safeToggleClass('.profile-icon', 'visible', true);
+      } else {
+        // Scrolling down
+        safeToggleClass('.profile-icon', 'visible', false);
+      }
+      lastScrollTop = scrollTop;
+    });
+    // Show initially if at top of page
+    if (window.pageYOffset < 100) {
+      safeToggleClass('.profile-icon', 'visible', true);
+    }
+  </script>
+
+
+  <script>
+    // Theme toggle function
+    function toggleTheme() {
+      const body = document.body;
+      const themeIcon = document.querySelector('.theme-icon');
+      const themeText = document.querySelector('.theme-text');
+      if (body.classList.contains('light-theme')) {
+        body.classList.remove('light-theme');
+        themeIcon.textContent = '🌞';
+        themeText.textContent = 'Light Mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        body.classList.add('light-theme');
+        themeIcon.textContent = '🌙';
+        themeText.textContent = 'Dark Mode';
+        localStorage.setItem('theme', 'light');
+      }
+    }
+    // Set initial theme based on localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        document.querySelector('.theme-icon').textContent = '🌙';
+        document.querySelector('.theme-text').textContent = 'Dark Mode';
+      }
+    });
+  </script>
+  <script>
+    // Fatigue modal handling
+    let fatigueLogged = false;
+
+    function checkFatigueBeforeStart() {
+      const minutes = parseInt(document.getElementById('customTimeInput').value);
+      if (minutes > 15 && !fatigueLogged) {
+        showFatigueModal();
+        return false;
+      }
+      return true;
+    }
+
+    function showFatigueModal() {
+      document.getElementById('fatigueModal').style.display = 'flex';
+    }
+
+    function hideFatigueModal() {
+      document.getElementById('fatigueModal').style.display = 'none';
+    }
+    document.getElementById('confirmFatigue').addEventListener('click', function() {
+      fatigueLogged = true;
+      hideFatigueModal();
+      startTimer();
+    });
+    // Modified start button logic
+    document.getElementById('startBtn').addEventListener('click', function() {
+      if (checkFatigueBeforeStart()) {
+        startTimer();
+      }
+    });
+    // Reset fatigue log on reset
+  </script>
+  <script>
+    // Task Modal Functions
+    function showTaskModal() {
+      const taskModal = document.getElementById('taskModal');
+      taskModal.style.display = 'block';
+      document.body.classList.add('modal-open');
+      loadProjects();
+    }
+    function loadProjects() {
+      const projectSelect = document.getElementById('projectSelect');
+      projectSelect.innerHTML = '<option value="">Select a Project</option>';
+      // Retrieve subjects from localStorage
+      const subjects = JSON.parse(localStorage.getItem('academicSubjects') || '[]');
+      // Predefined subsections from extracted.html
+      const SUBSECTIONS = ['Revision', 'Assignment', 'Quizzes', 'Mid Term / OHT', 'Finals'];
+      // Add subject projects
+      subjects.forEach(subject => {
+        const option = document.createElement('option');
+        option.value = subject.tag;
+        option.textContent = subject.name;
+        projectSelect.appendChild(option);
+      });
+      // Add Extra Curricular option
+      const extraOption = document.createElement('option');
+      extraOption.value = 'EXTRA';
+      extraOption.textContent = 'Extra Curricular';
+      projectSelect.appendChild(extraOption);
+    }
+
+    function loadSubcategories() {
+      const projectSelect = document.getElementById('projectSelect');
+      const subcategorySelect = document.getElementById('subcategorySelect');
+      subcategorySelect.innerHTML = '<option value="">Select a Subcategory</option>';
+      // Predefined subsections from extracted.html
+      const SUBSECTIONS = ['Revision', 'Assignment', 'Quizzes', 'Mid Term / OHT', 'Finals'];
+      const selectedProjectTag = projectSelect.value;
+      if (!selectedProjectTag) return;
+      // If it's not the Extra Curricular project, add subsections
+      if (selectedProjectTag !== 'EXTRA') {
+        SUBSECTIONS.forEach(section => {
+          const option = document.createElement('option');
+          option.value = `${selectedProjectTag}-${section.replace(/\s+/g, '')}`;
+          option.textContent = section;
+          subcategorySelect.appendChild(option);
+        });
+      }
+    }
+    async function createTask() {
+      const projectSelect = document.getElementById('projectSelect');
+      const subcategorySelect = document.getElementById('subcategorySelect');
+      const taskTitleInput = document.getElementById('taskTitleInput');
+      const taskDescription = document.getElementById('taskDescription');
+      const taskDueDate = document.getElementById('taskDueDate');
+      const taskPriority = document.getElementById('taskPriority');
+      // Validate inputs
+      if (!projectSelect.value || !taskTitleInput.value) {
+        alert('Please select a project and enter a task title');
+        return;
+      }
+      // Predefined subsections from extracted.html
+      const SUBSECTIONS = ['Revision', 'Assignment', 'Quizzes', 'Mid Term / OHT', 'Finals'];
+      // Determine section
+      const selectedSubcategory = subcategorySelect.value;
+      const section = selectedSubcategory ?
+        SUBSECTIONS.find(s => selectedSubcategory.includes(s.replace(/\s+/g, ''))) ||
+        SUBSECTIONS[0] : SUBSECTIONS[0];
+      const newTask = {
+        id: Date.now().toString() + '-' + Math.random().toString(36).substr(2, 9),
+        projectId: projectSelect.value,
+        subcategoryId: selectedSubcategory,
+        title: taskTitleInput.value,
+        description: taskDescription.value,
+        dueDate: taskDueDate.value,
+        priority: taskPriority.value,
+        section: section,
+        status: 'pending',
+        completed: false,
+        createdAt: new Date().toISOString()
+      };
+      // Get tasks with versioning and add new task
+      const projectId = newTask.projectId;
+      const tasks = await loadTasksFromFirestore(projectId) || [];
+      tasks.push(newTask);
+      // Update tasks with new version
+      const timestamp = new Date().getTime();
+      localStorage.setItem(`tasks-${projectId}`, JSON.stringify(tasks));
+      localStorage.setItem(`tasks-${projectId}-version`, timestamp.toString());
+      // Broadcast task update across tabs
+      console.log('🔄 Broadcasting task update for project:', projectId);
+      crossTabSync.broadcastAction('task-update', {
+        projectId: projectId,
+        timestamp: timestamp
+      });
+      // Save task to Firestore
+      await saveTasksToFirestore(projectId, tasks);
+      // Upload any attached files
+      if (modalFilesToUpload && modalFilesToUpload.length > 0) {
+        try {
+          const filesToUpload = modalFilesToUpload.filter(file => file !== null);
+          if (filesToUpload.length > 0) {
+            // Create a loading indicator
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.className = 'upload-indicator';
+            loadingIndicator.innerHTML = '<div>Uploading files...</div>';
+            document.body.appendChild(loadingIndicator);
+            // Upload files
+            await uploadFilesForTask(newTask.id);
+            // Remove indicator
+            loadingIndicator.remove();
+          }
+        } catch (error) {
+          console.error('Error uploading files:', error);
+        }
+      }
+      // Update priority tasks
+      updatePriorityTasks();
+      // Reset and hide modal
+      taskTitleInput.value = '';
+      taskDescription.value = '';
+      taskDueDate.value = '';
+      hideTaskModal();
+      updatePriorityScores();
+      // Refresh task display with force=true since we know we've added a new task
+      displayPriorityTask(true);
+    }
+
+    function updatePriorityTasks() {
+      // First check if we have existing priority tasks to preserve order
+      const existingPriorityTasks = JSON.parse(localStorage.getItem('calculatedPriorityTasks') || '[]');
+      const existingTaskIds = new Set(existingPriorityTasks.map(task => task.id));
+      // Retrieve all tasks
+      const allProjects = JSON.parse(localStorage.getItem('projects') || '[]');
+      const newPriorityTasks = [];
+      allProjects.forEach(project => {
+        const tasksKey = `tasks-${project.id}`;
+        const tasks = JSON.parse(localStorage.getItem(tasksKey) || '[]');
+        // Only sort tasks that aren't already in the priority list
+        const newTasks = tasks
+          .filter(task => task.status === 'pending' && !existingTaskIds.has(task.id))
+          .sort((a, b) => {
+            const priorityOrder = {
+              'high': 3,
+              'medium': 2,
+              'low': 1
+            };
+            if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
+              return priorityOrder[b.priority] - priorityOrder[a.priority];
+            }
+            return new Date(a.dueDate) - new Date(b.dueDate);
+          });
+        newPriorityTasks.push(...newTasks);
+      });
+      // Filter out completed tasks from existing priority tasks
+      const updatedExistingTasks = existingPriorityTasks.filter(task => {
+        const project = allProjects.find(p => p.id === task.projectId);
+        if (!project) return false;
+        const projectTasks = JSON.parse(localStorage.getItem(`tasks-${project.id}`) || '[]');
+        const currentTask = projectTasks.find(t => t.id === task.id);
+        return currentTask && currentTask.status === 'pending';
+      });
+      // Combine existing tasks with new tasks
+      const finalPriorityTasks = [...updatedExistingTasks, ...newPriorityTasks];
+      // Store calculated priority tasks
+      localStorage.setItem('calculatedPriorityTasks', JSON.stringify(finalPriorityTasks));
+    }
+  </script>
+  <script>
+    // Format time in HH:MM:SS
+    function formatTimeHHMMSS(seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const remainingSeconds = seconds % 60;
+      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+    }
+    // Update stats display
+    function updateStatsDisplay() {
+      // Update total work time
+      document.getElementById('totalWorkTime').textContent = formatTimeHHMMSS(window.stats.totalWorkTime);
+      // Update streak count
+      document.getElementById('currentStreak').textContent = window.stats.currentStreak;
+      // Calculate and update focus score
+      const focusScore = calculateFocusScore();
+      document.getElementById('focusScore').textContent = `${focusScore}%`;
+    }
+  </script>
+  <script>
+    // Stats Management
+    window.stats = {
+      totalWorkTime: 0, // Total seconds of active timer time
+      focusScore: 0,
+      lastSessionDate: null,
+      sessionHistory: [],
+      activeTimerStart: null, // Timestamp when timer starts
+      pausedTime: 0, // Accumulated time when timer was paused
+    };
+
+    function saveStats() {
+      const statsToSave = {
+        ...window.stats
+      };
+      delete statsToSave.activeTimerStart; // Don't save temporary timer state
+      delete statsToSave.pausedTime;
+      localStorage.setItem('pomodoroStats', JSON.stringify(statsToSave));
+    }
+
+    function loadStats() {
+      const savedStats = JSON.parse(localStorage.getItem('pomodoroStats')) || {};
+      window.stats.totalWorkTime = savedStats.totalWorkTime || 0;
+      window.stats.focusScore = savedStats.focusScore || 0;
+      window.stats.lastSessionDate = savedStats.lastSessionDate || null;
+      window.stats.sessionHistory = savedStats.sessionHistory || [];
+      window.stats.pausedTime = 0;
+      window.stats.activeTimerStart = null;
+      updateStatsDisplay();
+    }
+
+    function calculateTimeUntilSleep() {
+      const sleepTime = localStorage.getItem('sleepTime');
+      if (!sleepTime) {
+        return null;
+      }
+      const now = new Date();
+      const [sleepHours, sleepMinutes] = sleepTime.split(':').map(Number);
+      const sleepDate = new Date(now);
+      sleepDate.setHours(sleepHours, sleepMinutes, 0, 0);
+      // If sleep time is earlier than current time, it means sleep time is for next day
+      if (sleepDate < now) {
+        sleepDate.setDate(sleepDate.getDate() + 1);
+      }
+      return Math.max(0, Math.floor((sleepDate - now) / 1000)); // Return seconds until sleep
+    }
+
+    function calculateTimeUtilization() {
+      // Get wake and sleep times from study-spaces.html
+      const wakeTime = localStorage.getItem('wakeTime');
+      const sleepTime = localStorage.getItem('sleepTime');
+      if (!wakeTime || !sleepTime) {
+        return 0; // Return 0% if times are not set
+      }
+      // Get current date
+      const now = new Date();
+      const [wakeHours, wakeMinutes] = wakeTime.split(':').map(Number);
+      const [sleepHours, sleepMinutes] = sleepTime.split(':').map(Number);
+      // Create Date objects for today's wake and sleep times
+      const wakeDate = new Date(now);
+      wakeDate.setHours(wakeHours, wakeMinutes, 0, 0);
+      const sleepDate = new Date(now);
+      sleepDate.setHours(sleepHours, sleepMinutes, 0, 0);
+      // If sleep time is earlier than wake time, it means sleep time is for next day
+      if (sleepDate < wakeDate) {
+        sleepDate.setDate(sleepDate.getDate() + 1);
+      }
+      // Calculate total available seconds
+      const totalAvailableSeconds = Math.floor((sleepDate - wakeDate) / 1000);
+      // Calculate utilization percentage using totalWorkTime (which is in seconds)
+      const utilization = (window.stats.totalWorkTime / totalAvailableSeconds) * 100;
+      return Math.min(100, Math.max(0, Math.round(utilization))); // Ensure between 0-100%
+    }
+
+    function updateStatsDisplay() {
+      // Update total work time
+      document.getElementById('totalWorkTime').textContent = formatTimeHHMMSS(window.stats.totalWorkTime);
+      // Calculate and update time utilization
+      const utilization = calculateTimeUtilization();
+      document.getElementById('timeUtilization').textContent = `${utilization}%`;
+      // Update focus score
+      document.getElementById('focusScore').textContent = `${window.stats.focusScore}%`;
+    }
+    // Make sure stats functions are globally available
+    window.saveStats = saveStats;
+    window.loadStats = loadStats;
+    window.updateStatsDisplay = updateStatsDisplay;
+  </script>
+  <script>
+    // Timer Constants and Default Values
+    const TIMER_DEFAULTS = {
+      POMODORO: 25 * 60, // 25 minutes
+      SHORT_BREAK: 5 * 60, // 5 minutes
+      LONG_BREAK: 15 * 60, // 15 minutes
+      MIN_TIME: 1 * 60, // 1 minute minimum
+      MAX_TIME: 60 * 60 // 1 hour maximum
+    };
+    // Timer State Management
+    const TimerState = {
+      timeLeft: TIMER_DEFAULTS.POMODORO,
+      isRunning: false,
+      interval: null,
+      lastActiveTime: null,
+      userPreferences: null
+    };
+    // Initialize timer with error handling and validation
+    function initializeTimer() {
+      try {
+        // Load user preferences
+        loadUserPreferences();
+        // Load saved timer state
+        loadTimerState();
+        // Validate and sanitize loaded values
+        validateTimerState();
+        // Initialize display
+        updateDisplay();
+        // Set up error boundary
+        setupErrorBoundary();
+        return true; // Initialization successful
+      } catch (error) {
+        handleInitializationError(error);
+        return false; // Initialization failed
+      }
+    }
+    // Load user preferences from localStorage
+    function loadUserPreferences() {
+      try {
+        const savedPreferences = localStorage.getItem('timerPreferences');
+        if (savedPreferences) {
+          TimerState.userPreferences = JSON.parse(savedPreferences);
+        } else {
+          // Set default preferences
+          TimerState.userPreferences = {
+            defaultPomodoroTime: TIMER_DEFAULTS.POMODORO,
+            soundEnabled: true,
+            notifications: true,
+            autoStartBreaks: false
+          };
+          // Save default preferences
+          saveUserPreferences();
+        }
+      } catch (error) {
+        console.error('Error loading preferences:', error);
+        throw new Error('Failed to load user preferences');
+      }
+    }
+    // Save user preferences to localStorage
+    function saveUserPreferences() {
+      try {
+        localStorage.setItem('timerPreferences', JSON.stringify(TimerState.userPreferences));
+      } catch (error) {
+        console.error('Error saving preferences:', error);
+        // Show user-friendly error message
+        showNotification('Failed to save preferences', 'error');
+      }
+    }
+    // Load saved timer state from localStorage
+    function loadTimerState() {
+      try {
+        const savedState = localStorage.getItem('timerState');
+        if (savedState) {
+          const parsedState = JSON.parse(savedState);
+          // Check if there's a saved session that hasn't expired
+          if (parsedState.lastActiveTime) {
+            const timeSinceLastActive = Date.now() - parsedState.lastActiveTime;
+            if (timeSinceLastActive < 5 * 60 * 1000) { // 5 minutes expiry
+              // Restore the previous session
+              TimerState.timeLeft = parsedState.timeLeft;
+              TimerState.isRunning = false; // Always start paused on reload
+            }
+          }
+        }
+      } catch (error) {
+        console.error('Error loading timer state:', error);
+        resetToDefaults();
+      }
+    }
+    // Save current timer state
+    function saveTimerState() {
+      try {
+        const stateToSave = {
+          timeLeft: TimerState.timeLeft,
+          isRunning: TimerState.isRunning,
+          lastActiveTime: Date.now()
+        };
+        localStorage.setItem('timerState', JSON.stringify(stateToSave));
+      } catch (error) {
+        console.error('Error saving timer state:', error);
+        showNotification('Failed to save timer state', 'error');
+      }
+    }
+    // Validate timer state values
+    function validateTimerState() {
+      // Validate timeLeft
+      if (typeof TimerState.timeLeft !== 'number' ||
+        TimerState.timeLeft < TIMER_DEFAULTS.MIN_TIME ||
+        TimerState.timeLeft > TIMER_DEFAULTS.MAX_TIME) {
+        console.warn('Invalid timer value detected, resetting to default');
+        TimerState.timeLeft = TIMER_DEFAULTS.POMODORO;
+      }
+      // Ensure boolean type for isRunning
+      TimerState.isRunning = Boolean(TimerState.isRunning);
+      // Clear invalid interval
+      if (TimerState.interval) {
+        clearInterval(TimerState.interval);
+        TimerState.interval = null;
+      }
+    }
+    // Reset timer to default values
+    function resetToDefaults() {
+      TimerState.timeLeft = TIMER_DEFAULTS.POMODORO;
+      TimerState.isRunning = false;
+      TimerState.interval = null;
+      updateDisplay();
+      showNotification('Timer reset to defaults', 'info');
+    }
+    // Handle initialization errors
+    function handleInitializationError(error) {
+      console.error('Timer initialization failed:', error);
+      resetToDefaults();
+      showNotification('Timer initialization failed, using default settings', 'error');
+    }
+    // Set up error boundary for timer operations
+    function setupErrorBoundary() {
+      window.addEventListener('error', (event) => {
+        if (event.error?.message?.includes('timer')) {
+          handleInitializationError(event.error);
+          event.preventDefault();
+        }
+      });
+    }
+    // Show notification to user
+    function showNotification(message, type = 'info') {
+      // Create notification element if it doesn't exist
+      let notification = document.querySelector('.timer-notification');
+      if (!notification) {
+        notification = document.createElement('div');
+        notification.className = 'timer-notification';
+        document.querySelector('.pomodoro-container').appendChild(notification);
+      }
+      notification.textContent = message;
+      notification.className = `timer-notification ${type}`;
+      notification.style.display = 'block';
+      setTimeout(() => {
+        notification.style.display = 'none';
+      }, 3000);
+    }
+    // Add event listener for page unload to save state
+    window.addEventListener('beforeunload', () => {
+      if (TimerState.isRunning) {
+        saveTimerState();
+      }
+    });
+    // Function to update the page title with current time
+    function updateTitleWithCurrentTime() {
+      const now = new Date();
+      const hours = now.getHours();
+      const minutes = now.getMinutes();
+      const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+      document.title = `${formattedTime} - GPAce`;
+    }
+
+    // Initialize timer when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeTimer();
+
+      // Set up interval to update the title with current time when timer is not running
+      setInterval(() => {
+        // Only update with current time if the timer is not running
+        // This check needs to be more robust to handle the two state objects
+        if (!state.isRunning && !state.timerInterval) {
+          // Force an immediate title update with current time
+          const now = new Date();
+          const hours = now.getHours();
+          const minutes = now.getMinutes();
+          const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+          document.title = `${formattedTime} - GPAce`;
+        }
+      }, 30000); // Update every 30 seconds
+
+      // Initial title update
+      if (!state.isRunning && !state.timerInterval) {
+        // Force an immediate title update with current time
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+        document.title = `${formattedTime} - GPAce`;
+      }
+    });
+  </script>
+  <script>
+    // Mode selection and custom time functions
+    function setCustomTime(minutes) {
+      if (minutes > 0 && minutes <= 60) {
+        state.timeLeft = minutes * 60;
+        state.currentState = TIMER_STATES.FOCUS;
+        updateDisplay();
+        saveState();
+      }
+    }
+    // Event listeners
+    document.getElementById('startBtn').addEventListener('click', () => {
+      showFatigueModal();
+    });
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      resetTimer();
+    });
+    // Mode buttons event listeners
+    document.querySelectorAll('.timer-mode-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const mode = this.dataset.mode;
+        const time = parseInt(this.dataset.time);
+        // Remove active class from all mode buttons
+        document.querySelectorAll('.timer-mode-btn').forEach(b => {
+          b.classList.remove('active');
+        });
+        // Add active class to clicked button
+        this.classList.add('active');
+        // Update timer state
+        state.currentState = mode;
+        state.timeLeft = time * 60;
+        updateDisplay();
+        saveState();
+      });
+    });
+    // Custom time input
+    document.getElementById('customTimeInput').addEventListener('input', function() {
+      let value = parseInt(this.value);
+      if (isNaN(value) || value < 1) {
+        this.value = 1;
+        value = 1;
+      } else if (value > 60) {
+        this.value = 60;
+        value = 60;
+      }
+      setCustomTime(value);
+    });
+    document.getElementById('customTimeBtn').addEventListener('click', () => {
+      const minutes = parseInt(document.getElementById('customTimeInput').value) || 25;
+      setCustomTime(minutes);
+      // Remove active class from all mode buttons
+      document.querySelectorAll('.timer-mode-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      // Add active class to custom time button
+      document.getElementById('customTimeBtn').classList.add('active');
+    });
+  </script>
+
+
+  <script>
+
+// Workspace Panel Controls
+document.addEventListener('DOMContentLoaded', () => {
+  const workspacePanel = document.getElementById('workspacePanel');
+  const workspaceToggle = document.getElementById('workspaceToggle');
+  const workspaceClose = document.getElementById('workspaceClose');
+  const container = document.querySelector('.container');
+
+  let isAnimating = false;
+
+  // Store the function reference so we can properly remove it
+  function toggleWorkspace() {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    const isCurrentlyOpen = workspacePanel.classList.contains('open');
+
+    if (!isCurrentlyOpen) {
+      // Opening panel
+      workspacePanel.style.display = 'flex';
+      workspacePanel.style.visibility = 'visible';
+      void workspacePanel.offsetWidth;
+
+      requestAnimationFrame(() => {
+        workspacePanel.classList.add('open');
+        container.classList.add('workspace-open');
+        if (window.innerWidth > 768) {
+          workspaceToggle.style.right = 'calc(50% + 20px)';
+        }
+      });
+    } else {
+      // Closing panel
+      workspacePanel.classList.remove('open');
+      container.classList.remove('workspace-open');
+      workspaceToggle.style.right = '20px';
+    }
+
+    // Clear any existing transitionend listeners
+    workspacePanel.removeEventListener('transitionend', handleTransitionEnd);
+
+    // Add new transitionend listener
+    workspacePanel.addEventListener('transitionend', handleTransitionEnd);
+  }
+
+  // Separate function for the transitionend handler
+  function handleTransitionEnd(e) {
+    if (e.propertyName === 'right') {
+      isAnimating = false;
+      const isCurrentlyOpen = workspacePanel.classList.contains('open');
+      if (!isCurrentlyOpen) {
+        workspacePanel.style.visibility = 'hidden';
+        workspacePanel.style.display = 'none';
+      }
+      // Remove the listener to prevent multiple calls
+      workspacePanel.removeEventListener('transitionend', handleTransitionEnd);
+    }
+  }
+
+  // Clear any existing listeners
+  workspaceToggle.onclick = null;
+  workspaceClose.onclick = null;
+
+  // Add new listeners
+  workspaceToggle.onclick = toggleWorkspace;
+  workspaceClose.onclick = toggleWorkspace;
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    const isOpen = workspacePanel.classList.contains('open');
+    if (window.innerWidth <= 768) {
+      workspaceToggle.style.right = '20px';
+    } else if (isOpen) {
+      workspaceToggle.style.right = 'calc(50% + 20px)';
+    }
+  });
+});
+
+  </script>
+  <script>
+    // Files to upload storage
+    let modalFilesToUpload = [];
+    // DOM event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      displayPriorityTask();
+      // Set up task modal file upload
+      const taskModal = document.getElementById('taskModal');
+      if (taskModal) {
+        const uploadArea = document.getElementById('modalFileUploadArea');
+        const fileInput = document.getElementById('modalFileUploadInput');
+        const previewContainer = document.getElementById('modalUploadPreview');
+        if (uploadArea && fileInput) {
+          // Click to select files
+          uploadArea.addEventListener('click', () => {
+            fileInput.click();
+          });
+          // File input change handler
+          fileInput.addEventListener('change', () => {
+            const files = fileInput.files;
+            if (files.length > 0) {
+              addFilesToUploadPreview(files);
+            }
+          });
+          // Drag and drop handlers
+          uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+          });
+          uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+          });
+          uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+              addFilesToUploadPreview(files);
+            }
+          });
+        }
+      }
+    });
+    // Add files to upload preview
+    function addFilesToUploadPreview(files) {
+      const previewContainer = document.getElementById('modalUploadPreview');
+      if (!previewContainer) return;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        modalFilesToUpload.push(file);
+        // Create preview item
+        const previewItem = document.createElement('div');
+        previewItem.className = 'upload-preview-item';
+        previewItem.dataset.index = modalFilesToUpload.length - 1;
+        // Determine icon based on file type
+        let iconClass = 'fas fa-file';
+        if (file.type.startsWith('image/')) {
+          iconClass = 'fas fa-file-image';
+        } else if (file.type === 'application/pdf') {
+          iconClass = 'fas fa-file-pdf';
+        } else if (file.type.includes('spreadsheet') || file.type.includes('excel')) {
+          iconClass = 'fas fa-file-excel';
+        } else if (file.type.includes('document') || file.type.includes('word')) {
+          iconClass = 'fas fa-file-word';
+        } else if (file.type.includes('presentation') || file.type.includes('powerpoint')) {
+          iconClass = 'fas fa-file-powerpoint';
+        }
+        previewItem.innerHTML = `
+                    <div class="upload-preview-icon">
+                        <i class="${iconClass}"></i>
+                    </div>
+                    <div class="upload-preview-name" title="${file.name}">${file.name}</div>
+                    <div class="upload-preview-remove" data-index="${modalFilesToUpload.length - 1}">
+                        <i class="fas fa-times"></i>
+                    </div>
+                `;
+        previewContainer.appendChild(previewItem);
+        // Add remove handler
+        const removeButton = previewItem.querySelector('.upload-preview-remove');
+        removeButton.addEventListener('click', (e) => {
+          const index = parseInt(e.currentTarget.dataset.index);
+          modalFilesToUpload[index] = null; // Mark as removed but keep array indices
+          previewItem.remove();
+        });
+      }
+    }
+    // Clear upload preview when hiding modal
+    function hideTaskModal() {
+      const taskModal = document.getElementById('taskModal');
+      taskModal.style.display = 'none';
+      document.body.classList.remove('modal-open');
+      document.body.style.overflow = ''; // Reset overflow
+      document.body.style.paddingRight = ''; // Reset padding
+      // Clear file upload previews
+      const previewContainer = document.getElementById('modalUploadPreview');
+      if (previewContainer) {
+        previewContainer.innerHTML = '';
+        modalFilesToUpload = [];
+      }
+    }
+    // Upload files for task
+    async function uploadFilesForTask(taskId) {
+      if (!modalFilesToUpload.length) return;
+      // Filter out removed files
+      const filesToUpload = modalFilesToUpload.filter(file => file !== null);
+      if (!filesToUpload.length) return;
+      try {
+        // Upload each file
+        for (const file of filesToUpload) {
+          await window.googleDriveAPI.uploadFile(file, taskId);
+        }
+        console.log('Files uploaded successfully for task:', taskId);
+        return true;
+      } catch (error) {
+        console.error('Error uploading files for task:', error);
+        return false;
+      }
+    }
+  </script>
+  <script>
+    // Add this to your existing JavaScript
+    document.addEventListener('DOMContentLoaded', function() {
+      let uploadStartTime;
+      let lastLoaded = 0;
+      let speedUpdateInterval;
+      // Listen for upload progress events
+      window.addEventListener('file-upload-progress', function(e) {
+        const {
+          fileName,
+          loaded,
+          total,
+          percent,
+          completed
+        } = e.detail;
+        const progressContainer = document.querySelector('.upload-progress');
+        const progressBar = progressContainer.querySelector('.progress-bar');
+        const percentageEl = progressContainer.querySelector('.upload-percentage');
+        const speedEl = progressContainer.querySelector('.upload-speed');
+        const remainingEl = progressContainer.querySelector('.upload-remaining');
+        // Show progress container
+        progressContainer.classList.remove('d-none');
+        // Update progress bar
+        progressBar.style.width = percent + '%';
+        progressBar.setAttribute('aria-valuenow', percent);
+        percentageEl.textContent = percent + '%';
+        // Calculate speed and time remaining
+        if (!uploadStartTime) {
+          uploadStartTime = Date.now();
+          lastLoaded = 0;
+          // Start speed updates
+          speedUpdateInterval = setInterval(updateSpeed, 1000);
+        }
+
+        function updateSpeed() {
+          const currentTime = Date.now();
+          const timeElapsed = (currentTime - uploadStartTime) / 1000; // in seconds
+          const bytesPerSecond = loaded / timeElapsed;
+          // Format speed
+          let speed;
+          if (bytesPerSecond >= 1048576) {
+            speed = (bytesPerSecond / 1048576).toFixed(1) + ' MB/s';
+          } else if (bytesPerSecond >= 1024) {
+            speed = (bytesPerSecond / 1024).toFixed(1) + ' KB/s';
+          } else {
+            speed = bytesPerSecond.toFixed(1) + ' B/s';
+          }
+          // Calculate time remaining
+          const remainingBytes = total - loaded;
+          const remainingTime = remainingBytes / bytesPerSecond;
+          let timeString;
+          if (remainingTime < 60) {
+            timeString = Math.round(remainingTime) + ' seconds remaining';
+          } else if (remainingTime < 3600) {
+            timeString = Math.round(remainingTime / 60) + ' minutes remaining';
+          } else {
+            timeString = (remainingTime / 3600).toFixed(1) + ' hours remaining';
+          }
+          speedEl.textContent = speed;
+          remainingEl.textContent = timeString;
+        }
+        // Handle completion
+        if (completed) {
+          clearInterval(speedUpdateInterval);
+          progressBar.classList.add('bg-success');
+          remainingEl.textContent = 'Upload complete!';
+          // Reset for next upload
+          setTimeout(() => {
+            progressContainer.classList.add('d-none');
+            progressBar.style.width = '0%';
+            progressBar.setAttribute('aria-valuenow', 0);
+            progressBar.classList.remove('bg-success');
+            uploadStartTime = null;
+          }, 2000);
+        }
+      });
+    });
+  </script>
+   <script>
+   function toggleTaskLinks(taskId) {
+       const container = document.getElementById(`links-${taskId}`);
+       if (!container) {
+           console.error(`Links container not found for task ID: ${taskId}`);
+           return;
+       }
+       container.classList.toggle('expanded');
+       if (container.classList.contains('expanded')) {
+           window.taskLinksManager.renderLinks(taskId, container);
+       }
+   }
+
+   async function addNewLink(taskId) {
+    try {
+        if (!taskId) {
+            throw new Error("Task ID is missing");
+        }
+
+        // Create modal and overlay elements
+        const overlayHtml = `<div class="modal-overlay"></div>`;
+        const modalHtml = `
+        <div class="add-link-modal">
+            <h3>Add New Link</h3>
+            <div class="add-link-form">
+                <div class="form-group">
+                    <label for="linkUrl">URL *</label>
+                    <input type="url" id="linkUrl" placeholder="https://..." required>
+                </div>
+                <div class="form-group">
+                    <label for="linkTitle">Title</label>
+                    <input type="text" id="linkTitle" placeholder="Title (optional)">
+                </div>
+                <div class="form-group">
+                    <label for="linkDescription">Description</label>
+                    <textarea id="linkDescription" rows="3" placeholder="Description (optional)"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button class="secondary" id="cancelLinkBtn">Cancel</button>
+                    <button class="primary" id="saveLinkBtn">Save Link</button>
+                </div>
+            </div>
+        </div>`;
+
+        // Remove any existing modal and overlay
+        const existingModal = document.querySelector('.add-link-modal');
+        const existingOverlay = document.querySelector('.modal-overlay');
+        if (existingModal) existingModal.remove();
+        if (existingOverlay) existingOverlay.remove();
+
+        // Add new modal and overlay to body
+        document.body.insertAdjacentHTML('beforeend', overlayHtml);
+        document.body.insertAdjacentHTML('beforeend', modalHtml);
+
+        const overlay = document.querySelector('.modal-overlay');
+        const modal = document.querySelector('.add-link-modal');
+
+        // Show modal and overlay with a small delay to trigger animations
+        setTimeout(() => {
+            overlay.classList.add('active');
+            modal.classList.add('active');
+            // Focus on URL field
+            document.getElementById('linkUrl').focus();
+        }, 10);
+
+        // Set up event listeners
+        const handleClose = () => {
+            modal.classList.remove('active');
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                modal.remove();
+                overlay.remove();
+            }, 300); // Allow time for animation
+        };
+
+        // Close on overlay click
+        overlay.addEventListener('click', handleClose);
+
+        // Close on cancel button
+        document.getElementById('cancelLinkBtn').addEventListener('click', handleClose);
+
+        // Save link
+        document.getElementById('saveLinkBtn').addEventListener('click', async () => {
+            const url = document.getElementById('linkUrl').value;
+            const title = document.getElementById('linkTitle').value;
+            const description = document.getElementById('linkDescription').value;
+
+            if (!url) {
+                // Flash the URL input to indicate it's required
+                const urlInput = document.getElementById('linkUrl');
+                urlInput.style.borderColor = 'var(--error-color, #ff5555)';
+                urlInput.style.boxShadow = '0 0 0 2px rgba(255, 85, 85, 0.2)';
+                setTimeout(() => {
+                    urlInput.style.borderColor = '';
+                    urlInput.style.boxShadow = '';
+                }, 800);
+                urlInput.focus();
+                return;
+            }
+
+            const result = await window.taskLinksManager.addLink(taskId, {
+                url,
+                title,
+                description
+            });
+
+            if (result && result.success) {
+                // Refresh the links display
+                const container = document.getElementById(`links-${taskId}`);
+                if (container) {
+                    window.taskLinksManager.renderLinks(taskId, container);
+                }
+
+                // Update the links count in the button
+                const linksCountElement = document.querySelector(`.links-btn[onclick*="${taskId}"] .links-count`);
+                if (linksCountElement) {
+                    const currentCount = parseInt(linksCountElement.textContent) || 0;
+                    linksCountElement.textContent = currentCount + 1;
+                }
+
+                // Close modal
+                handleClose();
+            }
+        });
+
+    } catch (error) {
+        console.error("Error adding link:", error);
+        alert('Error adding link: ' + error.message);
+    }
+}
+
+   </script>
+  <script>
+    // Final initialization script
+    // Ensure all data is loaded
+    if (typeof initializeFirestoreData === 'function') {
+      initializeFirestoreData();
+    }
+  </script>
+  <script>
+    // getCurrentTask function is now defined at the top of the document
+
+    // ... existing code ...
+    // Handle subject materials
+    async function loadSubjectMaterials(subjectTag) {
+      try {
+        const materialsList = document.querySelector('.subject-materials-list');
+        if (!materialsList) {
+          console.warn('Subject materials list element not found');
+          return;
+        }
+
+        materialsList.innerHTML = '<div class="spinner-border spinner-border-sm" role="status"></div>';
+
+        // Check if Google Drive API is initialized
+        if (!window.googleDriveAPI || typeof window.googleDriveAPI.getSubjectFiles !== 'function') {
+          console.error('Google Drive API not initialized or getSubjectFiles method not available');
+          materialsList.innerHTML = '<p class="text-danger">Google Drive API not ready. Please refresh the page.</p>';
+          return;
+        }
+
+        const files = await window.googleDriveAPI.getSubjectFiles(subjectTag);
+        if (files.length === 0) {
+          materialsList.innerHTML = '<p class="text-muted">No materials uploaded yet</p>';
+          return;
+        }
+
+        materialsList.innerHTML = '';
+        files.forEach(file => {
+          const materialType = file.appProperties?.materialType || 'general';
+          const div = document.createElement('div');
+          div.className = 'subject-material-item';
+          div.innerHTML = `
+                    <div class="material-info">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span>${file.name}</span>
+                        <span class="material-type-badge">${materialType}</span>
+                    </div>
+                    <div class="material-actions">
+                        <button onclick="window.googleDriveAPI.showPreview('${file.id}')" title="Preview">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                        <a href="${file.webViewLink}" target="_blank" title="Open">
+                            <button><i class="bi bi-box-arrow-up-right"></i></button>
+                        </a>
+                        <button onclick="deleteSubjectMaterial('${file.id}', '${subjectTag}')" title="Delete" class="text-danger">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                `;
+          materialsList.appendChild(div);
+        });
+      } catch (error) {
+        console.error('Error loading subject materials:', error);
+        const materialsList = document.querySelector('.subject-materials-list');
+        if (materialsList) {
+          materialsList.innerHTML = '<p class="text-danger">Error loading materials</p>';
+        }
+      }
+    }
+    // Add delete function for subject materials
+    async function deleteSubjectMaterial(fileId, subjectTag) {
+      if (!confirm('Are you sure you want to delete this material? This action cannot be undone.')) {
+        return;
+      }
+      try {
+        await window.googleDriveAPI.deleteFile(fileId);
+        // Update local storage
+        const subjectMaterialsJson = localStorage.getItem('subjectMaterials') || '{}';
+        const subjectMaterials = JSON.parse(subjectMaterialsJson);
+        if (subjectMaterials[subjectTag]) {
+          subjectMaterials[subjectTag] = subjectMaterials[subjectTag].filter(
+            material => material.fileId !== fileId
+          );
+          localStorage.setItem('subjectMaterials', JSON.stringify(subjectMaterials));
+        }
+        // Reload the materials list
+        await loadSubjectMaterials(subjectTag);
+        showToast('Success', 'Material deleted successfully', 'success');
+      } catch (error) {
+        console.error('Error deleting subject material:', error);
+        showToast('Error', 'Failed to delete material', 'error');
+      }
+    }
+    // Handle subject material upload
+    document.getElementById('uploadSubjectMaterial').addEventListener('click', async () => {
+      const fileInput = document.getElementById('subjectMaterialFile');
+      const materialType = document.getElementById('materialType').value;
+      const file = fileInput.files[0];
+      if (!file) {
+        alert('Please select a file to upload');
+        return;
+      }
+      try {
+        const currentTask = getCurrentTask();
+        if (!currentTask || !currentTask.projectId) {
+          throw new Error('No active task or project');
+        }
+
+        // Check if Google Drive API is initialized
+        if (!window.googleDriveAPI || typeof window.googleDriveAPI.uploadSubjectFile !== 'function') {
+          throw new Error('Google Drive API is not initialized. Please refresh the page and try again.');
+        }
+
+        const uploadButton = document.getElementById('uploadSubjectMaterial');
+        const originalText = uploadButton.innerHTML;
+        uploadButton.disabled = true;
+        uploadButton.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Uploading...';
+        await window.googleDriveAPI.uploadSubjectFile(file, currentTask.projectId, materialType);
+        // Close modal and reload materials
+        bootstrap.Modal.getInstance(document.getElementById('addSubjectMaterialModal')).hide();
+        await loadSubjectMaterials(currentTask.projectId);
+        // Show success toast
+        showToast('Success', 'Material uploaded successfully', 'success');
+      } catch (error) {
+        console.error('Error uploading subject material:', error);
+        showToast('Error', error.message, 'error');
+      } finally {
+        uploadButton.disabled = false;
+        uploadButton.innerHTML = originalText;
+      }
+    });
+    // Update loadTaskIntoContainer to include subject materials
+    function loadTaskIntoContainer(task) {
+      // ... existing task loading code ...
+      // Load subject materials if task has a project
+      if (task.projectId) {
+        loadSubjectMaterials(task.projectId);
+      }
+    }
+  </script>
+
+
+
+<script>
+// Safely handle DOM element access with null checks
+const safeAddEventListener = (selector, event, handler) => {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.addEventListener(event, handler);
+  } else {
+    console.warn(`Element not found: ${selector} - skipping event listener`);
+  }
+};
+
+// Add safe navigation to classList access
+const safeToggleClass = (selector, className, condition) => {
+  const element = document.querySelector(selector);
+  if (element && element.classList) {
+    if (condition) {
+      element.classList.add(className);
+    } else {
+      element.classList.remove(className);
+    }
+    return true;
+  }
+  return false;
+};
+
+// Example usage within DOMContentLoaded to show how they *could* be used.
+// Actual implementation requires identifying the specific elements causing errors.
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("Safe DOM access functions (safeAddEventListener, safeToggleClass) are now available.");
+  // Example: Replace direct access like this:
+  // const button = document.querySelector('#myButton');
+  // if (button) button.addEventListener('click', handleClick);
+  // WITH:
+  // safeAddEventListener('#myButton', 'click', handleClick);
+
+  // Example: Replace direct access like this:
+  // const element = document.querySelector('.myElement');
+  // if (element) element.classList.toggle('active', someCondition);
+  // WITH:
+  // safeToggleClass('.myElement', 'active', someCondition);
+});
+</script>
+
+<!-- Pop-out Simulation Window -->
+<div id="simulationPopout" class="simulation-popout">
+  <div class="simulation-popout-header" id="simulationPopoutHeader">
+    <h4 class="simulation-popout-title">Interactive Simulation</h4>
+    <div style="display: flex; align-items: center;">
+      <label class="aspect-ratio-lock">
+        <input type="checkbox" id="lockAspectRatio" checked>
+        Lock aspect ratio
+      </label>
+      <div class="simulation-popout-actions">
+        <button id="downloadSimulationPopout" title="Download simulation as HTML file">
+          <i class="fas fa-download"></i>
+        </button>
+        <button id="minimizeSimulationPopout" title="Return to original container">
+          <i class="fas fa-compress-alt"></i>
+        </button>
+        <button id="closeSimulationPopout" title="Close simulation">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="simulation-popout-content">
+    <iframe id="simulationPopoutFrame" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-pointer-lock" frameborder="0"></iframe>
+  </div>
+
+  <!-- Custom resize handles for better usability -->
+  <div class="resize-handle corner top-left" id="resizeTopLeft"></div>
+  <div class="resize-handle corner top-right" id="resizeTopRight"></div>
+  <div class="resize-handle corner bottom-left" id="resizeBottomLeft"></div>
+  <div class="resize-handle corner bottom-right" id="resizeBottomRight"></div>
+  <div class="resize-handle edge right" id="resizeRight"></div>
+  <div class="resize-handle edge bottom" id="resizeBottom"></div>
+</div>
+
+<script>
+  // Pop-out Simulation Functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    // Elements
+    const popoutBtn = document.getElementById('popoutSimulation');
+    const simulationPopout = document.getElementById('simulationPopout');
+    const simulationPopoutHeader = document.getElementById('simulationPopoutHeader');
+    const minimizeBtn = document.getElementById('minimizeSimulationPopout');
+    const closePopoutBtn = document.getElementById('closeSimulationPopout');
+    const simulationPopoutFrame = document.getElementById('simulationPopoutFrame');
+    const simulationFrame = document.getElementById('simulationFrame');
+    const simulationContainer = document.getElementById('simulationContainer');
+
+    // Resize handle elements
+    const resizeHandles = {
+      topLeft: document.getElementById('resizeTopLeft'),
+      topRight: document.getElementById('resizeTopRight'),
+      bottomLeft: document.getElementById('resizeBottomLeft'),
+      bottomRight: document.getElementById('resizeBottomRight'),
+      right: document.getElementById('resizeRight'),
+      bottom: document.getElementById('resizeBottom')
+    };
+
+    // Make the popout window draggable
+    let isDragging = false;
+    let currentX;
+    let currentY;
+    let initialX;
+    let initialY;
+    let xOffset = 0;
+    let yOffset = 0;
+
+    // Dragging functionality - improved for smoother dragging
+    simulationPopoutHeader.addEventListener('mousedown', dragStart, false);
+    document.addEventListener('mouseup', dragEnd, false);
+    document.addEventListener('mousemove', drag, false);
+
+    // Also add touch support for mobile devices
+    simulationPopoutHeader.addEventListener('touchstart', dragStart, false);
+    document.addEventListener('touchend', dragEnd, false);
+    document.addEventListener('touchmove', drag, false);
+
+    function dragStart(e) {
+      // Handle both mouse and touch events
+      if (e.type === 'touchstart') {
+        initialX = e.touches[0].clientX - xOffset;
+        initialY = e.touches[0].clientY - yOffset;
+      } else {
+        initialX = e.clientX - xOffset;
+        initialY = e.clientY - yOffset;
+      }
+
+      // Check if we're clicking/touching the header or its immediate children
+      const target = e.target || e.touches[0].target;
+      if (target === simulationPopoutHeader ||
+          target.parentNode === simulationPopoutHeader ||
+          target.parentNode.parentNode === simulationPopoutHeader) {
+        isDragging = true;
+
+        // Add a class to indicate dragging state
+        simulationPopout.classList.add('dragging');
+
+        // Prevent any default behavior
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    }
+
+    function dragEnd(e) {
+      // Store final position
+      initialX = currentX;
+      initialY = currentY;
+      isDragging = false;
+
+      // Remove dragging class
+      simulationPopout.classList.remove('dragging');
+    }
+
+    function drag(e) {
+      if (isDragging) {
+        // Prevent default behavior like text selection
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Handle both mouse and touch events
+        if (e.type === 'touchmove') {
+          currentX = e.touches[0].clientX - initialX;
+          currentY = e.touches[0].clientY - initialY;
+        } else {
+          currentX = e.clientX - initialX;
+          currentY = e.clientY - initialY;
+        }
+
+        // Store the offset for future use
+        xOffset = currentX;
+        yOffset = currentY;
+
+        // Apply the transform using requestAnimationFrame for smoother animation
+        requestAnimationFrame(() => {
+          setTranslate(currentX, currentY, simulationPopout);
+        });
+      }
+    }
+
+    function setTranslate(xPos, yPos, el) {
+      // Use transform with translate3d for hardware acceleration
+      el.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
+    }
+
+    // Pop out the simulation
+    function popoutSimulation() {
+      if (!window.generatedSimulationCode) {
+        showNotification('No simulation to pop out. Please generate one first.', 'error');
+        return;
+      }
+
+      // Reset position and ensure proper initial positioning
+      xOffset = 0;
+      yOffset = 0;
+      simulationPopout.style.transform = 'translate(-50%, -50%)';
+
+      // Set initial dimensions with a good aspect ratio
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
+      const initialWidth = Math.min(viewportWidth * 0.8, 900);
+      const initialHeight = Math.min(viewportHeight * 0.8, 700);
+
+      simulationPopout.style.width = `${initialWidth}px`;
+      simulationPopout.style.height = `${initialHeight}px`;
+
+      // Update the aspect ratio based on initial dimensions
+      aspectRatio = initialWidth / initialHeight;
+
+      // Copy the simulation code to the popout iframe
+      simulationPopoutFrame.srcdoc = window.generatedSimulationCode;
+
+      // Ensure the iframe takes up the full container space
+      simulationPopoutFrame.style.width = '100%';
+      simulationPopoutFrame.style.height = '100%';
+
+      // Show the popout
+      simulationPopout.classList.add('active');
+
+      // Hide the original simulation frame (but keep the container visible)
+      simulationFrame.style.display = 'none';
+
+      // Add a small delay to ensure the iframe content is properly sized
+      setTimeout(() => {
+        // Force a reflow of the iframe content
+        simulationPopoutFrame.style.display = 'none';
+        // This forces a reflow
+        void simulationPopoutFrame.offsetHeight;
+        simulationPopoutFrame.style.display = 'block';
+
+        // Ensure the iframe is properly sized
+        simulationPopoutFrame.style.width = '100%';
+        simulationPopoutFrame.style.height = '100%';
+      }, 200);
+
+      showNotification('Simulation popped out. Drag the header to move it anywhere on screen.', 'info');
+    }
+
+    // Return the simulation to the original container
+    function minimizeSimulation() {
+      // Hide the popout
+      simulationPopout.classList.remove('active');
+
+      // Show the original simulation frame
+      simulationFrame.style.display = 'block';
+
+      showNotification('Simulation returned to original container.', 'info');
+    }
+
+    // Close the popout simulation
+    function closePopoutSimulation() {
+      simulationPopout.classList.remove('active');
+      closeSimulation(); // Use the existing close function
+    }
+
+    // Event listeners
+    if (popoutBtn) {
+      popoutBtn.addEventListener('click', popoutSimulation);
+    }
+
+    if (minimizeBtn) {
+      minimizeBtn.addEventListener('click', minimizeSimulation);
+    }
+
+    if (closePopoutBtn) {
+      closePopoutBtn.addEventListener('click', closePopoutSimulation);
+    }
+
+    // Add event listener for download button in popout
+    const downloadPopoutBtn = document.getElementById('downloadSimulationPopout');
+    if (downloadPopoutBtn) {
+      downloadPopoutBtn.addEventListener('click', downloadSimulation);
+    }
+
+    // Custom resize functionality
+    let isResizing = false;
+    let resizeType = '';
+    let startWidth, startHeight, startX, startY, startTop, startLeft;
+    let aspectRatio = 16/9; // Default aspect ratio
+
+    // Initialize resize functionality for each handle
+    for (const [type, handle] of Object.entries(resizeHandles)) {
+      if (handle) {
+        handle.addEventListener('mousedown', (e) => startResize(e, type));
+        handle.addEventListener('touchstart', (e) => startResize(e, type), { passive: false });
+      }
+    }
+
+    // Get the aspect ratio lock checkbox
+    const lockAspectRatioCheckbox = document.getElementById('lockAspectRatio');
+
+    // Add event listener for the aspect ratio lock checkbox
+    if (lockAspectRatioCheckbox) {
+      lockAspectRatioCheckbox.addEventListener('change', function() {
+        // Store the current dimensions to calculate the new aspect ratio if needed
+        const rect = simulationPopout.getBoundingClientRect();
+        if (this.checked && rect.width && rect.height) {
+          // Update the aspect ratio based on current dimensions
+          aspectRatio = rect.width / rect.height;
+        }
+      });
+    }
+
+    // Start resize function
+    function startResize(e, type) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      // Get initial positions and dimensions
+      isResizing = true;
+      resizeType = type;
+
+      // Get current window dimensions and position
+      const rect = simulationPopout.getBoundingClientRect();
+      startWidth = rect.width;
+      startHeight = rect.height;
+      startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+      startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+      startLeft = rect.left;
+      startTop = rect.top;
+
+      // Update aspect ratio based on current dimensions
+      if (lockAspectRatioCheckbox && lockAspectRatioCheckbox.checked) {
+        aspectRatio = startWidth / startHeight;
+      }
+
+      // Add resizing class for visual feedback
+      simulationPopout.classList.add('resizing');
+
+      // Add event listeners for resize movement
+      document.addEventListener('mousemove', resizeMove);
+      document.addEventListener('touchmove', resizeMove, { passive: false });
+      document.addEventListener('mouseup', stopResize);
+      document.addEventListener('touchend', stopResize);
+    }
+
+    // Handle resize movement
+    function resizeMove(e) {
+      if (!isResizing) return;
+
+      e.preventDefault();
+
+      // Get current cursor position
+      const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+      const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+      // Calculate movement delta
+      const deltaX = clientX - startX;
+      const deltaY = clientY - startY;
+
+      // Get current window dimensions
+      const rect = simulationPopout.getBoundingClientRect();
+
+      // Minimum dimensions
+      const minWidth = 400;
+      const minHeight = 300;
+
+      // Check if aspect ratio should be locked
+      const lockRatio = lockAspectRatioCheckbox && lockAspectRatioCheckbox.checked;
+
+      // Apply resize based on handle type
+      switch (resizeType) {
+        case 'right':
+          let newWidth = Math.max(startWidth + deltaX, minWidth);
+          simulationPopout.style.width = `${newWidth}px`;
+
+          // Maintain aspect ratio if locked
+          if (lockRatio) {
+            const newHeight = newWidth / aspectRatio;
+            if (newHeight >= minHeight) {
+              simulationPopout.style.height = `${newHeight}px`;
+            }
+          }
+          break;
+
+        case 'bottom':
+          let newHeight = Math.max(startHeight + deltaY, minHeight);
+          simulationPopout.style.height = `${newHeight}px`;
+
+          // Maintain aspect ratio if locked
+          if (lockRatio) {
+            const newWidth = newHeight * aspectRatio;
+            if (newWidth >= minWidth) {
+              simulationPopout.style.width = `${newWidth}px`;
+            }
+          }
+          break;
+
+        case 'bottomRight':
+          if (lockRatio) {
+            // For locked aspect ratio, prioritize width change and calculate height
+            const newWidthBR = Math.max(startWidth + deltaX, minWidth);
+            const calculatedHeight = newWidthBR / aspectRatio;
+
+            if (calculatedHeight >= minHeight) {
+              simulationPopout.style.width = `${newWidthBR}px`;
+              simulationPopout.style.height = `${calculatedHeight}px`;
+            } else {
+              // If calculated height would be too small, prioritize minimum height
+              const minWidthForRatio = minHeight * aspectRatio;
+              simulationPopout.style.width = `${minWidthForRatio}px`;
+              simulationPopout.style.height = `${minHeight}px`;
+            }
+          } else {
+            // Normal resize without aspect ratio lock
+            const newWidthBR = Math.max(startWidth + deltaX, minWidth);
+            const newHeightBR = Math.max(startHeight + deltaY, minHeight);
+            simulationPopout.style.width = `${newWidthBR}px`;
+            simulationPopout.style.height = `${newHeightBR}px`;
+          }
+          break;
+
+        case 'bottomLeft':
+          let newWidthBL = Math.max(startWidth - deltaX, minWidth);
+          let newHeightBL = Math.max(startHeight + deltaY, minHeight);
+          let leftAdjustBL = 0;
+
+          if (newWidthBL > minWidth) {
+            leftAdjustBL = deltaX;
+
+            if (lockRatio) {
+              // For locked aspect ratio, calculate height based on width
+              newHeightBL = newWidthBL / aspectRatio;
+              if (newHeightBL < minHeight) {
+                // If height would be too small, adjust width to maintain ratio
+                newWidthBL = minHeight * aspectRatio;
+                leftAdjustBL = startWidth - newWidthBL;
+              }
+            }
+
+            simulationPopout.style.width = `${newWidthBL}px`;
+            simulationPopout.style.left = `${startLeft + leftAdjustBL}px`;
+          }
+
+          simulationPopout.style.height = `${newHeightBL}px`;
+          break;
+
+        case 'topRight':
+          let newWidthTR = Math.max(startWidth + deltaX, minWidth);
+          let newHeightTR = Math.max(startHeight - deltaY, minHeight);
+          let topAdjustTR = 0;
+
+          simulationPopout.style.width = `${newWidthTR}px`;
+
+          if (newHeightTR > minHeight) {
+            topAdjustTR = deltaY;
+
+            if (lockRatio) {
+              // For locked aspect ratio, calculate height based on width
+              newHeightTR = newWidthTR / aspectRatio;
+              if (newHeightTR < minHeight) {
+                newHeightTR = minHeight;
+                topAdjustTR = startHeight - newHeightTR;
+              } else {
+                topAdjustTR = startHeight - newHeightTR;
+              }
+            }
+
+            simulationPopout.style.height = `${newHeightTR}px`;
+            simulationPopout.style.top = `${startTop + topAdjustTR}px`;
+          }
+          break;
+
+        case 'topLeft':
+          let newWidthTL = Math.max(startWidth - deltaX, minWidth);
+          let newHeightTL = Math.max(startHeight - deltaY, minHeight);
+          let leftAdjustTL = 0;
+          let topAdjustTL = 0;
+
+          if (lockRatio) {
+            // For locked aspect ratio, prioritize width and calculate height
+            if (newWidthTL > minWidth) {
+              leftAdjustTL = deltaX;
+              newHeightTL = newWidthTL / aspectRatio;
+
+              if (newHeightTL < minHeight) {
+                newHeightTL = minHeight;
+                newWidthTL = minHeight * aspectRatio;
+                leftAdjustTL = startWidth - newWidthTL;
+              }
+
+              topAdjustTL = startHeight - newHeightTL;
+            }
+          } else {
+            // Normal resize without aspect ratio lock
+            if (newWidthTL > minWidth) {
+              leftAdjustTL = deltaX;
+            }
+
+            if (newHeightTL > minHeight) {
+              topAdjustTL = deltaY;
+            }
+          }
+
+          simulationPopout.style.width = `${newWidthTL}px`;
+          simulationPopout.style.height = `${newHeightTL}px`;
+          simulationPopout.style.left = `${startLeft + leftAdjustTL}px`;
+          simulationPopout.style.top = `${startTop + topAdjustTL}px`;
+          break;
+      }
+
+      // Update the iframe to maintain stability
+      const iframe = document.getElementById('simulationPopoutFrame');
+      if (iframe) {
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+      }
+    }
+
+    // Stop resize function
+    function stopResize() {
+      if (!isResizing) return;
+
+      isResizing = false;
+      simulationPopout.classList.remove('resizing');
+
+      // Remove event listeners
+      document.removeEventListener('mousemove', resizeMove);
+      document.removeEventListener('touchmove', resizeMove);
+      document.removeEventListener('mouseup', stopResize);
+      document.removeEventListener('touchend', stopResize);
+    }
+  });
+</script>
+
+<!-- Debug mode toggle script -->
+<script>
+    // Add keyboard shortcut for task manager debug mode (Ctrl+Shift+D)
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+            e.preventDefault();
+            if (typeof window.toggleTaskManagerDebug === 'function') {
+                const debugEnabled = window.toggleTaskManagerDebug();
+                document.body.classList.toggle('task-debug-mode', debugEnabled);
+            }
+        }
+    });
+
+    // Check if debug mode is enabled on load
+    document.addEventListener('DOMContentLoaded', function() {
+        if (localStorage.getItem('debugTaskManager') === 'true' && window.currentTaskManager) {
+            document.body.classList.add('task-debug-mode');
+        }
+    });
+</script>
+
+<!-- Timer Title Enforcer Script -->
+<script>
+  // This script runs at the end of the body and continuously checks and updates the title
+  // to ensure it reflects the timer state correctly
+
+  // Run the title enforcer every 500ms
+  setInterval(() => {
+    // Check if the timer is running
+    if (typeof state !== 'undefined' && state.isRunning && state.timerInterval) {
+      // Calculate minutes and seconds
+      const minutes = Math.floor(state.timeLeft / 60);
+      const seconds = state.timeLeft % 60;
+      // Format the display
+      const display = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      // Get the timer type
+      const timerType = state.currentState === TIMER_STATES.FOCUS ? 'Focus' : 'Break';
+      // Update the document title
+      document.title = `${display} - ${timerType} - GPAce`;
+      console.log('Title enforcer: Updated title with timer info', display);
+    }
+  }, 500);
+</script>
+
+<!-- Text Expansion Script -->
+<script type="module">
+  // Import Firestore functions
+  import { saveSnippetsToFirestore, loadSnippetsFromFirestore, setupSnippetsRealtimeSync } from './js/firestore.js';
+  import { auth } from './js/firestore.js';
+  import flashcardTaskIntegration from './js/flashcardTaskIntegration.js';
+
+  // Make functions available globally
+  window.saveSnippetsToFirestore = saveSnippetsToFirestore;
+  window.loadSnippetsFromFirestore = loadSnippetsFromFirestore;
+  window.setupSnippetsRealtimeSync = setupSnippetsRealtimeSync;
+  window.auth = auth;
+
+  // Initialize flashcard task integration
+  document.addEventListener('DOMContentLoaded', function() {
+    flashcardTaskIntegration.init();
+  });
+</script>
+<script src="js/text-expansion.js"></script>
+<script>
+  // Initialize the text expansion manager when the page loads
+  document.addEventListener('DOMContentLoaded', function() {
+    // Create a new text expansion manager
+    window.textExpansionManager = new TextExpansionManager({
+      triggerChar: '/',
+      expandOnSpace: true,
+      expandOnEnter: true,
+      targetSelector: '#searchQuery',
+      enableFirestoreSync: true // Enable Firestore synchronization
+    });
+
+    // Show a notification about the text expansion feature
+    setTimeout(() => {
+      showNotification('Text expansion is now available! Type / in the search bar to use shortcuts. Press Alt+S to manage snippets.', 'info', 8000);
+    }, 2000);
+
+    // Add a button to open the snippet manager
+    const searchTools = document.querySelector('.search-tools');
+    if (searchTools) {
+      const snippetManagerBtn = document.createElement('button');
+      snippetManagerBtn.id = 'snippetManagerBtn';
+      snippetManagerBtn.className = 'tool-btn';
+      snippetManagerBtn.title = 'Manage Text Snippets';
+      snippetManagerBtn.innerHTML = '<i class="fas fa-bolt"></i>';
+      snippetManagerBtn.addEventListener('click', function() {
+        window.textExpansionManager.showSnippetManager();
+      });
+
+      // Insert the button before the API config button
+      const apiConfigBtn = document.getElementById('toggleApiConfig');
+      if (apiConfigBtn) {
+        searchTools.insertBefore(snippetManagerBtn, apiConfigBtn);
+      } else {
+        searchTools.appendChild(snippetManagerBtn);
+      }
+    }
+  });
+</script>
+
+<!-- Simulation Enhancer Module -->
+<script type="module">
+  import SimulationEnhancer from './js/simulation-enhancer.js';
+
+  // Initialize the simulation enhancer when a simulation is rendered
+  document.addEventListener('DOMContentLoaded', function() {
+    // Ensure any existing LaTeX content is rendered
+    setTimeout(() => {
+      ensureLatexRendering();
+    }, 500);
+
+    // Override the original renderSimulation function to add enhancement
+    const originalRenderSimulation = window.renderSimulation;
+
+    if (originalRenderSimulation) {
+      window.renderSimulation = function(code, iframe) {
+        // Call the original function first
+        originalRenderSimulation(code, iframe);
+
+        // Then enhance the simulation with multi-sensory features
+        setTimeout(() => {
+          // Create a new simulation enhancer for this iframe
+          const enhancer = new SimulationEnhancer(iframe);
+
+          // Store the enhancer instance for future reference
+          iframe.enhancer = enhancer;
+
+          console.log('Simulation enhanced with multi-sensory features');
+        }, 500); // Short delay to ensure iframe has loaded
+      };
+
+      console.log('Simulation rendering function enhanced');
+    }
+  });
+</script>
+
+<script type="module" src="js/ai-researcher.js"></script>
+
+<!-- Firebase Initialization -->
+<script type="module" src="js/firebase-init.js"></script>
+
+ </body>
+
+
+ </html>

@@ -1,0 +1,21 @@
+.dashboard-section {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-section h2 {
+    margin: 0 0 20px;
+    color: var(--text-color);
+}
+
+.energy-graph-container {
+    width: 100%;
+    height: 400px;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 10px;
+}

@@ -1,0 +1,862 @@
+/* Study Spaces CSS - Matching Grind.html style */
+
+/* ==========================================================================
+   1. Global Styles & Variables
+   ========================================================================== */
+
+:root {
+  --primary-color: #fe2c55; /* Main brand color */
+  --secondary-color: #25f4ee; /* Accent color */
+  --background-color: #121212; /* Default background (dark) */
+  --text-color: #ffffff; /* Default text color (dark theme) */
+  --card-bg: #1e1e1e; /* Background for card elements */
+  --hover-bg: #2d2d2d; /* Background for hover states */
+  --nav-bg: #1a1a1a; /* Background for navigation */
+  --border-color: #333; /* Border color for elements */
+  --text-muted: #6c757d; /* Muted text color */
+  --success-color: #28a745; /* Success color */
+  --info-color: #17a2b8; /* Info color */
+  --warning-color: #ffc107; /* Warning color */
+  --danger-color: #dc3545; /* Danger color */
+
+  /* Spacing variables */
+  --space-xs: 0.25rem;  /* 4px */
+  --space-sm: 0.5rem;   /* 8px */
+  --space-md: 1rem;     /* 16px */
+  --space-lg: 1.5rem;   /* 24px */
+  --space-xl: 2rem;     /* 32px */
+  --space-xxl: 4rem;    /* 64px */
+
+  /* Border radius variables */
+  --border-radius-sm: 0.25rem; /* 4px */
+  --border-radius-md: 0.5rem;  /* 8px */
+  --border-radius-lg: 0.75rem; /* 12px */
+  --border-radius-xl: 1.25rem; /* 20px */
+}
+
+body.light-theme {
+  --background-color: #f8f9fa;
+  --text-color: #212529;
+  --card-bg: #ffffff;
+  --hover-bg: #e9ecef;
+  --nav-bg: #ffffff;
+  --border-color: #dee2e6;
+}
+
+/* ==========================================================================
+   2. Layout & Container Styles
+   ========================================================================== */
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: all 0.3s ease;
+  min-height: 100vh;
+  padding-top: 60px; /* Match extracted.html */
+  padding-bottom: 2rem;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  position: relative;
+  transition: all 0.3s ease;
+  min-height: calc(100vh - 5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* ==========================================================================
+   3. Navigation Styles
+   ========================================================================== */
+
+.top-nav {
+  background-color: var(--nav-bg);
+  padding: 10px 30px; /* Match extracted.html */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  height: 60px; /* Match extracted.html */
+  backdrop-filter: blur(10px); /* Match extracted.html */
+}
+
+.nav-brand {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+}
+
+.nav-brand img.nav-logo {
+  height: 60px;
+  margin-right: 0px;
+}
+
+.nav-brand .brand-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 5px 10px; /* Match extracted.html */
+  border-radius: 5px; /* Match extracted.html */
+  transition: background-color 0.3s;
+  font-size: 16px; /* Match extracted.html */
+}
+
+.nav-links a:hover {
+  background-color: var(--hover-bg);
+}
+
+.nav-links a.active {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* ==========================================================================
+   4. Study Spaces & Schedule Section Styles
+   ========================================================================== */
+
+.study-spaces-section, .schedule-section {
+  margin-top: 2rem;
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.75rem;
+}
+
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0;
+}
+
+.sync-status .badge {
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: var(--border-radius-md);
+}
+
+/* Schedule Section Styles */
+.time-setup {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.time-range {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.time-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.time-picker {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.time-select, .buffer-select select {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 8px;
+  border-radius: 6px;
+}
+
+/* Timetable Analysis Styles */
+.analysis-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.analysis-section {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 15px;
+  transition: transform 0.3s ease;
+}
+
+.analysis-section:hover {
+  transform: translateY(-2px);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-header i {
+  font-size: 20px;
+  color: var(--secondary-color);
+}
+
+.image-preview img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.image-preview img:hover {
+  transform: scale(1.02);
+}
+
+.schedule-container, .free-time-container, .stats-container, .recommendations-container {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.schedule-container::-webkit-scrollbar,
+.free-time-container::-webkit-scrollbar,
+.stats-container::-webkit-scrollbar,
+.recommendations-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.schedule-container::-webkit-scrollbar-thumb,
+.free-time-container::-webkit-scrollbar-thumb,
+.stats-container::-webkit-scrollbar-thumb,
+.recommendations-container::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 3px;
+}
+
+.schedule-container::-webkit-scrollbar-track,
+.free-time-container::-webkit-scrollbar-track,
+.stats-container::-webkit-scrollbar-track,
+.recommendations-container::-webkit-scrollbar-track {
+  background-color: var(--card-bg);
+}
+
+.class-slot, .free-slot {
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  background-color: var(--card-bg);
+  transition: transform 0.2s ease;
+}
+
+.class-slot:hover, .free-slot:hover {
+  transform: translateX(5px);
+}
+
+.class-slot {
+  border-left: 3px solid var(--primary-color);
+}
+
+.free-slot {
+  border-left: 3px solid var(--secondary-color);
+}
+
+/* ==========================================================================
+   5. Card Styles
+   ========================================================================== */
+
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* ==========================================================================
+   6. Study Space Card Styles
+   ========================================================================== */
+
+.study-space-card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.study-space-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  border-color: var(--primary-color);
+}
+
+.study-space-card img {
+  border-radius: var(--border-radius-md);
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.study-space-card:hover img {
+  transform: scale(1.03);
+}
+
+.study-space-card h4 {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.study-space-card .location {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.study-space-card .description {
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.amenities-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.amenities-tags .badge {
+  background-color: var(--secondary-color);
+  color: var(--background-color);
+  font-weight: normal;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--border-radius-md);
+}
+
+/* ==========================================================================
+   7. Upload Area Styles
+   ========================================================================== */
+
+.upload-area {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--border-radius-lg);
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: var(--card-bg);
+  margin-bottom: 1.5rem;
+}
+
+.upload-area:hover {
+  border-color: var(--primary-color);
+  background-color: var(--hover-bg);
+  transform: translateY(-2px);
+}
+
+.upload-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+  transition: transform 0.3s ease;
+  color: var(--primary-color);
+}
+
+.upload-area:hover .upload-icon {
+  transform: scale(1.1);
+}
+
+.upload-hint {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+/* ==========================================================================
+   8. Form Styles
+   ========================================================================== */
+
+.study-space-form {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius-lg);
+  padding: 1.5rem;
+}
+
+.form-label {
+  color: var(--text-color);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-control, .location-input {
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  color: var(--text-color);
+  padding: 0.75rem 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus, .location-input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(254, 44, 85, 0.25);
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.amenities {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+.amenities label {
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.amenities label:hover {
+  color: var(--primary-color);
+}
+
+/* ==========================================================================
+   9. Button Styles
+   ========================================================================== */
+
+.save-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-md);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  width: 100%;
+}
+
+.save-button:hover {
+  background-color: #e01a43;
+  transform: translateY(-2px);
+}
+
+.btn-outline-secondary {
+  border-color: var(--border-color);
+  color: var(--text-color);
+  background-color: transparent;
+  transition: all 0.3s;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--hover-bg);
+  border-color: var(--text-color);
+  color: var(--text-color);
+}
+
+.delete-btn {
+  background-color: var(--danger-color);
+  border: none;
+  color: white;
+  border-radius: var(--border-radius-md);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  transition: background-color 0.3s;
+}
+
+.delete-btn:hover {
+  background-color: #bd2130;
+}
+
+/* ==========================================================================
+   10. Cloud Sync Info Styles
+   ========================================================================== */
+
+.cloud-sync-info {
+  background-color: var(--hover-bg);
+  border-radius: var(--border-radius-md);
+  padding: 1.25rem;
+  margin-top: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.cloud-sync-info h5 {
+  color: var(--secondary-color);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   11. Toast & Modal Styles
+   ========================================================================== */
+
+.toast {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.toast-header {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-content {
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header .btn-close {
+  background-color: var(--text-color);
+  opacity: 0.5;
+  padding: 0.5rem;
+}
+
+.modal-header .btn-close:hover {
+  opacity: 1;
+}
+
+.modal-backdrop.show {
+  opacity: 0.7;
+}
+
+.modal-footer {
+  border-top: 1px solid var(--border-color);
+}
+
+/* API Settings Modal Styles */
+#apiSettingsModal .form-control {
+  background-color: var(--background-color);
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+#apiSettingsModal .form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(254, 44, 85, 0.25);
+}
+
+#apiSettingsModal .btn-outline-secondary {
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+#apiSettingsModal .btn-outline-secondary:hover {
+  background-color: var(--hover-bg);
+}
+
+#apiSettingsModal .modal-header {
+  border-bottom-color: var(--border-color);
+}
+
+#apiSettingsModal .modal-footer {
+  border-top-color: var(--border-color);
+}
+
+#apiSettingsModal .btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+#apiSettingsModal .btn-secondary {
+  background-color: var(--card-bg);
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+#apiSettingsModal .text-muted {
+  color: var(--text-color) !important;
+  opacity: 0.7;
+}
+
+#apiSettingsModal .text-muted a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+#apiSettingsModal .text-muted a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   12. Responsive Styles
+   ========================================================================== */
+
+@media (max-width: 992px) {
+  .nav-links {
+    gap: 10px;
+  }
+
+  .nav-links a {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+
+  .amenities {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .top-nav {
+    padding: 0 15px;
+    height: 70px;
+  }
+
+  .nav-brand {
+    font-size: 20px;
+  }
+
+  .nav-brand img {
+    height: 50px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .study-space-card img {
+    height: 180px;
+  }
+}
+
+/* ==========================================================================
+   13. Animation Styles
+   ========================================================================== */
+
+.slide-in {
+  animation: slideIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* ==========================================================================
+   14. Workspace Toggle Button
+   ========================================================================== */
+
+.workspace-toggle {
+  position: fixed;
+  top: 5rem;
+  right: 1.5rem;
+  z-index: 1000;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.workspace-toggle:hover {
+  transform: scale(1.1);
+  background-color: #e01a43;
+}
+
+.workspace-toggle i {
+  font-size: 1.5rem;
+}
+
+/* ==========================================================================
+   15. Relaxed Mode Button & Profile Icon
+   ========================================================================== */
+
+.relaxed-mode-btn {
+  position: fixed;
+  top: 5rem;
+  right: 5.5rem;
+  z-index: 1000;
+  background-color: var(--secondary-color);
+  color: var(--background-color);
+  border: none;
+  border-radius: 2rem;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+.relaxed-mode-btn:hover {
+  transform: translateY(-3px);
+  background-color: #20d8d8;
+}
+
+.relaxed-mode-btn i {
+  font-size: 1.25rem;
+}
+
+/* Profile Icon Styles */
+.profile-icon {
+  position: fixed;
+  top: -40px; /* Start off-screen */
+  right: 20px;
+  z-index: 1001;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--card-bg);
+  padding: 8px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+}
+
+.profile-icon.visible {
+  top: 15px;
+}
+
+.profile-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.profile-icon i {
+  font-size: 18px;
+  color: var(--text-color);
+}
+
+/* ==========================================================================
+   16. View Toggle Buttons
+   ========================================================================== */
+
+.view-toggle-btn {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: var(--border-radius-md);
+  padding: 0.5rem 0.75rem;
+  transition: all 0.3s;
+}
+
+.view-toggle-btn:hover, .view-toggle-btn.active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+/* ==========================================================================
+   17. No Spaces Message
+   ========================================================================== */
+
+.no-spaces-message {
+  background-color: rgba(23, 162, 184, 0.1);
+  border: 1px solid var(--info-color);
+  border-radius: var(--border-radius-md);
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.no-spaces-message i {
+  font-size: 3rem;
+  color: var(--info-color);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.no-spaces-message h4 {
+  color: var(--info-color);
+  margin-bottom: 0.75rem;
+}
