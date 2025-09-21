@@ -346,33 +346,81 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
-    <!-- Firebase SDKs -->
+    <!-- Firebase Initialization -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-        import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
         import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
-        import { saveSubjectsToFirestore, loadSubjectsFromFirestore } from './js/firestore.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { firebaseConfig } from './js/firebaseConfig.js';
         import { GoogleGenerativeAI } from 'https://esm.run/@google/generative-ai';
 
-        // Make available globally
-        window.loadSubjectsFromFirestore = loadSubjectsFromFirestore;
+        // Make GoogleGenerativeAI available globally
         window.GoogleGenerativeAI = GoogleGenerativeAI;
+
+        // Initialize Firebase safely
+        let app;
+        try {
+            app = initializeApp(firebaseConfig);
+            console.log("Firebase initialized successfully");
+
+            // Set up global variables
+            window.db = getFirestore(app);
+            window.auth = getAuth(app);
+        } catch (e) {
+            if (e.code === 'app/duplicate-app') {
+                console.log("Firebase already initialized, using existing app");
+                try {
+                    app = initializeApp();
+                    window.db = getFirestore(app);
+                    window.auth = getAuth(app);
+                } catch(getAppError) {
+                    console.error("Could not get existing Firebase app instance.", getAppError);
+                }
+            } else {
+                console.error("Firebase initialization error:", e);
+            }
+        }
     </script>
 
-    <!-- Firebase Scripts -->
+    <!-- Authentication Setup -->
     <script type="module">
-        import { auth as importedAuth, signInWithGoogle, signOutUser } from './js/auth.js';
-        import { loadSubjectsFromFirestore } from './js/firestore.js';
+        import { auth as importedAuth, signInWithGoogle, signOutUser, initializeAuth } from './js/auth.js';
         window.auth = window.auth || importedAuth;
-        window.signInWithGoogle = window.signInWithGoogle || signInWithGoogle;
+        window.signInWithGoogle = signInWithGoogle;
         window.signOutUser = signOutUser;
+
+        // Initialize authentication
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeAuth();
+        });
+    </script>
+
+    <!-- Firestore Data Operations -->
+    <script type="module">
+        import { saveSubjectsToFirestore, loadSubjectsFromFirestore } from './js/firestore.js';
+        import { initializeFirestoreData } from './js/initFirestoreData.js';
+
+        // Make functions available globally
         window.loadSubjectsFromFirestore = loadSubjectsFromFirestore;
+        window.saveSubjectsToFirestore = saveSubjectsToFirestore;
+        window.initializeFirestoreData = initializeFirestoreData;
+
+        // Initialize data when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                if (typeof window.initializeFirestoreData === 'function') {
+                    window.initializeFirestoreData();
+                }
+            }, 1500);
+        });
     </script>
 
     <script src="js/api-settings.js"></script>
     <script src="js/api-optimization.js"></script>
     <script src="js/test-feedback.js"></script>
     <script src="js/gemini-api.js"></script>
+    <script type="module" src="js/cross-tab-sync.js"></script>
+    <script src="js/sideDrawer.js"></script>
     <script src="/js/inject-header.js"></script>
 </body>
 

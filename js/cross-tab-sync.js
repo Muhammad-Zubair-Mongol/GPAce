@@ -30,6 +30,21 @@ class CrossTabSync {
             }
         });
 
+        // Listen for task links updates
+        this.on('task-links-update', (data) => {
+            console.log('🔄 Task links updated in another tab:', data);
+
+            // If the links container for this task is currently expanded, refresh it
+            if (data && data.taskId) {
+                const container = document.getElementById(`links-${data.taskId}`);
+                if (container && container.classList.contains('expanded') &&
+                    window.taskLinksManager && typeof window.taskLinksManager.renderLinks === 'function') {
+                    console.log('Refreshing links display for task:', data.taskId);
+                    window.taskLinksManager.renderLinks(data.taskId, container);
+                }
+            }
+        });
+
         // Set up task update listener for priority calculator page
         this.setupTaskUpdateListener();
     }

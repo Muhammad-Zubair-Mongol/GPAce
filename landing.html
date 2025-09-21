@@ -239,9 +239,9 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(
-                120deg, 
-                transparent, 
-                rgba(255,255,255,0.3), 
+                120deg,
+                transparent,
+                rgba(255,255,255,0.3),
                 transparent
             );
             transition: all 0.3s ease;
@@ -449,8 +449,8 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(
-                135deg, 
-                rgba(254, 44, 85, 0.1), 
+                135deg,
+                rgba(254, 44, 85, 0.1),
                 rgba(37, 244, 238, 0.1)
             );
             opacity: 0.5;
@@ -845,9 +845,9 @@
     <nav class="top-nav position-fixed w-100" style="z-index: 1000;">
         <div class="container d-flex justify-content-between align-items-center">
             <div class="nav-brand d-flex align-items-center">
-                <img 
-                    src="assets/images/gpace-logo-white.png" 
-                    alt="GPAce Logo" 
+                <img
+                    src="assets/images/gpace-logo-white.png"
+                    alt="GPAce Logo"
                     style="height: 80px; margin-right: 0px;"
                 >
                 <a href="grind.html" style="text-decoration: none; color: inherit;">GPAce</a>
@@ -944,7 +944,7 @@
             </div>
             <div class="text-center mt-4">
                 <p class="text-white-50 mx-auto" style="max-width: 800px;">
-                    These statistics reveal a critical need for intelligent, personalized productivity solutions that address 
+                    These statistics reveal a critical need for intelligent, personalized productivity solutions that address
                     the complex challenges students face in academic and personal development.
                 </p>
             </div>
@@ -962,7 +962,7 @@
                         </div>
                         <h3 class="mt-3">How GPAce Tackles Student Burnout</h3>
                         <p class="video-description">
-                            Watch how our AI-driven approach helps students manage energy, 
+                            Watch how our AI-driven approach helps students manage energy,
                             reduce stress, and maintain productivity.
                         </p>
                         <!-- Actual video embed will replace this placeholder -->
@@ -1191,7 +1191,7 @@
                         </div>
                         <h3 class="mt-3">Transforming Your Academic Journey</h3>
                         <p class="video-description">
-                            Explore how GPAce's unique features integrate to create 
+                            Explore how GPAce's unique features integrate to create
                             a comprehensive productivity ecosystem.
                         </p>
                         <!-- Actual video embed will replace this placeholder -->
@@ -1213,11 +1213,11 @@
         <div class="modal-video-close">&times;</div>
         <div class="modal-video-content">
             <div class="modal-video-container">
-                <iframe 
-                    src="" 
-                    title="GPAce Burnout Management" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                <iframe
+                    src=""
+                    title="GPAce Burnout Management"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                 ></iframe>
             </div>
@@ -1228,11 +1228,11 @@
         <div class="modal-video-close">&times;</div>
         <div class="modal-video-content">
             <div class="modal-video-container">
-                <iframe 
-                    src="" 
-                    title="GPAce Productivity Features" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                <iframe
+                    src=""
+                    title="GPAce Productivity Features"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
                 ></iframe>
             </div>
@@ -1267,13 +1267,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <img 
-                        src="assets/images/gpace-logo-white.png" 
-                        alt="GPAce Logo" 
+                    <img
+                        src="assets/images/gpace-logo-white.png"
+                        alt="GPAce Logo"
                         class="footer-logo"
                     >
                     <p>Transforming student productivity through AI-driven solutions.</p>
-                    
+
                     <!-- Contact Information -->
                     <div class="contact-info mt-4">
                         <p><i class="bi bi-envelope"></i> support@gpace.ai</p>
@@ -1378,6 +1378,16 @@
         </div>
     </div>
 
+
+
+</body>
+</html>
+
+
+
+</body>
+</html>
+    <!-- Scripts -->
     <script>
         // Navigation background on scroll
         window.addEventListener('scroll', function() {
@@ -1392,7 +1402,7 @@
         // Scroll-triggered animation
         function checkScroll() {
             const scrollAnimations = document.querySelectorAll('.scroll-animation');
-            
+
             scrollAnimations.forEach(element => {
                 const elementPosition = element.getBoundingClientRect().top;
                 const viewportHeight = window.innerHeight;
@@ -1481,7 +1491,7 @@
                 // 2. Create user account with free tier permissions
                 // 3. Set up Google AdSense integration
                 // 4. Redirect to onboarding/dashboard
-                
+
                 // Temporary client-side handling
                 alert('Free Plan Selected! Redirecting to signup...');
                 window.location.href = 'grind.html'; // Placeholder redirect
@@ -1496,13 +1506,13 @@
                 // 3. Validate payment
                 // 4. Provision semester plan features
                 // 5. Create subscription record
-                
+
                 // Potential payment gateway integration points:
                 // - Stripe
                 // - PayPal
                 // - Braintree
                 // - Local payment processors
-                
+
                 // Temporary client-side handling
                 alert('Semester Plan Selected! Proceeding to checkout...');
                 window.location.href = 'grind.html'; // Placeholder redirect
@@ -1521,35 +1531,35 @@
             - Implement secure user registration
             - OAuth support (Google, Microsoft, etc.)
             - Email verification
-        
+
         2. Payment Processing
             - Secure payment gateway integration
             - Subscription management
             - Proration and billing cycles
             - Invoice generation
-        
+
         3. Feature Provisioning
             - Dynamic feature flag system
             - Tier-based access control
             - Granular permissions management
-        
+
         4. Compliance and Security
             - GDPR compliance
             - PCI-DSS standards for payment
             - Data encryption
             - Secure token-based authentication
-        
+
         5. Webhook Implementations
             - Payment status updates
             - Subscription lifecycle events
             - User tier change notifications
-        
+
         Recommended Tech Stack:
         - Backend: Node.js/Express or Django/Flask
         - Database: PostgreSQL
         - Payment Gateway: Stripe
         - Authentication: JWT, Passport.js
-        
+
         Potential Microservices:
         - User Service
         - Billing Service
@@ -1561,17 +1571,18 @@
         document.getElementById('newsletterForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const email = document.getElementById('newsletterEmail').value;
-            
+
             // TODO: Implement actual newsletter signup logic
             // 1. Validate email
             // 2. Send to backend service
             // 3. Handle success/error responses
-            
+
             alert(`Thank you for subscribing with ${email}!`);
             this.reset(); // Clear the form
         });
     </script>
     <script src="js/theme-toggle.js"></script>
-<script src="/js/inject-header.js"></script>
-    </body>
+    <script type="module" src="js/cross-tab-sync.js"></script>
+    <script src="/js/inject-header.js"></script>
+</body>
 </html>

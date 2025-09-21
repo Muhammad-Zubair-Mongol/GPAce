@@ -17,7 +17,7 @@ async initializeFirestore() {
       this.db = window.db;
       return;
     }
-    
+
     // Next try to use Firebase from window if available (from non-module script)
     if (window.firebase) {
       // Get config directly - don't rely on localStorage
@@ -29,7 +29,7 @@ async initializeFirestore() {
         messagingSenderId: "949014366726",
         appId: "1:949014366726:web:3aa05a6e133e2066c45187"
       };
-      
+
       if (!firebase.apps.length) {
         firebase.initializeApp(firebaseConfig);
       }
@@ -46,7 +46,7 @@ async initializeFirestore() {
 
     async addLink(taskId, linkData) {
         console.log("Adding link for task:", taskId, linkData);
-        
+
         if (!taskId || !linkData.url) {
             throw new Error('Invalid input: taskId and URL are required');
         }
@@ -71,6 +71,11 @@ async initializeFirestore() {
 
             // Update Firestore
             await this.updateFirestore(taskId, link);
+
+            // Broadcast update to other tabs
+            if (window.crossTabSync) {
+                window.crossTabSync.send('task-links-update', { taskId, action: 'add' });
+            }
 
             return {
                 success: true,
@@ -97,18 +102,18 @@ async initializeFirestore() {
 
     getLinkType(url) {
         const urlLower = url.toLowerCase();
-        
+
         if (urlLower.includes('youtube.com') || urlLower.includes('youtu.be')) {
             return 'youtube';
         }
-        if (urlLower.includes('docs.google.com') || urlLower.endsWith('.pdf') || 
+        if (urlLower.includes('docs.google.com') || urlLower.endsWith('.pdf') ||
             urlLower.endsWith('.doc') || urlLower.endsWith('.docx')) {
             return 'document';
         }
         if (urlLower.includes('github.com')) {
             return 'github';
         }
-        if (urlLower.includes('medium.com') || urlLower.includes('dev.to') || 
+        if (urlLower.includes('medium.com') || urlLower.includes('dev.to') ||
             urlLower.includes('blog')) {
             return 'article';
         }
@@ -119,7 +124,7 @@ async initializeFirestore() {
         try {
             const urlObj = new URL(url);
             let title = urlObj.hostname.replace('www.', '');
-            
+
             // For YouTube, try to get video ID
             if (url.includes('youtube.com') || url.includes('youtu.be')) {
                 if (url.includes('youtube.com/watch')) {
@@ -128,7 +133,7 @@ async initializeFirestore() {
                     title += ' - Playlist';
                 }
             }
-            
+
             return title;
         } catch {
             return url;
@@ -137,52 +142,52 @@ async initializeFirestore() {
     async updateLocalStorage(taskId, link) {
         try {
             console.log("Updating localStorage for task:", taskId);
-            
+
             // Get current tasks
             const priorityTasks = JSON.parse(localStorage.getItem('calculatedPriorityTasks') || '[]');
-            
+
             // Get the current task info from the DOM
             const taskInfo = document.querySelector('.task-info');
             if (!taskInfo) {
                 throw new Error('Cannot find task info element');
             }
-            
+
             const taskTitle = taskInfo.querySelector('.task-title')?.textContent?.trim() || '';
             const taskDetails = taskInfo.querySelector('.task-details')?.textContent?.trim() || '';
             const projectName = taskDetails.split('•')[1]?.trim() || '';
             const projectId = taskInfo.dataset.projectId;
-            
+
             // Find task index using the same logic as interleaveTask
             let taskIndex = -1;
             for (let i = 0; i < priorityTasks.length; i++) {
                 const task = priorityTasks[i];
-                if ((task.title === taskTitle || task.title.trim() === taskTitle) && 
+                if ((task.title === taskTitle || task.title.trim() === taskTitle) &&
                     (task.projectId === projectId || task.projectName === projectName)) {
                     taskIndex = i;
                     break;
                 }
             }
-    
+
             if (taskIndex === -1) {
                 console.error("Task not found in priority tasks:", { taskTitle, projectName, projectId });
                 throw new Error('Task not found in priority list');
             }
-    
+
             // Rest of the function remains the same
             if (!priorityTasks[taskIndex].links) {
                 priorityTasks[taskIndex].links = [];
             }
-    
+
             priorityTasks[taskIndex].links.push(link);
             localStorage.setItem('calculatedPriorityTasks', JSON.stringify(priorityTasks));
-            
+
             // Update project tasks
             if (projectId) {
                 const projectTasks = JSON.parse(localStorage.getItem(`tasks-${projectId}`) || '[]');
-                const projectTaskIndex = projectTasks.findIndex(t => 
+                const projectTaskIndex = projectTasks.findIndex(t =>
                     t.title === taskTitle || t.title.trim() === taskTitle
                 );
-                
+
                 if (projectTaskIndex !== -1) {
                     if (!projectTasks[projectTaskIndex].links) {
                         projectTasks[projectTaskIndex].links = [];
@@ -191,7 +196,7 @@ async initializeFirestore() {
                     localStorage.setItem(`tasks-${projectId}`, JSON.stringify(projectTasks));
                 }
             }
-    
+
             return { success: true };
         } catch (error) {
             console.error("Error updating localStorage:", error);
@@ -205,7 +210,7 @@ async initializeFirestore() {
                 console.warn("Firestore not initialized, skipping Firestore update");
                 return { success: false, error: "Firestore not initialized" };
             }
-            
+
             const priorityTasks = JSON.parse(localStorage.getItem('calculatedPriorityTasks') || '[]');
             const task = priorityTasks.find(t => String(t.id) === String(taskId));
 
@@ -218,7 +223,7 @@ async initializeFirestore() {
                 console.warn("No project ID for task, skipping Firestore update");
                 return { success: false, error: "No project ID" };
             }
-            
+
             await this.db.collection('projects')
                 .doc(projectId)
                 .collection('tasks')
@@ -237,60 +242,158 @@ async initializeFirestore() {
 
     renderLinks(taskId, container) {
         console.log("Rendering links for task:", taskId);
-        
-        const priorityTasks = JSON.parse(localStorage.getItem('calculatedPriorityTasks') || '[]');
-        const task = priorityTasks.find(t => String(t.id) === String(taskId));
-        
-        if (!task) {
-            console.error("Task not found for rendering links:", taskId);
-            return;
-        }
-        
-        const linksList = container.querySelector('.links-list');
-        
-        if (!task.links || task.links.length === 0) {
-            linksList.innerHTML = '<div class="no-links-message">No links added yet. Click "Add New Link" to get started.</div>';
-            return;
-        }
 
-        linksList.innerHTML = task.links.map(link => this.createLinkElement(link, taskId)).join('');
+        try {
+            // Validate inputs
+            if (!taskId) {
+                console.error("Invalid task ID provided");
+                return;
+            }
+
+            if (!container) {
+                console.error("Container element not provided");
+                return;
+            }
+
+            // Get the links list element
+            const linksList = container.querySelector('.links-list');
+            if (!linksList) {
+                console.error("Links list element not found in container");
+                return;
+            }
+
+            // Get priority tasks from localStorage
+            const priorityTasksJson = localStorage.getItem('calculatedPriorityTasks');
+            if (!priorityTasksJson) {
+                console.warn("No priority tasks found in localStorage");
+                linksList.innerHTML = '<div class="no-links-message">No tasks found. Please refresh the page.</div>';
+                return;
+            }
+
+            // Parse priority tasks
+            const priorityTasks = JSON.parse(priorityTasksJson);
+            console.log("Found priority tasks:", priorityTasks.length);
+
+            // Find the task
+            const task = priorityTasks.find(t => String(t.id) === String(taskId));
+            if (!task) {
+                console.error("Task not found for rendering links. Task ID:", taskId);
+                linksList.innerHTML = '<div class="no-links-message">Task not found. Please refresh the page.</div>';
+                return;
+            }
+
+            console.log("Found task:", task.title);
+
+            // Check if task has links
+            if (!task.links || task.links.length === 0) {
+                console.log("No links found for task");
+                linksList.innerHTML = '<div class="no-links-message">No links added yet. Click "Add New Link" to get started.</div>';
+                return;
+            }
+
+            console.log("Found links:", task.links.length);
+
+            // Render links
+            linksList.innerHTML = task.links.map(link => {
+                try {
+                    return this.createLinkElement(link, taskId);
+                } catch (linkError) {
+                    console.error("Error creating link element:", linkError);
+                    return `<div class="link-item error">Error displaying link: ${linkError.message}</div>`;
+                }
+            }).join('');
+
+            console.log("Links rendered successfully");
+        } catch (error) {
+            console.error("Error rendering links:", error);
+            if (container) {
+                const linksList = container.querySelector('.links-list');
+                if (linksList) {
+                    linksList.innerHTML = `<div class="no-links-message">Error loading links: ${error.message}</div>`;
+                }
+            }
+        }
     }
 
     createLinkElement(link, taskId) {
-        const typeIcons = {
-            youtube: 'bi-youtube',
-            document: 'bi-file-text',
-            article: 'bi-newspaper',
-            github: 'bi-github',
-            link: 'bi-link-45deg'
-        };
+        try {
+            if (!link || !link.id) {
+                throw new Error('Invalid link object');
+            }
 
-        return `
-            <div class="link-item ${link.type}" data-link-id="${link.id}">
-                <div class="link-icon">
-                    <i class="bi ${typeIcons[link.type] || typeIcons.link}"></i>
-                </div>
-                <div class="link-content">
-                    <p class="link-title">${link.title}</p>
-                    <div class="link-url">
-                        <a href="${link.url}" target="_blank" rel="noopener noreferrer">
-                            ${new URL(link.url).hostname}
-                        </a>
+            if (!taskId) {
+                throw new Error('Task ID is required');
+            }
+
+            const typeIcons = {
+                youtube: 'bi-youtube',
+                document: 'bi-file-text',
+                article: 'bi-newspaper',
+                github: 'bi-github',
+                link: 'bi-link-45deg'
+            };
+
+            // Ensure link has all required properties
+            const safeLink = {
+                id: link.id,
+                url: link.url || '#',
+                title: link.title || 'Untitled Link',
+                type: link.type || 'link',
+                description: link.description || ''
+            };
+
+            // Get hostname safely
+            let hostname = '';
+            try {
+                hostname = new URL(safeLink.url).hostname;
+            } catch (urlError) {
+                console.warn('Invalid URL in link:', safeLink.url);
+                hostname = 'invalid-url';
+            }
+
+            return `
+                <div class="link-item ${safeLink.type}" data-link-id="${safeLink.id}">
+                    <div class="link-icon">
+                        <i class="bi ${typeIcons[safeLink.type] || typeIcons.link}"></i>
+                    </div>
+                    <div class="link-content">
+                        <p class="link-title">${safeLink.title}</p>
+                        <div class="link-url">
+                            <a href="${safeLink.url}" target="_blank" rel="noopener noreferrer">
+                                ${hostname}
+                            </a>
+                        </div>
+                        ${safeLink.description ? `<div class="link-description">${safeLink.description}</div>` : ''}
+                    </div>
+                    <div class="link-actions">
+                        <button onclick="window.open('${safeLink.url}', '_blank')"
+                                title="Open link">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </button>
+                        <button onclick="taskLinksManager.removeLink('${taskId}', '${safeLink.id}')"
+                                class="text-danger"
+                                title="Remove link">
+                            <i class="bi bi-trash"></i>
+                        </button>
                     </div>
                 </div>
-                <div class="link-actions">
-                    <button onclick="window.open('${link.url}', '_blank')" 
-                            title="Open link">
-                        <i class="bi bi-box-arrow-up-right"></i>
-                    </button>
-                    <button onclick="taskLinksManager.removeLink('${taskId}', '${link.id}')" 
-                            class="text-danger" 
-                            title="Remove link">
-                        <i class="bi bi-trash"></i>
-                    </button>
+            `;
+        } catch (error) {
+            console.error('Error creating link element:', error);
+            return `
+                <div class="link-item error" data-error="${error.message}">
+                    <div class="link-icon">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+                    <div class="link-content">
+                        <p class="link-title">Error displaying link</p>
+                        <div class="link-url">
+                            <span class="text-danger">${error.message}</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+        }
     }
 
     async removeLink(taskId, linkId) {
@@ -298,26 +401,26 @@ async initializeFirestore() {
             // Update localStorage
             const priorityTasks = JSON.parse(localStorage.getItem('calculatedPriorityTasks') || '[]');
             const taskIndex = priorityTasks.findIndex(t => String(t.id) === String(taskId));
-            
+
             if (taskIndex === -1 || !priorityTasks[taskIndex].links) {
                 throw new Error('Task or links not found');
             }
-            
+
             priorityTasks[taskIndex].links = priorityTasks[taskIndex].links.filter(l => l.id !== linkId);
             localStorage.setItem('calculatedPriorityTasks', JSON.stringify(priorityTasks));
-            
+
             // Update project tasks
             const projectId = priorityTasks[taskIndex].projectId;
             if (projectId) {
                 const projectTasks = JSON.parse(localStorage.getItem(`tasks-${projectId}`) || '[]');
                 const projectTaskIndex = projectTasks.findIndex(t => String(t.id) === String(taskId));
-                
+
                 if (projectTaskIndex !== -1 && projectTasks[projectTaskIndex].links) {
                     projectTasks[projectTaskIndex].links = projectTasks[projectTaskIndex].links.filter(l => l.id !== linkId);
                     localStorage.setItem(`tasks-${projectId}`, JSON.stringify(projectTasks));
                 }
             }
-            
+
             // Update Firestore
             if (this.db && projectId) {
                 try {
@@ -327,13 +430,13 @@ async initializeFirestore() {
                         .collection('tasks')
                         .doc(taskId)
                         .get();
-                    
+
                     if (taskDoc.exists) {
                         const taskData = taskDoc.data();
                         if (taskData.links) {
                             // Filter out the link to remove
                             const updatedLinks = taskData.links.filter(l => l.id !== linkId);
-                            
+
                             // Update the document with the new links array
                             await this.db.collection('projects')
                                 .doc(projectId)
@@ -348,13 +451,18 @@ async initializeFirestore() {
                     console.error('Error updating Firestore:', firestoreError);
                 }
             }
-            
+
             // Refresh the display
             const container = document.getElementById(`links-${taskId}`);
             if (container) {
                 this.renderLinks(taskId, container);
             }
-            
+
+            // Broadcast update to other tabs
+            if (window.crossTabSync) {
+                window.crossTabSync.send('task-links-update', { taskId, action: 'remove', linkId });
+            }
+
             return { success: true };
         } catch (error) {
             console.error('Error removing link:', error);
@@ -455,7 +563,11 @@ window.displayTaskLinks = function(taskId) {
 };
 
 // Global functions for task links UI
-window.toggleTaskLinks = function(taskId) {
+// Note: toggleTaskLinks is defined in grind.html to avoid conflicts
+// This is the legacy implementation that's kept for backward compatibility
+// but not used in grind.html
+const legacyToggleTaskLinks = function(taskId) {
+    console.log('Legacy toggleTaskLinks called for task ID:', taskId);
     const container = document.getElementById(`links-${taskId}`);
     if (container) {
         container.classList.toggle('expanded');
@@ -469,14 +581,14 @@ window.toggleTaskLinks = function(taskId) {
 window.addNewLink = function(taskId) {
     const modal = document.getElementById('addLinkModal');
     modal.style.display = 'block';
-    
+
     const form = document.getElementById('addLinkForm');
     form.onsubmit = async (e) => {
         e.preventDefault();
         const url = document.getElementById('linkUrl').value;
         const title = document.getElementById('linkTitle').value;
         const description = document.getElementById('linkDescription').value;
-        
+
         await window.taskLinks.saveLink(taskId, { url, title, description });
         form.reset();
         modal.style.display = 'none';

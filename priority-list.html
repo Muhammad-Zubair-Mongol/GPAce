@@ -11,19 +11,21 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Side Drawer Styles -->
+    <link href="css/sideDrawer.css" rel="stylesheet">
     <!-- Priority List Styles -->
     <link href="css/priority-list.css" rel="stylesheet">
     <!-- Data Initialization -->
-    <script type="module" src="js/initFirestoreData.js"></script>
+
     <!-- Common Initialization -->
-    <script type="module" src="js/common.js"></script>
-    <script src="/js/inject-header.js"></script>
+
+
     <!-- Priority Sync Fix -->
-    <script type="module" src="js/priority-sync-fix.js"></script>
+
     <!-- Priority List Sorting -->
-    <script src="js/priority-list-sorting.js"></script>
+
     <!-- Priority List Utils -->
-    <script type="module" src="js/priority-list-utils.js"></script>
+
 </head>
 
 <body>
@@ -63,6 +65,91 @@
     </a>
 
     <!-- All JavaScript has been moved to js/priority-list-utils.js -->
+
+
+
+
+
+
 </body>
 
+</html>
+
+
+
+
+
+
+</body>
+
+</html>
+    <!-- Scripts -->
+    <!-- Firebase Initialization -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { firebaseConfig } from './js/firebaseConfig.js';
+
+        // Initialize Firebase safely
+        let app;
+        try {
+            app = initializeApp(firebaseConfig);
+            console.log("Firebase initialized successfully");
+
+            // Set up global variables
+            window.db = getFirestore(app);
+            window.auth = getAuth(app);
+        } catch (e) {
+            if (e.code === 'app/duplicate-app') {
+                console.log("Firebase already initialized, using existing app");
+                try {
+                    app = initializeApp();
+                    window.db = getFirestore(app);
+                    window.auth = getAuth(app);
+                } catch(getAppError) {
+                    console.error("Could not get existing Firebase app instance.", getAppError);
+                }
+            } else {
+                console.error("Firebase initialization error:", e);
+            }
+        }
+    </script>
+
+    <!-- Authentication Setup -->
+    <script type="module">
+        import { auth as importedAuth, signInWithGoogle, signOutUser, initializeAuth } from './js/auth.js';
+        window.auth = window.auth || importedAuth;
+        window.signInWithGoogle = signInWithGoogle;
+        window.signOutUser = signOutUser;
+
+        // Initialize authentication
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeAuth();
+        });
+    </script>
+
+    <!-- Firestore Data Operations -->
+    <script type="module">
+        import { initializeFirestoreData } from './js/initFirestoreData.js';
+        window.initializeFirestoreData = initializeFirestoreData;
+
+        // Initialize data when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                if (typeof window.initializeFirestoreData === 'function') {
+                    window.initializeFirestoreData();
+                }
+            }, 1500);
+        });
+    </script>
+
+    <script type="module" src="js/common.js"></script>
+    <script type="module" src="js/cross-tab-sync.js"></script>
+    <script type="module" src="js/priority-sync-fix.js"></script>
+    <script src="js/priority-list-sorting.js"></script>
+    <script type="module" src="js/priority-list-utils.js"></script>
+    <script src="js/sideDrawer.js"></script>
+    <script src="/js/inject-header.js"></script>
+</body>
 </html>

@@ -14,6 +14,177 @@
     <link href="css/sideDrawer.css" rel="stylesheet">
 
     <!-- Firebase SDKs -->
+    
+    
+    
+    
+
+<link href="css/extracted.css" rel="stylesheet">
+    <!-- Add this right after the Firebase SDKs script -->
+    
+
+    <!-- Add this in the head section -->
+    
+
+    <!-- Modify the navigation links to use the page manager -->
+    
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="top-nav">
+        <div class="nav-brand d-flex align-items-center">
+            <img
+                src="assets/images/gpace-logo-white.png"
+                alt="GPAce Logo"
+                style="height: 60px; margin-right: 0px;"
+            >
+            <a href="grind.html" style="text-decoration: none; color: inherit;">GPAce</a>
+        </div>
+        <div class="nav-links">
+            <a href="grind.html">Grind Mode</a>
+            <a href="study-spaces.html">Grind Station</a>
+            <a href="daily-calendar.html">Daily Drip</a>
+            <a href="academic-details.html">Brain Juice</a>
+            <a href="extracted.html" class="active">Hustle Hub</a>
+            <a href="subject-marks.html">Subject Marks</a>
+            <a href="flashcards.html">Flashcards</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="sidebar" id="projectsSidebar">
+            <!-- Projects will be dynamically added here -->
+        </div>
+
+        <!-- Add sidebar toggle button -->
+        <button id="sidebarToggle" class="btn btn-sm sidebar-toggle">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div id="taskContainer" class="fade-in">
+                <!-- Tasks will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Add a hidden overlay for mobile sidebar -->
+        <div id="sidebarOverlay" class="sidebar-overlay" style="display: none;"></div>
+    </div>
+
+    <!-- Add Weightage Modal -->
+    <div id="weightageModal" class="weightage-modal">
+        <div class="weightage-modal-content">
+            <h5 class="mb-3">Set Subsection Weightages</h5>
+            <p class="text-secondary mb-3" style="font-size: 0.9rem;">Enter min-max ranges for each subsection. The average will be calculated automatically.</p>
+            <div id="weightageInputs" class="mb-3">
+                <!-- Inputs will be dynamically added here -->
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-secondary">Total Average:</span>
+                <span id="totalAverage" class="weightage-avg">0%</span>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+                <button class="btn btn-secondary" onclick="closeWeightageModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveWeightages()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div id="editTaskModal" class="edit-task-modal">
+        <div class="edit-task-content">
+            <h5>Edit Task</h5>
+            <input type="hidden" id="editTaskIndex">
+            <input type="hidden" id="editTaskSection">
+            <input type="text" id="editTaskTitle" class="form-control mb-2" placeholder="Task Title">
+            <textarea id="editTaskDescription" class="form-control mb-2" placeholder="Description (optional)"></textarea>
+            <input type="date" id="editTaskDueDate" class="form-control mb-2">
+            <select id="editTaskPriority" class="form-control mb-3">
+                <option value="low">Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+            </select>
+            <div class="d-flex justify-content-end gap-2">
+                <button class="btn btn-secondary" onclick="closeEditTaskModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveEditedTask()">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="addTaskForm" class="task-form">
+        <div class="task-input-toggle mb-3">
+            <button class="btn btn-sm btn-outline-primary" onclick="toggleInputMode('single')">Single Task</button>
+            <button class="btn btn-sm btn-outline-primary" onclick="toggleInputMode('bulk')">Bulk Add</button>
+        </div>
+
+        <div id="singleTaskInput">
+            <input type="text" id="taskTitle" class="form-control mb-2" placeholder="Task Title">
+            <textarea id="taskDescription" class="form-control mb-2" placeholder="Description (optional)"></textarea>
+            <input type="date" id="taskDueDate" class="form-control mb-2">
+            <select id="taskPriority" class="form-control mb-3">
+                <option value="low">Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+            </select>
+        </div>
+
+        <div id="bulkTaskInput" style="display: none;">
+            <div class="input-format-example">
+                Format: Title | Due Date (YYYY-MM-DD) | Priority (low/medium/high) | Description<br>
+                Example: Complete math homework | 2024-01-20 | high | Chapter 5 exercises
+            </div>
+            <textarea id="bulkTasks" class="bulk-input" placeholder="Enter one task per line..."></textarea>
+        </div>
+
+        <button onclick="addTask()" class="btn btn-primary">Add Task(s)</button>
+        <button onclick="hideAddTaskForm()" class="btn btn-secondary">Cancel</button>
+    </div>
+
+    <!-- History Modal -->
+    <div id="historyModal" class="history-modal">
+        <div class="history-content">
+            <div class="history-header">
+                <h5 class="mb-0">Completed Tasks History</h5>
+                <button class="btn btn-sm btn-outline-secondary" onclick="closeHistoryModal()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div id="historyList">
+                <!-- Completed tasks will be displayed here -->
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</body>
+
+</html>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</body>
+
+</html>
+    <!-- Scripts -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
         import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
@@ -91,9 +262,6 @@
         window.findSubDeckForTask = findSubDeckForTask;
         window.connectTaskToFlashcardDeck = connectTaskToFlashcardDeck;
     </script>
-
-<link href="css/extracted.css" rel="stylesheet">
-    <!-- Add this right after the Firebase SDKs script -->
     <script type="module">
         // State manager for sharing data between pages
         window.appState = {
@@ -252,8 +420,6 @@
             }
         });
     </script>
-
-    <!-- Add this in the head section -->
     <script>
         // Preload critical resources
         const resourcesToPreload = [
@@ -270,8 +436,6 @@
             document.head.appendChild(link);
         });
     </script>
-
-    <!-- Modify the navigation links to use the page manager -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.nav-links a').forEach(link => {
@@ -282,135 +446,6 @@
             });
         });
     </script>
-</head>
-
-<body>
-    <!-- Navigation Bar -->
-    <nav class="top-nav">
-        <div class="nav-brand d-flex align-items-center">
-            <img
-                src="assets/images/gpace-logo-white.png"
-                alt="GPAce Logo"
-                style="height: 60px; margin-right: 0px;"
-            >
-            <a href="grind.html" style="text-decoration: none; color: inherit;">GPAce</a>
-        </div>
-        <div class="nav-links">
-            <a href="grind.html">Grind Mode</a>
-            <a href="study-spaces.html">Grind Station</a>
-            <a href="daily-calendar.html">Daily Drip</a>
-            <a href="academic-details.html">Brain Juice</a>
-            <a href="extracted.html" class="active">Hustle Hub</a>
-            <a href="subject-marks.html">Subject Marks</a>
-            <a href="flashcards.html">Flashcards</a>
-        </div>
-    </nav>
-
-    <div class="main-container">
-        <div class="sidebar" id="projectsSidebar">
-            <!-- Projects will be dynamically added here -->
-        </div>
-
-        <!-- Add sidebar toggle button -->
-        <button id="sidebarToggle" class="btn btn-sm sidebar-toggle">
-            <i class="bi bi-chevron-left"></i>
-        </button>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <div id="taskContainer" class="fade-in">
-                <!-- Tasks will be dynamically added here -->
-            </div>
-        </div>
-
-        <!-- Add a hidden overlay for mobile sidebar -->
-        <div id="sidebarOverlay" class="sidebar-overlay" style="display: none;"></div>
-    </div>
-
-    <!-- Add Weightage Modal -->
-    <div id="weightageModal" class="weightage-modal">
-        <div class="weightage-modal-content">
-            <h5 class="mb-3">Set Subsection Weightages</h5>
-            <p class="text-secondary mb-3" style="font-size: 0.9rem;">Enter min-max ranges for each subsection. The average will be calculated automatically.</p>
-            <div id="weightageInputs" class="mb-3">
-                <!-- Inputs will be dynamically added here -->
-            </div>
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="text-secondary">Total Average:</span>
-                <span id="totalAverage" class="weightage-avg">0%</span>
-            </div>
-            <div class="d-flex justify-content-end gap-2">
-                <button class="btn btn-secondary" onclick="closeWeightageModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="saveWeightages()">Save</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Edit Task Modal -->
-    <div id="editTaskModal" class="edit-task-modal">
-        <div class="edit-task-content">
-            <h5>Edit Task</h5>
-            <input type="hidden" id="editTaskIndex">
-            <input type="hidden" id="editTaskSection">
-            <input type="text" id="editTaskTitle" class="form-control mb-2" placeholder="Task Title">
-            <textarea id="editTaskDescription" class="form-control mb-2" placeholder="Description (optional)"></textarea>
-            <input type="date" id="editTaskDueDate" class="form-control mb-2">
-            <select id="editTaskPriority" class="form-control mb-3">
-                <option value="low">Low Priority</option>
-                <option value="medium">Medium Priority</option>
-                <option value="high">High Priority</option>
-            </select>
-            <div class="d-flex justify-content-end gap-2">
-                <button class="btn btn-secondary" onclick="closeEditTaskModal()">Cancel</button>
-                <button class="btn btn-primary" onclick="saveEditedTask()">Save Changes</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="addTaskForm" class="task-form">
-        <div class="task-input-toggle mb-3">
-            <button class="btn btn-sm btn-outline-primary" onclick="toggleInputMode('single')">Single Task</button>
-            <button class="btn btn-sm btn-outline-primary" onclick="toggleInputMode('bulk')">Bulk Add</button>
-        </div>
-
-        <div id="singleTaskInput">
-            <input type="text" id="taskTitle" class="form-control mb-2" placeholder="Task Title">
-            <textarea id="taskDescription" class="form-control mb-2" placeholder="Description (optional)"></textarea>
-            <input type="date" id="taskDueDate" class="form-control mb-2">
-            <select id="taskPriority" class="form-control mb-3">
-                <option value="low">Low Priority</option>
-                <option value="medium">Medium Priority</option>
-                <option value="high">High Priority</option>
-            </select>
-        </div>
-
-        <div id="bulkTaskInput" style="display: none;">
-            <div class="input-format-example">
-                Format: Title | Due Date (YYYY-MM-DD) | Priority (low/medium/high) | Description<br>
-                Example: Complete math homework | 2024-01-20 | high | Chapter 5 exercises
-            </div>
-            <textarea id="bulkTasks" class="bulk-input" placeholder="Enter one task per line..."></textarea>
-        </div>
-
-        <button onclick="addTask()" class="btn btn-primary">Add Task(s)</button>
-        <button onclick="hideAddTaskForm()" class="btn btn-secondary">Cancel</button>
-    </div>
-
-    <!-- History Modal -->
-    <div id="historyModal" class="history-modal">
-        <div class="history-content">
-            <div class="history-header">
-                <h5 class="mb-0">Completed Tasks History</h5>
-                <button class="btn btn-sm btn-outline-secondary" onclick="closeHistoryModal()">
-                    <i class="bi bi-x-lg"></i>
-                </button>
-            </div>
-            <div id="historyList">
-                <!-- Completed tasks will be displayed here -->
-            </div>
-        </div>
-    </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Check for workspace panel from grind.html
@@ -2052,7 +2087,6 @@
             }
         }
     </script>
-
     <script>
         // Add this at the end of the file
         document.addEventListener('DOMContentLoaded', function() {
@@ -2087,7 +2121,6 @@
             }
         });
     </script>
-<script src="/js/inject-header.js"></script>
-    </body>
-
+    <script src="/js/inject-header.js"></script>
+</body>
 </html>

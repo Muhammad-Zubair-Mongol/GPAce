@@ -1,6 +1,7 @@
 /**
  * Task Notes Module
  * Handles adding, editing, and displaying notes for tasks
+ * Supports cross-device and cross-tab synchronization
  */
 
 class TaskNotesManager {
@@ -8,6 +9,8 @@ class TaskNotesManager {
     this.currentTaskId = null;
     this.currentProjectId = null;
     this.notes = {};
+    this.firestoreUnsubscribe = null;
+    this.lastSyncTimestamp = 0;
     this.init();
   }
 
@@ -24,14 +27,88 @@ class TaskNotesManager {
     // Set up event listeners
     this.setupEventListeners();
 
-    // Listen for cross-tab sync
-    window.addEventListener('storage', (e) => {
-      if (e.key === 'taskNotes') {
-        this.loadNotesFromLocalStorage();
-      }
-    });
+    // Set up auth state listener
+    this.setupAuthStateListener();
+
+    // Set up cross-tab sync
+    this.setupCrossTabSync();
 
     console.log('Task Notes Manager initialized');
+  }
+
+  /**
+   * Set up authentication state listener
+   */
+  setupAuthStateListener() {
+    // Check if auth is available
+    if (window.auth) {
+      window.auth.onAuthStateChanged(user => {
+        if (user) {
+          console.log('User authenticated, syncing notes with Firestore');
+          this.loadNotesFromFirebase();
+          this.setupRealtimeSync();
+        } else {
+          console.log('User signed out, using local notes only');
+          if (this.firestoreUnsubscribe) {
+            this.firestoreUnsubscribe();
+            this.firestoreUnsubscribe = null;
+          }
+        }
+      });
+    } else {
+      console.log('Auth not available, will try again when Firebase is ready');
+      // Try again when Firebase is initialized
+      window.addEventListener('firebaseReady', () => {
+        if (window.auth) {
+          this.setupAuthStateListener();
+        }
+      }, { once: true });
+    }
+  }
+
+  /**
+   * Set up cross-tab synchronization
+   */
+  setupCrossTabSync() {
+    // Use the app's cross-tab sync if available
+    if (window.crossTabSync) {
+      // Register for task notes updates
+      window.crossTabSync.on('taskNotes', (newNotes) => {
+        console.log('Received task notes update from another tab');
+        this.notes = newNotes;
+        this.updateTaskDisplay();
+
+        // If notes modal is open, refresh the display
+        if (this.currentTaskId && this.currentProjectId) {
+          this.displayNotes();
+        }
+      });
+
+      // Also listen for user actions related to notes
+      window.crossTabSync.onUserAction('task-notes-update', (data) => {
+        console.log('Task notes update action received from another tab/device');
+        // Reload from localStorage since the data is already there
+        this.loadNotesFromLocalStorage();
+
+        // If notes modal is open, refresh the display
+        if (this.currentTaskId && this.currentProjectId) {
+          this.displayNotes();
+        }
+      });
+    } else {
+      // Fallback to basic storage event
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'taskNotes' || e.key === 'taskNotesVersion') {
+          console.log('Storage event: task notes updated');
+          this.loadNotesFromLocalStorage();
+
+          // If notes modal is open, refresh the display
+          if (this.currentTaskId && this.currentProjectId) {
+            this.displayNotes();
+          }
+        }
+      });
+    }
   }
 
   /**
@@ -225,7 +302,8 @@ class TaskNotesManager {
       id: noteId,
       content: noteContent.value.trim(),
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
+      deviceId: this.getDeviceId() // Add device identifier
     };
 
     // Add note to the task
@@ -250,6 +328,22 @@ class TaskNotesManager {
 
     // Update task display to show note indicator
     this.updateTaskDisplay();
+  }
+
+  /**
+   * Get a unique device identifier
+   * @returns {string} A device identifier
+   */
+  getDeviceId() {
+    let deviceId = localStorage.getItem('deviceId');
+
+    if (!deviceId) {
+      // Generate a new device ID
+      deviceId = `device_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      localStorage.setItem('deviceId', deviceId);
+    }
+
+    return deviceId;
   }
 
   /**
@@ -345,14 +439,27 @@ class TaskNotesManager {
       return;
     }
 
+    // Get current device ID
+    const currentDeviceId = this.getDeviceId();
+
     // Create HTML for each note
     taskNotes.forEach(note => {
       const noteDate = new Date(note.createdAt).toLocaleString();
+
+      // Check if this note was created on this device
+      const isCurrentDevice = note.deviceId === currentDeviceId;
+      const deviceLabel = isCurrentDevice
+        ? '<span class="note-device note-current-device">This device</span>'
+        : '<span class="note-device note-other-device">Other device</span>';
+
       const noteHTML = `
-        <div class="note-item" data-note-id="${note.id}">
+        <div class="note-item${isCurrentDevice ? ' note-current-device' : ''}" data-note-id="${note.id}">
           <div class="note-content">${this.escapeHTML(note.content)}</div>
           <div class="note-meta">
-            <div class="note-date">${noteDate}</div>
+            <div class="note-info">
+              <div class="note-date">${noteDate}</div>
+              ${deviceLabel}
+            </div>
             <div class="note-actions">
               <button class="note-edit-btn" title="Edit note">
                 <i class="fas fa-edit"></i>
@@ -431,12 +538,17 @@ class TaskNotesManager {
    */
   loadNotesFromLocalStorage() {
     const notesJson = localStorage.getItem('taskNotes');
+    const versionStr = localStorage.getItem('taskNotesVersion');
+
     if (notesJson) {
       try {
         this.notes = JSON.parse(notesJson);
+        this.lastSyncTimestamp = versionStr ? parseInt(versionStr, 10) : 0;
+        console.log(`Loaded notes from localStorage with version: ${this.lastSyncTimestamp}`);
       } catch (error) {
         console.error('Error parsing notes from localStorage:', error);
         this.notes = {};
+        this.lastSyncTimestamp = 0;
       }
     }
 
@@ -445,10 +557,84 @@ class TaskNotesManager {
   }
 
   /**
-   * Save notes to localStorage
+   * Save notes to localStorage with version tracking
    */
   saveNotesToLocalStorage() {
+    // Update the version timestamp
+    this.lastSyncTimestamp = Date.now();
+
+    // Save notes and version
     localStorage.setItem('taskNotes', JSON.stringify(this.notes));
+    localStorage.setItem('taskNotesVersion', this.lastSyncTimestamp.toString());
+
+    // Broadcast to other tabs if cross-tab sync is available
+    if (window.crossTabSync) {
+      window.crossTabSync.send('taskNotes', this.notes);
+
+      // Also broadcast as a user action for better integration with the app
+      window.crossTabSync.broadcastAction('task-notes-update', {
+        timestamp: this.lastSyncTimestamp,
+        deviceId: this.getDeviceId()
+      });
+    }
+  }
+
+  /**
+   * Set up real-time sync with Firestore
+   */
+  setupRealtimeSync() {
+    // Clean up any existing subscription
+    if (this.firestoreUnsubscribe) {
+      this.firestoreUnsubscribe();
+      this.firestoreUnsubscribe = null;
+    }
+
+    // Check if Firebase and auth are available
+    if (!window.auth || !window.auth.currentUser || !window.db) {
+      console.log('Firebase, auth, or db not available, skipping real-time sync');
+      return;
+    }
+
+    try {
+      const user = window.auth.currentUser;
+
+      // Set up real-time listener
+      const notesRef = window.db.collection('users').doc(user.uid).collection('settings').doc('task-notes');
+
+      this.firestoreUnsubscribe = notesRef.onSnapshot((doc) => {
+        if (doc.exists) {
+          const data = doc.data();
+          const firestoreVersion = data.version || 0;
+
+          console.log(`Real-time update - Firestore version: ${firestoreVersion}, Local version: ${this.lastSyncTimestamp}`);
+
+          // Only update if Firestore version is newer
+          if (firestoreVersion > this.lastSyncTimestamp) {
+            console.log('Updating notes from Firestore (real-time)');
+            this.notes = data.notes || {};
+            this.lastSyncTimestamp = firestoreVersion;
+
+            // Update localStorage without triggering Firebase save
+            localStorage.setItem('taskNotes', JSON.stringify(this.notes));
+            localStorage.setItem('taskNotesVersion', firestoreVersion.toString());
+
+            // Update UI
+            this.updateTaskDisplay();
+
+            // If notes modal is open, refresh the display
+            if (this.currentTaskId && this.currentProjectId) {
+              this.displayNotes();
+            }
+          }
+        }
+      }, (error) => {
+        console.error('Error in Firestore real-time sync:', error);
+      });
+
+      console.log('Real-time sync with Firestore set up');
+    } catch (error) {
+      console.error('Error setting up real-time sync:', error);
+    }
   }
 
   /**
@@ -456,35 +642,31 @@ class TaskNotesManager {
    */
   async saveNotesToFirebase() {
     // Check if Firebase and auth are available
-    if (!window.firebase || !window.auth || !window.auth.currentUser) {
-      console.log('Firebase or auth not available, skipping Firebase sync');
+    if (!window.auth || !window.auth.currentUser || !window.db) {
+      console.log('Firebase, auth, or db not available, skipping Firebase sync');
       return;
     }
 
     try {
       const user = window.auth.currentUser;
-      if (!user) {
-        console.log('User not signed in, skipping Firebase sync');
-        return;
-      }
 
-      // Get Firestore instance
-      const db = window.firebase.firestore();
-      if (!db) {
-        console.log('Firestore not available, skipping Firebase sync');
-        return;
-      }
+      // Update the version timestamp
+      const timestamp = Date.now();
+      this.lastSyncTimestamp = timestamp;
+
+      // Save to localStorage first
+      localStorage.setItem('taskNotesVersion', timestamp.toString());
 
       // Save notes to Firestore
-      const notesRef = db.collection('users').doc(user.uid).collection('settings').doc('task-notes');
+      const notesRef = window.db.collection('users').doc(user.uid).collection('settings').doc('task-notes');
 
       await notesRef.set({
         notes: this.notes,
         lastUpdated: new Date(),
-        version: Date.now()
+        version: timestamp
       });
 
-      console.log('Notes saved to Firebase');
+      console.log(`Notes saved to Firebase with version: ${timestamp}`);
     } catch (error) {
       console.error('Error saving notes to Firebase:', error);
     }
@@ -495,27 +677,16 @@ class TaskNotesManager {
    */
   async loadNotesFromFirebase() {
     // Check if Firebase and auth are available
-    if (!window.firebase || !window.auth || !window.auth.currentUser) {
-      console.log('Firebase or auth not available, skipping Firebase sync');
+    if (!window.auth || !window.auth.currentUser || !window.db) {
+      console.log('Firebase, auth, or db not available, skipping Firebase sync');
       return;
     }
 
     try {
       const user = window.auth.currentUser;
-      if (!user) {
-        console.log('User not signed in, skipping Firebase sync');
-        return;
-      }
-
-      // Get Firestore instance
-      const db = window.firebase.firestore();
-      if (!db) {
-        console.log('Firestore not available, skipping Firebase sync');
-        return;
-      }
 
       // Get notes from Firestore
-      const notesRef = db.collection('users').doc(user.uid).collection('settings').doc('task-notes');
+      const notesRef = window.db.collection('users').doc(user.uid).collection('settings').doc('task-notes');
       const doc = await notesRef.get();
 
       if (doc.exists) {
@@ -531,17 +702,36 @@ class TaskNotesManager {
         if (firestoreVersion > localVersion) {
           console.log('Using Firestore notes (newer version)');
           this.notes = data.notes || {};
-          this.saveNotesToLocalStorage();
+          this.lastSyncTimestamp = firestoreVersion;
+
+          // Save to localStorage
+          localStorage.setItem('taskNotes', JSON.stringify(this.notes));
+          localStorage.setItem('taskNotesVersion', firestoreVersion.toString());
+
           this.updateTaskDisplay();
-        } else {
-          // If local version is newer or same, sync it to Firestore
+        } else if (localVersion > 0) {
+          // If local version is newer, sync it to Firestore
           console.log('Using local notes and syncing to Firestore');
           this.saveNotesToFirebase();
+        } else {
+          // If local version is 0 (no notes), use Firestore data
+          console.log('No local notes, using Firestore data');
+          this.notes = data.notes || {};
+          this.lastSyncTimestamp = firestoreVersion;
+
+          // Save to localStorage
+          localStorage.setItem('taskNotes', JSON.stringify(this.notes));
+          localStorage.setItem('taskNotesVersion', firestoreVersion.toString());
+
+          this.updateTaskDisplay();
         }
       } else {
-        // No Firestore data exists yet, sync local data
-        console.log('No Firestore notes data. Syncing local notes to Firestore.');
-        this.saveNotesToFirebase();
+        // No Firestore data exists yet, sync local data if we have any
+        console.log('No Firestore notes data found.');
+        if (Object.keys(this.notes).length > 0) {
+          console.log('Syncing local notes to Firestore.');
+          this.saveNotesToFirebase();
+        }
       }
     } catch (error) {
       console.error('Error loading notes from Firebase:', error);
@@ -553,16 +743,15 @@ class TaskNotesManager {
    * @returns {number} The local version timestamp
    */
   getLocalVersion() {
-    const notesJson = localStorage.getItem('taskNotes');
-    if (!notesJson) {
+    const versionStr = localStorage.getItem('taskNotesVersion');
+    if (!versionStr) {
       return 0;
     }
 
     try {
-      // Use the timestamp of the localStorage item as the version
-      return Date.now();
+      return parseInt(versionStr, 10);
     } catch (error) {
-      console.error('Error getting local version:', error);
+      console.error('Error parsing local version:', error);
       return 0;
     }
   }
@@ -609,13 +798,6 @@ class TaskNotesManager {
 document.addEventListener('DOMContentLoaded', () => {
   // Create global instance
   window.taskNotesManager = new TaskNotesManager();
-
-  // Load notes from Firebase after a short delay to ensure auth is ready
-  setTimeout(() => {
-    if (window.taskNotesManager) {
-      window.taskNotesManager.loadNotesFromFirebase();
-    }
-  }, 2000);
 });
 
 // The task-notes-injector.js script now handles the template modifications

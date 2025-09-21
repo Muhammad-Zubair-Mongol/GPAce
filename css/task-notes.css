@@ -76,6 +76,7 @@
   position: relative;
   box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.2);
   animation: modalFadeIn 0.3s ease-out;
+  color: var(--text-color, #333); /* Ensure text is visible in both themes */
 }
 
 @keyframes modalFadeIn {
@@ -103,6 +104,19 @@
   font-size: 1.25rem;
   color: var(--text-color, #333);
   font-weight: 600;
+  position: relative;
+}
+
+/* Add a subtle accent to the header in both themes */
+.notes-modal-header h3::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--primary-color, #4a6fa5);
+  border-radius: 3px;
 }
 
 .notes-modal-close {
@@ -141,7 +155,7 @@
   border-radius: var(--radius-md, 8px);
   resize: vertical;
   font-family: inherit;
-  background-color: var(--input-bg, #f9f9f9);
+  background-color: var(--input-bg, var(--card-bg-light, #f9f9f9));
   color: var(--text-color, #333);
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   font-size: 0.95rem;
@@ -171,7 +185,7 @@
 }
 
 .notes-cancel-btn {
-  background-color: var(--card-bg, #f5f5f5);
+  background-color: var(--card-bg-light, var(--card-bg, #f5f5f5));
   color: var(--text-color, #333);
   border: 1px solid var(--border-color, #ddd);
 }
@@ -202,7 +216,7 @@
 }
 
 .note-item {
-  background-color: var(--card-bg-light, #f5f5f5);
+  background-color: var(--card-bg-light, var(--hover-bg, #f5f5f5));
   border-radius: var(--radius-md, 8px);
   padding: var(--space-md, 15px);
   position: relative;
@@ -247,6 +261,39 @@
   padding-top: var(--space-xs, 8px);
 }
 
+.note-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.note-device {
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.note-current-device {
+  background-color: rgba(var(--primary-color-rgb, 74, 111, 165), 0.15);
+  color: var(--primary-color, #4a6fa5);
+}
+
+.note-other-device {
+  background-color: rgba(var(--secondary-color-rgb, 46, 204, 113), 0.15);
+  color: var(--secondary-color, #2ecc71);
+}
+
+body:not(.light-theme) .note-current-device {
+  background-color: rgba(var(--primary-color-rgb, 74, 111, 165), 0.25);
+  color: var(--primary-color, #5C9CE6);
+}
+
+body:not(.light-theme) .note-other-device {
+  background-color: rgba(var(--secondary-color-rgb, 46, 204, 113), 0.25);
+  color: var(--secondary-color, #3EDB81);
+}
+
 .note-actions {
   display: flex;
   gap: var(--space-xs, 8px);
@@ -258,7 +305,7 @@
   height: 1.75rem;
   border-radius: 50%;
   background: var(--card-bg, #fff);
-  border: 1px solid var(--border-color-light, #eee);
+  border: 1px solid var(--border-color-light, var(--border-color, #eee));
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -283,11 +330,66 @@
 .notes-empty {
   text-align: center;
   padding: var(--space-lg, 20px);
-  color: var(--text-muted, #777);
+  color: var(--text-color, #333);
   font-style: italic;
-  background: var(--card-bg-light, #f9f9f9);
+  background: var(--card-bg-light, var(--hover-bg, #f9f9f9));
   border-radius: var(--radius-md, 8px);
   border: 1px dashed var(--border-color, #ddd);
+  font-weight: 500;
+}
+
+/* Dark mode specific adjustments */
+body:not(.light-theme) .notes-empty {
+  background-color: var(--card-bg-light, var(--hover-bg, #2d2d2d));
+  color: var(--text-color, #ffffff);
+  border-color: var(--border-color, #444);
+}
+
+body:not(.light-theme) .notes-form textarea {
+  background-color: var(--input-bg, var(--card-bg-light, #2d2d2d));
+  border-color: var(--border-color, #444);
+}
+
+body:not(.light-theme) .note-item {
+  background-color: var(--card-bg-light, var(--hover-bg, #2d2d2d));
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Highlight notes from current device */
+.note-item.note-current-device {
+  border-left-color: var(--primary-color, #4a6fa5);
+  border-left-width: 4px;
+}
+
+body:not(.light-theme) .note-item.note-current-device {
+  border-left-color: var(--primary-color, #5C9CE6);
+}
+
+body:not(.light-theme) .notes-cancel-btn {
+  background-color: var(--card-bg-light, var(--card-bg, #2d2d2d));
+  border-color: var(--border-color, #444);
+}
+
+body:not(.light-theme) .note-edit-btn,
+body:not(.light-theme) .note-delete-btn {
+  background-color: var(--card-bg, #1e1e1e);
+  border-color: var(--border-color-light, var(--border-color, #444));
+  color: var(--text-muted, #aaa);
+}
+
+body:not(.light-theme) .notes-modal-close {
+  background-color: var(--hover-bg, #2d2d2d);
+  color: var(--text-muted, #aaa);
+}
+
+body:not(.light-theme) .notes-modal-close:hover {
+  background-color: var(--border-color, #444);
+  color: var(--text-color, #fff);
+}
+
+/* Ensure text is readable in dark mode */
+body:not(.light-theme) .note-meta {
+  border-top-color: var(--border-color, #444);
 }
 
 /* Responsive adjustments */

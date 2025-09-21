@@ -70,6 +70,7 @@
 .link-item.article { border-inline-start: 3px solid #34a853; }
 .link-item.github { border-inline-start: 3px solid #6e5494; }
 .link-item.link { border-inline-start: 3px solid #808080; }
+.link-item.error { border-inline-start: 3px solid #ff5555; background-color: rgba(255, 85, 85, 0.1); }
 
 /* SECTION: Link Content Styles */
 .link-icon {
@@ -77,6 +78,17 @@
     color: var(--text-secondary);
     width: 1.5rem;
     text-align: center;
+}
+
+/* No links message */
+.no-links-message {
+    padding: 1rem;
+    text-align: center;
+    color: var(--text-secondary);
+    background-color: var(--bg-secondary);
+    border-radius: 0.5rem;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
 }
 
 .link-content {
