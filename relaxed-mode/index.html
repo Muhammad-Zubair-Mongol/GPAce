@@ -10,10 +10,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GPAce - Relaxed Mode</title>
     <link href="../assets/vendor/icons/bootstrap-icons.css?v=edc9031bdcde" rel="stylesheet">
-    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="/relaxed-mode/style.css">
     <!-- Side Drawer Styles -->
-    <link rel="stylesheet" href="/css/sideDrawer.css">
+    <link rel="stylesheet" href="../css/sideDrawer.css">
     <!-- Critical inline CSS fallback -->
     <style>
         /* Core dark theme */
@@ -800,13 +800,13 @@
     </script>
 
     <!-- Phase 2 Nuclear Rebuild: Task Sync System -->
-    <script type="module" src="/js/core/TaskSystemLoader.js"></script>
+    <script type="module" src="../js/core/TaskSystemLoader.js"></script>
 
-    <script src="/js/common.js" defer></script>
-    <script type="module" src="/js/cross-tab-sync.js"></script>
-    <script src="/js/tasksManager.js" defer></script>
-    <script src="/js/transitionManager.js" defer></script>
-    <script type="module" src="/js/sideDrawer.js"></script>
+    <script src="../js/common.js" defer></script>
+    <script type="module" src="../js/cross-tab-sync.js"></script>
+    <script src="../js/tasksManager.js" defer></script>
+    <script src="../js/transitionManager.js" defer></script>
+    <script type="module" src="../js/sideDrawer.js"></script>
     <!-- SecureStorage for API keys - load as module and expose globally -->
     <script type="module">
         import secureStorage from '/js/services/SecureStorage.js';
@@ -894,7 +894,7 @@
         loadApiKeys();
     </script>
     <script src="/relaxed-mode/script.js" defer></script>
-    <script type="module" src="/js/controllers/RelaxedModeController.js"></script>
+    <script type="module" src="../js/controllers/RelaxedModeController.js"></script>
 
     <!-- Sync Handler and Accessibility Enhancements -->
     <script>

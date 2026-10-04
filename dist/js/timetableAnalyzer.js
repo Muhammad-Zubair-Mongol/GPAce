@@ -6,7 +6,7 @@
 function getGpaceApiClient() {
     if (window.gpaceApiClient) return Promise.resolve(window.gpaceApiClient);
     if (!window.__gpaceApiClientPromise) {
-        const moduleUrl = new URL('/js/services/ApiClient.js', window.location.origin).href;
+        const moduleUrl = new URL('js/services/ApiClient.js', (typeof document !== 'undefined' && document.baseURI) || (typeof window !== 'undefined' ? window.location.href : 'http://localhost/')).href;
         window.__gpaceApiClientPromise = import(moduleUrl).then(({ getApiClient }) => getApiClient());
     }
     return window.__gpaceApiClientPromise;
