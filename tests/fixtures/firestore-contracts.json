@@ -1,0 +1,54 @@
+{
+  "contract": "gpace-firestore-multi-user-sync",
+  "mode": "demo-local-only",
+  "projectId": "demo-gpace",
+  "emulators": {
+    "auth": {
+      "host": "127.0.0.1",
+      "port": 9099
+    },
+    "firestore": {
+      "host": "127.0.0.1",
+      "port": 8080
+    }
+  },
+  "identities": {
+    "owner": "alice",
+    "secondOwner": "bob",
+    "anonymous": null
+  },
+  "paths": {
+    "userRoot": "users/{uid}",
+    "tasks": "users/{uid}/tasks/{projectId}",
+    "completed": "users/{uid}/completed-tasks/{projectId}",
+    "settings": "users/{uid}/settings/{settingId}"
+  },
+  "rules": {
+    "ownerOnly": true,
+    "anonymousDenied": true,
+    "crossUserDenied": true,
+    "taskEnvelope": {
+      "required": ["tasks", "version"],
+      "tasksType": "array",
+      "versionType": "number"
+    },
+    "individualTask": {
+      "required": ["id", "title"],
+      "idType": "nonempty-string",
+      "titleType": "nonempty-string"
+    }
+  },
+  "canonicalTaskEnvelope": {
+    "schema": "gpac_v5",
+    "version": 5,
+    "required": ["schema", "version", "tasks", "taskRevisions", "tombstones"]
+  },
+  "syncPolicy": {
+    "projectRevision": "monotonic-number",
+    "unrelatedEdits": "merge-by-task-id",
+    "tombstone": "newer-delete-wins-over-stale-pending-retry",
+    "reopen": "explicit-newer-reopen-may-clear-tombstone",
+    "replay": "acknowledged-mutation-is-idempotent",
+    "accountSwitch": "uid-scoped-local-and-outbox-state"
+  }
+}

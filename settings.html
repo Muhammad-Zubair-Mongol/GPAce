@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - GPAce</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Configure GPAce settings, manage quotes, role models, and Todoist integration for your academic journey.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <!-- CSS Dependencies -->
+    <link href="assets/vendor/bootstrap/bootstrap.min.css?v=3017df4a76db" rel="stylesheet">
+    <link href="assets/vendor/icons/bootstrap-icons.css?v=edc9031bdcde" rel="stylesheet">
+    <link href="css/design-tokens.css" rel="stylesheet">
+    <link href="css/components/navigation.css" rel="stylesheet">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <link href="css/settings.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/global-utilities.css?v=20260930-1">
+    <script src="js/theme-manager.js"></script>
+</head>
+
+<body>
+    <!-- Navigation Bar (will be replaced by inject-header.js) -->
+    <nav class="top-nav" id="mainNavigation" aria-label="Primary navigation">
+  <div class="nav-brand"><a href="grind.html" class="link-inherit"><img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" class="logo-brand" width="60" height="60"><span class="brand-text">GPAce</span></a></div>
+  <div class="nav-links" id="mainNavigationLinks" data-navigation-links="true">
+    <a href="grind.html" data-nav-link="true" data-page="grind.html"><i class="bi bi-lightning-charge me-1" aria-hidden="true"></i><span>Grind Mode</span></a>
+    <a href="study-spaces.html" data-nav-link="true" data-page="study-spaces.html"><i class="bi bi-building me-1" aria-hidden="true"></i><span>Grind Station</span></a>
+    <a href="daily-calendar.html" data-nav-link="true" data-page="daily-calendar.html"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i><span>Daily Drip</span></a>
+    <a href="academic-details.html" data-nav-link="true" data-page="academic-details.html"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i><span>Brain Juice</span></a>
+    <a href="extracted.html" data-nav-link="true" data-page="extracted.html"><i class="bi bi-collection me-1" aria-hidden="true"></i><span>Hustle Hub</span></a>
+    <a href="subject-marks.html" data-nav-link="true" data-page="subject-marks.html"><i class="bi bi-graph-up me-1" aria-hidden="true"></i><span>Subject Marks</span></a>
+    <a href="flashcards.html" data-nav-link="true" data-page="flashcards.html"><i class="bi bi-card-text me-1" aria-hidden="true"></i><span>Flashcards</span></a>
+    <a href="markdown-converter.html" data-nav-link="true" data-page="markdown-converter.html"><i class="bi bi-markdown me-1" aria-hidden="true"></i><span>MD Converter</span></a>
+    <a href="sleep-saboteurs.html" data-nav-link="true" data-page="sleep-saboteurs.html"><i class="bi bi-alarm me-1" aria-hidden="true"></i><span>Alarms</span></a>
+    <a href="settings.html" class="active" aria-current="page" data-nav-link="true" data-page="settings.html"><i class="bi bi-gear me-1" aria-hidden="true"></i><span>Settings</span></a>
+    <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bi bi-moon-stars theme-icon" aria-hidden="true"></i><span class="theme-text visually-hidden">Toggle theme</span></button>
+    <button type="button" class="drawer-toggle" aria-label="Open settings drawer" title="Settings"><i class="bi bi-gear" aria-hidden="true"></i></button>
+  </div>
+  <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation" aria-controls="mainNavigationLinks" aria-expanded="false" aria-haspopup="true"><i class="bi bi-list" aria-hidden="true"></i></button>
+</nav>
+
+    <!-- Sound Controls -->
+    <div class="sound-controls">
+        <button id="toggleSound" class="sound-toggle" aria-label="Toggle Sound Effects">
+            <span class="sound-icon">🔊</span>
+        </button>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="container" id="main-content">
+        <!-- Todoist Integration Section -->
+        <section class="settings-section tasks-management" aria-labelledby="todoist-heading">
+            <h2 id="todoist-heading">🔗 Todoist Integration Hub</h2>
+            <div class="task-navigation-card">
+                <div class="task-portal-intro">
+                    <h3>Sync Your Productivity</h3>
+                    <p>Seamlessly connect and manage your Todoist tasks within GPAce</p>
+                </div>
+                <div class="task-portal-actions">
+                    <a href="grind.html" class="btn btn-primary task-portal-btn" aria-label="Connect to Todoist">
+                        <i class="bi bi-link-45deg"></i> Connect Todoist Account
+                        <span class="btn-subtext">Unlock Unified Task Management</span>
+                    </a>
+                </div>
+                <div class="task-portal-features">
+                    <div class="feature-item">
+                        <i class="bi bi-cloud-sync" aria-hidden="true"></i>
+                        <span>Real-time Synchronization</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="bi bi-list-task" aria-hidden="true"></i>
+                        <span>Task Prioritization</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="bi bi-calendar-check" aria-hidden="true"></i>
+                        <span>Academic Task Tracking</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gemini AI API Configuration Section -->
+        <section class="settings-section gemini-settings-section" aria-labelledby="gemini-heading">
+            <div class="gemini-header-row">
+                <h2 id="gemini-heading">🤖 Gemini AI API Configuration</h2>
+                <div class="gemini-status-wrapper">
+                    <span id="geminiKeyCountBadge" class="gemini-key-badge" aria-live="polite">0 keys active</span>
+                </div>
+            </div>
+            <div class="gemini-settings-card">
+                <div class="gemini-card-intro">
+                    <h3>Smart API Key Pool & Rotation</h3>
+                    <p>Paste multiple Gemini API keys below (one per line). Requests will be automatically load-balanced across active keys, with instant failover if a key hits rate limits or quota exhaustion.</p>
+                </div>
+                <div class="gemini-input-group">
+                    <label for="geminiApiKeys" class="gemini-label">
+                        <i class="bi bi-key-fill" aria-hidden="true"></i>
+                        <span>Gemini API Keys (One per line)</span>
+                    </label>
+                    <textarea
+                        id="geminiApiKeys"
+                        class="gemini-textarea font-monospace"
+                        rows="5"
+                        placeholder="AIzaSy...&#10;AIzaSy...&#10;AIzaSy..."
+                        spellcheck="false"
+                        autocomplete="off"
+                        autocapitalize="off"
+                        aria-describedby="geminiKeyHelp geminiKeyFeedback"></textarea>
+                    <div class="gemini-meta-row">
+                        <small id="geminiKeyHelp" class="gemini-help-text">
+                            Keys must begin with <code>AIza</code>. Duplicates and empty lines are removed automatically.
+                        </small>
+                    </div>
+                </div>
+                <div class="gemini-actions-row">
+                    <button type="button" class="interactive-button gemini-save-btn" id="saveGeminiKeysBtn">
+                        <i class="bi bi-check2-circle" aria-hidden="true"></i> Save & Validate Keys
+                    </button>
+                    <button type="button" class="gemini-clear-btn" id="clearGeminiKeysBtn">
+                        <i class="bi bi-trash" aria-hidden="true"></i> Clear All
+                    </button>
+                </div>
+                <div id="geminiKeyFeedback" class="gemini-feedback" role="alert" hidden></div>
+            </div>
+        </section>
+
+        <!-- Quotes Management Section -->
+        <section class="quotes-section" aria-labelledby="quotes-heading">
+            <h2 id="quotes-heading">💬 Quotes Management</h2>
+            <div class="quote-input-container">
+                <div class="input-group">
+                    <label for="quoteText" class="visually-hidden">Quote Text</label>
+                    <input type="text" id="quoteText" placeholder="Enter quote text" aria-label="Quote text"
+                        required aria-required="true" aria-describedby="quoteTextError">
+                    <p id="quoteTextError" class="field-error" role="alert" hidden></p>
+                </div>
+                <div class="input-group">
+                    <label for="quoteAuthor" class="visually-hidden">Quote Author</label>
+                    <input type="text" id="quoteAuthor" placeholder="Quote author" aria-label="Quote author"
+                        required aria-required="true" aria-describedby="quoteAuthorError">
+                    <p id="quoteAuthorError" class="field-error" role="alert" hidden></p>
+                </div>
+                <div class="input-group">
+                    <label for="quoteImage" class="visually-hidden">Quote Image URL</label>
+                    <input type="url" id="quoteImage" placeholder="Optional image URL" aria-label="Optional image URL"
+                        aria-describedby="quoteImageHint">
+                    <span id="quoteImageHint" class="field-hint">Optional image URL</span>
+                </div>
+                <button class="interactive-button" id="addQuoteBtn" aria-label="Add new quote">
+                    <i class="bi bi-plus-lg"></i> Add Quote
+                </button>
+            </div>
+            <div id="quoteList" class="quote-list" role="list" aria-label="Saved quotes"></div>
+        </section>
+
+        <!-- Role Models Section -->
+        <section class="role-models-section" aria-labelledby="rolemodels-heading">
+            <h2 id="rolemodels-heading">⭐ Role Models</h2>
+            <div class="role-model-input-container">
+                <div class="input-group">
+                    <label for="roleModelName" class="visually-hidden">Role Model Name</label>
+                    <input type="text" id="roleModelName" placeholder="Role model name" aria-label="Role model name"
+                        required aria-required="true" aria-describedby="roleModelNameError">
+                    <p id="roleModelNameError" class="field-error" role="alert" hidden></p>
+                </div>
+                <div class="input-group">
+                    <label for="roleModelImage" class="visually-hidden">Role Model Image URL</label>
+                    <input type="url" id="roleModelImage" placeholder="Role model image URL"
+                        aria-label="Role model image URL" aria-describedby="roleModelImageHint">
+                    <span id="roleModelImageHint" class="field-hint">Optional image URL</span>
+                </div>
+                <button class="interactive-button" id="addRoleModelBtn" aria-label="Add new role model">
+                    <i class="bi bi-plus-lg"></i> Add Role Model
+                </button>
+            </div>
+            <div id="roleModelList" class="role-model-list" role="list" aria-label="Saved role models"></div>
+            <div id="roleModelResearch" class="role-model-research" aria-live="polite"></div>
+        </section>
+    </main>
+
+    <div id="settingsStatus" class="settings-status" role="status" aria-live="polite" data-state="loading">
+        Loading settings…
+    </div>
+
+    <script>
+        // Keep field-level feedback available even when a settings action is
+        // rejected before the page controller can persist it.
+        (() => {
+            const fields = [
+                ['quoteText', 'addQuoteBtn', 'quoteTextError', 'Enter the quote text.'],
+                ['quoteAuthor', 'addQuoteBtn', 'quoteAuthorError', 'Enter the quote author.'],
+                ['roleModelName', 'addRoleModelBtn', 'roleModelNameError', 'Enter the role model name.']
+            ];
+
+            fields.forEach(([fieldId, buttonId, errorId, message]) => {
+                const field = document.getElementById(fieldId);
+                const button = document.getElementById(buttonId);
+                const error = document.getElementById(errorId);
+                if (!field || !button || !error) return;
+
+                const validate = () => {
+                    const invalid = field.required && !field.value.trim();
+                    field.setAttribute('aria-invalid', String(invalid));
+                    error.hidden = !invalid;
+                    error.textContent = invalid ? message : '';
+                    return !invalid;
+                };
+
+                button.addEventListener('click', validate, true);
+                field.addEventListener('input', () => {
+                    if (field.getAttribute('aria-invalid') === 'true') validate();
+                });
+            });
+        })();
+    </script>
+
+    <!-- One page entry owns settings startup, storage readiness, theme, and navigation. -->
+    <script type="module" src="js/pages/settings.js"></script>
+    <script type="module" src="js/sideDrawer.js"></script>
+</body>
+
+</html>
+

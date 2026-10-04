@@ -1,0 +1,75 @@
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/*.exe",
+      "**/*.dll",
+      "**/*.bat",
+      "**/*.sh",
+      "server/**",
+      "scripts/**"
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false,
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          {"key": "X-Content-Type-Options", "value": "nosniff"},
+          {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"},
+          {"key": "X-Frame-Options", "value": "SAMEORIGIN"},
+          {"key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()"}
+        ]
+      },
+      {
+        "source": "**/*.html",
+        "headers": [{"key": "Cache-Control", "value": "no-cache, max-age=0, must-revalidate"}]
+      },
+      {
+        "source": "**/*.{css,js,mjs,json,svg,png,jpg,jpeg,webp,woff,woff2}",
+        "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]
+      },
+      {"source": "**/*.css", "headers": [{"key": "Content-Type", "value": "text/css"}]},
+      {"source": "**/*.{js,mjs}", "headers": [{"key": "Content-Type", "value": "application/javascript"}]}
+    ],
+    "redirects": [
+      {"source": "/tasks.html", "destination": "/grind.html", "type": 301},
+      {"source": "/tasks", "destination": "/grind.html", "type": 301}
+    ],
+    "rewrites": [
+      {"source": "/api/**", "run": {"serviceId": "gpace-api", "region": "us-central1"}},
+      {"source": "/uploads/**", "run": {"serviceId": "gpace-api", "region": "us-central1"}},
+      {"source": "/settings/**", "run": {"serviceId": "gpace-api", "region": "us-central1"}},
+      {"source": "/socket.io/**", "run": {"serviceId": "gpace-api", "region": "us-central1"}},
+      {"source": "/todoist-callback", "destination": "/grind.html"},
+      {
+        "source": "/relaxed-mode/**",
+        "destination": "/relaxed-mode/index.html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ]
+    }
+  ]
+}

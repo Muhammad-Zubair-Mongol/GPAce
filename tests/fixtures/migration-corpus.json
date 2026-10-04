@@ -1,0 +1,157 @@
+{
+  "corpusVersion": 1,
+  "description": "Sanitized migration rehearsal data. Every identifier, title, timestamp, and draft is synthetic.",
+  "ownership": {
+    "legacyOwner": "unowned-anonymous-namespace",
+    "automaticMigrationScope": "anonymous-only",
+    "authenticatedPolicy": "never auto-claim unowned legacy keys; require explicit import",
+    "draftPolicy": "unrecognized draft keys remain in their originating namespace until explicitly imported"
+  },
+  "legacy": {
+    "tasks-physics": [
+      {
+        "id": "legacy-physics-active",
+        "title": "Physics problem set",
+        "description": "Synthetic active task",
+        "createdAt": "2026-01-10T09:00:00.000Z",
+        "updatedAt": "2026-01-11T09:00:00.000Z",
+        "completed": false,
+        "deleted": false
+      },
+      {
+        "id": "legacy-physics-tombstone",
+        "title": "Removed physics task",
+        "createdAt": "2026-01-10T10:00:00.000Z",
+        "updatedAt": "2026-01-12T10:00:00.000Z",
+        "completed": false,
+        "deleted": true
+      }
+    ],
+    "completed-tasks-physics": [
+      {
+        "id": "legacy-physics-history",
+        "title": "Read the physics chapter",
+        "createdAt": "2026-01-08T08:00:00.000Z",
+        "updatedAt": "2026-01-09T08:00:00.000Z",
+        "completed": true,
+        "completedAt": "2026-01-09T08:00:00.000Z",
+        "deleted": false
+      }
+    ],
+    "relaxed-tasks": [
+      {
+        "id": "legacy-relaxed-break",
+        "title": "Take a short break",
+        "createdAt": "2026-01-07T12:00:00.000Z",
+        "updatedAt": "2026-01-07T12:00:00.000Z",
+        "completed": false,
+        "deleted": false
+      }
+    ],
+    "calculatedPriorityTasks": [
+      {
+        "id": "legacy-priority-physics",
+        "title": "Priority mirror entry",
+        "projectId": "physics",
+        "completed": false,
+        "deleted": false
+      }
+    ],
+    "tasks-physics-version": "3",
+    "workspaceDraft": {
+      "id": "legacy-draft-1",
+      "title": "Uncommitted study outline",
+      "body": "Synthetic draft retained outside task migration",
+      "revision": 7
+    }
+  },
+  "v5": {
+    "projectId": "v5-project",
+    "active": [
+      {
+        "id": "v5-active-1",
+        "title": "Canonical active task",
+        "completed": false,
+        "deleted": false
+      }
+    ],
+    "history": [
+      {
+        "id": "v5-history-1",
+        "title": "Canonical completed task",
+        "completed": true,
+        "completedAt": "2026-02-02T10:00:00.000Z",
+        "deleted": false
+      }
+    ],
+    "tombstoned": [
+      {
+        "id": "v5-tombstone-1",
+        "title": "Canonical deleted task",
+        "completed": false,
+        "deleted": true,
+        "deletedAt": "2026-02-03T10:00:00.000Z"
+      }
+    ]
+  },
+  "empty": {
+    "projectId": "empty-project",
+    "canonicalActive": [],
+    "staleLegacyKey": "tasks-empty-project",
+    "staleLegacy": [
+      {
+        "id": "stale-legacy-1",
+        "title": "Must not revive",
+        "completed": false
+      }
+    ]
+  },
+  "corrupt": [
+    {
+      "name": "malformed-json",
+      "legacyKey": "tasks-corrupt-json",
+      "raw": "{\"id\": \"broken\", \"title\": \"unterminated\""
+    },
+    {
+      "name": "invalid-array-entry",
+      "legacyKey": "tasks-corrupt-entry",
+      "raw": "[{\"title\":\"missing synthetic id\"}]"
+    },
+    {
+      "name": "unknown-v5-schema",
+      "scopedSuffix": "tasks_v5.corrupt-schema",
+      "envelope": {
+        "version": 99,
+        "schema": "gpac_future_fixture",
+        "checksum": "00000000",
+        "data": []
+      }
+    },
+    {
+      "name": "checksum-mismatch",
+      "scopedSuffix": "tasks_v5.corrupt-checksum",
+      "envelope": {
+        "version": 5,
+        "schema": "gpac_v5",
+        "checksum": "deadbeef",
+        "data": [
+          {
+            "id": "corrupt-checksum-task",
+            "title": "Tampered synthetic task"
+          }
+        ]
+      }
+    }
+  ],
+  "commitMarkers": {
+    "migrationDone": "migration_done_v5",
+    "schemaVersion": "schema_version",
+    "manualBackup": "backup_manual",
+    "legacyBackupPrefix": "gpac_legacy_bak_"
+  },
+  "rollback": {
+    "slot": "manual",
+    "allowedEnvironment": "disposable fixture storage only",
+    "sourceOfTruth": "verified backup checksum plus v5 envelope checksums"
+  }
+}

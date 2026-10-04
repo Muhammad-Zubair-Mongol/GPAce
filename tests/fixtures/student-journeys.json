@@ -1,0 +1,92 @@
+{
+  "contract": "gpace-student-journeys",
+  "version": 1,
+  "mode": "local-fixture-only",
+  "student": {
+    "uid": "journey-student",
+    "displayName": "Journey Student"
+  },
+  "semester": {
+    "id": "fall-2026",
+    "name": "Fall 2026",
+    "description": "Deterministic journey semester",
+    "isPriority": true,
+    "color": "#4f46e5"
+  },
+  "subject": {
+    "tag": "CALC101",
+    "name": "Calculus I",
+    "hours": 4,
+    "academicPerformance": 0
+  },
+  "weightages": {
+    "CALC101": {
+      "assignment": 15,
+      "quiz": 10,
+      "midterm": 30,
+      "final": 40,
+      "revision": 5
+    }
+  },
+  "mark": {
+    "category": "quiz",
+    "obtained": 8,
+    "total": 10,
+    "title": "Quiz 1"
+  },
+  "task": {
+    "id": "journey-task-1",
+    "title": "Complete calculus review",
+    "description": "Review limits and derivatives",
+    "priority": "high",
+    "section": "General",
+    "projectName": "Calculus I"
+  },
+  "workspace": {
+    "content": {
+      "ops": [
+        {
+          "insert": "Journey draft\n"
+        }
+      ]
+    }
+  },
+  "provider": {
+    "input": {
+      "query": "Explain a calculus review plan",
+      "studentId": "journey-student"
+    },
+    "success": {
+      "answer": "Use limits, derivatives, and one worked example.",
+      "provider": "fixture"
+    },
+    "failure": {
+      "status": 503,
+      "code": "PROVIDER_UNAVAILABLE",
+      "message": "The local fixture provider is unavailable."
+    }
+  },
+  "stores": {
+    "clean": {
+      "migrationCommitted": false,
+      "description": "New local student store"
+    },
+    "migrated": {
+      "migrationCommitted": true,
+      "schema": "gpac_v5",
+      "version": 5,
+      "description": "Canonical store after one-way migration"
+    }
+  },
+  "policy": {
+    "allowedHosts": [
+      "127.0.0.1",
+      "localhost",
+      "::1"
+    ],
+    "localOnly": true,
+    "identityMustRemain": "journey-task-1",
+    "unexpectedNetworkIsFailure": true,
+    "pageErrorsAreFailure": true
+  }
+}

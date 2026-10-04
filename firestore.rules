@@ -1,0 +1,212 @@
+rules_version = '2';
+
+/**
+ * Firestore Security Rules for GPAce
+ * 
+ * SECURITY PRINCIPLES & OWNERSHIP CONTRACT:
+ * 1. Strict Tenancy: All user data is private and accessible only by the verified authenticated owner.
+ * 2. Deny Unauthenticated: Anonymous/unauthenticated requests cannot read or write user data.
+ * 3. Deny Cross-User: User A cannot read, create, update, or delete User B's documents.
+ * 4. Document-Shape Validation: Task envelope and task item writes require valid schema (id, title, or canonical tasks array + version).
+ * 5. Deny Unknown Top-Level Collections: Writes to arbitrary root collections (e.g. /public, /projects, /posts) are strictly denied.
+ */
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ============================================
+    // HELPER FUNCTIONS
+    // ============================================
+    
+    // Check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Check if authenticated user owns the document path
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    // Check if request data has all required fields
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+
+    // Canonical Task Envelope validation:
+    // Requires a tasks list and numeric version (matches TaskRepository v5 / Step 41-43 contract)
+    function isTaskEnvelopeDoc() {
+      return hasRequiredFields(['tasks', 'version'])
+        && request.resource.data.tasks is list
+        && request.resource.data.version is number;
+    }
+
+    // Individual Task Document validation:
+    // Requires nonempty string id and nonempty string title
+    function isIndividualTaskDoc() {
+      return hasRequiredFields(['id', 'title'])
+        && request.resource.data.id is string
+        && request.resource.data.id.size() > 0
+        && request.resource.data.title is string
+        && request.resource.data.title.size() > 0;
+    }
+
+    // Validates that task writes match either the canonical envelope or an individual task shape
+    function isValidTaskEnvelope() {
+      return isTaskEnvelopeDoc() || isIndividualTaskDoc();
+    }
+    
+    // ============================================
+    // USER DATA (TENANT-SCOPED)
+    // Path: /users/{userId}
+    // ============================================
+    
+    match /users/{userId} {
+      // User root document
+      allow read, write: if isOwner(userId);
+      
+      // ----------------------------------------
+      // TASKS COLLECTION & ENVELOPES
+      // Path: /users/{userId}/tasks/{projectId}
+      // Validated against canonical envelope or task shape
+      // ----------------------------------------
+      match /tasks/{projectId} {
+        allow read, delete: if isOwner(userId);
+        allow create, update: if isOwner(userId) && isValidTaskEnvelope();
+
+        // Subcollection task items
+        match /{subDoc=**} {
+          allow read, delete: if isOwner(userId);
+          allow create, update: if isOwner(userId) && isValidTaskEnvelope();
+        }
+      }
+      
+      // ----------------------------------------
+      // COMPLETED TASKS (History)
+      // Path: /users/{userId}/completed-tasks/{projectId}
+      // ----------------------------------------
+      match /completed-tasks/{projectId} {
+        allow read, write: if isOwner(userId);
+
+        match /{subDoc=**} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+      
+      // ----------------------------------------
+      // SETTINGS COLLECTION
+      // Path: /users/{userId}/settings/{settingId}
+      // ----------------------------------------
+      match /settings/{settingId} {
+        allow read, write: if isOwner(userId);
+
+        match /{subDoc=**} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+      
+      // ----------------------------------------
+      // ACADEMIC DATA
+      // Path: /users/{userId}/academic/{documentId}
+      // ----------------------------------------
+      match /academic/{documentId} {
+        allow read, write: if isOwner(userId);
+
+        match /{subDoc=**} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+      
+      // ----------------------------------------
+      // SEMESTERS
+      // Path: /users/{userId}/semesters/{semesterId}
+      // ----------------------------------------
+      match /semesters/{semesterId} {
+        allow read, write: if isOwner(userId);
+
+        match /{subDoc=**} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+
+      // ----------------------------------------
+      // SUBJECTS
+      // Path: /users/{userId}/subjects/{subjectId}
+      // ----------------------------------------
+      match /subjects/{subjectId} {
+        allow read, write: if isOwner(userId);
+
+        match /{subDoc=**} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+      
+      // ----------------------------------------
+      // ALARMS
+      // Path: /users/{userId}/alarms/{alarmId}
+      // ----------------------------------------
+      match /alarms/{alarmId} {
+        allow read, write: if isOwner(userId);
+
+        match /{subDoc=**} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+      
+      // ----------------------------------------
+      // FLASHCARDS & DECKS
+      // Path: /users/{userId}/flashcards/{deckId}
+      // ----------------------------------------
+      match /flashcards/{deckId} {
+        allow read, write: if isOwner(userId);
+        
+        match /cards/{cardId} {
+          allow read, write: if isOwner(userId);
+        }
+
+        match /{subDoc=**} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+      
+      // ----------------------------------------
+      // WORKSPACES
+      // Path: /users/{userId}/workspaces/{workspaceId}
+      // ----------------------------------------
+      match /workspaces/{workspaceId} {
+        allow read, write: if isOwner(userId);
+
+        match /{subDoc=**} {
+          allow read, write: if isOwner(userId);
+        }
+      }
+
+      // ----------------------------------------
+      // GENERAL USER SUBCOLLECTIONS
+      // Allows user full control over any other subcollection in their own space
+      // ----------------------------------------
+      match /{subcollection}/{documentId} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+    
+    // ============================================
+    // DEPRECATED / LEGACY PATHS
+    // Explicitly denied
+    // ============================================
+    match /projects/{projectId} {
+      allow read, write: if false;
+      
+      match /{allSub=**} {
+        allow read, write: if false;
+      }
+    }
+    
+    // ============================================
+    // CATCH-ALL: Deny unknown top-level collections
+    // ============================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

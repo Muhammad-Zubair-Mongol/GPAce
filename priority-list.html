@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Priority List</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <link href="assets/vendor/bootstrap/bootstrap.min.css?v=3017df4a76db" rel="stylesheet">
+    <link href="assets/vendor/icons/bootstrap-icons.css?v=edc9031bdcde" rel="stylesheet">
+    <!-- Side Drawer Styles -->
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <!-- Priority List Styles -->
+    <link href="css/design-tokens.css" rel="stylesheet">
+    <link href="css/components/navigation.css" rel="stylesheet">
+    <link href="css/priority-list.css?v=20260930-1" rel="stylesheet">
+  <link rel="stylesheet" href="css/global-utilities.css?v=20260930-1">
+    <script src="js/theme-manager.js"></script>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="top-nav" id="mainNavigation" aria-label="Primary navigation">
+  <div class="nav-brand"><a href="grind.html" class="link-inherit"><img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" class="logo-brand" width="60" height="60"><span class="brand-text">GPAce</span></a></div>
+  <div class="nav-links" id="mainNavigationLinks" data-navigation-links="true">
+    <a href="grind.html" data-nav-link="true" data-page="grind.html"><i class="bi bi-lightning-charge me-1" aria-hidden="true"></i><span>Grind Mode</span></a>
+    <a href="study-spaces.html" data-nav-link="true" data-page="study-spaces.html"><i class="bi bi-building me-1" aria-hidden="true"></i><span>Grind Station</span></a>
+    <a href="daily-calendar.html" data-nav-link="true" data-page="daily-calendar.html"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i><span>Daily Drip</span></a>
+    <a href="academic-details.html" data-nav-link="true" data-page="academic-details.html"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i><span>Brain Juice</span></a>
+    <a href="extracted.html" data-nav-link="true" data-page="extracted.html"><i class="bi bi-collection me-1" aria-hidden="true"></i><span>Hustle Hub</span></a>
+    <a href="subject-marks.html" data-nav-link="true" data-page="subject-marks.html"><i class="bi bi-graph-up me-1" aria-hidden="true"></i><span>Subject Marks</span></a>
+    <a href="flashcards.html" data-nav-link="true" data-page="flashcards.html"><i class="bi bi-card-text me-1" aria-hidden="true"></i><span>Flashcards</span></a>
+    <a href="markdown-converter.html" data-nav-link="true" data-page="markdown-converter.html"><i class="bi bi-markdown me-1" aria-hidden="true"></i><span>MD Converter</span></a>
+    <a href="sleep-saboteurs.html" data-nav-link="true" data-page="sleep-saboteurs.html"><i class="bi bi-alarm me-1" aria-hidden="true"></i><span>Alarms</span></a>
+    <a href="settings.html" data-nav-link="true" data-page="settings.html"><i class="bi bi-gear me-1" aria-hidden="true"></i><span>Settings</span></a>
+    <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bi bi-moon-stars theme-icon" aria-hidden="true"></i><span class="theme-text visually-hidden">Toggle theme</span></button>
+    <button type="button" class="drawer-toggle" aria-label="Open settings drawer" title="Settings"><i class="bi bi-gear" aria-hidden="true"></i></button>
+  </div>
+  <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation" aria-controls="mainNavigationLinks" aria-expanded="false" aria-haspopup="true"><i class="bi bi-list" aria-hidden="true"></i></button>
+</nav>
+    <div class="container mt-4">
+        <div class="list-header">
+            <div class="priority-score">Priority</div>
+            <div class="task-title">Task</div>
+            <div class="task-section">Section</div>
+            <div class="project-name">Project</div>
+            <div class="due-date">Due Date</div>
+        </div>
+
+        <div class="task-navigation">
+            <button onclick="navigateTask('prev')" class="nav-arrow" title="Previous Task">
+                <i class="bi bi-chevron-left"></i>
+            </button>
+            <span class="navigation-text">Navigate Tasks</span>
+            <button onclick="navigateTask('next')" class="nav-arrow" title="Next Task">
+                <i class="bi bi-chevron-right"></i>
+            </button>
+        </div>
+
+        <div id="taskList">
+            <!-- Tasks will be populated here -->
+        </div>
+    </div>
+
+    <a href="priority-calculator.html" class="back-button">
+        <i class="bi bi-arrow-left"></i> Back to Calculator
+    </a>
+
+    <!-- Firebase Initialization -->
+    <script type="module">
+        import { initializeApp, getApps, getApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+        import { getAuth } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+        import { firebaseConfig } from './js/firebaseConfig.js';
+
+        // Initialize Firebase using getApps() guard pattern
+        const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+        console.log("Firebase initialized:", getApps().length > 0 ? "existing" : "new");
+
+        // Set up global variables with guards
+        if (!window.db) window.db = getFirestore(app);
+        if (!window.auth) window.auth = getAuth(app);
+    </script>
+
+    <!-- Authentication Setup -->
+    <script type="module">
+        import { auth as importedAuth, signInWithGoogle, signOutUser, initializeAuth } from './js/auth.js';
+        window.auth = window.auth || importedAuth;
+        window.signInWithGoogle = signInWithGoogle;
+        window.signOutUser = signOutUser;
+
+        // Initialize authentication
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeAuth();
+        });
+    </script>
+
+    <!-- Firestore Data Operations -->
+    <script type="module">
+        import { initializeFirestoreData } from './js/initFirestoreData.js';
+        window.initializeFirestoreData = initializeFirestoreData;
+
+        // Initialize data when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                if (typeof window.initializeFirestoreData === 'function') {
+                    window.initializeFirestoreData();
+                }
+            }, 1500);
+        });
+    </script>
+
+    <!-- Global getStorage singleton - MUST be defined before any scripts that use it -->
+    <script>
+        if (typeof window.getStorage === 'undefined') {
+            window.getStorage = () => window.StorageService || {
+                get: (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
+                set: (k, v) => localStorage.setItem(k, JSON.stringify(v))
+            };
+        }
+    </script>
+
+    <script type="module" src="js/cross-tab-sync.js"></script>
+    <script type="module" src="js/core/TaskSystemLoader.js"></script>
+    <script type="module" src="js/services/TaskService.js"></script>
+    <script type="module" src="js/priority-list-utils.js"></script>
+    <script type="module" src="js/sideDrawer.js"></script>
+    <script src="/js/inject-header.js"></script>
+</body>
+
+</html>
+

@@ -1,0 +1,355 @@
+/**
+ * design-tokens.css
+ * Centralized design tokens and CSS variables for the GPAce application.
+ * 
+ * Import this file at the top of all other CSS files to ensure consistent
+ * theming and reduce duplication.
+ * 
+ * Usage:
+ *   @import url('design-tokens.css');
+ *   
+ *   or in HTML:
+ *   <link href="css/design-tokens.css" rel="stylesheet">
+ */
+
+/* ============================================
+   Core Color Palette
+   ============================================ */
+:root {
+    /* Semantic colors.  Foregrounds are deliberately chosen for WCAG AA
+       normal-size text against their paired backgrounds. */
+    --color-background: #121212;
+    --color-surface: #1e1e1e;
+    --color-surface-raised: #282828;
+    --color-foreground: #f8f9fa;
+    --color-foreground-muted: #c1c6cc;
+    --color-border: #555b63;
+    --color-accent: #b3133f;
+    --color-accent-hover: #960f34;
+    --color-on-accent: #ffffff;
+    --color-link: #8ffbf6;
+    --color-focus: #ffb5c6;
+    --color-disabled-foreground: #858b93;
+    --color-disabled-background: #292d33;
+    --color-disabled-border: #555b63;
+
+    /* Backwards-compatible aliases used by existing component styles. */
+    --primary-color: var(--color-accent);
+    --primary-color-hover: var(--color-accent-hover);
+    --primary-color-rgb: 179, 19, 63;
+
+    --secondary-color: #8ffbf6;
+    --secondary-color-hover: #6ce0dc;
+    --secondary-color-rgb: 143, 251, 246;
+
+    /* Status Colors */
+    --success-color: #28a745;
+    --warning-color: #ffc107;
+    --danger-color: #dc3545;
+    --info-color: #17a2b8;
+
+    /* Dark theme (default) aliases */
+    --background-color: var(--color-background);
+    --text-color: var(--color-foreground);
+    --text-color-secondary: var(--color-foreground-muted);
+    --card-bg: var(--color-surface);
+    --hover-bg: var(--color-surface-raised);
+    --nav-bg: #1a1a1a;
+    --border-color: var(--color-border);
+    --progress-bg: var(--color-surface-raised);
+
+    /* Form Elements */
+    --form-control-color: var(--color-foreground);
+    --form-select-color: var(--color-foreground);
+    --form-label-color: var(--color-foreground);
+    --form-placeholder-color: #b0b5bb;
+
+    /* Text Variants */
+    --category-text-color: var(--color-foreground);
+    --muted-text-color: var(--color-foreground-muted);
+}
+
+/* ============================================
+   Light Theme Override
+   ============================================ */
+body.light-theme,
+:root[data-theme="light"],
+[data-theme="light"] {
+    --color-background: #f8f9fa;
+    --color-surface: #ffffff;
+    --color-surface-raised: #eef0f2;
+    --color-foreground: #202124;
+    --color-foreground-muted: #4d5156;
+    --color-border: #737980;
+    --color-accent: #9d123b;
+    --color-accent-hover: #820e31;
+    --color-on-accent: #ffffff;
+    --color-link: #075e5b;
+    --color-focus: #7d082d;
+    --color-disabled-foreground: #6b7078;
+    --color-disabled-background: #e0e3e6;
+    --color-disabled-border: #9aa0a6;
+
+    --primary-color: var(--color-accent);
+    --primary-color-hover: var(--color-accent-hover);
+    --primary-color-rgb: 157, 18, 59;
+    --secondary-color: #06716e;
+    --secondary-color-hover: #055a58;
+    --secondary-color-rgb: 6, 113, 110;
+
+    --background-color: var(--color-background);
+    --text-color: var(--color-foreground);
+    --text-color-secondary: var(--color-foreground-muted);
+    --card-bg: var(--color-surface);
+    --hover-bg: var(--color-surface-raised);
+    --nav-bg: #ffffff;
+    --border-color: var(--color-border);
+    --progress-bg: var(--color-surface-raised);
+
+    /* Form Elements */
+    --form-control-color: var(--color-foreground);
+    --form-select-color: var(--color-foreground);
+    --form-label-color: var(--color-foreground);
+    --form-placeholder-color: #5f6368;
+
+    /* Text Variants */
+    --category-text-color: var(--color-foreground);
+    --muted-text-color: var(--color-foreground-muted);
+}
+
+/* State tokens are shared by native controls and custom buttons. */
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled {
+    color: var(--color-disabled-foreground);
+    background-color: var(--color-disabled-background);
+    border-color: var(--color-disabled-border);
+    cursor: not-allowed;
+    opacity: 1;
+}
+
+:where(button, a, input, select, textarea):focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+/* ============================================
+   Typography Scale
+   ============================================ */
+:root {
+    /* Font Families */
+    --font-primary: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'Roboto Mono', 'Consolas', monospace;
+
+    /* Font Sizes */
+    --text-xs: 0.75rem;
+    /* 12px */
+    --text-sm: 0.875rem;
+    /* 14px */
+    --text-base: 1rem;
+    /* 16px */
+    --text-lg: 1.125rem;
+    /* 18px */
+    --text-xl: 1.25rem;
+    /* 20px */
+    --text-2xl: 1.5rem;
+    /* 24px */
+    --text-3xl: 1.875rem;
+    /* 30px */
+    --text-4xl: 2.25rem;
+    /* 36px */
+
+    /* Font Weights */
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-bold: 700;
+
+    /* Line Heights */
+    --leading-tight: 1.25;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.75;
+}
+
+/* ============================================
+   Spacing Scale
+   ============================================ */
+:root {
+    --space-1: 0.25rem;
+    /* 4px */
+    --space-2: 0.5rem;
+    /* 8px */
+    --space-3: 0.75rem;
+    /* 12px */
+    --space-4: 1rem;
+    /* 16px */
+    --space-5: 1.25rem;
+    /* 20px */
+    --space-6: 1.5rem;
+    /* 24px */
+    --space-8: 2rem;
+    /* 32px */
+    --space-10: 2.5rem;
+    /* 40px */
+    --space-12: 3rem;
+    /* 48px */
+    --space-16: 4rem;
+    /* 64px */
+}
+
+/* ============================================
+   Border & Radius
+   ============================================ */
+:root {
+    --border-width: 1px;
+    --border-width-2: 2px;
+
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 9999px;
+}
+
+/* ============================================
+   Shadows
+   ============================================ */
+:root {
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+    --shadow-glow: 0 0 20px rgba(var(--primary-color-rgb), 0.3);
+}
+
+/* ============================================
+   Transitions
+   ============================================ */
+:root {
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.2s ease;
+    --transition-slow: 0.3s ease;
+}
+
+/* ============================================
+   Z-Index Scale
+   ============================================ */
+:root {
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-fixed: 500;
+    --z-modal-backdrop: 900;
+    --z-modal: 1000;
+    --z-popover: 1100;
+    --z-tooltip: 1200;
+}
+
+/* ============================================
+   Layout
+   ============================================ */
+:root {
+    --nav-height: 60px;
+    --sidebar-width: 280px;
+    --sidebar-collapsed-width: 0px;
+    --container-max-width: 1200px;
+}
+
+/* ============================================
+   Animation Keyframes
+   ============================================ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================
+   Navigation Scroll-Hide Behavior
+   ============================================ */
+.top-nav {
+    transition: transform 0.3s ease-in-out;
+    will-change: transform;
+}
+
+.top-nav.nav-hidden {
+    transform: translateY(-100%);
+}
+
+/* Ensure body padding adjusts when nav is hidden */
+body:has(.top-nav.nav-hidden) {
+    /* Smooth content shift */
+    transition: padding-top 0.3s ease-in-out;
+}

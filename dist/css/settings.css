@@ -1,0 +1,647 @@
+/**
+ * Settings Page Styles
+ * 
+ * Note: CSS variables are defined in design-tokens.css which should be
+ * imported before this file in the HTML. This file only contains
+ * settings-specific component styles.
+ */
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    min-height: 100vh;
+    padding-top: 60px;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.main-header {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo-section h1 {
+    color: var(--primary-color);
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    color: var(--secondary-color);
+    font-size: 20px;
+}
+
+.account-section {
+    margin-top: 20px;
+}
+
+.login-btn,
+.interactive-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.login-btn:hover,
+.interactive-button:hover {
+    opacity: 0.9;
+}
+
+/* Using the global logout-btn styling from main.css */
+
+.todoist-section {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tasks-container {
+    margin-top: 20px;
+}
+
+.tasks-list {
+    background-color: var(--hover-bg);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.sound-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.sound-toggle {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.sound-toggle:hover {
+    background-color: var(--hover-bg);
+}
+
+
+.theme-icon {
+    font-size: 16px;
+}
+
+/* Light theme is defined in design-tokens.css */
+
+.quotes-section,
+.role-models-section {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.quote-input-container,
+.role-model-input-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.quote-input-container input,
+.role-model-input-container input {
+    flex-grow: 1;
+    background-color: var(--hover-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.quote-list,
+.role-model-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.quote-card,
+.role-model-card {
+    background-color: var(--hover-bg);
+    border-radius: 8px;
+    padding: 15px;
+    position: relative;
+}
+
+.quote-image,
+.role-model-image {
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.delete-quote,
+.delete-role-model {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.role-model-research {
+    margin-top: 20px;
+    background-color: var(--hover-bg);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.role-model-research-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.role-model-research-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.research-loading {
+    text-align: center;
+    color: var(--secondary-color);
+    padding: 20px;
+}
+
+.settings-section {
+    margin-top: 20px;
+}
+
+.task-navigation-card {
+    background-color: var(--card-bg);
+    border-radius: 15px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.task-navigation-card:hover {
+    transform: scale(1.02);
+}
+
+.task-portal-intro h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.task-portal-btn {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 25px;
+    margin: 20px 0;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 10px;
+}
+
+.task-portal-btn .btn-subtext {
+    font-size: 0.7em;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 5px;
+}
+
+.task-portal-features {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.feature-item i {
+    font-size: 1.5em;
+    color: var(--primary-color);
+}
+
+/* Error message styling */
+.error-message {
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid rgba(255, 0, 0, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    color: var(--text-color);
+}
+
+/* Spinner animation */
+.spinner {
+    animation: spin 2s linear infinite;
+    display: inline-block;
+    font-size: 24px;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Role model research preview */
+.role-model-research-preview {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+}
+
+/* Role model actions */
+.role-model-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    justify-content: space-between;
+}
+
+/* Quote text styling */
+.quote-text {
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+.quote-author {
+    text-align: right;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+/* Narrow layouts keep every form control inside the viewport and preserve
+   readable labels and validation feedback. */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+    color: var(--color-foreground, var(--text-color));
+}
+
+.container,
+.settings-section,
+.quotes-section,
+.role-models-section,
+.task-navigation-card,
+.quote-input-container,
+.role-model-input-container {
+    min-inline-size: 0;
+    max-inline-size: 100%;
+}
+
+.container {
+    width: 100%;
+    padding-inline: clamp(1rem, 4vw, 2rem);
+}
+
+.quote-input-container,
+.role-model-input-container,
+.task-portal-actions,
+.task-portal-features {
+    flex-wrap: wrap;
+}
+
+.quote-input-container .input-group,
+.role-model-input-container .input-group {
+    min-inline-size: 0;
+    flex: 1 1 14rem;
+}
+
+.quote-input-container input,
+.role-model-input-container input {
+    width: 100%;
+    min-width: 0;
+}
+
+.field-hint,
+.field-error {
+    display: block;
+    flex-basis: 100%;
+    margin-block: 0.25rem 0;
+    font-size: var(--text-sm, 0.875rem);
+}
+
+.field-hint {
+    color: var(--color-foreground-muted, var(--muted-text-color));
+}
+
+.field-error {
+    color: var(--danger-color, #dc3545);
+}
+
+.field-error[hidden] {
+    display: none;
+}
+
+.settings-status[data-state="error"],
+.settings-status.is-error {
+    color: var(--danger-color, #dc3545);
+}
+
+@media (max-width: 600px) {
+    .settings-section h2,
+    .quotes-section h2,
+    .task-portal-intro h3 {
+        overflow-wrap: anywhere;
+    }
+
+    .task-navigation-card:hover {
+        transform: none;
+    }
+
+    body {
+        padding-top: var(--nav-height, 60px);
+    }
+
+    
+    .main-header,
+    .quotes-section,
+    .role-models-section,
+    .task-navigation-card {
+        padding: 1rem;
+    }
+
+    .quote-input-container,
+    .role-model-input-container {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.75rem;
+    }
+
+    .quote-input-container .input-group,
+    .role-model-input-container .input-group,
+    .quote-input-container button,
+    .role-model-input-container button {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .task-portal-btn,
+    .task-portal-actions {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .task-portal-features {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0.75rem;
+    }
+
+    .quote-list,
+    .role-model-list,
+    .role-model-research-content {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .gemini-settings-section {
+        padding: 1rem;
+    }
+
+    .gemini-actions-row button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    }
+
+@media (min-width: 601px) {
+    .quote-input-container .field-error,
+    .role-model-input-container .field-error {
+        margin-inline-start: 0;
+    }
+}
+
+/* ==========================================================================
+   Gemini AI API Configuration Styles
+   ========================================================================== */
+.gemini-settings-section {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.gemini-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.gemini-header-row h2 {
+    color: var(--text-color);
+    margin: 0;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gemini-key-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background-color: var(--hover-bg);
+    color: var(--secondary-color);
+    border: 1px solid var(--border-color);
+}
+
+.gemini-key-badge.badge-active {
+    background-color: rgba(37, 244, 238, 0.15);
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.gemini-key-badge.badge-empty {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: var(--danger-color, #dc3545);
+    border-color: var(--danger-color, #dc3545);
+}
+
+.gemini-settings-card {
+    background-color: var(--hover-bg);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.gemini-card-intro h3 {
+    font-size: 1.15rem;
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.gemini-card-intro p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+    line-height: 1.5;
+}
+
+.gemini-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.gemini-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gemini-textarea {
+    width: 100%;
+    min-height: 120px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 12px;
+    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 0.9rem;
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.gemini-textarea:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(37, 244, 238, 0.25);
+}
+
+.gemini-meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.gemini-help-text {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+.gemini-help-text code {
+    background-color: var(--card-bg);
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: var(--primary-color);
+}
+
+.gemini-actions-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.gemini-save-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 600;
+}
+
+.gemini-clear-btn {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gemini-clear-btn:hover {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: var(--danger-color, #dc3545);
+    border-color: var(--danger-color, #dc3545);
+}
+
+.gemini-feedback {
+    margin-top: 14px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.gemini-feedback.feedback-success {
+    background-color: rgba(40, 167, 69, 0.15);
+    color: var(--success-color, #28a745);
+    border: 1px solid var(--success-color, #28a745);
+}
+
+.gemini-feedback.feedback-warning {
+    background-color: rgba(255, 193, 7, 0.15);
+    color: var(--warning-color, #ffc107);
+    border: 1px solid var(--warning-color, #ffc107);
+}
+
+.gemini-feedback.feedback-error {
+    background-color: rgba(220, 53, 69, 0.15);
+    color: var(--danger-color, #dc3545);
+    border: 1px solid var(--danger-color, #dc3545);
+}
+

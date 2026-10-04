@@ -1,0 +1,245 @@
+
+/* Extracted from grind.html */
+
+/* The workspace must sit above the fixed navigation while open. */
+.workspace-panel.open {
+  z-index: 1100;
+  visibility: visible;
+}
+
+.workspace-panel:not(.open) {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.relaxed-mode-btn {
+  inset-inline-end: auto;
+  width: auto;
+}
+
+    /* Inlined Note Scan Styles */
+    .fab-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 1rem;
+      z-index: 1000;
+      pointer-events: none;
+      /* Let clicks pass through container area */
+    }
+
+    .fab-container>button {
+      pointer-events: auto;
+      /* Re-enable clicks on buttons */
+    }
+
+    /* Override existing add-task-button positioning since it's now in a container */
+    .fab-container > .add-task-button {
+      position: static;
+      /* Reset fixed positioning only when the button is inside this FAB rail */
+      width: 3.5rem;
+      height: 3.5rem;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-inline-size: calc(100vw - 4rem);
+    }
+
+    .add-task-button:hover {
+      transform: scale(1.1);
+    }
+
+    .scan-notes-button {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background: var(--secondary-color);
+      color: black;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+    }
+
+    .scan-notes-button:hover {
+      transform: scale(1.1);
+    }
+
+    /* Modal Styling */
+    .note-scan-modal-content {
+      background: var(--card-bg);
+      color: var(--text-color);
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border-color);
+    }
+
+    .scan-results-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .scan-results-list::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+
+    .scan-result-item {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 8px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Sync Button Styles */
+    .nav-utilities {
+      margin-left: auto;
+      margin-right: 1rem;
+    }
+
+    .nav-utilities .btn-outline-light {
+      border-color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.2s ease;
+    }
+
+    .nav-utilities .btn-outline-light:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .nav-utilities .btn-outline-light:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Spinning animation for sync icon */
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .sync-spinning {
+      animation: spin 1s linear infinite;
+    }
+
+    /* Toast notification for sync status */
+    .sync-toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card-bg, #333);
+      color: var(--text-color, #fff);
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      z-index: 10000;
+      transition: opacity 0.3s ease;
+    }
+
+    .sync-toast.success {
+      border-left: 4px solid #28a745;
+    }
+
+    .sync-toast.error {
+      border-left: 4px solid #dc3545;
+    }
+
+    /* Fixed Sync Button Styles */
+    .sync-tasks-btn {
+      position: fixed;
+      top: 120px;
+      left: 20px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(135deg, #4a90d9, #357abd);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(74, 144, 217, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .sync-tasks-btn:hover {
+      background: linear-gradient(135deg, #357abd, #2a6399);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(74, 144, 217, 0.5);
+    }
+
+    .sync-tasks-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .sync-tasks-btn i {
+      font-size: 1rem;
+    }
+
+    /* Responsive Sync Button - ALWAYS VISIBLE */
+    @media (max-width: 768px) {
+      .sync-tasks-btn {
+        top: 70px;
+        left: 10px;
+        padding: 0.4rem 0.7rem;
+        font-size: 0.8rem;
+      z-index: 9999;
+      max-inline-size: calc(100vw - 1.25rem);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .sync-tasks-btn {
+        top: 65px;
+        left: 8px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        border-radius: 50%;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      .sync-tasks-btn span {
+        display: none;
+      }
+
+      .sync-tasks-btn i {
+        font-size: 1rem;
+        margin: 0;
+      }
+    }
+  

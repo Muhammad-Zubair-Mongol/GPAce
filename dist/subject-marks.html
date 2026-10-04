@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Subject Marks</title>
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="assets/vendor/bootstrap/bootstrap.min.css?v=3017df4a76db" rel="stylesheet">
+    <link href="assets/vendor/icons/bootstrap-icons.css?v=edc9031bdcde" rel="stylesheet">
+
+    <!-- Custom Modern Stylesheet -->
+    <link href="css/design-tokens.css" rel="stylesheet">
+    <link href="css/components/navigation.css" rel="stylesheet">
+    <link href="css/subject-marks-modern.css?v=20260930-3" rel="stylesheet">
+    <link rel="stylesheet" href="css/global-utilities.css?v=20260930-1">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <script src="js/theme-manager.js"></script>
+</head>
+
+<body>
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav" id="mainNavigation" aria-label="Primary navigation">
+  <div class="nav-brand"><a href="grind.html" class="link-inherit"><img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" class="logo-brand" width="60" height="60"><span class="brand-text">GPAce</span></a></div>
+  <div class="nav-links" id="mainNavigationLinks" data-navigation-links="true">
+    <a href="grind.html" data-nav-link="true" data-page="grind.html"><i class="bi bi-lightning-charge me-1" aria-hidden="true"></i><span>Grind Mode</span></a>
+    <a href="study-spaces.html" data-nav-link="true" data-page="study-spaces.html"><i class="bi bi-building me-1" aria-hidden="true"></i><span>Grind Station</span></a>
+    <a href="daily-calendar.html" data-nav-link="true" data-page="daily-calendar.html"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i><span>Daily Drip</span></a>
+    <a href="academic-details.html" data-nav-link="true" data-page="academic-details.html"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i><span>Brain Juice</span></a>
+    <a href="extracted.html" data-nav-link="true" data-page="extracted.html"><i class="bi bi-collection me-1" aria-hidden="true"></i><span>Hustle Hub</span></a>
+    <a href="subject-marks.html" class="active" data-nav-link="true" data-page="subject-marks.html" aria-current="page"><i class="bi bi-graph-up me-1" aria-hidden="true"></i><span>Subject Marks</span></a>
+    <a href="flashcards.html" data-nav-link="true" data-page="flashcards.html"><i class="bi bi-card-text me-1" aria-hidden="true"></i><span>Flashcards</span></a>
+    <a href="markdown-converter.html" data-nav-link="true" data-page="markdown-converter.html"><i class="bi bi-markdown me-1" aria-hidden="true"></i><span>MD Converter</span></a>
+    <a href="sleep-saboteurs.html" data-nav-link="true" data-page="sleep-saboteurs.html"><i class="bi bi-alarm me-1" aria-hidden="true"></i><span>Alarms</span></a>
+    <a href="settings.html" data-nav-link="true" data-page="settings.html"><i class="bi bi-gear me-1" aria-hidden="true"></i><span>Settings</span></a>
+    <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bi bi-moon-stars theme-icon" aria-hidden="true"></i><span class="theme-text visually-hidden">Toggle theme</span></button>
+    <button type="button" class="drawer-toggle" aria-label="Open settings drawer" title="Settings"><i class="bi bi-gear" aria-hidden="true"></i></button>
+  </div>
+  <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation" aria-controls="mainNavigationLinks" aria-expanded="false" aria-haspopup="true"><i class="bi bi-list" aria-hidden="true"></i></button>
+</nav>
+
+    <!-- Main Container with Master-Detail Layout -->
+    <div class="marks-layout">
+        <!-- Sidebar: Subject List (Master) -->
+        <aside class="subject-sidebar">
+            <div class="sidebar-header">
+                <h3>Subjects</h3>
+            </div>
+            <div class="subject-list" id="subjectList">
+                <!-- Subject items injected dynamically -->
+            </div>
+        </aside>
+
+        <!-- Main Content Area: Subject Details (Detail) -->
+        <main class="subject-content">
+            <!-- Empty State (Shown when no subject selected) -->
+            <div id="emptyState" class="content-placeholder">
+                <i class="bi bi-journal-bookmark-fill"></i>
+                <h3>Select a Subject</h3>
+                <p>Choose a subject from the list to view marks and settings.</p>
+            </div>
+
+            <!-- Active Content (Hidden by default) -->
+            <div id="activeContent" class="d-none">
+
+                <!-- Performance Header -->
+                <div class="performance-card">
+                    <div class="performance-info">
+                        <h2 id="subjectName">Subject Name</h2>
+                        <p class="text-muted"><span id="creditHours">3</span> Credit Hours</p>
+                    </div>
+                    <div class="performance-stat text-end">
+                        <div class="big-percentage"><span id="academicPerformance">0</span>%</div>
+                        <div class="text-muted">Current Grade</div>
+                    </div>
+                    <div class="performance-progress-wrap">
+                        <div class="progress" style="height: 8px; border-radius: 4px; background: rgba(255,255,255,0.08);">
+                            <div id="performanceBar" class="progress-bar" style="width: 0%;" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Dynamic Assessment Types & Weightages Column -->
+                    <div class="col-lg-5 mb-4">
+                        <div id="categoryWeightages" class="card h-100">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h3 class="m-0">Assessment Types</h3>
+                                <span class="badge bg-secondary" id="assessmentTypesCount">5 types</span>
+                            </div>
+                            <p class="text-muted small mb-2">Configure custom assessment types and weightages (Total must be 100%)</p>
+
+                            <!-- Dynamic Assessment Types List -->
+                            <div id="assessmentTypesList" class="assessment-types-container">
+                                <!-- Populated dynamically by subject-marks-ui.js -->
+                            </div>
+
+                            <!-- Add Assessment Type Button -->
+                            <button type="button" id="addAssessmentTypeBtn" class="btn-add-assessment mb-3">
+                                <i class="bi bi-plus-circle"></i> Add Assessment Type
+                            </button>
+
+                            <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                                <span class="fw-bold">Total: <span id="totalWeightage" class="text-success">100.0</span>%</span>
+                                <button id="saveWeightagesBtn" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-check-lg"></i> Save Weightages
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Marks Column -->
+                    <div class="col-lg-7">
+                        <!-- Add Mark Form -->
+                        <div id="addMarks" class="card mb-4">
+                            <h3>Add New Mark</h3>
+                            <div class="row g-2">
+                                <div class="col-md-4">
+                                    <select id="markCategory" class="form-select form-select-sm">
+                                        <!-- Dynamically populated options -->
+                                    </select>
+                                </div>
+                                <div class="col-md-8">
+                                    <input type="text" id="markTitle" class="form-control form-select-sm"
+                                        placeholder="Title (e.g. Quiz 1, OHT 1)">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" id="obtainedMarks" class="form-control form-select-sm"
+                                        placeholder="Obtained">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" id="totalMarks" class="form-control form-select-sm"
+                                        placeholder="Total">
+                                </div>
+                                <div class="col-md-4">
+                                    <button id="addMarkBtn" class="btn btn-sm btn-primary w-100">Add Mark</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Existing Marks List -->
+                        <div id="existingMarks" class="card">
+                            <h3>Marks History</h3>
+                            <div class="accordion accordion-flush" id="marksAccordion">
+                                <!-- Marks injected here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- GPA Predictor Section (Outside the marks-layout for full visibility) -->
+    <!-- ============================================ -->
+    <div id="gpaPredictorContainer"
+        style="max-width: 1600px; margin: 40px auto; padding: 20px; background: rgba(254, 44, 85, 0.05); border-radius: 16px; border: 1px solid #333;">
+        <!-- GPA Predictor will be dynamically injected here by gpa-predictor.js -->
+        <div style="text-align: center; padding: 60px 40px;">
+            <div style="font-size: 48px; margin-bottom: 16px;">📊</div>
+            <h3 style="color: #fff; margin: 0 0 8px 0;">GPA Predictor</h3>
+            <p style="color: #888; margin: 0;">Loading calculator...</p>
+        </div>
+    </div>
+
+    <!-- Core Services -->
+    <script type="module" src="js/services/StorageService.js"></script>
+    <script type="module" src="js/services/SecureStorage.js"></script>
+    <script type="module" src="js/utils/Sanitizer.js"></script>
+    <script type="module" src="js/utils/Logger.js"></script>
+
+    <!-- Scripts -->
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/firestore-global.js"></script>
+    <script type="module" src="js/subject-marks-integration.js"></script>
+    <script type="module" src="js/data-sync-integration.js"></script>
+    <script type="module" src="js/cross-tab-sync.js"></script>
+    <script type="module" src="js/sideDrawer.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js?v=82f64f62bb03"></script>
+
+    <!-- Main UI Module -->
+    <script type="module" src="js/subject-marks-ui.js"></script>
+
+    <!-- GPA Predictor (loaded as regular script for file:// compatibility) -->
+    <script src="js/gpa-predictor.js"></script>
+    <script>
+        // Initialize GPA Predictor with integration to existing academic subjects
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('[SubjectMarks] DOM loaded, checking for GPAPredictor...');
+            if (typeof GPAPredictor !== 'undefined') {
+                const container = document.getElementById('gpaPredictorContainer');
+                if (container) {
+                    console.log('[SubjectMarks] Initializing embedded GPA Predictor...');
+                    window.gpaPredictor = new GPAPredictor('gpaPredictorContainer', {
+                        embedded: true,
+                        standalone: false,
+                        autoSyncSubjects: true
+                    });
+                }
+            } else {
+                console.warn('[SubjectMarks] GPAPredictor class not found, retrying in 500ms...');
+                setTimeout(() => {
+                    if (typeof GPAPredictor !== 'undefined') {
+                        const container = document.getElementById('gpaPredictorContainer');
+                        if (container) {
+                            console.log('[SubjectMarks] Initializing embedded GPA Predictor (retry)...');
+                            window.gpaPredictor = new GPAPredictor('gpaPredictorContainer', {
+                                embedded: true,
+                                standalone: false,
+                                autoSyncSubjects: true
+                            });
+                        }
+                    }
+                }, 500);
+            }
+        });
+    </script>
+    <script>document.addEventListener("DOMContentLoaded", () => { if (typeof themeManager !== "undefined" && themeManager.initializeTheme) themeManager.initializeTheme(); });</script>
+    <script type="module" src="js/inject-header.js"></script>
+</body>
+
+</html>
+
+

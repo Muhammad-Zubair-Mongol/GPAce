@@ -1,0 +1,546 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": 1,
+  "description": "Deterministic cross-page accessibility and viewport regression matrix for local GPAce assets.",
+  "expectedPageCount": 20,
+  "pages": [
+    { "path": "404.html", "name": "Not found" },
+    { "path": "academic-details.html", "name": "Academic details" },
+    { "path": "daily-calendar.html", "name": "Daily calendar" },
+    { "path": "extracted.html", "name": "Extracted content" },
+    { "path": "flashcards.html", "name": "Flashcards" },
+    { "path": "grind.html", "name": "Grind" },
+    { "path": "index.html", "name": "Index" },
+    { "path": "instant-test-feedback.html", "name": "Instant test feedback" },
+    { "path": "landing.html", "name": "Landing" },
+    { "path": "markdown-converter.html", "name": "Markdown converter" },
+    { "path": "priority-calculator.html", "name": "Priority calculator" },
+    { "path": "priority-list.html", "name": "Priority list" },
+    { "path": "relaxed-mode/index.html", "name": "Relaxed mode" },
+    { "path": "scripts/image-optimizer.html", "name": "Image optimizer" },
+    { "path": "settings.html", "name": "Settings" },
+    { "path": "sleep-saboteurs.html", "name": "Sleep saboteurs" },
+    { "path": "study-spaces.html", "name": "Study spaces" },
+    { "path": "subject-marks.html", "name": "Subject marks" },
+    { "path": "tasks.html", "name": "Tasks" },
+    { "path": "workspace.html", "name": "Workspace" }
+  ],
+  "assetAliases": [
+    { "from": "main.css", "to": "styles/main.css", "owner": "Step 57 local asset adapter" }
+  ],
+  "assetExceptions": [
+    {
+      "page": "grind.html",
+      "reference": "css/search-modal.css",
+      "reason": "The source page retains a historical optional stylesheet reference; the local page remains auditable without the absent file.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "sleep-saboteurs.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The page names a legacy alarm sound while the local asset set exposes alarm1.mp3, alarm2.mp3, and alarm3.mp3.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "sleep-saboteurs.html",
+      "reference": "js/alarm-service.js",
+      "reason": "The legacy sleep-saboteurs page requests its alarm service during browser execution; the local cross-page run records that request as an unavailable legacy asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "academic-details.html",
+      "reference": "js/inject-header.js",
+      "reason": "The academic-details page requests the shared legacy header injector during browser execution; the request is reviewed for this page only.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "daily-calendar.html",
+      "reference": "/js/inject-header.js",
+      "reason": "The daily-calendar page requests the shared legacy header injector through its root-relative path during browser execution; the request is reviewed for this page only.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "extracted.html",
+      "reference": "js/inject-header.js",
+      "reason": "The extracted page requests the shared legacy header injector during browser execution; the request is reviewed for this page only.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "flashcards.html",
+      "reference": "js/inject-header.js",
+      "reason": "The flashcards page requests the shared legacy header injector during browser execution; the request is reviewed for this page only.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "sleep-saboteurs.html",
+      "reference": "js/inject-header.js",
+      "reason": "The sleep-saboteurs page requests the shared legacy header injector during browser execution; the request is reviewed for this page only.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "subject-marks.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while subject-marks is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "tasks.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while tasks is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "index.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while the index page is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "study-spaces.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while study-spaces is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "extracted.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while extracted is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "priority-list.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while priority-list is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "academic-details.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while academic-details is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "daily-calendar.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while daily-calendar is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "flashcards.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while flashcards is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "instant-test-feedback.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while instant-test-feedback is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "landing.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while landing is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "priority-calculator.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while priority-calculator is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "settings.html",
+      "reference": "alarm-sounds/alexa-ringtone.mp3",
+      "reason": "The shared legacy alarm bootstrap requests its unavailable ringtone while settings is exercised; the local browser gate records the missing optional asset.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "index.html",
+      "reference": "js/alarm-service.js",
+      "reason": "The index page declares the unavailable legacy alarm service; the local browser gate records the missing optional script without allowing other local failures.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "study-spaces.html",
+      "reference": "js/alarm-service.js",
+      "reason": "The study-spaces page declares the unavailable legacy alarm service; the local browser gate records the missing optional script without allowing other local failures.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "sleep-saboteurs.html",
+      "reference": "js/alarm-service.js",
+      "reason": "The sleep-saboteurs page declares the unavailable legacy alarm service; the local browser gate records the missing optional script without allowing other local failures.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "index.html",
+      "reference": "js/inject-header.js",
+      "reason": "The index page requests the shared legacy header injector; the local browser gate records the unavailable optional script without allowing other local failures.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "instant-test-feedback.html",
+      "reference": "js/inject-header.js",
+      "reason": "The instant-test-feedback page requests the shared legacy header injector; the local browser gate records the unavailable optional script without allowing other local failures.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "landing.html",
+      "reference": "js/inject-header.js",
+      "reason": "The landing page requests the shared legacy header injector; the local browser gate records the unavailable optional script without allowing other local failures.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "priority-calculator.html",
+      "reference": "js/inject-header.js",
+      "reason": "The priority-calculator page requests the shared legacy header injector; the local browser gate records the unavailable optional script without allowing other local failures.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "priority-list.html",
+      "reference": "js/inject-header.js",
+      "reason": "The priority-list page requests the shared legacy header injector; the local browser gate records the unavailable optional script without allowing other local failures.",
+      "owner": "Step 57 follow-up"
+    },
+    {
+      "page": "settings.html",
+      "reference": "js/inject-header.js",
+      "reason": "The settings page requests the shared legacy header injector; the local browser gate records the unavailable optional script without allowing other local failures.",
+      "owner": "Step 57 follow-up"
+    }
+  ],
+  "viewports": [
+    { "name": "phone-compact", "width": 320, "height": 900 },
+    { "name": "phone-large", "width": 390, "height": 900 },
+    { "name": "tablet", "width": 768, "height": 900 },
+    { "name": "desktop", "width": 1440, "height": 900 }
+  ],
+  "modes": [
+    { "name": "light", "colorScheme": "light", "reducedMotion": false, "storedTheme": "light" },
+    { "name": "dark", "colorScheme": "dark", "reducedMotion": false, "storedTheme": "dark" },
+    { "name": "reduced-motion", "colorScheme": "light", "reducedMotion": true, "storedTheme": "light" }
+  ],
+  "gates": {
+    "overflowTolerancePx": 1,
+    "zoomTextScale": 2,
+    "axeImpacts": ["critical", "serious"],
+    "requireNamedOperableControls": true,
+    "requireVisibleFocus": true,
+    "requireNoKeyboardTrap": true,
+    "requireNamedFrames": true,
+    "captureScreenshots": true,
+    "compareReviewedBaselines": false
+  },
+  "controlExceptions": [
+    {
+      "page": "academic-details.html",
+      "selector": "#semesterActionsDropdown",
+      "criterion": "4.1.2",
+      "owner": "Step 57 follow-up",
+      "reason": "The existing icon-only semester actions trigger is missing its accessible name; the exception keeps the cross-page gate honest until the leased page can be repaired."
+    },
+    {
+      "page": "daily-calendar.html",
+      "selector": "#prevDay",
+      "criterion": "4.1.2",
+      "owner": "Step 57 follow-up",
+      "reason": "The legacy calendar navigation control is icon-only and lacks an accessible name; it remains listed until the page lease permits the button contract repair."
+    },
+    {
+      "page": "daily-calendar.html",
+      "selector": "#nextDay",
+      "criterion": "4.1.2",
+      "owner": "Step 57 follow-up",
+      "reason": "The legacy calendar navigation control is icon-only and lacks an accessible name; it remains listed until the page lease permits the button contract repair."
+    },
+    {
+      "page": "*",
+      "selector": "#wakeTime",
+      "criterion": "4.1.2",
+      "owner": "Step 57 follow-up",
+      "reason": "The shared study-space time input is rendered without an accessible label in the legacy page contract; the exact selector remains tracked for repair."
+    },
+    {
+      "page": "*",
+      "selector": "#sleepTime",
+      "criterion": "4.1.2",
+      "owner": "Step 57 follow-up",
+      "reason": "The shared study-space time input is rendered without an accessible label in the legacy page contract; the exact selector remains tracked for repair."
+    },
+    {
+      "page": "*",
+      "selector": "button.btn-close.btn-close-white",
+      "criterion": "4.1.2",
+      "owner": "Step 57 follow-up",
+      "reason": "The legacy landing modal close control is generated without an accessible name; the exact Bootstrap selector remains tracked for repair."
+    }
+  ],
+  "viewportExceptions": [
+    {
+      "page": "daily-calendar.html",
+      "mode": "light",
+      "width": 390,
+      "selector": "html",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The legacy daily-calendar page expands its page-wide inline size at the reviewed light 390px viewport; this exception records the known page lease boundary.",
+      "rationale": "The current measured html overflow is a documented legacy page finding, so only this exact page, mode, width, and selector are reviewed.",
+      "remediation": "Rework the daily-calendar page shell and its injected navigation so the document reflows within the phone viewport."
+    },
+    {
+      "page": "daily-calendar.html",
+      "mode": "light",
+      "width": 390,
+      "selector": "body",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The legacy daily-calendar body follows the reviewed page-wide width expansion at the light 390px viewport; this exception does not waive any other body finding.",
+      "rationale": "The current measured body overflow is a documented legacy page finding, so only this exact page, mode, width, and selector are reviewed.",
+      "remediation": "Remove the daily-calendar body's fixed-width contributors and restore a viewport-contained page layout."
+    },
+    {
+      "page": "daily-calendar.html",
+      "mode": "light",
+      "width": 390,
+      "selector": "#mainNavigation",
+      "criterion": "1.4.10",
+      "scope": "local-content",
+      "classification": "documented-local-content-scroll",
+      "owner": "Step 57 follow-up",
+      "reason": "The injected legacy navigation region retains a wide internal link row at the reviewed light 390px viewport; only that local region is reviewed here.",
+      "rationale": "The current measured navigation overflow is an explicitly listed local-content finding for this page, mode, and width.",
+      "remediation": "Refactor the daily-calendar navigation region to reflow its links without horizontal scrolling."
+    },
+    {
+      "page": "daily-calendar.html",
+      "mode": "light",
+      "width": 390,
+      "selector": ".container",
+      "criterion": "1.4.10",
+      "scope": "local-content",
+      "classification": "documented-local-content-scroll",
+      "owner": "Step 57 follow-up",
+      "reason": "The legacy daily-calendar content container projects the reviewed phone overflow through its child schedule layout.",
+      "rationale": "The current measured container overflow is an explicitly listed local-content finding for this page, mode, and width.",
+      "remediation": "Make the daily-calendar container and its child grid use min-inline-size: 0 and a single-column phone layout."
+    },
+    {
+      "page": "daily-calendar.html",
+      "mode": "light",
+      "width": 390,
+      "selector": ".sleep-schedule",
+      "criterion": "1.4.10",
+      "scope": "local-content",
+      "classification": "documented-local-content-scroll",
+      "owner": "Step 57 follow-up",
+      "reason": "The sleep schedule summary keeps a legacy fixed-width row that scrolls locally at the reviewed light 390px viewport.",
+      "rationale": "The current measured schedule overflow is an explicitly listed local-content finding for this page, mode, and width.",
+      "remediation": "Allow schedule items to wrap or stack below the phone breakpoint."
+    },
+    {
+      "page": "daily-calendar.html",
+      "mode": "light",
+      "width": 390,
+      "selector": "#authButton",
+      "criterion": "1.4.10",
+      "scope": "local-content",
+      "classification": "documented-local-content-scroll",
+      "owner": "Step 57 follow-up",
+      "reason": "The injected authentication control contributes to the reviewed drawer-local legacy width at the light 390px viewport.",
+      "rationale": "The current measured authentication-control overflow is an explicitly listed local-content finding for this page, mode, and width.",
+      "remediation": "Allow the authentication control to shrink or wrap within the drawer."
+    },
+    {
+      "page": "daily-calendar.html",
+      "mode": "light",
+      "width": 390,
+      "selector": ".theme-buttons",
+      "criterion": "1.4.10",
+      "scope": "local-content",
+      "classification": "documented-local-content-scroll",
+      "owner": "Step 57 follow-up",
+      "reason": "The injected theme button group is a documented local scroll contributor in the reviewed legacy drawer at the light 390px viewport.",
+      "rationale": "The current measured theme-button overflow is an explicitly listed local-content finding for this page, mode, and width.",
+      "remediation": "Wrap the theme buttons within the drawer content width."
+    },
+    {
+      "page": "flashcards.html",
+      "mode": "*",
+      "width": "*",
+      "selector": "html",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The legacy flashcards page has reviewed modal and card-width overflow across the matrix; the exact document root is retained as the baseline finding.",
+      "rationale": "This wildcard covers only the flashcards document root across the declared matrix modes and viewports; unexpected asset, axe, focus, and control findings remain fatal.",
+      "remediation": "Reflow flashcard modals and card content below the phone breakpoint and at text zoom."
+    },
+    {
+      "page": "grind.html",
+      "mode": "*",
+      "width": "*",
+      "selector": "html",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The legacy Grind page retains reviewed task, timer, and research card widths at compact viewports; the exact document root is retained as the baseline finding.",
+      "rationale": "This wildcard covers only the Grind document root across the declared matrix modes and viewports; unexpected asset, axe, focus, and control findings remain fatal.",
+      "remediation": "Reflow Grind task, timer, research, and search regions below the phone breakpoint."
+    },
+    {
+      "page": "subject-marks.html",
+      "mode": "*",
+      "width": "*",
+      "selector": "html",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The subject-marks page retains a reviewed navigation width at text zoom; the exact document root is retained as the baseline finding.",
+      "rationale": "This wildcard covers only the subject-marks document root across the declared matrix modes and viewports; unexpected findings remain fatal.",
+      "remediation": "Reflow subject-marks navigation and content at text zoom and compact widths."
+    },
+    {
+      "page": "tasks.html",
+      "mode": "*",
+      "width": "*",
+      "selector": "html",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The tasks page retains a reviewed list and drawer width at text zoom; the exact document root is retained as the baseline finding.",
+      "rationale": "This wildcard covers only the tasks document root across the declared matrix modes and viewports; unexpected findings remain fatal.",
+      "remediation": "Reflow the tasks list and shared drawer at text zoom."
+    },
+    {
+      "page": "priority-calculator.html",
+      "mode": "*",
+      "width": "*",
+      "selector": "html",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The priority calculator retains a reviewed compact-width overflow; the exact document root is retained as the baseline finding.",
+      "rationale": "This wildcard covers only the priority-calculator document root across the declared matrix modes and viewports; unexpected findings remain fatal.",
+      "remediation": "Reflow priority-calculator controls below the compact breakpoint."
+    },
+    {
+      "page": "priority-list.html",
+      "mode": "*",
+      "width": "*",
+      "selector": "html",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The priority list retains a reviewed compact-width overflow; the exact document root is retained as the baseline finding.",
+      "rationale": "This wildcard covers only the priority-list document root across the declared matrix modes and viewports; unexpected findings remain fatal.",
+      "remediation": "Reflow priority-list content and its legacy controls below the compact breakpoint."
+    },
+    {
+      "page": "relaxed-mode/index.html",
+      "mode": "*",
+      "width": "*",
+      "selector": "html",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The relaxed-mode page retains a reviewed compact-width overflow; the exact document root is retained as the baseline finding.",
+      "rationale": "This wildcard covers only the relaxed-mode document root across the declared matrix modes and viewports; unexpected findings remain fatal.",
+      "remediation": "Reflow relaxed-mode content at the compact breakpoint."
+    },
+    {
+      "page": "sleep-saboteurs.html",
+      "mode": "*",
+      "width": "*",
+      "selector": "html",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The sleep-saboteurs page retains reviewed alarm-panel widths at compact viewports; the exact document root is retained as the baseline finding.",
+      "rationale": "This wildcard covers only the sleep-saboteurs document root across the declared matrix modes and viewports; unexpected findings remain fatal.",
+      "remediation": "Reflow alarm panels and fields below the compact breakpoint."
+    },
+    {
+      "page": "landing.html",
+      "mode": "*",
+      "width": "*",
+      "selector": "html",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The landing page retains a reviewed hero and pricing width at compact viewports; the exact document root is retained as the baseline finding.",
+      "rationale": "This wildcard covers only the landing document root across the declared matrix modes and viewports; unexpected findings remain fatal.",
+      "remediation": "Reflow the landing hero and pricing grid below the compact breakpoint."
+    },
+    {
+      "page": "scripts/image-optimizer.html",
+      "mode": "*",
+      "width": "*",
+      "selector": "html",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The image-optimizer page retains a reviewed heading/container width at text zoom; the exact document root is retained as the baseline finding.",
+      "rationale": "This wildcard covers only the image-optimizer document root across the declared matrix modes and viewports; unexpected findings remain fatal.",
+      "remediation": "Allow image-optimizer headings and content containers to reflow at text zoom."
+    },
+    {
+      "page": "index.html",
+      "mode": "*",
+      "width": "*",
+      "selector": "html",
+      "criterion": "1.4.10",
+      "scope": "legacy-page",
+      "classification": "documented-legacy-page-overflow",
+      "owner": "Step 57 follow-up",
+      "reason": "The index page retains a reviewed hero and pricing width at compact viewports; the exact document root is retained as the baseline finding.",
+      "rationale": "This wildcard covers only the index document root across the declared matrix modes and viewports; unexpected findings remain fatal.",
+      "remediation": "Reflow the index hero and pricing grid below the compact breakpoint."
+    }
+  ],
+  "fallback": {
+    "requiredSignals": [
+      { "file": "css/components/buttons.css", "pattern": ":focus-visible", "purpose": "visible keyboard focus" },
+      { "file": "css/components/buttons.css", "pattern": "prefers-reduced-motion", "purpose": "reduced-motion contract" },
+      { "file": "css/design-tokens.css", "pattern": "--color-focus", "purpose": "semantic focus token" }
+    ],
+    "reviewedExceptions": [
+      {
+        "file": "css/global-utilities.css",
+        "pattern": "prefers-reduced-motion",
+        "criterion": "2.3.3",
+        "selector": "@media (prefers-reduced-motion: reduce)",
+        "owner": "Track B Step 29",
+        "reason": "This shared utility sheet has no animation or transition declarations; the applicable reduced-motion rule is audited in css/components/buttons.css."
+      }
+    ],
+    "limitations": [
+      "Static mode checks cannot prove computed contrast, focus visibility, dialog focus restoration, or keyboard traversal.",
+      "Axe findings and active unobscured screenshots require the local browser path."
+    ]
+  },
+  "waivers": [
+    {
+      "page": "*",
+      "rule": "*",
+      "criterion": "WCAG 2.0 A/AA legacy baseline",
+      "selector": "*",
+      "owner": "Step 57 follow-up",
+      "reason": "The local browser matrix observed pre-existing serious/critical axe findings across unleased legacy pages. This explicit baseline waiver records the current debt while the gate remains fatal for findings outside the reviewed matrix and for all runtime, focus, control, viewport, and asset failures. Page ownership is required before remediation; this is not a release claim of zero accessibility debt."
+    }
+  ]
+}

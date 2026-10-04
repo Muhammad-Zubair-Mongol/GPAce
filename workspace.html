@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce Workspace</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="GPAce Workspace - A rich text editor with speech-to-text, text-to-speech, and document export capabilities.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <!-- CSS Dependencies -->
+    <link href="assets/vendor/bootstrap/bootstrap.min.css?v=3017df4a76db" rel="stylesheet">
+    <link href="assets/vendor/icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="css/design-tokens.css" rel="stylesheet">
+    <link href="css/workspace.css?v=20260929-9" rel="stylesheet">
+
+    <!-- DOMPurify for XSS Protection -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="css/global-utilities.css?v=20260930-1">
+    <script src="js/theme-manager.js"></script>
+</head>
+
+<body data-no-navigation="true">
+    <!-- Main Content -->
+    <main id="main-content" class="workspace-main">
+        <div class="workspace-container">
+            <div class="editor-container">
+                <!-- Primary Toolbar -->
+                <div class="toolbar-container" role="toolbar" aria-label="Document editing tools">
+                    <div class="toolbar-row primary-tools">
+                        <div class="toolbar-group" role="group" aria-label="Navigation">
+                            <a href="grind.html" class="toolbar-button" data-tooltip="Back to Grind Mode" aria-label="Back to Grind Mode">
+                                <i class="bi bi-arrow-left" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="toolbar-group" role="group" aria-label="File operations">
+                            <button class="toolbar-button" data-tooltip="New Document (Ctrl+N)"
+                                aria-label="New Document">
+                                <i class="bi bi-file-earmark-plus" aria-hidden="true"></i>
+                            </button>
+                            <button class="toolbar-button" data-tooltip="Open (Ctrl+O)" aria-label="Open file">
+                                <i class="bi bi-folder2-open" aria-hidden="true"></i>
+                            </button>
+                            <button class="toolbar-button" data-tooltip="Save (Ctrl+S)" aria-label="Save document">
+                                <i class="bi bi-save" aria-hidden="true"></i>
+                            </button>
+                            <div class="toolbar-separator" aria-hidden="true"></div>
+                            <button class="toolbar-button" data-tooltip="Undo (Ctrl+Z)" aria-label="Undo">
+                                <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
+                            </button>
+                            <button class="toolbar-button" data-tooltip="Redo (Ctrl+Y)" aria-label="Redo">
+                                <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <div class="toolbar-group" role="group" aria-label="Export options">
+                            <button class="toolbar-button" data-tooltip="Export as PDF" aria-label="Export as PDF">
+                                <i class="bi bi-file-pdf" aria-hidden="true"></i>
+                            </button>
+                            <button class="toolbar-button" data-tooltip="Export as Word"
+                                aria-label="Export as Word document">
+                                <i class="bi bi-file-word" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <div class="toolbar-group" role="group" aria-label="Speech recognition controls">
+                            <button id="speechRecognitionBtn" class="toolbar-button"
+                                data-tooltip="Start Live Lecture Recording" aria-label="Start speech recognition">
+                                <i class="bi bi-mic" aria-hidden="true"></i>
+                            </button>
+                            <button id="pauseResumeBtn" class="toolbar-button" data-tooltip="Pause/Resume Recording"
+                                aria-label="Pause or resume recording" disabled>
+                                <i class="bi bi-pause-fill" aria-hidden="true"></i>
+                            </button>
+                            <button id="summarizeBtn" class="toolbar-button" data-tooltip="Summarize Lecture"
+                                aria-label="Summarize recorded lecture" disabled>
+                                <i class="bi bi-lightning-fill" aria-hidden="true"></i>
+                            </button>
+                            <button id="speechLangSettingsBtn" class="toolbar-button" data-tooltip="Language Settings"
+                                aria-label="Speech language settings">
+                                <i class="bi bi-translate" aria-hidden="true"></i>
+                            </button>
+                            <span id="recordingTimer" class="recording-timer d-none"
+                                aria-live="polite">00:00:00</span>
+                        </div>
+
+                        <div class="toolbar-group" role="group" aria-label="Text to speech controls">
+                            <div class="editor-dropdown">
+                                <button id="textToSpeechBtn" class="toolbar-button" data-tooltip="Text to Speech"
+                                    aria-label="Text to speech options" aria-haspopup="true" aria-expanded="false">
+                                    <i class="bi bi-volume-up" aria-hidden="true"></i>
+                                </button>
+                                <div class="image-options-dropdown" id="textToSpeechOptionsDropdown" role="menu">
+                                    <div class="dropdown-item" id="speakSelectedTextBtn" role="menuitem">
+                                        <i class="bi bi-cursor-text" aria-hidden="true"></i>
+                                        Read Selected Text
+                                    </div>
+                                    <div class="dropdown-item" id="speakAllTextBtn" role="menuitem">
+                                        <i class="bi bi-file-text" aria-hidden="true"></i>
+                                        Read Entire Document
+                                    </div>
+                                    <div class="dropdown-item" id="showTextToSpeechSettingsBtn" role="menuitem">
+                                        <i class="bi bi-gear" aria-hidden="true"></i>
+                                        Voice Settings
+                                    </div>
+                                </div>
+                            </div>
+                            <button id="pauseResumeTextToSpeechBtn" class="toolbar-button"
+                                data-tooltip="Pause/Resume Reading" aria-label="Pause or resume text to speech"
+                                disabled>
+                                <i class="bi bi-pause-fill" aria-hidden="true"></i>
+                            </button>
+                            <button id="stopTextToSpeechBtn" class="toolbar-button" data-tooltip="Stop Reading"
+                                aria-label="Stop text to speech" disabled>
+                                <i class="bi bi-stop-fill" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    
+                        <div class="toolbar-group ms-auto" role="group" aria-label="Appearance">
+                            <button type="button" class="toolbar-button theme-toggle" id="themeToggleBtn" data-tooltip="Toggle theme" aria-label="Toggle theme">
+                                <i class="bi bi-moon-stars theme-icon" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Formatting Toolbar -->
+                    <div class="toolbar-row formatting-tools" role="toolbar" aria-label="Text formatting">
+                        <div class="toolbar-group" role="group" aria-label="Font selection">
+                            <label for="fontFamily" class="visually-hidden">Font Family</label>
+                            <select class="toolbar-select font-family" id="fontFamily" aria-label="Font family">
+                                <option value="Inter">Inter</option>
+                                <option value="Arial">Arial</option>
+                                <option value="Helvetica">Helvetica</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Georgia">Georgia</option>
+                                <option value="Courier New">Courier New</option>
+                            </select>
+                            <label for="fontSize" class="visually-hidden">Font Size</label>
+                            <select class="toolbar-select font-size" id="fontSize" aria-label="Font size">
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12" selected>12</option>
+                                <option value="14">14</option>
+                                <option value="16">16</option>
+                                <option value="18">18</option>
+                                <option value="24">24</option>
+                                <option value="30">30</option>
+                                <option value="36">36</option>
+                            </select>
+                        </div>
+
+                        <div class="toolbar-group" role="group" aria-label="Text style">
+                            <button class="toolbar-button" data-format="bold" data-tooltip="Bold (Ctrl+B)"
+                                aria-label="Bold">
+                                <i class="bi bi-type-bold" aria-hidden="true"></i>
+                            </button>
+                            <button class="toolbar-button" data-format="italic" data-tooltip="Italic (Ctrl+I)"
+                                aria-label="Italic">
+                                <i class="bi bi-type-italic" aria-hidden="true"></i>
+                            </button>
+                            <button class="toolbar-button" data-format="underline" data-tooltip="Underline (Ctrl+U)"
+                                aria-label="Underline">
+                                <i class="bi bi-type-underline" aria-hidden="true"></i>
+                            </button>
+                            <button class="toolbar-button" data-format="strike" data-tooltip="Strikethrough"
+                                aria-label="Strikethrough">
+                                <i class="bi bi-type-strikethrough" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <div class="toolbar-group" role="group" aria-label="Colors">
+                            <label for="textColor" class="visually-hidden">Text Color</label>
+                            <input type="color" class="toolbar-color-picker" id="textColor" aria-label="Text color">
+                            <label for="backgroundColor" class="visually-hidden">Background Color</label>
+                            <input type="color" class="toolbar-color-picker" id="backgroundColor"
+                                aria-label="Background color">
+                        </div>
+
+                        <div class="toolbar-group" role="group" aria-label="Text alignment">
+                            <button class="toolbar-button" data-format="alignLeft" data-tooltip="Align Left"
+                                aria-label="Align left">
+                                <i class="bi bi-text-left" aria-hidden="true"></i>
+                            </button>
+                            <button class="toolbar-button" data-format="alignCenter" data-tooltip="Align Center"
+                                aria-label="Align center">
+                                <i class="bi bi-text-center" aria-hidden="true"></i>
+                            </button>
+                            <button class="toolbar-button" data-format="alignRight" data-tooltip="Align Right"
+                                aria-label="Align right">
+                                <i class="bi bi-text-right" aria-hidden="true"></i>
+                            </button>
+                            <button class="toolbar-button" data-format="justify" data-tooltip="Justify"
+                                aria-label="Justify text">
+                                <i class="bi bi-justify" aria-hidden="true"></i>
+                            </button>
+                        </div>
+
+                        <div class="toolbar-group" role="group" aria-label="Insert media">
+                            <div class="editor-dropdown">
+                                <button class="toolbar-button" data-tooltip="Insert Image" aria-label="Insert image"
+                                    aria-haspopup="true">
+                                    <i class="bi bi-image" aria-hidden="true"></i>
+                                </button>
+                                <div class="image-options-dropdown" id="imageOptionsDropdown" role="menu">
+                                    <div class="dropdown-item" id="uploadImageBtn" role="menuitem">
+                                        <i class="bi bi-upload" aria-hidden="true"></i>
+                                        Upload from Computer
+                                    </div>
+                                    <div class="dropdown-item" id="openGooglePickerBtn" role="menuitem">
+                                        <i class="bi bi-google" aria-hidden="true"></i>
+                                        Choose from Google Drive
+                                    </div>
+                                    <div class="dropdown-item" id="insertImageUrlBtn" role="menuitem">
+                                        <i class="bi bi-link-45deg" aria-hidden="true"></i>
+                                        Insert Image URL
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="toolbar-button" data-tooltip="Insert Link" aria-label="Insert link">
+                                <i class="bi bi-link-45deg" aria-hidden="true"></i>
+                            </button>
+                            <button class="toolbar-button" data-tooltip="Insert Table" aria-label="Insert table">
+                                <i class="bi bi-table" aria-hidden="true"></i>
+                            </button>
+                            <input type="file" id="imageUpload" class="d-none" accept="image/*"
+                                aria-hidden="true">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Editor Content Area -->
+                <div class="editor-content" id="editorContainer">
+                    <!-- Floating Formatting Toolbar -->
+                    <div class="floating-toolbar" id="floatingToolbar" role="toolbar" aria-label="Quick formatting">
+                        <button class="tool-btn" data-format="bold" data-tooltip="Bold" aria-label="Bold">
+                            <i class="bi bi-type-bold" aria-hidden="true"></i>
+                        </button>
+                        <button class="tool-btn" data-format="italic" data-tooltip="Italic" aria-label="Italic">
+                            <i class="bi bi-type-italic" aria-hidden="true"></i>
+                        </button>
+                        <button class="tool-btn" data-format="underline" data-tooltip="Underline"
+                            aria-label="Underline">
+                            <i class="bi bi-type-underline" aria-hidden="true"></i>
+                        </button>
+                        <button class="tool-btn" data-format="strike" data-tooltip="Strikethrough"
+                            aria-label="Strikethrough">
+                            <i class="bi bi-type-strikethrough" aria-hidden="true"></i>
+                        </button>
+                        <button class="tool-btn" id="floatingInsertLinkBtn" data-tooltip="Insert Link"
+                            aria-label="Insert link">
+                            <i class="bi bi-link-45deg" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div id="editorReadinessStatus" class="editor-readiness-status" role="status" aria-live="polite"
+                        data-state="loading">Loading editor…</div>
+                    <button id="editorRetryBtn" class="editor-retry-btn" type="button" hidden disabled>
+                        Retry editor
+                    </button>
+                    <div id="editor" role="textbox" aria-multiline="true" aria-label="Document editor"
+                        aria-busy="true" aria-disabled="true"></div>
+                    <div id="dropZone" class="drop-zone" aria-label="Drop files here to upload">
+                        <i class="bi bi-cloud-upload" aria-hidden="true"></i>
+                        <span>Drop files here</span>
+                    </div>
+                </div>
+
+                <!-- Status Bar -->
+                <div class="editor-statusbar" role="status" aria-live="polite">
+                    <div class="statusbar-left">
+                        <div class="status-item">
+                            <i class="bi bi-pencil" aria-hidden="true"></i>
+                            <span id="editorWordCount">0 words</span>
+                        </div>
+                        <div class="status-item">
+                            <i class="bi bi-text-paragraph" aria-hidden="true"></i>
+                            <span id="editorCharCount">0 characters</span>
+                        </div>
+                    </div>
+                    <div class="statusbar-right">
+                        <div class="status-item zoom-controls">
+                            <button class="toolbar-button" data-tooltip="Zoom Out" aria-label="Zoom out">
+                                <i class="bi bi-zoom-out" aria-hidden="true"></i>
+                            </button>
+                            <span id="zoomLevel">100%</span>
+                            <button class="toolbar-button" data-tooltip="Zoom In" aria-label="Zoom in">
+                                <i class="bi bi-zoom-in" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <div class="status-item">
+                            <i class="bi bi-clock" aria-hidden="true"></i>
+                            <span id="editorLastSaved">Never saved</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Message Container -->
+            <div id="statusMessage" class="status-message d-none" role="alert" aria-live="assertive">
+            </div>
+
+            <!-- Task Attachments Section -->
+            <section class="attachments-section" id="attachmentsSection" aria-labelledby="attachments-heading">
+                <div class="attachments-header">
+                    <h3 id="attachments-heading">Task Attachments</h3>
+                    <label for="taskSelector" class="visually-hidden">Select a task</label>
+                    <select id="taskSelector" class="task-select" aria-label="Select a task to view attachments">
+                        <option value="">Select a task to view attachments</option>
+                    </select>
+                </div>
+                <div class="attachments-container" id="attachmentsContainer" aria-label="Attachment files">
+                    <div class="no-attachments-message" role="status" aria-live="polite">
+                        <i class="bi bi-file-earmark" aria-hidden="true"></i>
+                        <p>Select a task to view its attachments</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Secondary Status Bar -->
+            <div class="status-bar" role="status">
+                <div class="word-count">
+                    <span id="wordCount">0 words</span>
+                    <span id="charCount">0 characters</span>
+                </div>
+                <div id="lastSaved">Last saved: Never</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Image URL Dialog -->
+    <div class="modal" id="imageUrlModal" role="dialog" aria-labelledby="imageUrlModalTitle" aria-modal="true">
+        <div class="modal-content">
+            <h3 id="imageUrlModalTitle">Insert Image URL</h3>
+            <label for="imageUrl" class="visually-hidden">Image URL</label>
+            <input type="text" id="imageUrl" placeholder="Enter image URL" aria-describedby="imageUrlHint">
+            <span id="imageUrlHint" class="visually-hidden">Paste the URL of an image to insert</span>
+            <div class="modal-buttons">
+                <button id="closeImageUrlBtn">Cancel</button>
+                <button id="insertImageFromUrlBtn">Insert</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link URL Dialog -->
+    <div class="modal" id="linkUrlModal" role="dialog" aria-labelledby="linkUrlModalTitle" aria-modal="true">
+        <div class="modal-content">
+            <h3 id="linkUrlModalTitle">Insert Link</h3>
+            <label for="linkUrl" class="visually-hidden">URL</label>
+            <input type="text" id="linkUrl" placeholder="Enter URL">
+            <label for="linkText" class="visually-hidden">Link Text</label>
+            <input type="text" id="linkText" placeholder="Enter link text">
+            <div class="modal-buttons">
+                <button id="closeLinkDialogBtn">Cancel</button>
+                <button id="insertLinkFromDialogBtn">Insert</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Dialog -->
+    <div class="modal" id="tableModal" role="dialog" aria-labelledby="tableModalTitle" aria-modal="true">
+        <div class="modal-content">
+            <h3 id="tableModalTitle">Insert Table</h3>
+            <div class="form-group">
+                <label for="tableRows">Rows:</label>
+                <input type="number" id="tableRows" value="2" min="1" max="10">
+            </div>
+            <div class="form-group">
+                <label for="tableColumns">Columns:</label>
+                <input type="number" id="tableColumns" value="2" min="1" max="10">
+            </div>
+            <div class="modal-buttons">
+                <button id="closeTableDialogBtn">Cancel</button>
+                <button id="insertTableFromDialogBtn">Insert</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts - Loaded in correct dependency order -->
+    <!-- Bootstrap JS -->
+    <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js?v=82f64f62bb03"></script>
+
+    <!-- Global getStorage singleton - MUST be defined FIRST before any scripts that use it -->
+    <script>
+        if (typeof window.getStorage === 'undefined') {
+            window.getStorage = () => window.StorageService || {
+                get: (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch { return d; } },
+                set: (k, v) => localStorage.setItem(k, JSON.stringify(v))
+            };
+        }
+    </script>
+
+    <!-- Phase 2 Nuclear Rebuild: Task Sync System -->
+    <script type="module" src="js/core/TaskSystemLoader.js"></script>
+
+    <!-- Core Services -->
+    <script type="module" src="js/services/StorageService.js"></script>
+    <script type="module" src="js/services/SecureStorage.js"></script>
+    <script type="module" src="js/utils/Sanitizer.js"></script>
+    <script type="module" src="js/utils/Logger.js"></script>
+
+    <!-- Authentication -->
+    <script type="module" src="js/auth.js"></script>
+
+    <!-- Data Initialization Service - NEW: Centralized initialization -->
+    <script type="module">
+        import DataInitializationService from './js/services/DataInitializationService.js';
+
+        // Initialize data when DOM is ready
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('[Workspace] Initializing data via DataInitializationService...');
+            try {
+                const success = await DataInitializationService.init();
+                if (success) {
+                    console.log('[Workspace] ✅ Data initialization complete, task selector ready');
+                } else {
+                    console.warn('[Workspace] ⚠️ Data initialization failed');
+                }
+            } catch (error) {
+                console.error('[Workspace] Data initialization error:', error);
+            }
+        });
+    </script>
+
+    <!-- External Libraries (Non-module) - Must load before workspace modules that depend on them -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docx/7.8.2/docx.js"></script>
+    <!-- Quill is loaded exactly once and publishes an explicit readiness promise. -->
+    <script>
+        window.__gpaceQuillDependency = (() => {
+            let resolve;
+            let reject;
+            const promise = new Promise((resolvePromise, rejectPromise) => {
+                resolve = resolvePromise;
+                reject = rejectPromise;
+            });
+            return { promise, resolve, reject };
+        })();
+    </script>
+    <script id="quill-script" src="assets/vendor/quill/quill.min.js"
+        onload="window.__gpaceQuillDependency.resolve(window.Quill)"
+        onerror="window.__gpaceQuillDependency.reject(new Error('Pinned Quill script failed to load'))"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://accounts.google.com/gsi/client"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- Speech Modules (Non-module) -->
+    <script src="js/speech-recognition.js"></script>
+    <script src="js/speech-synthesis.js"></script>
+
+    <!-- Workspace Attachments - Must load BEFORE workspace-core.js uses WorkspaceAttachments -->
+    <script src="js/workspace-attachments.js"></script>
+
+    <!-- Workspace Modules (ES Modules - loaded after non-module dependencies) -->
+    <script type="module">
+        // Keep module initialization deterministic: core starts only after the
+        // globals used by its toolbar handlers have been registered.
+        await import('./js/workspace-ui.js');
+        await import('./js/workspace-formatting.js');
+        await import('./js/workspace-document.js');
+        await import('./js/workspace-media.js');
+        await import('./js/workspace-tables-links.js');
+        await import('./js/workspace-core.js');
+        console.log('[Workspace] All modules loaded');
+    </script>
+
+    <!-- Additional Workspace Scripts -->
+    <script type="module" src="js/workspaceFlashcardIntegration.js"></script>
+    <script type="module" src="js/sm2.js"></script>
+
+    <!-- Cross-tab Sync -->
+    <script type="module" src="js/cross-tab-sync.js"></script>
+    <script type="module" src="js/themeManager.js"></script>
+</body>
+
+</html>
+

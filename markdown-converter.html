@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Markdown Converter</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="GPAce Markdown Converter - Convert Markdown to professional DOCX documents with LaTeX math support using Pandoc.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <link href="assets/vendor/bootstrap/bootstrap.min.css?v=3017df4a76db" rel="stylesheet">
+    <link href="assets/vendor/icons/bootstrap-icons.css?v=edc9031bdcde" rel="stylesheet">
+    <link href="assets/vendor/katex/katex.min.css?v=c7c428bc728d" rel="stylesheet">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <!-- Consolidated CSS Components -->
+    <link href="css/design-tokens.css" rel="stylesheet">
+    <link href="css/components/navigation.css" rel="stylesheet">
+    <link href="css/pages/markdown-converter.css?v=20260930-1" rel="stylesheet">
+  <link rel="stylesheet" href="css/global-utilities.css?v=20260930-1">
+    <script src="js/theme-manager.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav" id="mainNavigation" aria-label="Primary navigation">
+  <div class="nav-brand"><a href="grind.html" class="link-inherit"><img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" class="logo-brand" width="60" height="60"><span class="brand-text">GPAce</span></a></div>
+  <div class="nav-links" id="mainNavigationLinks" data-navigation-links="true">
+    <a href="grind.html" data-nav-link="true" data-page="grind.html"><i class="bi bi-lightning-charge me-1" aria-hidden="true"></i><span>Grind Mode</span></a>
+    <a href="study-spaces.html" data-nav-link="true" data-page="study-spaces.html"><i class="bi bi-building me-1" aria-hidden="true"></i><span>Grind Station</span></a>
+    <a href="daily-calendar.html" data-nav-link="true" data-page="daily-calendar.html"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i><span>Daily Drip</span></a>
+    <a href="academic-details.html" data-nav-link="true" data-page="academic-details.html"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i><span>Brain Juice</span></a>
+    <a href="extracted.html" data-nav-link="true" data-page="extracted.html"><i class="bi bi-collection me-1" aria-hidden="true"></i><span>Hustle Hub</span></a>
+    <a href="subject-marks.html" data-nav-link="true" data-page="subject-marks.html"><i class="bi bi-graph-up me-1" aria-hidden="true"></i><span>Subject Marks</span></a>
+    <a href="flashcards.html" data-nav-link="true" data-page="flashcards.html"><i class="bi bi-card-text me-1" aria-hidden="true"></i><span>Flashcards</span></a>
+    <a href="markdown-converter.html" class="active" aria-current="page" data-nav-link="true" data-page="markdown-converter.html"><i class="bi bi-markdown me-1" aria-hidden="true"></i><span>MD Converter</span></a>
+    <a href="sleep-saboteurs.html" data-nav-link="true" data-page="sleep-saboteurs.html"><i class="bi bi-alarm me-1" aria-hidden="true"></i><span>Alarms</span></a>
+    <a href="settings.html" data-nav-link="true" data-page="settings.html"><i class="bi bi-gear me-1" aria-hidden="true"></i><span>Settings</span></a>
+    <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bi bi-moon-stars theme-icon" aria-hidden="true"></i><span class="theme-text visually-hidden">Toggle theme</span></button>
+    <button type="button" class="drawer-toggle" aria-label="Open settings drawer" title="Settings"><i class="bi bi-gear" aria-hidden="true"></i></button>
+  </div>
+  <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation" aria-controls="mainNavigationLinks" aria-expanded="false" aria-haspopup="true"><i class="bi bi-list" aria-hidden="true"></i></button>
+</nav>
+
+    <!-- Flash Messages Container -->
+    <div class="flash-container" id="flashContainer"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="bi bi-markdown"></i> Markdown to DOCX Converter</h1>
+            <p>Convert your Markdown to professional Word documents with LaTeX math support</p>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-indicator">
+                <span class="status-dot checking" id="statusDot"></span>
+                <span id="statusText">Checking Pandoc...</span>
+            </div>
+            <!-- Backend config hidden - now integrated into main server -->
+            <input type="hidden" id="backendUrl" value="">
+        </div>
+
+        <!-- Main Card -->
+        <div class="card">
+            <!-- Template Buttons -->
+            <div class="templates-section">
+                <span style="font-size: 0.9rem; margin-right: 0.5rem;">Quick templates:</span>
+                <button class="template-btn" onclick="loadTemplate('basic')">📝 Basic</button>
+                <button class="template-btn" onclick="loadTemplate('math')">🔢 Math</button>
+                <button class="template-btn" onclick="loadTemplate('table')">📊 Table</button>
+                <button class="template-btn" onclick="loadTemplate('full')">📄 Full Demo</button>
+            </div>
+
+            <!-- Editor Container -->
+            <div class="editor-container" style="margin-top: 1rem;">
+                <div class="editor-section">
+                    <h3><i class="bi bi-code-slash"></i> Markdown Input</h3>
+                    <textarea id="markdownInput" placeholder="# Your Markdown Here
+
+Write your content using Markdown syntax...
+
+## Features Supported
+- **Bold** and *italic* text
+- Code blocks with syntax highlighting
+- LaTeX math: $E = mc^2$ or $$\int f(x)dx$$
+- Tables, lists, and more!
+"></textarea>
+                </div>
+                <div class="editor-section">
+                    <h3><i class="bi bi-eye"></i> Live Preview</h3>
+                    <div id="preview">
+                        <p style="color: rgba(255,255,255,0.5); text-align: center; margin-top: 2rem;">
+                            <i class="bi bi-arrow-left"></i> Start typing to see preview
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="convertBtn" onclick="convertToDocx()">
+                    <i class="bi bi-file-earmark-word"></i>
+                    Convert to DOCX
+                </button>
+                <button class="btn btn-secondary" onclick="copyMarkdown()">
+                    <i class="bi bi-clipboard"></i>
+                    Copy Markdown
+                </button>
+                <button class="btn btn-secondary" onclick="clearEditor()">
+                    <i class="bi bi-trash"></i>
+                    Clear
+                </button>
+            </div>
+        </div>
+
+        <!-- Features Card -->
+        <div class="card">
+            <h3 style="margin-bottom: 1rem;"><i class="bi bi-stars" style="color: var(--secondary-color);"></i>
+                Supported Features</h3>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="bi bi-type-bold"></i>
+                    <span>Rich Text Formatting</span>
+                </div>
+                <div class="feature-item">
+                    <i class="bi bi-calculator"></i>
+                    <span>LaTeX Math ($, $$, \(, \[)</span>
+                </div>
+                <div class="feature-item">
+                    <i class="bi bi-table"></i>
+                    <span>Tables & Pipe Tables</span>
+                </div>
+                <div class="feature-item">
+                    <i class="bi bi-code-square"></i>
+                    <span>Code Blocks</span>
+                </div>
+                <div class="feature-item">
+                    <i class="bi bi-list-task"></i>
+                    <span>Task Lists</span>
+                </div>
+                <div class="feature-item">
+                    <i class="bi bi-link-45deg"></i>
+                    <span>Links & Images</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/vendor/feedback/purify.min.js?v=20260930-1"></script>
+    <script src="assets/vendor/marked/marked.min.js?v=e479cd780b6f"></script>
+    <script src="assets/vendor/katex/katex.min.js?v=dc84b296ec3e"></script>
+    <script type="module" src="js/sideDrawer.js"></script>
+    <script type="module" src="js/auth.js"></script>
+
+    <script type="module">
+        import { apiClient } from './js/services/ApiClient.js?v=20260930-1';
+        // Configuration - uses same-origin (integrated into Node.js server)
+        let BACKEND_URL = ''; // Empty = same server
+        document.getElementById('backendUrl').value = BACKEND_URL;
+
+        // Templates
+        const TEMPLATES = {
+            basic: `# My Document
+
+## Introduction
+This is a **basic** document template with *formatting*.
+
+## Key Points
+- First point
+- Second point
+- Third point
+
+> This is a blockquote for important notes.
+
+## Conclusion
+Thank you for reading!`,
+
+            math: `# Mathematical Document
+
+## Inline Math
+The famous equation $E = mc^2$ changed physics forever.
+
+## Block Math
+The quadratic formula:
+$$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$
+
+## More Examples
+- Integral: $\\int_0^\\infty e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}$
+- Summation: $\\sum_{n=1}^{\\infty} \\frac{1}{n^2} = \\frac{\\pi^2}{6}$
+
+Using bracket notation:
+\\[
+\\nabla \\times \\mathbf{E} = -\\frac{\\partial \\mathbf{B}}{\\partial t}
+\\]`,
+
+            table: `# Report with Tables
+
+## Sales Data
+
+| Quarter | Revenue | Growth |
+|---------|---------|--------|
+| Q1      | $100k   | 15%    |
+| Q2      | $120k   | 20%    |
+| Q3      | $150k   | 25%    |
+| Q4      | $180k   | 20%    |
+
+## Task List
+
+- [x] Complete analysis
+- [x] Write report
+- [ ] Present findings
+- [ ] Get approval`,
+
+            full: `# Complete Document Demo
+
+## Introduction
+This document demonstrates **all supported features** of the Markdown to DOCX converter.
+
+## Text Formatting
+- **Bold text** for emphasis
+- *Italic text* for titles
+- ~~Strikethrough~~ for deleted content
+- \`inline code\` for technical terms
+
+## Mathematics
+Inline: The equation $a^2 + b^2 = c^2$ is fundamental.
+
+Block equation:
+$$\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}$$
+
+## Code Block
+\`\`\`python
+def hello_world():
+    print("Hello, GPAce!")
+\`\`\`
+
+## Table
+
+| Feature | Status | Priority |
+|---------|--------|----------|
+| Math    | ✅     | High     |
+| Tables  | ✅     | High     |
+| Images  | ✅     | Medium   |
+
+## Lists
+1. First ordered item
+2. Second ordered item
+   - Nested unordered
+   - Another nested
+
+## Blockquote
+> "The only way to do great work is to love what you do."
+> — Steve Jobs
+
+## Conclusion
+This converter supports **GFM**, **LaTeX math**, and produces professional Word documents.`
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkBackend();
+            setupLivePreview();
+        });
+
+        // Check backend status (now integrated into same server)
+        async function checkBackend() {
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
+            const convertBtn = document.getElementById('convertBtn');
+
+            statusDot.className = 'status-dot checking';
+            statusText.textContent = 'Checking Pandoc...';
+
+            try {
+                const response = await fetch('/api/status');
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.pandoc_available) {
+                        statusDot.className = 'status-dot connected';
+                        statusText.textContent = `Pandoc v${data.pandoc_version} ready`;
+                        convertBtn.disabled = false;
+                    } else {
+                        statusDot.className = 'status-dot disconnected';
+                        statusText.textContent = 'DOCX conversion is unavailable on this server';
+                        convertBtn.disabled = true;
+                    }
+                } else {
+                    throw new Error('Server error');
+                }
+            } catch (error) {
+                statusDot.className = 'status-dot disconnected';
+                statusText.textContent = 'Server not reachable';
+                convertBtn.disabled = true;
+                showFlash('Cannot connect to server. Make sure it is running.', 'error');
+            }
+        }
+
+        // Setup live preview with math rendering
+        function setupLivePreview() {
+            const input = document.getElementById('markdownInput');
+            const preview = document.getElementById('preview');
+
+            input.addEventListener('input', () => {
+                const markdown = input.value;
+                if (markdown.trim()) {
+                    // First convert markdown to HTML
+                    let html = marked.parse(markdown);
+
+                    // Then render math expressions with KaTeX
+                    html = renderMath(html);
+
+                    preview.innerHTML = DOMPurify.sanitize(html);
+                } else {
+                    preview.innerHTML = '<p style="color: rgba(255,255,255,0.5); text-align: center; margin-top: 2rem;"><i class="bi bi-arrow-left"></i> Start typing to see preview</p>';
+                }
+            });
+        }
+
+        // Render LaTeX math expressions using KaTeX
+        function renderMath(html) {
+            // Render display math ($$...$$)
+            html = html.replace(/\$\$([^$]+)\$\$/g, (match, math) => {
+                try {
+                    return katex.renderToString(math.trim(), { displayMode: true, throwOnError: false });
+                } catch (e) {
+                    return `<span class="math-error" style="color: #ff6b6b;">${match}</span>`;
+                }
+            });
+
+            // Render inline math ($...$) - but not escaped \$
+            html = html.replace(/(?<!\$)\$(?!\$)([^$\n]+)\$(?!\$)/g, (match, math) => {
+                try {
+                    return katex.renderToString(math.trim(), { displayMode: false, throwOnError: false });
+                } catch (e) {
+                    return `<span class="math-error" style="color: #ff6b6b;">${match}</span>`;
+                }
+            });
+
+            // Render \[...\] display math
+            html = html.replace(/\\\[([^\]]+)\\\]/g, (match, math) => {
+                try {
+                    return katex.renderToString(math.trim(), { displayMode: true, throwOnError: false });
+                } catch (e) {
+                    return `<span class="math-error" style="color: #ff6b6b;">${match}</span>`;
+                }
+            });
+
+            // Render \(...\) inline math
+            html = html.replace(/\\\(([^)]+)\\\)/g, (match, math) => {
+                try {
+                    return katex.renderToString(math.trim(), { displayMode: false, throwOnError: false });
+                } catch (e) {
+                    return `<span class="math-error" style="color: #ff6b6b;">${match}</span>`;
+                }
+            });
+
+            return html;
+        }
+
+        // Load template
+        function loadTemplate(templateName) {
+            const input = document.getElementById('markdownInput');
+            input.value = TEMPLATES[templateName] || '';
+            input.dispatchEvent(new Event('input'));
+            showFlash(`Loaded "${templateName}" template`, 'info');
+        }
+
+        // Convert to DOCX
+        async function convertToDocx() {
+            const markdown = document.getElementById('markdownInput').value.trim();
+            const convertBtn = document.getElementById('convertBtn');
+
+            if (!markdown) {
+                showFlash('Please enter some Markdown content first.', 'info');
+                return;
+            }
+
+            // Show loading state
+            const originalContent = convertBtn.innerHTML;
+            convertBtn.innerHTML = '<span class="spinner"></span> Converting...';
+            convertBtn.disabled = true;
+
+            try {
+                const blob = await apiClient.post('/api/convert', { markdown }, { responseType: 'blob' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'converted_document.docx';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+                a.remove();
+
+                showFlash('Conversion successful! Document downloaded.', 'success');
+
+            } catch (error) {
+                console.error('Conversion error:', error);
+                showFlash(`Conversion failed: ${error.message}`, 'error');
+            } finally {
+                convertBtn.innerHTML = originalContent;
+                convertBtn.disabled = false;
+            }
+        }
+
+        // Copy markdown
+        function copyMarkdown() {
+            const markdown = document.getElementById('markdownInput').value;
+            if (markdown) {
+                navigator.clipboard.writeText(markdown).then(() => {
+                    showFlash('Markdown copied to clipboard!', 'success');
+                });
+            } else {
+                showFlash('Nothing to copy.', 'info');
+            }
+        }
+
+        // Clear editor
+        function clearEditor() {
+            document.getElementById('markdownInput').value = '';
+            document.getElementById('markdownInput').dispatchEvent(new Event('input'));
+            showFlash('Editor cleared.', 'info');
+        }
+
+        // Show flash message
+        function showFlash(message, type) {
+            const container = document.getElementById('flashContainer');
+            const flash = document.createElement('div');
+            flash.className = `flash flash-${type}`;
+            flash.innerHTML = `
+                <i class="bi bi-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <span style="flex: 1;">${message}</span>
+                <button class="btn-close" onclick="this.parentElement.remove()">×</button>
+            `;
+            container.appendChild(flash);
+
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (flash.parentElement) flash.remove();
+            }, 5000);
+        }
+        Object.assign(window, { loadTemplate, convertToDocx, copyMarkdown, clearEditor });
+    </script>
+    <script src="js/inject-header.js"></script>
+</body>
+
+</html>
+
+

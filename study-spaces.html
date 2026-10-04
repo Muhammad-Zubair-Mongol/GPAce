@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Study Spaces</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <link href="assets/vendor/bootstrap/bootstrap.min.css?v=3017df4a76db" rel="stylesheet">
+    <link href="assets/vendor/icons/bootstrap-icons.css?v=edc9031bdcde" rel="stylesheet">
+    <link href="css/design-tokens.css" rel="stylesheet">
+    <link href="css/components/navigation.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="styles/main.css">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <link href="css/study-spaces.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/global-utilities.css?v=20260930-1">
+    <script src="js/theme-manager.js"></script>
+</head>
+
+<body>
+    <nav class="top-nav" id="mainNavigation" aria-label="Primary navigation">
+  <div class="nav-brand"><a href="grind.html" class="link-inherit"><img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" class="logo-brand" width="60" height="60"><span class="brand-text">GPAce</span></a></div>
+  <div class="nav-links" id="mainNavigationLinks" data-navigation-links="true">
+    <a href="grind.html" data-nav-link="true" data-page="grind.html"><i class="bi bi-lightning-charge me-1" aria-hidden="true"></i><span>Grind Mode</span></a>
+    <a href="study-spaces.html" class="active" data-nav-link="true" data-page="study-spaces.html" aria-current="page"><i class="bi bi-building me-1" aria-hidden="true"></i><span>Grind Station</span></a>
+    <a href="daily-calendar.html" data-nav-link="true" data-page="daily-calendar.html"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i><span>Daily Drip</span></a>
+    <a href="academic-details.html" data-nav-link="true" data-page="academic-details.html"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i><span>Brain Juice</span></a>
+    <a href="extracted.html" data-nav-link="true" data-page="extracted.html"><i class="bi bi-collection me-1" aria-hidden="true"></i><span>Hustle Hub</span></a>
+    <a href="subject-marks.html" data-nav-link="true" data-page="subject-marks.html"><i class="bi bi-graph-up me-1" aria-hidden="true"></i><span>Subject Marks</span></a>
+    <a href="flashcards.html" data-nav-link="true" data-page="flashcards.html"><i class="bi bi-card-text me-1" aria-hidden="true"></i><span>Flashcards</span></a>
+    <a href="markdown-converter.html" data-nav-link="true" data-page="markdown-converter.html"><i class="bi bi-markdown me-1" aria-hidden="true"></i><span>MD Converter</span></a>
+    <a href="sleep-saboteurs.html" data-nav-link="true" data-page="sleep-saboteurs.html"><i class="bi bi-alarm me-1" aria-hidden="true"></i><span>Alarms</span></a>
+    <a href="settings.html" data-nav-link="true" data-page="settings.html"><i class="bi bi-gear me-1" aria-hidden="true"></i><span>Settings</span></a>
+    <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bi bi-moon-stars theme-icon" aria-hidden="true"></i><span class="theme-text visually-hidden">Toggle theme</span></button>
+    <button type="button" class="drawer-toggle" aria-label="Open settings drawer" title="Settings"><i class="bi bi-gear" aria-hidden="true"></i></button>
+  </div>
+  <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation" aria-controls="mainNavigationLinks" aria-expanded="false" aria-haspopup="true"><i class="bi bi-list" aria-hidden="true"></i></button>
+</nav>
+
+    <div class="container">
+        <!-- Add this modal HTML right after the container div -->
+        <div class="modal fade" id="apiSettingsModal" tabindex="-1" aria-labelledby="apiSettingsModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="apiSettingsModalLabel">Gemini AI Key Pool Settings</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <label for="geminiApiKeys" class="form-label mb-0">Gemini API Keys (One per line)</label>
+                                <span id="geminiModalKeyCountBadge" class="badge bg-secondary">0 keys active</span>
+                            </div>
+                            <textarea class="form-control font-monospace" id="geminiApiKeys" rows="4" placeholder="Paste API keys (one per line)&#10;AIzaSy...&#10;AIzaSy..." spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
+                                <input type="hidden" id="geminiApiKey">
+
+
+
+
+
+                            <small class="text-muted">Get your API key from <a
+                                    href="https://makersuite.google.com/app/apikey" target="_blank">Google
+                                    MakerSuite</a>. Keys are load-balanced and rotate automatically on quota limits.</small>
+                        </div>
+                        <div id="apiKeyStatus" class="alert d-none" role="alert"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="saveApiKeyBtn">Save & Test</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add a settings button in the top nav -->
+        <button type="button" class="btn btn-outline-secondary api-settings-trigger"
+            id="apiSettingsBtn" aria-label="API Settings">
+            <i class="bi bi-gear"></i> API Settings
+        </button>
+
+        <!-- Add this error toast -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="errorToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-danger text-white">
+                    <i class="bi bi-exclamation-triangle me-2"></i>
+                    <strong class="me-auto">Error</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" style="background-color: var(--card-bg); color: var(--text-color);">
+                </div>
+            </div>
+        </div>
+
+        <section class="schedule-section slide-in">
+            <h2>Your Schedule</h2>
+            <div class="time-setup">
+                <h3>Daily Schedule</h3>
+                <div class="time-range">
+                    <div class="time-input">
+                        <label>Wake up time</label>
+                        <div class="time-picker">
+                            <input type="time" id="wakeTime" class="time-select">
+                            <div class="buffer-select">
+                                <label>Buffer:</label>
+                                <select id="wakeBuffer">
+                                    <option value="0">No buffer</option>
+                                    <option value="30">±30 min</option>
+                                    <option value="60">±1 hour</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="time-input">
+                        <label>Sleep time</label>
+                        <div class="time-picker">
+                            <input type="time" id="sleepTime" class="time-select">
+                            <div class="buffer-select">
+                                <label>Buffer:</label>
+                                <select id="sleepBuffer">
+                                    <option value="0">No buffer</option>
+                                    <option value="30">±30 min</option>
+                                    <option value="60">±1 hour</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timetable-upload study-space-card mt-4">
+                <h3>Class Timetable</h3>
+                <div class="upload-section">
+                    <div class="file-upload-container" id="timetableUpload">
+                        <input type="file" id="timetableInput" accept="image/*" style="display: none;">
+                        <div class="upload-area" onclick="document.getElementById('timetableInput').click()">
+                            <span class="upload-icon">📅</span>
+                            <p>Upload your class timetable</p>
+                            <p class="upload-hint">Drag & drop or click to select</p>
+                        </div>
+                        <div id="timetablePreview" class="image-preview mt-3"></div>
+                        <div id="timetableAnalysis" class="analysis-results mt-4" style="display: none;">
+                            <div class="analysis-card">
+                                <h4>Schedule Analysis</h4>
+                                <div class="analysis-grid">
+                                    <!-- Daily Schedule -->
+                                    <div id="scheduleResults" class="analysis-section">
+                                        <div class="section-header">
+                                            <h5>Class Schedule</h5>
+                                            <i class="bi bi-calendar-check"></i>
+                                        </div>
+                                        <div class="schedule-container"></div>
+                                    </div>
+
+                                    <!-- Free Time Analysis -->
+                                    <div id="freeTimeResults" class="analysis-section">
+                                        <div class="section-header">
+                                            <h5>Free Time Analysis</h5>
+                                            <i class="bi bi-hourglass-split"></i>
+                                        </div>
+                                        <div class="free-time-container"></div>
+                                    </div>
+
+                                    <!-- Weekly Stats -->
+                                    <div id="weeklyStats" class="analysis-section">
+                                        <div class="section-header">
+                                            <h5>Weekly Overview</h5>
+                                            <i class="bi bi-graph-up"></i>
+                                        </div>
+                                        <div class="stats-container"></div>
+                                    </div>
+
+                                    <!-- Study Recommendations -->
+                                    <div id="studyRecommendations" class="analysis-section">
+                                        <div class="section-header">
+                                            <h5>Study & Break Recommendations</h5>
+                                            <i class="bi bi-lightbulb"></i>
+                                        </div>
+                                        <div class="recommendations-container"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="study-spaces-section slide-in">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>My Study Spaces</h2>
+                <div class="sync-status d-none" id="syncStatus">
+                    <span class="badge bg-success"><i class="bi bi-cloud-check"></i> Synced</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Left column: Add new study space -->
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body">
+                            <!-- Upload new study space -->
+                            <div class="upload-area" id="studySpaceUpload">
+                                <input type="file" id="spaceImageInput" accept="image/*" style="display: none;">
+                                <i class="bi bi-cloud-upload upload-icon"></i>
+                                <h3>Add New Study Space</h3>
+                                <p class="upload-hint">Click or drag and drop to upload an image</p>
+                            </div>
+
+                            <!-- Study space form -->
+                            <div class="study-space-form" style="display: none;">
+                                <h3 class="mb-3">Study Space Details</h3>
+                                <div class="mb-3">
+                                    <label for="spaceName" class="form-label">Name</label>
+                                    <input type="text" class="form-control location-input" id="spaceName"
+                                        placeholder="e.g., Library Study Room">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="spaceLocation" class="form-label">Location</label>
+                                    <input type="text" class="form-control location-input" id="spaceLocation"
+                                        placeholder="e.g., Main Campus Library, 2nd Floor">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Amenities</label>
+                                    <div class="amenities">
+                                        <label class="d-flex align-items-center mb-2"><input type="checkbox"
+                                                value="wifi" class="me-2"> Wi-Fi</label>
+                                        <label class="d-flex align-items-center mb-2"><input type="checkbox"
+                                                value="power" class="me-2"> Power Outlets</label>
+                                        <label class="d-flex align-items-center mb-2"><input type="checkbox"
+                                                value="quiet" class="me-2"> Quiet Zone</label>
+                                        <label class="d-flex align-items-center mb-2"><input type="checkbox"
+                                                value="food" class="me-2"> Food Allowed</label>
+                                        <label class="d-flex align-items-center mb-2"><input type="checkbox"
+                                                value="group" class="me-2"> Group Space</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="spaceDescription" class="form-label">Description</label>
+                                    <textarea class="form-control location-input" id="spaceDescription" rows="3"
+                                        placeholder="Describe the study space..."></textarea>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button class="save-button" id="saveStudySpace">Save Study Space</button>
+                                    <button class="btn btn-outline-secondary" id="cancelStudySpace">Cancel</button>
+                                </div>
+                            </div>
+
+                            <!-- Cloud sync info -->
+                            <div class="cloud-sync-info mt-4 p-3 border rounded"
+                                style="background-color: var(--hover-bg);">
+                                <h5><i class="bi bi-cloud me-2"></i> Cloud Sync</h5>
+                                <p class="small mb-2">Your study spaces are automatically synced across all your devices
+                                    when you're signed in.</p>
+                                <div class="d-flex align-items-center">
+                                    <div id="syncStatusIndicator" class="me-2">
+                                        <i class="bi bi-check-circle-fill text-success"></i>
+                                    </div>
+                                    <small id="syncStatusText">Synced with cloud</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right column: Study spaces container -->
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">My Saved Spaces</h5>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-secondary" id="gridViewBtn" title="Grid View">
+                                    <i class="bi bi-grid"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary" id="listViewBtn" title="List View">
+                                    <i class="bi bi-list-ul"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="studySpacesContainer" class="row">
+                                <!-- Study spaces will be dynamically added here -->
+                                <div class="col-12" id="noSpacesMessage">
+                                    <div class="alert alert-info">
+                                        <i class="bi bi-info-circle me-2"></i> No study spaces added yet. Add your first
+                                        study space to get started!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="actions d-flex justify-content-between align-items-center mt-4 mb-5">
+            <div>
+                <button class="btn btn-outline-secondary" id="syncNowBtn">
+                    <i class="bi bi-arrow-repeat me-1"></i> Sync Now
+                </button>
+                <button class="btn btn-outline-info ms-2" id="helpBtn" data-bs-toggle="modal"
+                    data-bs-target="#helpModal">
+                    <i class="bi bi-question-circle me-1"></i> Help
+                </button>
+            </div>
+            <button class="save-button" id="saveSettings">
+                <i class="bi bi-check-circle me-1"></i> Save Settings
+            </button>
+        </div>
+
+        <!-- Help Modal -->
+        <div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content" style="background-color: var(--card-bg); color: var(--text-color);">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="helpModalLabel">Study Spaces Help</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h6><i class="bi bi-cloud me-2"></i> Cloud Sync</h6>
+                        <p>Your study spaces are automatically synced to the cloud when you're signed in. This allows
+                            you to access your study spaces from any device.</p>
+
+                        <h6><i class="bi bi-image me-2"></i> Adding Study Spaces</h6>
+                        <p>To add a new study space:</p>
+                        <ol>
+                            <li>Click on the upload area or drag and drop an image</li>
+                            <li>Fill in the details about your study space</li>
+                            <li>Click "Save Study Space"</li>
+                        </ol>
+
+                        <h6><i class="bi bi-gear me-2"></i> Managing Your Spaces</h6>
+                        <p>You can delete a study space by clicking the delete button on the study space card.</p>
+
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i> All your data is securely stored in Firebase and
+                            synchronized across your devices when you're signed in.
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sync status toast -->
+        <div class="position-fixed bottom-0 start-0 p-3" style="z-index: 11">
+            <div id="syncToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bg-success text-white">
+                    <i class="bi bi-cloud-check me-2"></i>
+                    <strong class="me-auto">Sync Status</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body" style="background-color: var(--card-bg); color: var(--text-color);">
+                    Your study spaces have been synced successfully.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External Dependencies (Load First) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js?v=82f64f62bb03"></script>
+
+    <!-- Firebase SDK (Single Version - 10.7.1 ESM) -->
+    <!-- Note: studySpacesFirestore.js uses ESM imports, so we use compat layer for non-module scripts -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-functions-compat.js"></script>
+
+    <!-- Gemini AI SDK for ImageAnalyzer -->
+    <script type="importmap">
+    {
+        "imports": {
+            "@google/generative-ai": "https://esm.run/@google/generative-ai@0.24.0"
+        }
+    }
+    </script>
+    <script type="module">
+        import { GoogleGenerativeAI } from '@google/generative-ai';
+        window.GoogleGenerativeAI = GoogleGenerativeAI;
+    </script>
+
+    <!-- Socket.IO (optional - may fail if server not available) -->
+    <script src="/socket.io/socket.io.js" onerror="console.warn('Socket.IO not available')"></script>
+
+    <!-- DOMPurify for XSS Protection -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+
+    <!-- Core Services (Modules) -->
+    <script type="module" src="js/services/StorageService.js"></script>
+    <script type="module" src="js/services/SecureStorage.js"></script>
+    <script type="module" src="js/utils/Sanitizer.js"></script>
+    <script type="module" src="js/utils/Logger.js"></script>
+    <script type="module" src="js/utils/StorageAdapter.js"></script>
+
+    <!-- Firestore Functions Bridge (Module -> Window) -->
+    <script type="module">
+        // Import Firestore functions and expose globally
+        import {
+            saveStudySpacesToFirestore,
+            loadStudySpacesFromFirestore,
+            deleteStudySpaceFromFirestore,
+            forceSyncStudySpaces
+        } from './js/studySpacesFirestore.js';
+
+        // Make functions available globally for non-module scripts
+        window.saveStudySpacesToFirestore = saveStudySpacesToFirestore;
+        window.loadStudySpacesFromFirestore = loadStudySpacesFromFirestore;
+        window.deleteStudySpaceFromFirestore = deleteStudySpaceFromFirestore;
+        window.forceSyncStudySpaces = forceSyncStudySpaces;
+
+        // Dispatch event to notify non-module scripts that functions are ready
+        window.dispatchEvent(new Event('firestoreFunctionsReady'));
+    </script>
+
+    <!-- Authentication Module -->
+    <script type="module" src="js/auth.js"></script>
+
+    <!-- Non-Module Scripts (deferred to ensure modules load first) -->
+    <script defer src="js/imageAnalyzer.js"></script>
+    <script defer src="js/alarm-service.js"></script>
+    <script defer src="js/timetableAnalyzer.js"></script>
+    <script defer src="js/apiSettingsManager.js"></script>
+    <script defer src="js/studySpaceAnalyzer.js"></script>
+
+    <!-- Study Spaces Controllers (load before manager) -->
+    <script defer src="js/controllers/ScheduleController.js"></script>
+    <script defer src="js/controllers/TimetableController.js"></script>
+    <script defer src="js/controllers/StudySpaceController.js"></script>
+    <script defer src="js/studySpacesManager.js"></script>
+
+    <!-- Additional Modules -->
+    <script type="module" src="js/sideDrawer.js"></script>
+    <script type="module" src="js/cross-tab-sync.js"></script>
+
+    <!-- Header Injection (last) -->
+    <script defer src="/js/inject-header.js"></script>
+</body>
+
+</html>
+
+
+

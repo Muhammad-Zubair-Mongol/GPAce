@@ -1,0 +1,113 @@
+{
+  "version": 1,
+  "description": "Explicit browser module ownership and evidence gates for the Step 48 integration.",
+  "entrypoints": [
+    {
+      "file": "grind.html",
+      "includeInlineModules": true,
+      "owner": "browser/grind",
+      "smoke": "tests/cases/16.test.cjs"
+    }
+  ],
+  "runtimeResolvedModules": [
+    {
+      "file": "js/sideDrawer.js",
+      "retain": true,
+      "via": "grind.html module script",
+      "reason": "The browser resolves this module directly from the page entrypoint."
+    },
+    {
+      "file": "js/pages/grind.js",
+      "retain": true,
+      "via": "grind.html module script",
+      "reason": "Canonical Grind page entry; the Step 16 smoke flow exercises its lifecycle."
+    }
+  ],
+  "requiredExports": [
+    {
+      "file": "js/pages/grind.js",
+      "exports": ["initGrindPage", "getGrindState", "destroyGrindPage", "default"]
+    }
+  ],
+  "boundaries": [
+    {
+      "name": "browser-runtime",
+      "from": ["grind.html", "js/**"],
+      "allow": ["js/**", "public/**"],
+      "deny": [
+        "server/**",
+        "private/**",
+        "data/**",
+        "archive/**",
+        "audit/**",
+        "functions/**",
+        "tests/**",
+        "package-lock.json"
+      ]
+    }
+  ],
+  "externalAllowlist": [
+    "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+    "https://cdn.jsdelivr.net/npm/chart.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js",
+    "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js",
+    "https://unpkg.com/three@0.157.0/build/three.module.js",
+    "https://unpkg.com/three@0.157.0/examples/jsm/",
+    "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+    "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
+    "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+  ],
+  "enforceExternalAllowlist": true,
+  "dynamicGlobals": [
+    {
+      "name": "window.initGrindPage",
+      "owner": "js/pages/grind.js",
+      "required": true,
+      "reason": "Browser compatibility shim installed by the canonical page entry."
+    },
+    {
+      "name": "this.win.displayPriorityTask",
+      "owner": "js/pages/grind.js",
+      "required": true,
+      "reason": "Legacy inline callers may resolve the page-owned display action at runtime."
+    }
+  ],
+  "retirements": [
+    {
+      "file": "js/controllers/GrindInitializationController.js",
+      "decision": "retired-compatibility-stub",
+      "keepPath": true,
+      "replacement": "js/pages/grind.js",
+      "replacementExports": ["initGrindPage", "getGrindState", "destroyGrindPage"],
+      "staticEvidence": {
+        "coverage": ["grind.html", "js/pages/grind.js"],
+        "incomingStaticEdges": 0,
+        "noDirectHtmlMount": true,
+        "reason": "The old extracted controller has no import, module-script, or runtime URL edge in the covered browser graph."
+      },
+      "runtimeEvidence": {
+        "browserEntrypoint": "grind.html",
+        "canonicalModule": "js/pages/grind.js",
+        "candidateLoaded": false,
+        "source": "Step 16 browser smoke coverage and the current canonical module entry."
+      },
+      "smokeAssertions": [
+        {
+          "id": "canonical-entry",
+          "verified": true,
+          "description": "grind.html has one page module entry and it is js/pages/grind.js."
+        },
+        {
+          "id": "idempotent-lifecycle",
+          "verified": true,
+          "description": "The replacement initGrindPage lifecycle remains safe under repeated initialization."
+        },
+        {
+          "id": "missing-dom-safe",
+          "verified": true,
+          "description": "The replacement entry tolerates absent optional DOM controls."
+        }
+      ]
+    }
+  ]
+}

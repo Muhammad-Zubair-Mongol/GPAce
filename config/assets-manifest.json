@@ -1,0 +1,372 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": 1,
+  "description": "The browser-only GPAce graph. Paths are copied with their existing URLs; native modules are intentionally not bundled.",
+  "expectedPageCount": 20,
+  "pages": [
+    "404.html",
+    "academic-details.html",
+    "daily-calendar.html",
+    "extracted.html",
+    "flashcards.html",
+    "grind.html",
+    "index.html",
+    "instant-test-feedback.html",
+    "landing.html",
+    "markdown-converter.html",
+    "priority-calculator.html",
+    "priority-list.html",
+    "relaxed-mode/index.html",
+    "scripts/image-optimizer.html",
+    "settings.html",
+    "sleep-saboteurs.html",
+    "study-spaces.html",
+    "subject-marks.html",
+    "tasks.html",
+    "workspace.html"
+  ],
+  "assetRoots": [
+    "alarm-sounds",
+    "assets",
+    "flashcards",
+    "icons",
+    "sounds"
+  ],
+  "requiredFiles": [
+    "css/design-tokens.css",
+    "css/global-utilities.css",
+    "js/alarm-handler.js",
+    "js/pomodoroGlobal.js",
+    "js/services/SyncOutbox.js",
+    "js/studySpacesFirestore.js",
+    "js/subject-marks.js"
+  ],
+  "aliases": {
+    "main.css": "styles/main.css",
+    "js/cacheManager.js": "public/js/cacheManager.js"
+  },
+  "virtualDependencies": [
+    {
+      "path": "/socket.io/socket.io.js",
+      "reason": "Socket.IO serves this client endpoint at runtime; it is not a browser file in the static distribution."
+    }
+  ],
+  "requirePinnedExternalAssets": true,
+  "externalDependencies": [
+    {
+      "url": "https://accounts.google.com/gsi/client",
+      "kind": "runtime",
+      "license": "Google service endpoint",
+      "source": "Google Identity Services",
+      "pinned": true
+    },
+    {
+      "url": "https://apis.google.com/js/api.js",
+      "kind": "runtime",
+      "license": "Google service endpoint",
+      "source": "Google APIs JavaScript client",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net",
+      "kind": "preconnect",
+      "license": "n/a",
+      "source": "Resource hint only",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "@popperjs/core 2.11.8",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "Bootstrap Icons 1.11.1",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "Bootstrap 5.3.2",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "Bootstrap 5.3.2",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js",
+      "kind": "cdn",
+      "license": "Apache-2.0 OR MPL-2.0",
+      "source": "DOMPurify 3.0.6",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "KaTeX 0.16.9",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "KaTeX 0.16.9",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js",
+      "kind": "cdn",
+      "license": "Apache-2.0",
+      "source": "MathJax 3",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.quilljs.com/1.3.6/quill.min.js",
+      "kind": "cdn",
+      "license": "BSD-3-Clause",
+      "source": "Quill 1.3.6",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.quilljs.com/1.3.6/quill.snow.css",
+      "kind": "cdn",
+      "license": "BSD-3-Clause",
+      "source": "Quill 1.3.6",
+      "pinned": true
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/docx/7.8.2/docx.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "docx 7.8.2",
+      "pinned": true
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js",
+      "kind": "cdn",
+      "license": "Apache-2.0 OR MPL-2.0",
+      "source": "DOMPurify 3.0.6",
+      "pinned": true
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js",
+      "kind": "cdn",
+      "license": "Apache-2.0 OR MPL-2.0",
+      "source": "DOMPurify 3.0.8",
+      "pinned": true
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
+      "kind": "cdn",
+      "license": "MIT code; CC BY 4.0 icons",
+      "source": "Font Awesome 6.0.0",
+      "pinned": true
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css",
+      "kind": "cdn",
+      "license": "MIT code; CC BY 4.0.0 icons",
+      "source": "Font Awesome 6.5.1",
+      "pinned": true
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "html2canvas 1.4.1",
+      "pinned": true
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "html2pdf.js 0.10.1",
+      "pinned": true
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "jsPDF 2.5.1",
+      "pinned": true
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js",
+      "kind": "cdn",
+      "license": "Apache-2.0",
+      "source": "PDF.js 3.11.174",
+      "pinned": true
+    },
+    {
+      "url": "https://forms.gle/LnMspth72dFMeVV17",
+      "kind": "navigation",
+      "license": "Google service endpoint",
+      "source": "Feedback form",
+      "pinned": true
+    },
+    {
+      "url": "https://makersuite.google.com/app/apikey",
+      "kind": "navigation",
+      "license": "Google service endpoint",
+      "source": "Provider key help link",
+      "pinned": true
+    },
+    {
+      "url": "https://www.gstatic.com",
+      "kind": "preconnect",
+      "license": "n/a",
+      "source": "Resource hint only",
+      "pinned": true
+    },
+    {
+      "url": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js",
+      "kind": "cdn",
+      "license": "Apache-2.0",
+      "source": "Firebase 10.7.1 compat",
+      "pinned": true
+    },
+    {
+      "url": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js",
+      "kind": "cdn",
+      "license": "Apache-2.0",
+      "source": "Firebase 10.7.1 compat",
+      "pinned": true
+    },
+    {
+      "url": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js",
+      "kind": "cdn",
+      "license": "Apache-2.0",
+      "source": "Firebase 10.7.1 compat",
+      "pinned": true
+    },
+    {
+      "url": "https://www.gstatic.com/firebasejs/10.7.1/firebase-functions-compat.js",
+      "kind": "cdn",
+      "license": "Apache-2.0",
+      "source": "Firebase 10.7.1 compat",
+      "pinned": true
+    },
+    {
+      "url": "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js",
+      "kind": "cdn",
+      "license": "Apache-2.0",
+      "source": "Firebase 10.7.1 compat",
+      "pinned": true
+    },
+    {
+      "url": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+      "kind": "cdn",
+      "license": "Apache-2.0",
+      "source": "Firebase 10.7.1 modular",
+      "pinned": true
+    },
+    {
+      "url": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js",
+      "kind": "cdn",
+      "license": "Apache-2.0",
+      "source": "Firebase 10.7.1 modular",
+      "pinned": true
+    },
+    {
+      "url": "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js",
+      "kind": "cdn",
+      "license": "Apache-2.0",
+      "source": "Firebase 10.7.1 modular",
+      "pinned": true
+    },
+    {
+      "url": "https://esm.run/@google/generative-ai@0.24.0",
+      "kind": "cdn",
+      "license": "Apache-2.0",
+      "source": "Google Generative AI ESM 0.24.0",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "Three.js 0.159.0",
+      "pinned": true
+    },
+    {
+      "url": "https://unpkg.com/three@0.157.0/build/three.module.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "Three.js 0.157.0 import map",
+      "pinned": true
+    },
+    {
+      "url": "https://unpkg.com/three@0.157.0/examples/jsm/",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "Three.js 0.157.0 import map",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/three@0.159.0/examples/js/controls/OrbitControls.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "Three.js 0.159.0",
+      "pinned": true
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js",
+      "kind": "cdn",
+      "license": "LGPL-2.1",
+      "source": "p5.js 1.9.0",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "Chart.js 4.4.1",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/three@0.159.0/examples/js/utils/BufferGeometryUtils.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "Three.js 0.159.0",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/three@0.159.0/examples/js/loaders/GLTFLoader.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "Three.js 0.159.0",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/three@0.159.0/examples/js/loaders/FBXLoader.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "Three.js 0.159.0",
+      "pinned": true
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/three@0.159.0/examples/js/loaders/OBJLoader.js",
+      "kind": "cdn",
+      "license": "MIT",
+      "source": "Three.js 0.159.0",
+      "pinned": true
+    },
+    {
+      "url": "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js",
+      "kind": "cdn",
+      "license": "Apache-2.0",
+      "source": "PDF.js 3.11.174",
+      "pinned": true
+    }
+  ]
+}

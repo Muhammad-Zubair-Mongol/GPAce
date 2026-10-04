@@ -1,0 +1,599 @@
+
+/* Results Actions Styles */
+.results-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(40, 40, 40, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.results-actions .action-btn {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+/* Live Research Results Styles */
+.gemini-response {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  flex: 1;
+}
+
+/* Gemini response in expanded AI container */
+.ai-researcher-container.modern.expanded .gemini-response {
+  height: 100%;
+  min-height: 50vh;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.response-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.response-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.model-badge {
+  background-color: #fe2c55;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Research Progress Bar */
+.research-progress {
+  height: 4px;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: relative;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.research-progress-bar {
+  height: 100%;
+  background-color: #fe2c55;
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.research-status {
+  position: absolute;
+  right: 16px;
+  top: -20px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.response-content {
+  padding: 16px;
+  max-height: 600px;
+  overflow-y: auto;
+  line-height: 1.6;
+  position: relative;
+  flex: 1;
+}
+
+/* Response content in expanded AI container */
+.ai-researcher-container.modern.expanded .response-content {
+  max-height: none;
+  height: 100%;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Blinking cursor effect for live text generation */
+.response-content::after {
+  content: '|';
+  display: inline-block;
+  color: #fe2c55;
+  font-weight: bold;
+  animation: blink 1s infinite;
+  position: relative;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Highlight the most recently added text */
+.response-content .highlight-new {
+  background-color: rgba(254, 44, 85, 0.1);
+  transition: background-color 2s ease;
+}
+
+/* Styling for LaTeX content */
+.response-content .math {
+  font-size: 1.1em;
+}
+
+.response-content h1,
+.response-content h2,
+.response-content h3 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: var(--heading-color);
+}
+
+.response-content h1 {
+  font-size: 1.8em;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 0.3em;
+}
+
+.response-content h2 {
+  font-size: 1.5em;
+}
+
+.response-content h3 {
+  font-size: 1.3em;
+}
+
+.response-content ul,
+.response-content ol {
+  padding-left: 2em;
+  margin-bottom: 1em;
+}
+
+.response-content blockquote {
+  border-left: 4px solid #fe2c55;
+  padding-left: 1em;
+  margin-left: 0;
+  color: rgba(0, 0, 0, 0.7);
+  font-style: italic;
+}
+
+.response-content code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.response-content pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 1em;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.response-content pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+.response-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+}
+
+.response-content th,
+.response-content td {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 8px 12px;
+}
+
+.response-content th {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
+
+.results-actions .action-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.results-actions .action-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.results-actions .action-btn i {
+  font-size: 1rem;
+}
+
+/* Text-to-speech controls */
+.tts-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-left: auto; /* Push to the right */
+}
+
+/* Make the pause/resume and stop buttons more compact */
+#pauseResumeTextToSpeechBtn,
+#stopTextToSpeechBtn,
+.speed-btn {
+  padding: 4px 6px;
+  min-width: 32px;
+}
+
+/* Speed control container */
+.speed-control-container {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 2px 4px;
+  margin-right: 4px;
+}
+
+/* Current speed display */
+.current-speed {
+  font-size: 0.85rem;
+  color: white;
+  padding: 0 6px;
+  min-width: 28px;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Roboto Mono', monospace;
+}
+
+/* Speed buttons */
+.speed-btn {
+  padding: 2px 4px;
+  min-width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.speed-btn i {
+  font-size: 0.7rem;
+}
+
+/* Highlight current speed when changed */
+.current-speed.highlight {
+  color: #FFEB3B;
+  animation: pulse-text 0.5s ease-in-out;
+}
+
+@keyframes pulse-text {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Voice selector container and dropdown */
+.voice-selector-container {
+  position: relative;
+}
+
+.voice-settings-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 250px;
+  background-color: #2C3E50;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  padding: 8px;
+  margin-top: 4px;
+  color: white;
+}
+
+.voice-settings-dropdown.show {
+  display: block;
+}
+
+.dropdown-header {
+  font-weight: bold;
+  padding: 4px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 8px;
+}
+
+.dropdown-item {
+  padding: 6px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.voice-selector,
+.rate-selector {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  width: 160px;
+  cursor: pointer;
+}
+
+.voice-selector option,
+.rate-selector option {
+  background-color: #2C3E50;
+  color: white;
+}
+
+/* Word highlighting styles */
+.tts-word {
+  display: inline-block;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy animation */
+  position: relative;
+  padding: 0 1px;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
+.tts-highlighted {
+  background-color: #2C3E50; /* Dark blue background */
+  color: #ECF0F1; /* Light gray text for better contrast */
+  transform: scale(1.2); /* Increase size by 20% */
+  padding: 0 4px;
+  margin: 0 1px;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(44, 62, 80, 0.7);
+  font-weight: bold;
+  z-index: 5;
+  animation: pulse 0.5s infinite alternate;
+}
+
+/* Pulse animation for highlighted word */
+@keyframes pulse {
+  from { transform: scale(1.2); }
+  to { transform: scale(1.3); }
+}
+
+/* Alternative highlight styles that can be toggled */
+.tts-highlight-style-2 .tts-highlighted {
+  background-color: #8E44AD; /* Purple background */
+  color: #FFFFFF;
+  box-shadow: 0 0 8px rgba(142, 68, 173, 0.7);
+}
+
+.tts-highlight-style-3 .tts-highlighted {
+  background-color: #16A085; /* Teal background */
+  color: #FFFFFF;
+  box-shadow: 0 0 8px rgba(22, 160, 133, 0.7);
+}
+
+/* Improve readability of the research response */
+.research-response {
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+/* Pop-out Simulation Window Styles */
+.simulation-popout {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 900px;
+  height: 80%;
+  max-height: 700px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  overflow: hidden;
+  resize: none; /* Disable native resizing in favor of our custom implementation */
+  min-width: 400px; /* Prevent window from becoming too small */
+  min-height: 300px;
+  transition: opacity 0.3s ease;
+}
+
+/* Custom resize handles for better visibility */
+.simulation-popout::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(135deg, transparent 50%, rgba(0, 0, 0, 0.2) 50%);
+  cursor: nwse-resize;
+  z-index: 10;
+}
+
+/* Additional resize handles for each corner and edge */
+.resize-handle {
+  position: absolute;
+  z-index: 10;
+}
+
+.resize-handle.corner {
+  width: 15px;
+  height: 15px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.resize-handle.edge {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.resize-handle.top-left {
+  top: 0;
+  left: 0;
+  cursor: nwse-resize;
+  border-radius: 0 0 5px 0;
+}
+
+.resize-handle.top-right {
+  top: 0;
+  right: 0;
+  cursor: nesw-resize;
+  border-radius: 0 0 0 5px;
+}
+
+.resize-handle.bottom-left {
+  bottom: 0;
+  left: 0;
+  cursor: nesw-resize;
+  border-radius: 0 5px 0 0;
+}
+
+.resize-handle.bottom-right {
+  bottom: 0;
+  right: 0;
+  cursor: nwse-resize;
+  border-radius: 5px 0 0 0;
+}
+
+.resize-handle.right {
+  width: 8px;
+  height: calc(100% - 30px);
+  top: 15px;
+  right: 0;
+  cursor: ew-resize;
+}
+
+.resize-handle.bottom {
+  height: 8px;
+  width: calc(100% - 30px);
+  bottom: 0;
+  left: 15px;
+  cursor: ns-resize;
+}
+
+/* Style for when the window is being dragged */
+.simulation-popout.dragging {
+  opacity: 0.9;
+  cursor: grabbing !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  transition: none; /* Disable transitions during drag for better performance */
+}
+
+/* Style for when the window is being resized */
+.simulation-popout.resizing {
+  opacity: 0.92;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  transition: none; /* Disable transitions during resize for better performance */
+}
+
+/* Highlight resize handles on hover */
+.resize-handle:hover {
+  background-color: rgba(0, 123, 255, 0.3);
+  border-color: rgba(0, 123, 255, 0.5);
+}
+
+.simulation-popout.active {
+  display: flex;
+  flex-direction: column;
+}
+
+.simulation-popout-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #f8f9fa;
+  background-image: linear-gradient(to right, #f8f9fa, #e9ecef);
+  border-bottom: 1px solid #e9ecef;
+  cursor: grab;
+  user-select: none; /* Prevent text selection during drag */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  touch-action: none; /* Improve touch handling */
+  position: relative;
+}
+
+/* Add a subtle drag handle indicator */
+.simulation-popout-header::before {
+  content: '⋮⋮';
+  position: absolute;
+  left: 5px;
+  color: #adb5bd;
+  font-size: 14px;
+  letter-spacing: -2px;
+}
+
+.simulation-popout-title {
+  font-weight: 600;
+  margin: 0;
+}
+
+.simulation-popout-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Aspect ratio lock button */
+.aspect-ratio-lock {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.aspect-ratio-lock input {
+  margin-right: 5px;
+}
+
+/* Stabilize iframe content */
+.simulation-popout-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.simulation-popout-actions button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #6c757d;
+  transition: color 0.2s;
+}
+
+.simulation-popout-actions button:hover {
+  color: #343a40;
+}
+
+.simulation-popout-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.simulation-popout iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}

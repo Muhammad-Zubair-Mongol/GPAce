@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "name": "gpace-step-58-offline-performance",
+  "reproducibility": {
+    "offline": true,
+    "runs": 5,
+    "warmupRuns": 1,
+    "seed": 58058,
+    "taskCount": 1000,
+    "openCloseCycles": 20,
+    "syncTabs": 2,
+    "syncMessages": 20,
+    "backendJobs": 5,
+    "now": "2026-09-29T12:00:00.000Z",
+    "timeZone": "UTC",
+    "calendarMode": "runtime"
+  },
+  "budgets": {
+    "scoring": {
+      "medianMs": 250,
+      "p95Ms": 1000
+    },
+    "lifecycle": {
+      "medianMs": 250,
+      "p95Ms": 1000
+    },
+    "sync": {
+      "medianMs": 250,
+      "p95Ms": 1000
+    },
+    "backendJobs": {
+      "medianMs": 1000,
+      "p95Ms": 3000
+    }
+  },
+  "contracts": {
+    "jobDeadlineMs": 10000,
+    "maxLiveWorkersAfterDispose": 0,
+    "maxLiveListenersAfterDispose": 0,
+    "maxLiveIntervalsAfterDispose": 0,
+    "maxDurableTimerWritesPerBoundary": 1
+  },
+  "limitations": [
+    "The Node harness does not measure browser rendering, CLS, INP, or LCP; no browser render budget is inferred from these results.",
+    "No Firebase Auth or Firestore emulator is started; backend jobs use injected in-memory repositories and workers only.",
+    "The report records the local Node and hardware profile. Browser device variance and contention require a separate browser run before release claims."
+  ]
+}

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Alarms</title>
+    <meta name="description" content="Set and manage class alarms with GPAce. Never miss a class again!">
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link href="assets/vendor/bootstrap/bootstrap.min.css?v=3017df4a76db" rel="stylesheet">
+    <link href="assets/vendor/icons/bootstrap-icons.css?v=edc9031bdcde" rel="stylesheet">
+    <link href="css/design-tokens.css" rel="stylesheet">
+    <link href="css/components/navigation.css" rel="stylesheet">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <link href="css/alarm-service.css" rel="stylesheet">
+    <link href="css/sleep-saboteurs.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/global-utilities.css?v=20260930-1">
+    <script src="js/theme-manager.js"></script>
+</head>
+<body>
+<nav class="top-nav" id="mainNavigation" aria-label="Primary navigation">
+  <div class="nav-brand"><a href="grind.html" class="link-inherit"><img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" class="logo-brand" width="60" height="60"><span class="brand-text">GPAce</span></a></div>
+  <div class="nav-links" id="mainNavigationLinks" data-navigation-links="true">
+    <a href="grind.html" data-nav-link="true" data-page="grind.html"><i class="bi bi-lightning-charge me-1" aria-hidden="true"></i><span>Grind Mode</span></a>
+    <a href="study-spaces.html" data-nav-link="true" data-page="study-spaces.html"><i class="bi bi-building me-1" aria-hidden="true"></i><span>Grind Station</span></a>
+    <a href="daily-calendar.html" data-nav-link="true" data-page="daily-calendar.html"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i><span>Daily Drip</span></a>
+    <a href="academic-details.html" data-nav-link="true" data-page="academic-details.html"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i><span>Brain Juice</span></a>
+    <a href="extracted.html" data-nav-link="true" data-page="extracted.html"><i class="bi bi-collection me-1" aria-hidden="true"></i><span>Hustle Hub</span></a>
+    <a href="subject-marks.html" data-nav-link="true" data-page="subject-marks.html"><i class="bi bi-graph-up me-1" aria-hidden="true"></i><span>Subject Marks</span></a>
+    <a href="flashcards.html" data-nav-link="true" data-page="flashcards.html"><i class="bi bi-card-text me-1" aria-hidden="true"></i><span>Flashcards</span></a>
+    <a href="markdown-converter.html" data-nav-link="true" data-page="markdown-converter.html"><i class="bi bi-markdown me-1" aria-hidden="true"></i><span>MD Converter</span></a>
+    <a href="sleep-saboteurs.html" class="active" aria-current="page" data-nav-link="true" data-page="sleep-saboteurs.html"><i class="bi bi-alarm me-1" aria-hidden="true"></i><span>Alarms</span></a>
+    <a href="settings.html" data-nav-link="true" data-page="settings.html"><i class="bi bi-gear me-1" aria-hidden="true"></i><span>Settings</span></a>
+    <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bi bi-moon-stars theme-icon" aria-hidden="true"></i><span class="theme-text visually-hidden">Toggle theme</span></button>
+    <button type="button" class="drawer-toggle" aria-label="Open settings drawer" title="Settings"><i class="bi bi-gear" aria-hidden="true"></i></button>
+  </div>
+  <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation" aria-controls="mainNavigationLinks" aria-expanded="false" aria-haspopup="true"><i class="bi bi-list" aria-hidden="true"></i></button>
+</nav>
+
+    <main class="alarms-page-layout" id="main-content">
+
+        <!-- LEFT PANEL: Clock + Add Alarm -->
+        <aside class="alarm-left-panel">
+            <div class="live-clock-card">
+                <div class="clock" role="timer" aria-label="Current time">
+                    <span class="hour" aria-label="Hours">00</span>
+                    <span class="colon" aria-hidden="true">:</span>
+                    <span class="minute" aria-label="Minutes">00</span>
+                    <div class="clock-side">
+                        <span class="second" aria-label="Seconds">00</span>
+                        <span class="am-pm">AM</span>
+                    </div>
+                </div>
+                <div class="days" role="status" aria-label="Current date">
+                    <span class="day"></span>
+                    <span class="sep">&mdash;</span>
+                    <span class="month"></span>
+                    <span class="date"></span>
+                </div>
+            </div>
+
+            <div class="add-alarm-card">
+                <div class="add-alarm-header">
+                    <i class="bi bi-alarm-fill"></i>
+                    <h3>Add New Alarm</h3>
+                </div>
+                <div class="alarm-time-picker">
+                    <label class="field-label">Time</label>
+                    <div class="time-picker-row">
+                        <input type="time" id="newAlarmTimePicker" class="time-native-input" aria-label="Alarm time">
+                        <div class="ampm-toggle add-ampm" role="radiogroup">
+                            <button type="button" class="ampm-btn active" data-val="AM">AM</button>
+                            <button type="button" class="ampm-btn" data-val="PM">PM</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="alarm-field">
+                    <label class="field-label" for="newAlarmLabel">Label <span class="optional">(optional)</span></label>
+                    <input type="text" id="newAlarmLabel" class="alarm-text-input" placeholder="e.g. Machine Learning Lab">
+                </div>
+                <div class="alarm-field">
+                    <label class="field-label">Repeat on</label>
+                    <div class="day-pill-grid add-day-pills">
+                        <button type="button" class="day-pill" data-day="0">Sun</button>
+                        <button type="button" class="day-pill" data-day="1">Mon</button>
+                        <button type="button" class="day-pill" data-day="2">Tue</button>
+                        <button type="button" class="day-pill" data-day="3">Wed</button>
+                        <button type="button" class="day-pill" data-day="4">Thu</button>
+                        <button type="button" class="day-pill" data-day="5">Fri</button>
+                        <button type="button" class="day-pill" data-day="6">Sat</button>
+                    </div>
+                </div>
+                <button id="addAlarmSubmitBtn" class="add-alarm-btn">
+                    <i class="bi bi-plus-lg"></i> Set Alarm
+                </button>
+            </div>
+
+            <div class="shortcuts-hint">
+                <span><kbd>Alt</kbd>+<kbd>A</kbd> Quick Add</span>
+                <span><kbd>Alt</kbd>+<kbd>T</kbd> Templates</span>
+                <span><kbd>Alt</kbd>+<kbd>B</kbd> Bulk Add</span>
+            </div>
+        </aside>
+
+        <!-- RIGHT PANEL: Alarm List -->
+        <section class="alarm-right-panel">
+            <div class="alarm-list-header">
+                <h2><i class="bi bi-bell-fill"></i> Your Alarms</h2>
+                <span class="alarm-count-badge" id="alarmCountBadge">0 alarms</span>
+            </div>
+            <div class="alarm-empty-state" id="alarmEmptyState">
+                <i class="bi bi-alarm"></i>
+                <p>No alarms set yet</p>
+                <small>Upload your timetable on <a href="study-spaces.html">Grind Station</a> to auto-generate class alarms, or add one manually.</small>
+            </div>
+            <div class="alarm-list" id="alarm-list" role="list" aria-label="Saved alarms"></div>
+        </section>
+    </main>
+
+    <!-- Edit Alarm Modal -->
+    <div class="alarm-overlay d-none" id="editAlarmOverlay">
+        <div class="alarm-modal-panel" role="dialog" aria-label="Edit Alarm">
+            <div class="modal-top-bar">
+                <h3><i class="bi bi-pencil-fill"></i> Edit Alarm</h3>
+                <button class="modal-close-btn" id="editModalCloseBtn"><i class="bi bi-x-lg"></i></button>
+            </div>
+            <div class="alarm-time-picker">
+                <label class="field-label">Time</label>
+                <div class="time-picker-row">
+                    <input type="time" id="editAlarmTimePicker" class="time-native-input">
+                    <div class="ampm-toggle edit-ampm" role="radiogroup">
+                        <button type="button" class="ampm-btn active" data-val="AM">AM</button>
+                        <button type="button" class="ampm-btn" data-val="PM">PM</button>
+                    </div>
+                </div>
+            </div>
+            <div class="alarm-field">
+                <label class="field-label" for="editAlarmLabel">Label</label>
+                <input type="text" id="editAlarmLabel" class="alarm-text-input" placeholder="Alarm label">
+            </div>
+            <div class="alarm-field">
+                <label class="field-label">Repeat on</label>
+                <div class="day-pill-grid edit-day-pills">
+                    <button type="button" class="day-pill" data-day="0">Sun</button>
+                    <button type="button" class="day-pill" data-day="1">Mon</button>
+                    <button type="button" class="day-pill" data-day="2">Tue</button>
+                    <button type="button" class="day-pill" data-day="3">Wed</button>
+                    <button type="button" class="day-pill" data-day="4">Thu</button>
+                    <button type="button" class="day-pill" data-day="5">Fri</button>
+                    <button type="button" class="day-pill" data-day="6">Sat</button>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="modal-cancel-btn" id="editModalCancelBtn">Cancel</button>
+                <button class="modal-save-btn" id="editModalSaveBtn"><i class="bi bi-check-lg"></i> Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="wave-container" aria-hidden="true" id="waveContainer">
+        <div class="wave"></div><div class="wave"></div><div class="wave"></div>
+    </div>
+
+    <audio id="alarm-sound" preload="auto">
+        <source src="alarm-sounds/alarm1.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js?v=82f64f62bb03"></script>
+    <script type="module" src="js/services/StorageService.js"></script>
+    <script type="module" src="js/services/SecureStorage.js"></script>
+    <script type="module" src="js/utils/Sanitizer.js"></script>
+    <script type="module" src="js/utils/Logger.js"></script>
+    <script type="module" src="js/utils/StorageAdapter.js"></script>
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/initFirestoreData.js"></script>
+    <script src="js/alarm-service.js?v=20260930-1"></script>
+    <script src="js/clock-display.js?v=20260930-1"></script>
+    <script src="js/sleep-saboteurs-init.js?v=20260930-1"></script>
+    <script type="module" src="js/cross-tab-sync.js"></script>
+    <script type="module" src="js/sideDrawer.js"></script>
+    <script src="js/inject-header.js"></script>
+    <script src="js/alarms-ui.js?v=20260930-1"></script>
+</body>
+</html>

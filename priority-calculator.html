@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Priority Calculator</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Calculate and prioritize your academic tasks with GPAce Priority Calculator. Smart task ranking based on deadlines, difficulty, and performance.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <!-- CSS Dependencies -->
+    <link href="assets/vendor/bootstrap/bootstrap.min.css?v=3017df4a76db" rel="stylesheet">
+    <link href="assets/vendor/icons/bootstrap-icons.css?v=edc9031bdcde" rel="stylesheet">
+    <link href="css/design-tokens.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/components/navigation.css">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <link href="css/priority-calculator.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/global-utilities.css?v=20260930-1">
+    <style>
+        /* Formula copy remains readable over both theme surfaces. */
+        .formula-component p,
+        .formula-component small,
+        .formula-total small {
+            color: #c6cbd2;
+            opacity: 1;
+        }
+
+        .formula-component code,
+        .formula-total code {
+            color: #f1f3f5;
+        }
+
+        body.light-theme .formula-component p,
+        body.light-theme .formula-component small,
+        body.light-theme .formula-total small {
+            color: #495057;
+        }
+
+        body.light-theme .formula-component code,
+        body.light-theme .formula-total code {
+            color: #212529;
+        }
+
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 2.75rem;
+            min-height: 2.75rem;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background: transparent;
+            color: inherit;
+            cursor: pointer;
+        }
+
+        .info-icon:focus-visible {
+            outline: 3px solid var(--primary-color, #fe2c55);
+            outline-offset: 2px;
+        }
+
+        .formula-help[hidden] {
+            display: none;
+        }
+    </style>
+    <script src="js/theme-manager.js"></script>
+</head>
+
+<body>
+    <!-- Navigation Bar (will be replaced by inject-header.js) -->
+    <nav class="top-nav" id="mainNavigation" aria-label="Primary navigation">
+  <div class="nav-brand"><a href="grind.html" class="link-inherit"><img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" class="logo-brand" width="60" height="60"><span class="brand-text">GPAce</span></a></div>
+  <div class="nav-links" id="mainNavigationLinks" data-navigation-links="true">
+    <a href="grind.html" data-nav-link="true" data-page="grind.html"><i class="bi bi-lightning-charge me-1" aria-hidden="true"></i><span>Grind Mode</span></a>
+    <a href="study-spaces.html" data-nav-link="true" data-page="study-spaces.html"><i class="bi bi-building me-1" aria-hidden="true"></i><span>Grind Station</span></a>
+    <a href="daily-calendar.html" data-nav-link="true" data-page="daily-calendar.html"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i><span>Daily Drip</span></a>
+    <a href="academic-details.html" data-nav-link="true" data-page="academic-details.html"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i><span>Brain Juice</span></a>
+    <a href="extracted.html" data-nav-link="true" data-page="extracted.html"><i class="bi bi-collection me-1" aria-hidden="true"></i><span>Hustle Hub</span></a>
+    <a href="subject-marks.html" data-nav-link="true" data-page="subject-marks.html"><i class="bi bi-graph-up me-1" aria-hidden="true"></i><span>Subject Marks</span></a>
+    <a href="flashcards.html" data-nav-link="true" data-page="flashcards.html"><i class="bi bi-card-text me-1" aria-hidden="true"></i><span>Flashcards</span></a>
+    <a href="markdown-converter.html" data-nav-link="true" data-page="markdown-converter.html"><i class="bi bi-markdown me-1" aria-hidden="true"></i><span>MD Converter</span></a>
+    <a href="sleep-saboteurs.html" data-nav-link="true" data-page="sleep-saboteurs.html"><i class="bi bi-alarm me-1" aria-hidden="true"></i><span>Alarms</span></a>
+    <a href="settings.html" data-nav-link="true" data-page="settings.html"><i class="bi bi-gear me-1" aria-hidden="true"></i><span>Settings</span></a>
+    <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bi bi-moon-stars theme-icon" aria-hidden="true"></i><span class="theme-text visually-hidden">Toggle theme</span></button>
+    <button type="button" class="drawer-toggle" aria-label="Open settings drawer" title="Settings"><i class="bi bi-gear" aria-hidden="true"></i></button>
+  </div>
+  <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation" aria-controls="mainNavigationLinks" aria-expanded="false" aria-haspopup="true"><i class="bi bi-list" aria-hidden="true"></i></button>
+</nav>
+
+    <!-- Formula Explanation Box -->
+    <section class="formula-box" aria-labelledby="formula-heading">
+        <h4 id="formula-heading">
+            Priority Score Formula
+            <button type="button" class="info-icon" id="formulaInfoButton"
+                aria-label="How the priority score is calculated" aria-controls="formula-help"
+                aria-expanded="false" title="How the priority score is calculated">
+                <i class="bi bi-info-circle" aria-hidden="true"></i>
+            </button>
+        </h4>
+        <p id="formula-help" class="formula-help" hidden>
+            The score combines subject credit hours, cognitive difficulty, task weightage, time remaining, and
+            academic performance so higher urgency rises to the top.
+        </p>
+
+        <div class="formula-component">
+            <strong>Credit Hours Points (CHP)</strong>
+            <p>Reflects the relative importance of the subject based on credit hours.</p>
+            <code>CHP = Relative Score of Subject (0-100)</code>
+        </div>
+
+        <div class="formula-component">
+            <strong>Cognitive Difficulty Points (CDP)</strong>
+            <p>Measures the complexity and intellectual challenge of the task.</p>
+            <code>CDP = Cognitive Difficulty of Subject (1-100)</code>
+        </div>
+
+        <div class="formula-component">
+            <strong>Task Weightage Points (TWP)</strong>
+            <p>Indicates the importance of the task within its section.</p>
+            <code>TWP = Average Weightage of Task Section (0-100)</code>
+        </div>
+
+        <div class="formula-component">
+            <strong>Time Remaining Points (TRP)</strong>
+            <p>Dynamically adjusts priority based on task deadline.</p>
+            <code>TRP = Calculation Method:
+- If Task is Upcoming: 100 * (1 / (Days + Hours/24))
+- If Task is Overdue: 100 * (1 + log(Overdue Days + 1))</code>
+            <small class="text-muted">
+                Overdue tasks get increasing priority.
+                Upcoming tasks get inverse priority boost.
+            </small>
+        </div>
+
+        <div class="formula-component">
+            <strong>Academic Performance Adjustment (APA)</strong>
+            <p>Uses the overall subject performance from Subject Marks page.</p>
+            <code>APA = Overall Subject Performance (0-100)
+Example: If subject performance is 2%, APA = 2</code>
+            <small class="text-muted">
+                Performance is taken directly from the Subject Marks page.
+                Higher performance reduces priority to focus on weaker subjects.
+            </small>
+        </div>
+
+        <div class="formula-total">
+            <strong>Final Priority Score</strong>
+            <code>Priority Score = (CHP + CDP + TWP + TRP) × (1 - APA/100)</code>
+            <small class="text-muted">APA acts as a percentage reduction of the total score</small>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container py-5" id="main-content">
+        <h1 class="mb-4">Priority Calculator</h1>
+        <div id="priorityList" role="list" aria-label="Prioritized tasks"></div>
+    </main>
+
+    <!-- View All Tasks Button -->
+    <a href="priority-list.html" class="view-all-button" aria-label="View all priority tasks">
+        <i class="bi bi-list-check" aria-hidden="true"></i>
+        View All Tasks
+    </a>
+
+    <!-- Scripts - Loaded in correct dependency order -->
+    <!-- Bootstrap JS -->
+    <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js?v=82f64f62bb03"></script>
+
+    <!-- Phase 2 Nuclear Rebuild: Task Sync System -->
+    <script type="module" src="js/core/TaskSystemLoader.js"></script>
+
+    <!-- Core Services (loaded first) -->
+    <script type="module" src="js/services/StorageService.js"></script>
+    <script type="module" src="js/services/SecureStorage.js"></script>
+    <script type="module" src="js/utils/Sanitizer.js"></script>
+    <script type="module" src="js/utils/Logger.js"></script>
+    <script type="module" src="js/utils/StorageAdapter.js"></script>
+
+    <!-- Authentication (handles Firebase internally) -->
+    <script type="module" src="js/auth.js"></script>
+
+    <!-- Firestore Data -->
+    <script type="module" src="js/initFirestoreData.js"></script>
+
+    <!-- Cross-tab Sync & Common -->
+    <script type="module" src="js/cross-tab-sync.js"></script>
+    <script type="module" src="js/common.js"></script>
+
+    <!-- Priority Calculator Logic -->
+    <script src="priority-calculator.js"></script>
+
+    <script>
+        const formulaInfoButton = document.getElementById('formulaInfoButton');
+        const formulaHelp = document.getElementById('formula-help');
+        formulaInfoButton?.addEventListener('click', () => {
+            const expanded = formulaInfoButton.getAttribute('aria-expanded') === 'true';
+            formulaInfoButton.setAttribute('aria-expanded', String(!expanded));
+            if (formulaHelp) formulaHelp.hidden = expanded;
+        });
+    </script>
+
+    <!-- Side Drawer & Navigation (load last) -->
+    <script type="module" src="js/sideDrawer.js"></script>
+    <script src="js/inject-header.js"></script>
+</body>
+
+</html>
+

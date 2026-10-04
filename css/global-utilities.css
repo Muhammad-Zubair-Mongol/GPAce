@@ -1,0 +1,71 @@
+/* Global Utilities CSS for GPAce */
+
+/* Logos */
+.logo-brand {
+    height: 60px !important;
+    margin-right: 0px !important;
+}
+
+/* Links */
+.link-inherit {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+/* Display */
+.d-none {
+    display: none !important;
+}
+
+/* Common Layout */
+.w-100 {
+    width: 100% !important;
+}
+.h-100 {
+    height: 100% !important;
+}
+
+/* Keep labels available to assistive technology while removing them from the
+   visual layout. */
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+.visually-hidden-focusable:focus,
+.visually-hidden-focusable:focus-visible {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: normal !important;
+}
+
+/* Compact icon controls have a documented 24px minimum; primary actions use
+   the 44px rule in components/buttons.css. */
+.touch-target-compact {
+    min-inline-size: 24px;
+    min-block-size: 24px;
+}
+
+/* Keep Bootstrap-style dialogs closed when the optional CDN stylesheet is
+   unavailable. The page controllers add .show when a dialog is opened. */
+.modal:not(.show) {
+    display: none !important;
+}
+
+/* Keep tablet navigation collapsed until the menu button opens it. */
+@media (max-width: 992px) {
+ .top-nav .nav-links:not(.show) { display: none !important; }
+ .top-nav .nav-links.show { display: flex !important; max-height: calc(100dvh - 64px); overflow-y: auto; }
+ .top-nav .nav-toggle { display: flex !important; min-width: 44px; min-height: 44px; }
+}

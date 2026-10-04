@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="../css/global-utilities.css">
+  <link rel="stylesheet" href="../assets/vendor/icons/bootstrap-icons.css">
+  <link rel="stylesheet" href="../css/design-tokens.css">
+  <link rel="stylesheet" href="../css/components/navigation.css">
+  <link rel="stylesheet" href="../css/sideDrawer.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce Image Optimizer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #121212;
+            color: #fff;
+            min-height: 100vh;
+            padding: 80px 40px 40px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: #fe2c55;
+            margin-bottom: 20px;
+        }
+
+        .info {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .drop-zone {
+            border: 2px dashed #fe2c55;
+            border-radius: 12px;
+            padding: 60px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .drop-zone:hover,
+        .drop-zone.dragover {
+            background: rgba(254, 44, 85, 0.1);
+            border-color: #25f4ee;
+        }
+
+        .drop-zone input {
+            display: none;
+        }
+
+        .results {
+            display: grid;
+            gap: 20px;
+        }
+
+        .result-card {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .result-card h3 {
+            color: #25f4ee;
+            margin-bottom: 10px;
+        }
+
+        .preview {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .preview img {
+            max-width: 160px;
+            max-height: 160px;
+            border: 1px solid #333;
+            border-radius: 4px;
+        }
+
+        .stats {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .stats .savings {
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        .download-btn {
+            background: #fe2c55;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background: #e02346;
+            transform: translateY(-1px);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        .badge-webp {
+            background: #4ade80;
+            color: #000;
+        }
+
+        .badge-png {
+            background: #60a5fa;
+            color: #000;
+        }
+    </style>
+    <script src="../js/theme-manager.js"></script>
+</head>
+
+<body>
+<nav class="top-nav" id="mainNavigation" aria-label="Primary navigation">
+  <div class="nav-brand"><a href="../grind.html" class="link-inherit"><img src="../assets/images/gpace-logo-white.png" alt="GPAce Logo" class="logo-brand" width="60" height="60"><span class="brand-text">GPAce</span></a></div>
+  <div class="nav-links" id="mainNavigationLinks" data-navigation-links="true">
+    <a href="../grind.html" data-nav-link="true" data-page="grind.html"><i class="bi bi-lightning-charge me-1" aria-hidden="true"></i><span>Grind Mode</span></a>
+    <a href="../study-spaces.html" data-nav-link="true" data-page="study-spaces.html"><i class="bi bi-building me-1" aria-hidden="true"></i><span>Grind Station</span></a>
+    <a href="../daily-calendar.html" data-nav-link="true" data-page="daily-calendar.html"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i><span>Daily Drip</span></a>
+    <a href="../academic-details.html" data-nav-link="true" data-page="academic-details.html"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i><span>Brain Juice</span></a>
+    <a href="../extracted.html" data-nav-link="true" data-page="extracted.html"><i class="bi bi-collection me-1" aria-hidden="true"></i><span>Hustle Hub</span></a>
+    <a href="../subject-marks.html" data-nav-link="true" data-page="subject-marks.html"><i class="bi bi-graph-up me-1" aria-hidden="true"></i><span>Subject Marks</span></a>
+    <a href="../flashcards.html" data-nav-link="true" data-page="flashcards.html"><i class="bi bi-card-text me-1" aria-hidden="true"></i><span>Flashcards</span></a>
+    <a href="../markdown-converter.html" data-nav-link="true" data-page="markdown-converter.html"><i class="bi bi-markdown me-1" aria-hidden="true"></i><span>MD Converter</span></a>
+    <a href="../sleep-saboteurs.html" data-nav-link="true" data-page="sleep-saboteurs.html"><i class="bi bi-alarm me-1" aria-hidden="true"></i><span>Alarms</span></a>
+    <a href="../settings.html" data-nav-link="true" data-page="settings.html"><i class="bi bi-gear me-1" aria-hidden="true"></i><span>Settings</span></a>
+    <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bi bi-moon-stars theme-icon" aria-hidden="true"></i><span class="theme-text visually-hidden">Toggle theme</span></button>
+    <button type="button" class="drawer-toggle" aria-label="Open settings drawer" title="Settings"><i class="bi bi-gear" aria-hidden="true"></i></button>
+  </div>
+  <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation" aria-controls="mainNavigationLinks" aria-expanded="false" aria-haspopup="true"><i class="bi bi-list" aria-hidden="true"></i></button>
+</nav>
+    <div class="container">
+        <h1>🖼️ GPAce Image Optimizer</h1>
+
+        <div class="info">
+            <p><strong>Purpose:</strong> Convert your logo PNG to optimized WebP format for better performance.</p>
+            <p><strong>Benefits:</strong> ~85% smaller file size, faster page loads, better LCP scores.</p>
+            <p><strong>How to use:</strong> Drop your <code>gpace-logo-white.png</code> below, then download the
+                optimized versions.</p>
+        </div>
+
+        <div class="drop-zone" id="dropZone">
+            <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp">
+            <p>📁 Drop image here or click to select</p>
+            <p style="font-size: 14px; color: rgba(255,255,255,0.6); margin-top: 10px;">
+                Recommended: gpace-logo-white.png (500x500px)
+            </p>
+        </div>
+
+        <div class="results" id="results"></div>
+    </div>
+
+    <script>
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const results = document.getElementById('results');
+
+        // Drag and drop handlers
+        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length) {
+                processImage(e.dataTransfer.files[0]);
+            }
+        });
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) {
+                processImage(e.target.files[0]);
+            }
+        });
+
+        async function processImage(file) {
+            results.innerHTML = '<p>Processing...</p>';
+
+            const originalSize = file.size;
+            const img = await loadImage(file);
+
+            // Generate optimized versions
+            const versions = [
+                { name: 'gpace-logo-white.webp', width: 160, height: 160, format: 'webp', quality: 0.85 },
+                { name: 'gpace-logo-white-1x.webp', width: 80, height: 80, format: 'webp', quality: 0.85 },
+                { name: 'gpace-logo-white-optimized.png', width: 160, height: 160, format: 'png', quality: 1 }
+            ];
+
+            results.innerHTML = '';
+
+            for (const version of versions) {
+                const canvas = document.createElement('canvas');
+                canvas.width = version.width;
+                canvas.height = version.height;
+                const ctx = canvas.getContext('2d');
+
+                // Draw with transparency support
+                ctx.clearRect(0, 0, version.width, version.height);
+                ctx.drawImage(img, 0, 0, version.width, version.height);
+
+                const mimeType = version.format === 'webp' ? 'image/webp' : 'image/png';
+                const dataUrl = canvas.toDataURL(mimeType, version.quality);
+                const blob = await fetch(dataUrl).then(r => r.blob());
+
+                const savings = ((1 - blob.size / originalSize) * 100).toFixed(1);
+
+                const card = document.createElement('div');
+                card.className = 'result-card';
+                card.innerHTML = `
+                    <h3>${version.name} <span class="badge ${version.format === 'webp' ? 'badge-webp' : 'badge-png'}">${version.format.toUpperCase()}</span></h3>
+                    <div class="preview">
+                        <img alt="Preview">
+                        <div class="stats">
+                            <p>Original: ${(originalSize / 1024).toFixed(2)} KB</p>
+                            <p>Optimized: ${(blob.size / 1024).toFixed(2)} KB</p>
+                            <p>Dimensions: ${version.width}x${version.height}px</p>
+                            <p class="savings">Savings: ${savings}%</p>
+                        </div>
+                    </div>
+                    <button class="download-btn">
+                        ⬇️ Download ${version.name}
+                    </button>
+                `;
+                card.querySelector('img').src = dataUrl;
+                card.querySelector('.download-btn').addEventListener('click', () => downloadBlob(version.name, dataUrl));
+                results.appendChild(card);
+            }
+        }
+
+        function loadImage(file) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(img);
+                img.src = URL.createObjectURL(file);
+            });
+        }
+
+        function downloadBlob(filename, dataUrl) {
+            const a = document.createElement('a');
+            a.href = dataUrl;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+    <script type="module" src="../js/sideDrawer.js"></script>
+</body>
+
+</html>
+

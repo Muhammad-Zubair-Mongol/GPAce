@@ -1,0 +1,357 @@
+/**
+ * Button Components CSS
+ * 
+ * Consolidated button styles from grind.css, main.css, sideDrawer.css,
+ * and embedded HTML styles. Import after design-tokens.css.
+ * 
+ * Usage:
+ *   <link href="css/design-tokens.css" rel="stylesheet">
+ *   <link href="css/components/buttons.css" rel="stylesheet">
+ */
+
+/* ==========================================================================
+   Base Button Reset
+   ========================================================================== */
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   Authentication Button
+   ========================================================================== */
+
+.auth-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.auth-button:hover {
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.user-avatar {
+    width: 1.5rem;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name {
+    max-width: 9.375rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   Logout Button
+   ========================================================================== */
+
+.logout-btn {
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.25rem;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.logout-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   Login Button
+   ========================================================================== */
+
+.login-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.login-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   Theme Toggle Button
+   ========================================================================== */
+
+.theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1001;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.theme-toggle:hover {
+    background-color: var(--hover-bg);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.theme-icon {
+    font-size: 16px;
+}
+
+.theme-text {
+    font-size: 0.875rem;
+}
+
+/* ==========================================================================
+   GPAce Primary Button
+   ========================================================================== */
+
+.btn-gpace {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 500;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.btn-gpace::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.3s ease;
+}
+
+.btn-gpace:hover::before {
+    left: 100%;
+}
+
+.btn-gpace:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
+   Task Action Buttons
+   ========================================================================== */
+
+.task-btn {
+    padding-block: 0.5rem;
+    padding-inline: 0.9375rem;
+    border: none;
+    border-radius: 1.25rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.task-btn:hover {
+    transform: translateY(-0.125rem);
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.complete-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.interleave-btn {
+    background-color: var(--secondary-color);
+    color: black;
+    position: relative;
+}
+
+.skip-btn {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+}
+
+/* ==========================================================================
+   Sound Toggle Button
+   ========================================================================== */
+
+.sound-toggle {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.sound-toggle:hover {
+    background-color: var(--hover-bg);
+    transform: scale(1.1);
+}
+
+/* ==========================================================================
+   Filter Button
+   ========================================================================== */
+
+.filter-btn {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* ==========================================================================
+   Interactive Button (Legacy Support)
+   ========================================================================== */
+
+.interactive-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.interactive-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.interactive-button.connected {
+    background-color: var(--success-color, #28a745);
+}
+
+/* ==========================================================================
+   Focus States (Accessibility)
+   ========================================================================== */
+
+:is(.auth-button, .logout-btn, .login-btn, .theme-toggle, .btn-gpace, .task-btn, .filter-btn):focus-visible {
+    outline: 3px solid var(--color-focus, var(--primary-color));
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-focus, var(--primary-color)) 35%, transparent);
+}
+
+/* ==========================================================================
+   Shared Interaction States
+   ========================================================================== */
+
+/* Primary controls meet the 44px target; compact icon controls use the
+   documented 24px exception and keep a visible focus ring. */
+:is(.auth-button, .login-btn, .interactive-button, .btn-gpace, .task-btn, .primary-action) {
+    min-block-size: 44px;
+    min-inline-size: 44px;
+}
+
+:is(.touch-target-compact, .sound-toggle, .attachment-action-btn, .tool-btn, .action-btn) {
+    min-block-size: 24px;
+    min-inline-size: 24px;
+}
+
+:where(button, [role="button"], input, select, textarea)[aria-busy="true"],
+:where(button, [role="button"], input, select, textarea).is-busy {
+    position: relative;
+    cursor: progress;
+    border-color: var(--color-focus, var(--primary-color));
+    color: var(--color-foreground, var(--text-color));
+}
+
+:where(button, [role="button"])[aria-busy="true"]::after,
+:where(button, [role="button"]).is-busy::after {
+    content: "…";
+    display: inline-block;
+    margin-inline-start: 0.35rem;
+    animation: gpace-button-busy 1s steps(3, end) infinite;
+}
+
+:where(button, [role="button"], input, select, textarea):disabled,
+:where(button, [role="button"], input, select, textarea)[aria-disabled="true"] {
+    color: var(--color-disabled-foreground, #858b93);
+    background-color: var(--color-disabled-background, #292d33);
+    border-color: var(--color-disabled-border, #555b63);
+    opacity: 1;
+}
+
+:where(input, select, textarea)[aria-invalid="true"],
+:where(button, [role="button"])[data-state="error"],
+:where(button, [role="button"]).is-error {
+    border-color: var(--danger-color, #dc3545);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--danger-color, #dc3545) 28%, transparent);
+}
+
+@keyframes gpace-button-busy {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :where(button, [role="button"])[aria-busy="true"]::after,
+    :where(button, [role="button"]).is-busy::after {
+        animation: none;
+        opacity: 1;
+    }
+
+    :where(button, [role="button"], a, input, select, textarea) {
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

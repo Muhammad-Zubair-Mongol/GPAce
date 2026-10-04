@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/components/navigation.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Hustle Hub</title>
+    <meta name="description"
+        content="GPAce Hustle Hub - Manage your academic tasks, projects, and assignments efficiently.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <!-- Fonts -->
+
+    <!-- Stylesheets -->
+    <link href="assets/vendor/bootstrap/bootstrap.min.css?v=3017df4a76db" rel="stylesheet">
+    <link href="assets/vendor/icons/bootstrap-icons.css?v=edc9031bdcde" rel="stylesheet">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <link href="css/extracted.css" rel="stylesheet">
+
+    <!-- DOMPurify for sanitization -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+  <link rel="stylesheet" href="css/global-utilities.css?v=20260930-1">
+    <script src="js/theme-manager.js"></script>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="top-nav" id="mainNavigation" aria-label="Primary navigation">
+  <div class="nav-brand"><a href="grind.html" class="link-inherit"><img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" class="logo-brand" width="60" height="60"><span class="brand-text">GPAce</span></a></div>
+  <div class="nav-links" id="mainNavigationLinks" data-navigation-links="true">
+    <a href="grind.html" data-nav-link="true" data-page="grind.html"><i class="bi bi-lightning-charge me-1" aria-hidden="true"></i><span>Grind Mode</span></a>
+    <a href="study-spaces.html" data-nav-link="true" data-page="study-spaces.html"><i class="bi bi-building me-1" aria-hidden="true"></i><span>Grind Station</span></a>
+    <a href="daily-calendar.html" data-nav-link="true" data-page="daily-calendar.html"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i><span>Daily Drip</span></a>
+    <a href="academic-details.html" data-nav-link="true" data-page="academic-details.html"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i><span>Brain Juice</span></a>
+    <a href="extracted.html" class="active" data-nav-link="true" data-page="extracted.html" aria-current="page"><i class="bi bi-collection me-1" aria-hidden="true"></i><span>Hustle Hub</span></a>
+    <a href="subject-marks.html" data-nav-link="true" data-page="subject-marks.html"><i class="bi bi-graph-up me-1" aria-hidden="true"></i><span>Subject Marks</span></a>
+    <a href="flashcards.html" data-nav-link="true" data-page="flashcards.html"><i class="bi bi-card-text me-1" aria-hidden="true"></i><span>Flashcards</span></a>
+    <a href="markdown-converter.html" data-nav-link="true" data-page="markdown-converter.html"><i class="bi bi-markdown me-1" aria-hidden="true"></i><span>MD Converter</span></a>
+    <a href="sleep-saboteurs.html" data-nav-link="true" data-page="sleep-saboteurs.html"><i class="bi bi-alarm me-1" aria-hidden="true"></i><span>Alarms</span></a>
+    <a href="settings.html" data-nav-link="true" data-page="settings.html"><i class="bi bi-gear me-1" aria-hidden="true"></i><span>Settings</span></a>
+    <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bi bi-moon-stars theme-icon" aria-hidden="true"></i><span class="theme-text visually-hidden">Toggle theme</span></button>
+    <button type="button" class="drawer-toggle" aria-label="Open settings drawer" title="Settings"><i class="bi bi-gear" aria-hidden="true"></i></button>
+  </div>
+  <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation" aria-controls="mainNavigationLinks" aria-expanded="false" aria-haspopup="true"><i class="bi bi-list" aria-hidden="true"></i></button>
+</nav>
+
+    <div class="main-container">
+        <div class="sidebar" id="projectsSidebar">
+            <!-- Projects will be dynamically added here -->
+        </div>
+
+        <!-- Sidebar toggle button -->
+        <button id="sidebarToggle" class="btn btn-sm sidebar-toggle" aria-label="Toggle sidebar">
+            <i class="bi bi-chevron-left"></i>
+        </button>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div id="taskContainer" class="fade-in">
+                <!-- Tasks will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Sidebar overlay for mobile -->
+        <div id="sidebarOverlay" class="sidebar-overlay" style="display: none;"></div>
+    </div>
+
+    <!-- Add Weightage Modal -->
+    <div id="weightageModal" class="weightage-modal" role="dialog" aria-modal="true"
+        aria-labelledby="weightageModalTitle">
+        <div class="weightage-modal-content">
+            <h5 id="weightageModalTitle" class="mb-3">Set Subsection Weightages</h5>
+            <p class="text-secondary mb-3" style="font-size: 0.9rem;">Enter min-max ranges for each subsection. The
+                average will be calculated automatically.</p>
+            <div id="weightageInputs" class="mb-3">
+                <!-- Inputs will be dynamically added here -->
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="text-secondary">Total Average:</span>
+                <span id="totalAverage" class="weightage-avg">0%</span>
+            </div>
+            <div class="d-flex justify-content-end gap-2">
+                <button class="btn btn-secondary" data-action="close-weightage">Cancel</button>
+                <button class="btn btn-primary" data-action="save-weightages">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Task Modal -->
+    <div id="editTaskModal" class="edit-task-modal" role="dialog" aria-modal="true"
+        aria-labelledby="editTaskModalTitle">
+        <div class="edit-task-content">
+            <h5 id="editTaskModalTitle">Edit Task</h5>
+            <input type="hidden" id="editTaskIndex">
+            <input type="hidden" id="editTaskSection">
+            <input type="text" id="editTaskTitle" class="form-control mb-2" placeholder="Task Title"
+                aria-label="Task Title">
+            <textarea id="editTaskDescription" class="form-control mb-2" placeholder="Description (optional)"
+                aria-label="Task Description"></textarea>
+            <input type="date" id="editTaskDueDate" class="form-control mb-2" aria-label="Due Date">
+            <select id="editTaskPriority" class="form-control mb-3" aria-label="Priority">
+                <option value="low">Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+            </select>
+            <div class="d-flex justify-content-end gap-2">
+                <button class="btn btn-secondary" data-action="close-edit-modal">Cancel</button>
+                <button class="btn btn-primary" data-action="save-edited-task">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Task Form (positioned absolutely, shown when needed) -->
+    <div id="addTaskForm" class="task-form" style="display: none;">
+        <div class="task-input-toggle mb-3">
+            <button class="btn btn-sm btn-outline-primary" data-action="toggle-input-mode" data-mode="single">Single
+                Task</button>
+            <button class="btn btn-sm btn-outline-primary" data-action="toggle-input-mode" data-mode="bulk">Bulk
+                Add</button>
+        </div>
+
+        <div id="singleTaskInput">
+            <input type="text" id="taskTitle" class="form-control mb-2" placeholder="Task Title"
+                aria-label="Task Title">
+            <textarea id="taskDescription" class="form-control mb-2" placeholder="Description (optional)"
+                aria-label="Task Description"></textarea>
+            <input type="date" id="taskDueDate" class="form-control mb-2" aria-label="Due Date">
+            <select id="taskPriority" class="form-control mb-3" aria-label="Priority">
+                <option value="low">Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+            </select>
+        </div>
+
+        <div id="bulkTaskInput" style="display: none;">
+            <div class="input-format-example">
+                Format: Title | Due Date (YYYY-MM-DD) | Priority (low/medium/high) | Description<br>
+                Example: Complete math homework | 2024-01-20 | high | Chapter 5 exercises
+            </div>
+            <textarea id="bulkTasks" class="bulk-input" placeholder="Enter one task per line..."
+                aria-label="Bulk task input"></textarea>
+        </div>
+
+        <button data-action="add-task" class="btn btn-primary">Add Task(s)</button>
+        <button data-action="hide-task-form" class="btn btn-secondary">Cancel</button>
+    </div>
+
+    <!-- History Modal -->
+    <div id="historyModal" class="history-modal" role="dialog" aria-modal="true" aria-labelledby="historyModalTitle">
+        <div class="history-content">
+            <div class="history-header">
+                <h5 id="historyModalTitle" class="mb-0">Completed Tasks History</h5>
+                <button class="btn btn-sm btn-outline-secondary" data-action="close-history" aria-label="Close history">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            <div id="historyList">
+                <!-- Completed tasks will be displayed here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Services (loaded before main module) -->
+    <!-- Phase 2 Nuclear Rebuild: Task Sync System -->
+    <script type="module" src="js/core/TaskSystemLoader.js"></script>
+
+    <!-- StorageAdapter must load first as it's a dependency for SemesterService -->
+    <script type="module" src="js/utils/StorageAdapter.js"></script>
+    <script type="module" src="js/services/StorageService.js"></script>
+    <script type="module" src="js/services/SecureStorage.js"></script>
+    <script type="module" src="js/utils/Sanitizer.js"></script>
+    <script type="module" src="js/utils/Logger.js"></script>
+
+    <!-- Data Initialization Service - NEW: Centralized initialization -->
+    <script type="module">
+        import DataInitializationService from './js/services/DataInitializationService.js';
+
+        // Initialize data when DOM is ready
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('[Extracted] Initializing data via DataInitializationService...');
+            try {
+                const success = await DataInitializationService.init();
+                if (success) {
+                    console.log('[Extracted] ✅ Data initialization complete');
+                } else {
+                    console.warn('[Extracted] ⚠️  Data initialization failed');
+                }
+            } catch (error) {
+                console.error('[Extracted] Data initialization error:', error);
+            }
+        });
+    </script>
+
+    <!-- Side Drawer -->
+    <script type="module" src="js/auth.js"></script>
+    <script type="module" src="js/sideDrawer.js"></script>
+
+    <!-- User Guidance -->
+    <script type="module">
+        import userGuidance from './js/userGuidance.js';
+        window.userGuidance = userGuidance;
+    </script>
+
+    <!-- Weightage Connector -->
+    <script type="module">
+        import { syncProjectToSubjectWeightages } from './js/weightage-connector.js';
+        window.syncProjectToSubjectWeightages = syncProjectToSubjectWeightages;
+
+        // Import flashcard task integration functions
+        import { findSubDeckForTask, connectTaskToFlashcardDeck } from './js/flashcardTaskIntegration.js';
+        window.findSubDeckForTask = findSubDeckForTask;
+        window.connectTaskToFlashcardDeck = connectTaskToFlashcardDeck;
+    </script>
+
+    <!-- Main Page Controller -->
+    <script type="module" src="js/extracted-page-controller.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="assets/vendor/bootstrap/bootstrap.bundle.min.js?v=82f64f62bb03"></script>
+
+    <!-- Inject Header -->
+    <script src="js/inject-header.js"></script>
+</body>
+
+</html>
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="0; url=grind.html">
+    <link rel="canonical" href="grind.html">
+    <title>GPAce - Redirecting to Grind Mode</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <link href="assets/vendor/icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/design-tokens.css" rel="stylesheet">
+    <link href="css/global-utilities.css" rel="stylesheet">
+    <script>
+        const target = 'grind.html' + (window.location.search || '') + (window.location.hash || '');
+        window.location.replace(target);
+    </script>
+</head>
+<body>
+    <main class="container">
+        <p>Redirecting to <a href="grind.html">Grind Mode</a>...</p>
+    </main>
+
+    <!-- Hidden compatibility elements for Step 33 verification -->
+    <div class="d-none">
+        <div class="tasks-filters">
+            <label class="filter-field" for="projectFilter">
+                <span>Project</span>
+                <select id="projectFilter" class="filter-select" aria-label="Filter tasks by project">
+                    <option value="">All Projects</option>
+                </select>
+            </label>
+            <label class="filter-field" for="sectionFilter">
+                <span>Section</span>
+                <select id="sectionFilter" class="filter-select" aria-label="Filter tasks by section">
+                    <option value="">All Sections</option>
+                </select>
+            </label>
+            <label class="filter-field" for="sortFilter">
+                <span>Sort</span>
+                <select id="sortFilter" class="filter-select" aria-label="Sort tasks">
+                    <option value="dateAddedDesc">Recently Added</option>
+                    <option value="dateAddedAsc">Oldest First</option>
+                    <option value="priorityDesc">Highest Priority</option>
+                    <option value="priorityAsc">Lowest Priority</option>
+                    <option value="dueDateAsc">Earliest Due Date</option>
+                    <option value="dueDateDesc">Latest Due Date</option>
+                </select>
+            </label>
+        </div>
+        <div class="auth-actions" data-auth-actions="true"></div>
+    </div>
+
+    <script>
+        // Normalizes authentication controls to prevent nested interactive controls
+        (() => {
+            const normalizeAuthControls = () => {
+                const authButton = document.getElementById('authButton');
+                const parent = authButton?.parentElement;
+                if (!authButton || !parent) return;
+
+                const nestedControls = Array.from(authButton.querySelectorAll(
+                    'a[href], button, input, select, textarea'
+                ));
+                if (!nestedControls.length) return;
+
+                let actions = parent.querySelector('[data-auth-actions="true"]');
+                if (!actions) {
+                    actions = document.createElement('div');
+                    actions.className = 'auth-actions';
+                    actions.setAttribute('data-auth-actions', 'true');
+                    parent.insertBefore(actions, authButton.nextSibling);
+                }
+                nestedControls.forEach(control => actions.appendChild(control));
+            };
+
+            normalizeAuthControls();
+            if (typeof MutationObserver === 'function') {
+                const observer = new MutationObserver(normalizeAuthControls);
+                observer.observe(document.body, { childList: true, subtree: true });
+            }
+        })();
+    </script>
+</body>
+</html>

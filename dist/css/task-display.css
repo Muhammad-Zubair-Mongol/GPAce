@@ -1,0 +1,38 @@
+/* Task display styling */
+.current-task-header {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Task source indicators */
+.current-task-header h1[data-source]::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.current-task-header h1[data-source="calendar"]::before {
+    background-color: var(--primary-color);
+}
+
+.current-task-header h1[data-source="priority"]::before {
+    background-color: var(--secondary-color);
+}
+
+/* Debug mode indicator */
+body.task-debug-mode::after {
+    content: 'Task Debug Mode';
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    z-index: 9999;
+}

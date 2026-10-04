@@ -1,0 +1,35 @@
+{
+  "name": "gpace",
+  "version": "1.0.0",
+  "description": "GPAce - AI-powered task management and research assistant",
+  "main": "server.js",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build:static": "node scripts/build-static.mjs --out-dir dist",
+    "check:static": "node scripts/build-static.mjs --check",
+    "check:modules": "node scripts/check-module-contracts.mjs",
+    "verify:deployment": "npm run check:static && npm run check:modules && node tests/harness/run-case.cjs 54",
+    "deploy:api": "node scripts/deploy-api.mjs",
+    "deploy": "npm run verify:deployment && npm run build:static && npm run deploy:api && firebase deploy --only hosting --project mzm-gpace"
+  },
+  "dependencies": {
+    "@google/genai": "^2.24.0",
+    "@google/generative-ai": "^0.24.0",
+    "compression": "^1.8.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.22.3",
+    "firebase-admin": "14.5.0",
+    "marked": "^11.1.1",
+    "multer": "^2.4.0",
+    "socket.io": "^4.8.4"
+  },
+  "devDependencies": {
+    "firebase-tools": "15.32.0",
+    "nodemon": "^3.1.14"
+  }
+}

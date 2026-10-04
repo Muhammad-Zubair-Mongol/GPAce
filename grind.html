@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPAce - Current Task</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+  <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/design-tokens.css?v=9d0c5bb750cc">
+  <link rel="stylesheet" href="css/components/navigation.css?v=05973d878504">
+  <link rel="stylesheet" href="css/components/buttons.css?v=23cbc3867a95">
+  <link rel="stylesheet" href="css/global-utilities.css?v=20260930-1">
+  <link rel="stylesheet" href="css/taskLinks.css?v=0398094f22fa">
+  <link href="assets/vendor/bootstrap/bootstrap.min.css?v=3017df4a76db" rel="stylesheet">
+  <link href="assets/vendor/icons/bootstrap-icons.css?v=edc9031bdcde" rel="stylesheet">
+  <link href="assets/vendor/icons/fontawesome.css?v=633c85a4b192" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="styles/main.css?v=35d89be3af9d">
+  <link href="css/sideDrawer.css?v=1744dae591b5" rel="stylesheet">
+  <link href="grind.css?v=116122fba26b" rel="stylesheet">
+  <link href="css/grind.css?v=c9597e395acc" rel="stylesheet">
+  <link href="css/task-display.css?v=d82e78953506" rel="stylesheet">
+  <link href="css/text-expansion.css?v=05ec5b75dd3c" rel="stylesheet">
+  <link href="css/simulation-enhancer.css?v=7b16428dd38d" rel="stylesheet">
+  <link href="css/ai-search-response.css?v=9ab4cbc9631f" rel="stylesheet">
+  <link href="css/task-notes.css?v=a7d5d9abe30a" rel="stylesheet">
+  <link href="css/grind-layout.css?v=20260930-1" rel="stylesheet">
+  <link href="css/pdf-import.css" rel="stylesheet">
+    <script src="js/theme-manager.js"></script>
+</head>
+
+<body>
+  <!-- Navigation Bar -->
+  <nav class="top-nav" id="mainNavigation" aria-label="Primary navigation">
+  <div class="nav-brand"><a href="grind.html" class="link-inherit"><img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" class="logo-brand" width="60" height="60"><span class="brand-text">GPAce</span></a></div>
+  <div class="nav-links" id="mainNavigationLinks" data-navigation-links="true">
+    <a href="grind.html" class="active" data-nav-link="true" data-page="grind.html" aria-current="page"><i class="bi bi-lightning-charge me-1" aria-hidden="true"></i><span>Grind Mode</span></a>
+    <a href="study-spaces.html" data-nav-link="true" data-page="study-spaces.html"><i class="bi bi-building me-1" aria-hidden="true"></i><span>Grind Station</span></a>
+    <a href="daily-calendar.html" data-nav-link="true" data-page="daily-calendar.html"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i><span>Daily Drip</span></a>
+    <a href="academic-details.html" data-nav-link="true" data-page="academic-details.html"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i><span>Brain Juice</span></a>
+    <a href="extracted.html" data-nav-link="true" data-page="extracted.html"><i class="bi bi-collection me-1" aria-hidden="true"></i><span>Hustle Hub</span></a>
+    <a href="subject-marks.html" data-nav-link="true" data-page="subject-marks.html"><i class="bi bi-graph-up me-1" aria-hidden="true"></i><span>Subject Marks</span></a>
+    <a href="flashcards.html" data-nav-link="true" data-page="flashcards.html"><i class="bi bi-card-text me-1" aria-hidden="true"></i><span>Flashcards</span></a>
+    <a href="markdown-converter.html" data-nav-link="true" data-page="markdown-converter.html"><i class="bi bi-markdown me-1" aria-hidden="true"></i><span>MD Converter</span></a>
+    <a href="sleep-saboteurs.html" data-nav-link="true" data-page="sleep-saboteurs.html"><i class="bi bi-alarm me-1" aria-hidden="true"></i><span>Alarms</span></a>
+    <a href="settings.html" data-nav-link="true" data-page="settings.html"><i class="bi bi-gear me-1" aria-hidden="true"></i><span>Settings</span></a>
+    <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bi bi-moon-stars theme-icon" aria-hidden="true"></i><span class="theme-text visually-hidden">Toggle theme</span></button>
+    <button type="button" class="drawer-toggle" aria-label="Open settings drawer" title="Settings"><i class="bi bi-gear" aria-hidden="true"></i></button>
+  </div>
+  <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation" aria-controls="mainNavigationLinks" aria-expanded="false" aria-haspopup="true"><i class="bi bi-list" aria-hidden="true"></i></button>
+</nav>
+
+<button onclick="window.location.href='relaxed-mode/index.html'" class="relaxed-mode-btn">
+        <i class="bi bi-cloud-sun"></i>
+        Relaxed Mode
+      </button>
+      <button class="workspace-toggle" id="workspaceToggle" type="button"
+        aria-label="Open workspace" aria-controls="workspacePanel" aria-expanded="false">
+          <i class="fas fa-code"></i>
+        </button>
+
+        <div class="workspace-overlay" id="workspaceOverlay"></div>
+
+        <div class="workspace-panel" id="workspacePanel">
+          <div class="workspace-header">
+            <h2>Workspace</h2>
+            <button class="workspace-close" id="workspaceClose" type="button" aria-label="Close workspace">&times;</button>
+          </div>
+          <div class="workspace-content">
+            <iframe src="workspace.html" title="GPAce document workspace" frameborder="0"
+              style="width: 100%; height: 100%;"></iframe>
+          </div>
+        </div>
+
+        <!-- Add Link Modal -->
+<div id="addLinkModal" class="modal-overlay" style="display: none;">
+  <div class="add-link-modal">
+      <h3>Add New Link</h3>
+      <form class="add-link-form" id="addLinkForm">
+          <div class="form-group">
+              <label for="linkUrl">URL</label>
+              <input type="url" id="linkUrl" required placeholder="https://...">
+          </div>
+          <div class="form-group">
+              <label for="linkTitle">Title</label>
+              <input type="text" id="linkTitle" required placeholder="Enter link title">
+          </div>
+          <div class="form-group">
+              <label for="linkDescription">Description (optional)</label>
+              <textarea id="linkDescription" rows="3" placeholder="Enter link description"></textarea>
+          </div>
+          <div class="modal-actions">
+              <button type="button" class="modal-btn cancel" onclick="closeAddLinkModal()">Cancel</button>
+              <button type="submit" class="modal-btn save">Save Link</button>
+          </div>
+      </form>
+  </div>
+</div>
+
+        <div class="priority-task-container">
+          <div class="task-header">
+            <h3 class="task-title"></h3>
+            <span class="task-project"></span>
+          </div>
+        </div>
+
+        <!-- Add Subject Material Modal -->
+        <div class="modal fade" id="addSubjectMaterialModal" tabindex="-1" aria-labelledby="addSubjectMaterialModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addSubjectMaterialModalLabel">Add Subject Material</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="console.log('Modal closed')"></button>
+              </div>
+              <div class="modal-body">
+                <div class="mb-3">
+                  <label for="subjectSelect" class="form-label">Subject</label>
+                  <select class="form-select" id="subjectSelect" onchange="console.log('Subject selected:', this.value)">
+                    <option value="">Select a subject...</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="materialType" class="form-label">Material Type</label>
+                  <select class="form-select" id="materialType" onchange="console.log('Material type selected:', this.value)">
+                    <option value="textbook">Textbook</option>
+                    <option value="notes">Course Notes</option>
+                    <option value="syllabus">Syllabus</option>
+                    <option value="slides">Lecture Slides</option>
+                    <option value="reference">Reference Material</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="subjectMaterialFile" class="form-label">Choose File</label>
+                  <input type="file" class="form-control" id="subjectMaterialFile" onchange="console.log('File selected:', this.files[0])">
+                  <div class="form-text">Upload files related to this subject (PDF, Word, PowerPoint, etc.)</div>
+                </div>
+                <!-- Add progress bar container -->
+                <div class="upload-progress d-none">
+                  <div class="progress mb-2">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="upload-status small text-muted">
+                    <span class="upload-percentage">0%</span> -
+                    <span class="upload-speed">0 KB/s</span> -
+                    <span class="upload-remaining">Calculating...</span>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="console.log('Upload cancelled')">Cancel</button>
+                <button type="button" class="btn btn-primary" id="uploadSubjectMaterial" onclick="handleSubjectMaterialUpload()">Upload</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <!-- Home Dual Task Views Section -->
+          <div class="home-dual-task-wrapper">
+            <!-- View 1: General Tasks View -->
+            <div class="home-task-card general-tasks-card">
+              <div class="home-card-header">
+                <span class="card-tag-badge"><i class="bi bi-card-checklist text-primary"></i> General Tasks</span>
+                <div class="home-card-actions">
+                  <button type="button" class="btn-icon-import" id="importPdfTasksBtn" title="Batch import tasks from PDF via AI"><i class="bi bi-file-earmark-pdf"></i> Import from PDF</button>
+                  <button type="button" class="btn-icon-add" onclick="showTaskModal()" title="Add Task"><i class="bi bi-plus-lg"></i> Add Task</button>
+                </div>
+              </div>
+              <div class="priority-task-box" id="priorityTaskBox">
+                <!-- Priority task will be displayed here -->
+              </div>
+            </div>
+
+            <!-- View 2: Live Schedule & Current Class View -->
+            <div class="home-task-card live-schedule-card">
+              <div class="home-card-header">
+                <span class="card-tag-badge"><i class="bi bi-calendar3-event text-info"></i> Live Schedule & Class</span>
+                <span class="sync-indicator" title="Synced with Timetable"><i class="bi bi-arrow-repeat"></i> Auto-Synced</span>
+              </div>
+              <div id="currentTaskDisplay" class="current-task-header">
+                <h1 id="taskTitle">No Current Task</h1>
+              </div>
+            </div>
+          </div>
+
+          <!-- Motivational Quote Section -->
+          <div class="quote-container">
+            <div id="dynamicQuoteContainer">
+              <img class="quote-image" src="" alt="Quote Image" style="display: none;">
+              <div class="quote-content">
+                <p class="quote-text"></p>
+                <p class="quote-author"></p>
+              </div>
+            </div>
+            <div class="quote-controls">
+              <button type="button" class="quote-nav-btn" aria-label="Previous motivational quote">
+                <i class="bi bi-chevron-left"></i>
+              </button>
+              <button type="button" class="quote-nav-btn" aria-label="Next motivational quote">
+                <i class="bi bi-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+
+
+
+          <div class="task-container">
+            <div class="pomodoro-container">
+              <div class="timer-mode-selector modern">
+                <button class="timer-mode-btn modern active" data-time="25" data-mode="focus">
+                  <i class="fas fa-brain"></i> Focus
+                </button>
+                <button class="timer-mode-btn modern" data-time="5" data-mode="break">
+                  <i class="fas fa-coffee"></i> Break
+                </button>
+                <div class="custom-time-input modern">
+                  <label for="customTimeInput" class="visually-hidden">Custom focus duration in minutes</label>
+                  <input type="number" id="customTimeInput" min="1" max="60" value="25" required
+                    aria-describedby="customTimeHint">
+                  <span id="customTimeHint">Enter 1 to 60 minutes.</span>
+                </div>
+              </div>
+
+              <div class="timer-display-container modern">
+                <div class="timer-circle modern">
+                  <div class="timer-progress modern"></div>
+                  <div class="timer-text">
+                    <div class="timer-time modern" id="timer">25:00</div>
+                    <div class="timer-label modern">Focus Time</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="timer-controls modern">
+                <button type="button" class="timer-btn modern primary" id="startBtn" data-state="paused"
+                  aria-label="Start focus timer">
+                  <i class="fas fa-play"></i>
+                </button>
+                <button type="button" class="timer-btn modern" id="resetBtn" data-state="reset"
+                  aria-label="Reset focus timer">
+                  <i class="fas fa-redo-alt"></i>
+                </button>
+              </div>
+
+              <div class="timer-stats modern">
+                <div class="stat-item modern">
+                  <i class="fas fa-check-circle"></i>
+                  <span id="pomodoroCount">0</span>
+                </div>
+                <div class="stat-item modern">
+                  <i class="fas fa-clock"></i>
+                  <span id="currentTime"></span>
+                </div>
+              </div>
+            </div>
+            <div class="stats-container modern" role="region" tabindex="0" aria-labelledby="statsHeading">
+              <h2 id="statsHeading" class="visually-hidden">Study session statistics</h2>
+              <div class="progress-stats">
+                <div class="stat-row modern-stats">
+                  <div class="stat-card modern">
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                    <div class="stat-content">
+                      <div class="stat-value" id="totalWorkTime">00:00:00</div>
+                      <div class="stat-label">Time Worked</div>
+                    </div>
+                  </div>
+                  <div class="stat-card modern">
+                    <div class="stat-icon"><i class="fas fa-moon"></i></div>
+                    <div class="stat-content">
+                      <div class="stat-value" id="sleepTimeDisplay">Not Set</div>
+                      <div class="stat-label">Time Until Sleep</div>
+                    </div>
+                  </div>
+                  <div class="stat-card modern">
+                    <div class="stat-icon"><i class="fas fa-chart-pie"></i></div>
+                    <div class="stat-content">
+                      <div class="stat-value" id="timeUtilization">0%</div>
+                      <div class="stat-label">Time Utilization</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="hologram-container" id="hologramContainer">
+                  <div class="hologram-overlay"></div>
+                </div>
+                <div class="energy-graph-container">
+                  <h3>Today's Energy Levels</h3>
+                  <p class="energy-empty-state">Start a focus session and record your energy level to track your day.</p>
+                  <canvas id="energyGraph"></canvas>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="notification" id="notification">
+          Session Complete!
+        </div>
+
+        <button type="button" class="add-task-button" onclick="showTaskModal()" aria-label="Add task">
+          <i class="bi bi-plus-lg"></i>
+        </button>
+
+        <a href="https://forms.gle/LnMspth72dFMeVV17" target="_blank" class="feedback-button">
+          <i class="fas fa-comment"></i>
+          <span>Feedback</span>
+        </a>
+
+        <!-- Task Creation Modal -->
+        <div id="taskModal" class="task-modal">
+          <div class="task-modal-content">
+            <span class="modal-close" onclick="hideTaskModal()">
+              <i class="fas fa-times"></i>
+            </span>
+            <h2>Add New Task</h2>
+            <div class="form-group">
+              <label for="projectSelect">Project</label>
+              <select id="projectSelect" onchange="loadSubcategories()"></select>
+            </div>
+            <div class="form-group">
+              <label for="subcategorySelect">Subcategory</label>
+              <select id="subcategorySelect"></select>
+            </div>
+            <div class="form-group">
+              <label for="taskTitleInput">Task Title</label>
+              <input type="text" id="taskTitleInput" required>
+            </div>
+            <div class="form-group">
+              <label for="taskDescription">Description</label>
+              <textarea id="taskDescription" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="taskDueDate">Due Date</label>
+              <input type="datetime-local" id="taskDueDate">
+            </div>
+            <div class="form-group">
+              <label for="taskPriority">Priority</label>
+              <select id="taskPriority">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+            <!-- File Attachment Section -->
+            <div class="form-group">
+              <label>Attachments</label>
+              <div class="file-upload-area" id="modalFileUploadArea">
+                <i class="fas fa-cloud-upload-alt"></i>
+                <div>Drag and drop files here</div>
+                <div class="file-upload-hint">or click to select files</div>
+                <input type="file" id="modalFileUploadInput" multiple class="d-none">
+              </div>
+              <div class="upload-preview mt-2" id="modalUploadPreview"></div>
+            </div>
+            <button type="button" class="create-task-btn" onclick="createTask()">Create Task</button>
+            <div class="modal-import-divider"><span>OR</span></div>
+            <button type="button" class="btn-modal-import-pdf" id="modalImportPdfBtn"><i class="bi bi-file-earmark-pdf"></i> Batch Import Tasks from PDF</button>
+          </div>
+        </div>
+
+        <!-- Fatigue Level Modal -->
+        <div class="fatigue-modal" id="fatigueModal">
+          <div class="fatigue-modal-content">
+            <h2>How's your energy level?</h2>
+            <p>Select your current energy state to start the session</p>
+
+            <div class="fatigue-levels">
+              <div class="fatigue-level" data-level="1">
+                <i class="fas fa-bolt"></i>
+                <div>
+                  <h3>1. Fully Alert</h3>
+                  <p>Peak energy, wide awake</p>
+                </div>
+              </div>
+              <div class="fatigue-level" data-level="2">
+                <i class="fas fa-sun"></i>
+                <div>
+                  <h3>2. Very Lively</h3>
+                  <p>High energy, responsive</p>
+                </div>
+              </div>
+              <div class="fatigue-level" data-level="3">
+                <i class="fas fa-smile"></i>
+                <div>
+                  <h3>3. Okay, Fresh</h3>
+                  <p>Good energy, clear-minded</p>
+                </div>
+              </div>
+              <div class="fatigue-level" data-level="4">
+                <i class="fas fa-meh"></i>
+                <div>
+                  <h3>4. A Little Tired</h3>
+                  <p>Mild fatigue, functional</p>
+                </div>
+              </div>
+              <div class="fatigue-level" data-level="5">
+                <i class="fas fa-frown"></i>
+                <div>
+                  <h3>5. Moderately Tired</h3>
+                  <p>Noticeable fatigue</p>
+                </div>
+              </div>
+              <div class="fatigue-level" data-level="6">
+                <i class="fas fa-tired"></i>
+                <div>
+                  <h3>6. Extremely Tired</h3>
+                  <p>Struggling to focus</p>
+                </div>
+              </div>
+              <div class="fatigue-level" data-level="7">
+                <i class="fas fa-bed"></i>
+                <div>
+                  <h3>7. Completely Exhausted</h3>
+                  <p>Unable to function well</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="fatigue-modal-buttons">
+              <button class="modal-btn" id="cancelFatigue">
+                <i class="fas fa-times"></i> Skip
+              </button>
+              <button class="modal-btn primary" id="confirmFatigue" disabled>
+                <i class="fas fa-check"></i> Start
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+          <!-- AI Container Toggle Button (Outside container for better visibility) -->
+          <button id="aiContainerToggle" type="button" class="ai-container-toggle"
+            title="Hide/Show AI Container (Alt+A)" aria-label="Hide or show AI research panel"
+            aria-controls="aiResearcherPanel" aria-expanded="true">
+            <i class="fas fa-chevron-down fa-lg"></i>
+          </button>
+
+          <!-- AI Researcher Section -->
+          <div id="aiResearcherPanel" class="ai-researcher-container modern">
+            <div class="research-card modern">
+              <!-- API Configuration -->
+              <div class="api-config modern" id="apiConfigSection" style="display: none;">
+                <div class="api-config-header">
+                  <h3>API Configuration</h3>
+                  <button type="button" class="close-btn" onclick="toggleApiConfig()" aria-label="Close API configuration">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                <div class="form-group modern">
+                  <label for="geminiApiKey">Google Gemini API Key</label>
+                  <div class="input-group modern">
+                    <input type="password" class="form-control modern" id="geminiApiKey" placeholder="Enter Gemini API Key">
+                    <button type="button" class="eye-btn" onclick="toggleApiVisibility('geminiApiKey')"
+                      aria-label="Show or hide Gemini API key">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="form-group modern">
+                  <label for="geminiModel">Gemini Model Selection</label>
+                  <select class="form-control modern" id="geminiModel">
+                    <option value="gemini-2.5-pro-preview-03-25">Gemini 2.5 Pro Preview 03-25 (NEW)</option>
+                    <option value="gemini-2.5-flash-preview-04-17">Gemini 2.5 Flash Preview 04-17 (NEW)</option>
+                    <option value="gemini-2.5-pro-exp-03-25">Gemini 2.5 Pro Experimental (Best quality)</option>
+                    <option value="gemini-2.0-flash" selected>Gemini 2.0 Flash (Balanced)</option>
+                    <option value="gemini-1.5-pro">Gemini 1.5 Pro (Legacy)</option>
+                  </select>
+                  <small class="form-text text-muted">Select the model to use for both content research and simulation generation. Gemini 2.5 Pro offers the highest quality results but may be slower.</small>
+                </div>
+
+                <div class="form-group modern">
+                  <label for="geminiTemperature">Response Creativity</label>
+                  <div class="d-flex align-items-center">
+                    <span class="me-2 small">Precise</span>
+                    <input type="range" class="form-range flex-grow-1" id="geminiTemperature" min="0" max="1" step="0.1" value="0.4">
+                    <span class="ms-2 small">Creative</span>
+                  </div>
+                  <div class="text-center mt-1">
+                    <span id="temperatureDisplay" class="badge bg-primary">Balanced (0.4)</span>
+                  </div>
+                  <small class="form-text text-muted">Adjust how creative or precise the AI responses will be. Lower values produce more predictable responses, higher values produce more varied and creative ones.</small>
+                </div>
+
+                <div class="form-group modern">
+                  <label for="wolframAlphaApiKey">Wolfram Alpha API Key</label>
+                  <div class="input-group modern">
+                    <input type="password" class="form-control modern" id="wolframAlphaApiKey" placeholder="Enter Wolfram Alpha API Key">
+                    <button type="button" class="eye-btn" onclick="toggleApiVisibility('wolframAlphaApiKey')"
+                      aria-label="Show or hide Wolfram Alpha API key">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="form-group modern">
+                  <label for="tavilyApiKey">Tavily API Key</label>
+                  <div class="input-group modern">
+                    <input type="password" class="form-control modern" id="tavilyApiKey" placeholder="Enter Tavily API Key">
+                    <button type="button" class="eye-btn" onclick="toggleApiVisibility('tavilyApiKey')"
+                      aria-label="Show or hide Tavily API key">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                  </div>
+                </div>
+                <button class="save-btn modern" onclick="saveApiKeys()">Save API Keys</button>
+              </div>
+
+              <p id="researchStatus" role="status" aria-live="polite"></p>
+              <!-- Search Interface -->
+              <div class="search-interface modern">
+                <div class="search-container">
+                  <div class="drop-zone-container modern">
+                    <div class="drop-zone modern">
+                      <label for="searchQuery" class="visually-hidden">Ask the AI researcher</label>
+                      <textarea id="searchQuery" rows="1" placeholder="How can I help you?"
+                        aria-label="Ask the AI researcher"></textarea>
+                      <div class="drop-zone-text">Drop image or PDF here</div>
+                    </div>
+                    <div class="search-actions">
+                      <div class="search-tools">
+                        <label for="imageUpload" class="tool-btn" title="Upload an image for analysis">
+                          <i class="fas fa-image"></i>
+                        </label>
+                        <input type="file" id="imageUpload" accept="image/*,application/pdf" style="display: none;">
+                        <label for="pdfUpload" class="tool-btn" title="Upload a PDF for analysis">
+                          <i class="fas fa-file-pdf"></i>
+                        </label>
+                        <input type="file" id="pdfUpload" accept="application/pdf" style="display: none;">
+                        <button id="toggleApiConfig" type="button" class="tool-btn" title="Configure API Keys"
+                          aria-label="Configure API keys">
+                          <i class="fas fa-cog"></i>
+                        </button>
+                        <button id="resultsToggleBtn" type="button" class="tool-btn"
+                          title="Expand AI Container to Full Screen" aria-label="Expand AI results"
+                          >
+                          <i class="fas fa-expand-alt"></i>
+                        </button>
+                        <button type="button" onclick="performAISearch()" class="search-btn" aria-label="Search with AI">
+                          <i class="fas fa-search"></i>
+                        </button>
+                      </div>
+                      <div class="file-info" id="fileInfo" style="display: none;">
+                        <span id="selectedFileName" class="file-name"></span>
+                        <button type="button" class="clear-btn" id="clearImage" aria-label="Remove selected file"
+                          style="display: none;">
+                          <i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Results Area -->
+              <div class="results-area modern">
+                <div class="results-actions">
+                  <button id="copyResultsBtn" type="button" class="action-btn" title="Copy results to clipboard"
+                    aria-label="Copy research results">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                  <button id="downloadResultsPdfBtn" type="button" class="action-btn"
+                    title="Download results as PDF" aria-label="Download research results as PDF">
+                    <i class="fas fa-file-pdf"></i>
+                  </button>
+                  <div class="tts-controls">
+                    <button id="speakResultsBtn" type="button" class="action-btn" title="Read results aloud"
+                      aria-label="Read research results aloud">
+                      <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button id="pauseResumeTextToSpeechBtn" type="button" class="action-btn"
+                      title="Pause/Resume reading" aria-label="Pause or resume reading" disabled>
+                      <i class="fas fa-pause"></i>
+                    </button>
+                    <button id="stopTextToSpeechBtn" type="button" class="action-btn" title="Stop reading"
+                      aria-label="Stop reading" disabled>
+                      <i class="fas fa-stop"></i>
+                    </button>
+                    <div class="speed-control-container">
+                      <button id="decreaseSpeedBtn" type="button" class="action-btn speed-btn"
+                        title="Decrease speed" aria-label="Decrease reading speed" disabled>
+                        <i class="fas fa-minus"></i>
+                      </button>
+                      <div id="currentSpeed" class="current-speed" title="Current playback speed">1x</div>
+                      <button id="increaseSpeedBtn" type="button" class="action-btn speed-btn"
+                        title="Increase speed" aria-label="Increase reading speed" disabled>
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                    <div class="voice-selector-container">
+                      <button id="voiceSettingsBtn" type="button" class="action-btn" title="Voice settings"
+                        aria-label="Voice settings">
+                        <i class="fas fa-cog"></i>
+                      </button>
+                      <div id="voiceSettingsDropdown" class="voice-settings-dropdown">
+                        <div class="dropdown-header">Voice Settings</div>
+                        <div class="dropdown-item">
+                          <label for="voiceSelector">Voice:</label>
+                          <select id="voiceSelector" class="voice-selector"></select>
+                        </div>
+                        <div class="dropdown-item">
+                          <label for="rateSelector">Speed:</label>
+                          <select id="rateSelector" class="rate-selector">
+                            <option value="0.5">Very Slow</option>
+                            <option value="0.75">Slow</option>
+                            <option value="1" selected>Normal</option>
+                            <option value="1.25">Fast</option>
+                            <option value="1.5">Very Fast</option>
+                            <option value="2">2x</option>
+                            <option value="2.5">2.5x</option>
+                            <option value="3">3x</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="searchResults" class="research-response modern">
+                  <p class="results-empty-state">Your research results will appear here. Copy, export, reading, and simulation tools are available below.</p>
+                </div>
+                <div class="simulation-controls">
+                  <button id="generateSimulationBtn" type="button" class="simulation-btn"
+                    title="Generate an interactive simulation" aria-label="Generate interactive simulation">
+                    <i class="fas fa-cube"></i> Generate Simulation
+                  </button>
+                </div>
+                <div id="simulationContainer" class="simulation-container" style="display: none;">
+                  <div class="simulation-header">
+                    <div class="simulation-title">
+                      <h3>Interactive Simulation</h3>
+                      <div class="simulation-indicators">
+                        <div id="simulationImageIndicator" class="simulation-image-indicator" style="display: none;">
+                          <i class="fas fa-image"></i>
+                          <span>Image-based</span>
+                        </div>
+                        <div id="simulationModelIndicator" class="simulation-model-indicator">
+                          <i class="fas fa-microchip"></i>
+                          <span id="simulationModelName">Gemini 2.0</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="simulation-actions">
+                      <button id="popoutSimulation" type="button" class="action-btn"
+                        title="Pop out simulation into draggable window" aria-label="Pop out simulation">
+                        <i class="fas fa-external-link-alt"></i>
+                      </button>
+                      <button id="reloadSimulation" type="button" class="action-btn" title="Regenerate simulation"
+                        aria-label="Regenerate simulation">
+                        <i class="fas fa-redo-alt"></i>
+                      </button>
+                      <button id="downloadSimulation" type="button" class="action-btn"
+                        title="Download simulation as HTML file" aria-label="Download simulation HTML">
+                        <i class="fas fa-download"></i>
+                      </button>
+                      <button id="copySimulationCode" type="button" class="action-btn"
+                        title="Copy simulation code" aria-label="Copy simulation code">
+                        <i class="fas fa-copy"></i>
+                      </button>
+                      <button id="closeSimulation" type="button" class="action-btn" title="Close simulation"
+                        aria-label="Close simulation">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div id="simulationProgress" class="simulation-progress" style="display: none;">
+                    <div class="progress-container">
+                      <div class="progress-bar" id="simulationProgressBar"></div>
+                    </div>
+                    <div class="progress-info">
+                      <span id="simulationProgressPercent">0%</span>
+                      <span id="simulationProgressTime">Estimating time...</span>
+                      <span id="simulationProgressTokens">0 tokens</span>
+                    </div>
+                  </div>
+                  <div id="simulationCode" class="simulation-code"></div>
+                  <div id="simulationPreview" class="simulation-preview">
+                    <div id="simulationReadyMessage" class="simulation-ready-message" style="display: none;">
+                      <div class="ready-icon">
+                        <i class="fas fa-check-circle"></i>
+                      </div>
+                      <h3>Simulation Ready!</h3>
+                      <p>Your interactive simulation has been generated and is ready to run.</p>
+                      <button id="runSimulationBtn" class="run-simulation-btn">
+                        <i class="fas fa-play"></i> Run Simulation
+                      </button>
+                    </div>
+                    <iframe id="simulationFrame" title="Interactive simulation preview" sandbox="allow-scripts" frameborder="0" style="display: none;"></iframe>
+                  </div>
+                </div>
+                <!-- Old toggle button removed -->
+              </div>
+            </div>
+          </div>
+
+
+
+        <!-- Pop-out Simulation Window -->
+        <div id="simulationPopout" class="simulation-popout" style="display: none;">
+          <div class="simulation-popout-header" id="simulationPopoutHeader">
+            <h4 class="simulation-popout-title">Interactive Simulation</h4>
+            <div style="display: flex; align-items: center;">
+              <label class="aspect-ratio-lock">
+                <input type="checkbox" id="lockAspectRatio" checked>
+                Lock aspect ratio
+              </label>
+              <div class="simulation-popout-actions">
+                <button id="downloadSimulationPopout" type="button" title="Download simulation as HTML file"
+                  aria-label="Download simulation HTML">
+                  <i class="fas fa-download"></i>
+                </button>
+                <button id="minimizeSimulationPopout" type="button" title="Return to original container"
+                  aria-label="Return simulation to original panel">
+                  <i class="fas fa-compress-alt"></i>
+                </button>
+                <button id="closeSimulationPopout" type="button" title="Close simulation"
+                  aria-label="Close simulation popout">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="simulation-popout-content">
+            <iframe id="simulationPopoutFrame" title="Interactive simulation popout" sandbox="allow-scripts" frameborder="0"></iframe>
+          </div>
+
+          <!-- Custom resize handles for better usability -->
+          <div class="resize-handle corner top-left" id="resizeTopLeft"></div>
+          <div class="resize-handle corner top-right" id="resizeTopRight"></div>
+          <div class="resize-handle corner bottom-left" id="resizeBottomLeft"></div>
+          <div class="resize-handle corner bottom-right" id="resizeBottomRight"></div>
+          <div class="resize-handle edge right" id="resizeRight"></div>
+          <div class="resize-handle edge bottom" id="resizeBottom"></div>
+        </div>
+
+        <!-- Hidden PDF File Input -->
+        <input type="file" id="pdfFileInput" accept="application/pdf" class="d-none">
+
+        <!-- PDF Import Progress Modal -->
+        <div class="pdf-import-progress-modal" id="pdfImportProgressModal" role="dialog" aria-modal="true" aria-labelledby="pdfProgressTitle">
+          <div class="pdf-progress-card">
+            <div class="pdf-progress-spinner"><i class="bi bi-arrow-repeat sync-spinning"></i></div>
+            <h3 id="pdfProgressTitle">Analyzing Document</h3>
+            <div class="pdf-progress-bar-container">
+              <div class="pdf-progress-bar" id="pdfProgressBar"></div>
+            </div>
+            <p class="pdf-progress-text" id="pdfProgressMessage">Rendering PDF pages...</p>
+          </div>
+        </div>
+
+        <!-- PDF Task Verification Modal -->
+        <div class="pdf-task-verification-modal" id="pdfTaskVerificationModal" role="dialog" aria-modal="true" aria-labelledby="pdfVerificationTitle">
+          <div class="pdf-verification-content">
+            <div class="pdf-verification-header">
+              <h2>
+                <i class="bi bi-check2-circle text-primary"></i>
+                <span id="pdfVerificationTitle">Review & Verify Extracted Tasks</span>
+                <span class="badge-count" id="pdfTasksCountBadge">0 Found</span>
+              </h2>
+              <button type="button" class="btn-delete-row" id="pdfVerificationModalClose" aria-label="Close modal">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div class="pdf-verification-notice">
+              <i class="bi bi-shield-check"></i> All tasks are grounded against your registered subjects. Review and adjust any subjects or details before adding to your grind list.
+            </div>
+            <div class="pdf-verification-toolbar">
+              <button type="button" class="btn-link-action" id="pdfSelectAllTasksBtn">Toggle Select All</button>
+            </div>
+            <div class="pdf-verification-body" id="pdfVerificationList">
+              <!-- Dynamically populated task review cards -->
+            </div>
+            <div class="pdf-verification-footer">
+              <button type="button" class="btn-secondary-action" id="pdfCancelImportBtn">Cancel</button>
+              <button type="button" class="btn-primary-confirm" id="pdfConfirmImportBtn">Import Selected (0)</button>
+            </div>
+          </div>
+        </div>
+
+  <!-- External Dependencies (Loaded once in valid script mode) -->
+  <script defer src="assets/vendor/bootstrap/bootstrap.bundle.min.js?v=82f64f62bb03"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script defer src="assets/vendor/pdfjs/pdf.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script"></script>
+
+  <!-- Three.js Import Map for 3D Hologram -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.157.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.157.0/examples/jsm/"
+      }
+    }
+  </script>
+
+  <!-- Navigation Drawer & Authentication -->
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/sideDrawer.js?v=b344459fcb2c"></script>
+  <script defer src="js/grind-speech-synthesis.js?v=04bc858d05b3"></script>
+  <script type="module" src="js/ai-researcher.js?v=81060975b695"></script>
+
+  <!-- Page-Level Module Entry -->
+  <script type="module" src="js/pages/grind.js?v=f952fee424a3"></script>
+  <script type="module">
+    import { pdfTaskImportController } from "./js/controllers/PdfTaskImportController.js";
+    pdfTaskImportController.init();
+  </script>
+  <script type="module">
+    import { injectNavigation } from "./js/components/NavigationComponent.js";
+    injectNavigation();
+  </script>
+</body>
+
+</html>

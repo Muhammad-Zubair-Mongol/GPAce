@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPAce - Redefining Productivity</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/gpace-logo-white.png">
+    <link rel="shortcut icon" type="image/png" href="assets/images/gpace-logo-white.png">
+
+    <link href="assets/vendor/bootstrap/bootstrap.min.css?v=3017df4a76db" rel="stylesheet">
+    <link href="assets/vendor/icons/bootstrap-icons.css?v=edc9031bdcde" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="styles/main.css">
+    <link href="css/sideDrawer.css" rel="stylesheet">
+    <!-- Consolidated CSS Components -->
+    <link href="css/design-tokens.css" rel="stylesheet">
+    <link href="css/components/navigation.css" rel="stylesheet">
+    <link href="css/components/buttons.css" rel="stylesheet">
+  <link href="css/pages/landing.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/global-utilities.css?v=20260930-1">
+    <style>
+        /* Keep the marketing page within the viewport while its grid stacks. */
+        html,
+        body {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit;
+        }
+
+        .top-nav,
+        .top-nav > .container,
+        .top-nav .nav-brand,
+        .top-nav .nav-brand a {
+            min-width: 0;
+            max-width: 100%;
+        }
+
+        .top-nav .nav-brand img,
+        .footer-logo {
+            width: 80px;
+            height: 80px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .problem-solver-features {
+            min-width: 0;
+            max-width: 100%;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 576px) {
+            .top-nav {
+                padding-inline: 12px;
+            }
+
+            .top-nav > .container {
+                padding-inline: 0;
+            }
+
+            .top-nav .nav-brand img,
+            .footer-logo {
+                width: 56px;
+                height: 56px;
+            }
+
+            .top-nav .nav-brand a {
+                overflow-wrap: anywhere;
+            }
+        }
+    </style>
+    <script src="js/theme-manager.js"></script>
+</head>
+
+<body>
+    <nav class="top-nav" id="mainNavigation" aria-label="Primary navigation">
+  <div class="nav-brand"><a href="grind.html" class="link-inherit"><img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" class="logo-brand" width="60" height="60"><span class="brand-text">GPAce</span></a></div>
+  <div class="nav-links" id="mainNavigationLinks" data-navigation-links="true">
+    <a href="grind.html" data-nav-link="true" data-page="grind.html"><i class="bi bi-lightning-charge me-1" aria-hidden="true"></i><span>Grind Mode</span></a>
+    <a href="study-spaces.html" data-nav-link="true" data-page="study-spaces.html"><i class="bi bi-building me-1" aria-hidden="true"></i><span>Grind Station</span></a>
+    <a href="daily-calendar.html" data-nav-link="true" data-page="daily-calendar.html"><i class="bi bi-calendar3 me-1" aria-hidden="true"></i><span>Daily Drip</span></a>
+    <a href="academic-details.html" data-nav-link="true" data-page="academic-details.html"><i class="bi bi-mortarboard me-1" aria-hidden="true"></i><span>Brain Juice</span></a>
+    <a href="extracted.html" data-nav-link="true" data-page="extracted.html"><i class="bi bi-collection me-1" aria-hidden="true"></i><span>Hustle Hub</span></a>
+    <a href="subject-marks.html" data-nav-link="true" data-page="subject-marks.html"><i class="bi bi-graph-up me-1" aria-hidden="true"></i><span>Subject Marks</span></a>
+    <a href="flashcards.html" data-nav-link="true" data-page="flashcards.html"><i class="bi bi-card-text me-1" aria-hidden="true"></i><span>Flashcards</span></a>
+    <a href="markdown-converter.html" data-nav-link="true" data-page="markdown-converter.html"><i class="bi bi-markdown me-1" aria-hidden="true"></i><span>MD Converter</span></a>
+    <a href="sleep-saboteurs.html" data-nav-link="true" data-page="sleep-saboteurs.html"><i class="bi bi-alarm me-1" aria-hidden="true"></i><span>Alarms</span></a>
+    <a href="settings.html" data-nav-link="true" data-page="settings.html"><i class="bi bi-gear me-1" aria-hidden="true"></i><span>Settings</span></a>
+    <button type="button" class="theme-toggle" id="themeToggleBtn" aria-label="Toggle theme" title="Toggle theme"><i class="bi bi-moon-stars theme-icon" aria-hidden="true"></i><span class="theme-text visually-hidden">Toggle theme</span></button>
+    <button type="button" class="drawer-toggle" aria-label="Open settings drawer" title="Settings"><i class="bi bi-gear" aria-hidden="true"></i></button>
+  </div>
+  <button type="button" class="nav-toggle" id="navToggleBtn" aria-label="Toggle navigation" aria-controls="mainNavigationLinks" aria-expanded="false" aria-haspopup="true"><i class="bi bi-list" aria-hidden="true"></i></button>
+</nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Productivity Redefined</h1>
+                <p class="hero-subtitle">Personalized AI-driven productivity that understands your unique cognitive
+                    patterns</p>
+                <a href="grind.html" class="btn btn-lg btn-gpace">Start Your Journey</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container py-5">
+        <div class="napkin-section">
+            <h2 class="text-center mb-4">GPAce: Productivity Reimagined</h2>
+            <div class="napkin-grid">
+                <div class="napkin-card">
+                    <div class="napkin-icon">
+                        <i class="bi bi-brain"></i>
+                    </div>
+                    <h4 class="napkin-title">What to Do</h4>
+                    <p class="napkin-description">Personalized AI guides task selection based on your brain state</p>
+                    <div class="napkin-tag">Neuroscience-Driven</div>
+                </div>
+                <div class="napkin-card">
+                    <div class="napkin-icon">
+                        <i class="bi bi-puzzle"></i>
+                    </div>
+                    <h4 class="napkin-title">How to Do</h4>
+                    <p class="napkin-description">Break tasks into subtasks to overcome mental friction</p>
+                    <div class="napkin-tag">Cognitive Optimization</div>
+                </div>
+                <div class="napkin-card">
+                    <div class="napkin-icon">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+                    <h4 class="napkin-title">Where to Do</h4>
+                    <p class="napkin-description">Optimize environment: Open for creativity, Closed for focus</p>
+                    <div class="napkin-tag">Space Psychology</div>
+                </div>
+                <div class="napkin-card">
+                    <div class="napkin-icon">
+                        <i class="bi bi-clock"></i>
+                    </div>
+                    <h4 class="napkin-title">When to Do</h4>
+                    <p class="napkin-description">Align tasks with your Ultradian cycle and energy levels</p>
+                    <div class="napkin-tag">Biological Rhythms</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-background"></div>
+        <div class="container">
+            <h2 class="text-center mb-5 text-white">The Student Productivity Challenge</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-fire"></i>
+                    </div>
+                    <div class="stat-number">60%</div>
+                    <div class="stat-label">Students Experience Burnout</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-clock"></i>
+                    </div>
+                    <div class="stat-number">51.9%</div>
+                    <div class="stat-label">Lack Time Management Skills</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-journal-text"></i>
+                    </div>
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Face Stress Barriers in Research</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <div class="stat-number">+0.38</div>
+                    <div class="stat-label">GPA Boost with Mentorship</div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="text-white-50 mx-auto" style="max-width: 800px;">
+                    These statistics reveal a critical need for intelligent, personalized productivity solutions that
+                    address
+                    the complex challenges students face in academic and personal development.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-5 text-white">Burnout Management in Action</h2>
+                <div class="video-placeholder scroll-animation">
+                    <div class="video-placeholder-content">
+                        <div class="video-play-icon">
+                            <i class="bi bi-play-circle"></i>
+                        </div>
+                        <h3 class="mt-3">How GPAce Tackles Student Burnout</h3>
+                        <p class="video-description">
+                            Watch how our AI-driven approach helps students manage energy,
+                            reduce stress, and maintain productivity.
+                        </p>
+                        <!-- Actual video embed will replace this placeholder -->
+                        <div class="mt-4">
+                            <small class="text-muted">Video demonstration coming soon</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem-solver-section">
+        <div class="container">
+            <div class="problem-solver-content">
+                <div class="problem-solver-text">
+                    <h3>No Other Platform Can Offer</h3>
+                    <p>Unique solutions that transform your academic and professional journey</p>
+                </div>
+                <div class="problem-solver-features">
+                    <div class="problem-feature">
+                        <div class="problem-feature-icon">
+                            <i class="bi bi-journal-text text-white"></i>
+                        </div>
+                        <div class="problem-feature-text">Research Revolution</div>
+                    </div>
+                    <div class="problem-feature">
+                        <div class="problem-feature-icon">
+                            <i class="bi bi-compass text-white"></i>
+                        </div>
+                        <div class="problem-feature-text">Career Guidance</div>
+                    </div>
+                    <div class="problem-feature">
+                        <div class="problem-feature-icon">
+                            <i class="bi bi-award text-white"></i>
+                        </div>
+                        <div class="problem-feature-text">Scholarship Boost</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="usp-section container">
+        <h2 class="text-center mb-5 text-white">Transforming Student Productivity</h2>
+        <div class="usp-grid">
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="bi bi-clock"></i>
+                </div>
+                <h3 class="usp-title">Automated Time Management</h3>
+                <p class="usp-description">Leverage OCR technology to dynamically scan and organize class schedules,
+                    eliminating manual planning stress.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="bi bi-graph-up"></i>
+                </div>
+                <h3 class="usp-title">Progress Tracking</h3>
+                <p class="usp-description">Real-time milestone tracking for assignments and exams, providing instant
+                    feedback on academic progress.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="bi bi-battery-charging"></i>
+                </div>
+                <h3 class="usp-title">Energy Management</h3>
+                <p class="usp-description">Log mental fatigue and receive personalized study session optimization
+                    recommendations.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="bi bi-people"></i>
+                </div>
+                <h3 class="usp-title">Global Networking</h3>
+                <p class="usp-description">Connect with peers and professionals in a global marketplace of ideas and
+                    collaboration.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="bi bi-lightbulb"></i>
+                </div>
+                <h3 class="usp-title">Personalized Recommendations</h3>
+                <p class="usp-description">Curated lists of mentors, resources, and opportunities tailored to your
+                    unique academic goals.</p>
+            </div>
+            <div class="usp-card">
+                <div class="usp-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h3 class="usp-title">Cognitive Development</h3>
+                <p class="usp-description">Customized training plans to enhance critical skills like memory recollection
+                    and problem-solving.</p>
+            </div>
+        </div>
+
+        <div class="research-backed">
+            <h3>Research-Backed Success</h3>
+            <p>GPAce is built on rigorous academic research, addressing key skills in leadership, collaboration, and
+                productivity.</p>
+            <p>Our features are designed to empower students with tools that enhance academic and professional success.
+            </p>
+        </div>
+    </section>
+
+    <section class="pricing-section container">
+        <h2 class="text-center mb-5 text-white">Flexible Pricing for Every Student</h2>
+        <div class="pricing-grid">
+            <!-- Free Version -->
+            <div class="pricing-card">
+                <div class="pricing-card-header">
+                    <h3 class="pricing-card-title">Free Version</h3>
+                    <div class="pricing-card-price">$0</div>
+                </div>
+                <ul class="pricing-card-features">
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Google AdSense Integration
+                            <span class="tooltip-text">
+                                Earn revenue through targeted ads while using our free productivity tools
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Advertising Partner Support
+                            <span class="tooltip-text">
+                                Access to curated ads that may provide additional value or opportunities
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Basic Productivity Tools
+                            <span class="tooltip-text">
+                                Essential time management and task tracking features to kickstart your productivity
+                            </span>
+                        </span>
+                    </li>
+                </ul>
+                <button class="pricing-card-cta">Get Started</button>
+            </div>
+
+            <!-- Subscription-Based -->
+            <div class="pricing-card featured">
+                <div class="pricing-card-badge">Recommended</div>
+                <div class="pricing-card-header">
+                    <h3 class="pricing-card-title">Semester Plan</h3>
+                    <div class="pricing-card-price">$17 <span style="font-size: 0.6em;">/semester</span></div>
+                </div>
+                <ul class="pricing-card-features">
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Essential Features Unlocked
+                            <span class="tooltip-text">
+                                Full access to advanced productivity tracking and optimization tools
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Advanced Productivity Tools
+                            <span class="tooltip-text">
+                                AI-powered task prioritization, energy management, and personalized insights
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Performance Tracking
+                            <span class="tooltip-text">
+                                Comprehensive analytics to monitor and improve your academic performance
+                            </span>
+                        </span>
+                    </li>
+                </ul>
+                <button class="pricing-card-cta">Choose Plan</button>
+            </div>
+
+            <!-- Premium Tier -->
+            <div class="pricing-card">
+                <div class="pricing-card-header">
+                    <h3 class="pricing-card-title">Premium Tier</h3>
+                    <div class="pricing-card-price">Custom</div>
+                </div>
+                <ul class="pricing-card-features">
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Mentorship Access
+                            <span class="tooltip-text">
+                                Connect with experienced mentors who provide personalized academic and career guidance
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Investment Guidance
+                            <span class="tooltip-text">
+                                Tailored financial advice and investment strategies for students
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <i class="bi bi-check-circle"></i>
+                        <span class="tooltip-custom">
+                            Final Year Project Support
+                            <span class="tooltip-text">
+                                Comprehensive assistance for capstone projects, including research and presentation
+                                support
+                            </span>
+                        </span>
+                    </li>
+                </ul>
+                <button id="premiumContactBtn" class="pricing-card-cta">Contact Sales</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="video-section container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-5 text-white">Productivity Features Explained</h2>
+                <div class="video-placeholder scroll-animation">
+                    <div class="video-placeholder-content">
+                        <div class="video-play-icon">
+                            <i class="bi bi-play-circle"></i>
+                        </div>
+                        <h3 class="mt-3">Transforming Your Academic Journey</h3>
+                        <p class="video-description">
+                            Explore how GPAce's unique features integrate to create
+                            a comprehensive productivity ecosystem.
+                        </p>
+                        <!-- Actual video embed will replace this placeholder -->
+                        <div class="mt-4">
+                            <small class="text-muted">Video demonstration coming soon</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container text-center py-5">
+        <a href="grind.html" class="btn btn-lg btn-gpace">Start Your Productivity Journey</a>
+    </section>
+
+    <!-- Modal Video Container -->
+    <div id="videoModal1" class="modal-video">
+        <div class="modal-video-close">&times;</div>
+        <div class="modal-video-content">
+            <div class="modal-video-container">
+                <iframe src="" title="GPAce Burnout Management" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div id="videoModal2" class="modal-video">
+        <div class="modal-video-close">&times;</div>
+        <div class="modal-video-content">
+            <div class="modal-video-container">
+                <iframe src="" title="GPAce Productivity Features" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="premiumContactModal" class="contact-modal">
+        <div class="contact-modal-content">
+            <div class="contact-modal-close">&times;</div>
+            <h3 class="text-center mb-4 text-white">Contact Premium Tier Sales</h3>
+            <form class="contact-form">
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="Your Email" required>
+                </div>
+                <div class="mb-3">
+                    <input type="tel" class="form-control" placeholder="Your Phone (Optional)">
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" rows="4" placeholder="Tell us about your specific needs"
+                        required></textarea>
+                </div>
+                <button type="submit" class="btn btn-gpace w-100">Send Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="assets/images/gpace-logo-white.png" alt="GPAce Logo" class="footer-logo" width="80" height="80">
+                    <p>Transforming student productivity through AI-driven solutions.</p>
+
+                    <!-- Contact Information -->
+                    <div class="contact-info mt-4">
+                        <p><i class="bi bi-envelope"></i> support@gpace.ai</p>
+                        <p><i class="bi bi-phone"></i> +1 (650) 555-GPAD</p>
+                        <p><i class="bi bi-geo-alt"></i> Silicon Valley, CA, USA</p>
+                    </div>
+
+                    <!-- Social Media Links -->
+                    <div class="footer-social-links">
+                        <a href="#" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                        <a href="#" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+                        <a href="#" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <!-- Quick Links -->
+                    <h4 class="text-white mb-4">Quick Links</h4>
+                    <div class="d-flex flex-column">
+                        <a href="#" class="text-decoration-none text-light mb-2">About Us</a>
+                        <a href="#" class="text-decoration-none text-light mb-2">Features</a>
+                        <a href="#" class="text-decoration-none text-light mb-2">Pricing</a>
+                        <a href="#" class="text-decoration-none text-light mb-2">Blog</a>
+                        <a href="#" class="text-decoration-none text-light mb-2">Career</a>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <!-- Newsletter Signup -->
+                    <div class="footer-newsletter">
+                        <h4>Stay Productive, Stay Informed</h4>
+                        <form id="newsletterForm">
+                            <div class="mb-3">
+                                <input type="email" class="form-control" id="newsletterEmail"
+                                    placeholder="Enter your email" required>
+                            </div>
+                            <button type="submit" class="btn btn-gpace w-100">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Links and Copyright -->
+            <div class="footer-links text-center mt-4">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#privacyModal">Privacy Policy</a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#cookieModal">Cookie Policy</a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 GPAce. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Legal Modals -->
+    <!-- Privacy Policy Modal -->
+    <div class="modal fade" id="privacyModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">Privacy Policy</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-white">
+                    <p>At GPAce, we are committed to protecting your privacy. This policy outlines how we collect, use,
+                        and safeguard your personal information.</p>
+                    <!-- Add more detailed privacy policy content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms of Service Modal -->
+    <div class="modal fade" id="termsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">Terms of Service</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-white">
+                    <p>By using GPAce, you agree to our terms of service which govern your use of our platform.</p>
+                    <!-- Add more detailed terms of service content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Policy Modal -->
+    <div class="modal fade" id="cookieModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">Cookie Policy</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-white">
+                    <p>We use cookies to enhance your browsing experience and provide personalized services.</p>
+                    <!-- Add more detailed cookie policy content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Scripts -->
+<script>
+    // Navigation background on scroll
+    window.addEventListener('scroll', function () {
+        const nav = document.querySelector('.top-nav');
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+
+    // Scroll-triggered animation
+    function checkScroll() {
+        const scrollAnimations = document.querySelectorAll('.scroll-animation');
+
+        scrollAnimations.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const viewportHeight = window.innerHeight;
+
+            if (elementPosition < viewportHeight * 0.75) {
+                element.classList.add('is-visible');
+            }
+        });
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', checkScroll);
+    // Initial check
+    checkScroll();
+
+    // Video Modal Functionality
+    function setupVideoModal(triggerSelector, modalId, videoUrl) {
+        const triggers = document.querySelectorAll(triggerSelector);
+        const modal = document.getElementById(modalId);
+        const closeBtn = modal.querySelector('.modal-video-close');
+        const iframe = modal.querySelector('iframe');
+
+        triggers.forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                iframe.src = videoUrl;
+                modal.classList.add('show');
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            iframe.src = ''; // Stop video
+            modal.classList.remove('show');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                iframe.src = '';
+                modal.classList.remove('show');
+            }
+        });
+    }
+
+    // Setup video modals with YouTube URLs (replace with your actual video URLs)
+    setupVideoModal('.video-play-icon', 'videoModal1', 'https://www.youtube.com/embed/dQw4w9WgXcQ');//This is where I Will replace withh the youtube video lINK)
+    setupVideoModal('.video-play-icon', 'videoModal2', 'https://www.youtube.com/embed/dQw4w9WgXcQ'); //This is where I Will replace withh the youtube video lINK)
+
+    // Contact Modal Functionality
+    function setupContactModal() {
+        const contactBtn = document.getElementById('premiumContactBtn');
+        const modal = document.getElementById('premiumContactModal');
+        const closeBtn = modal.querySelector('.contact-modal-close');
+
+        contactBtn.addEventListener('click', () => {
+            modal.classList.add('show');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('show');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+            }
+        });
+
+        // Form submission (placeholder)
+        const form = modal.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your inquiry! We will contact you soon.');
+            modal.classList.remove('show');
+        });
+    }
+
+    // Initialize contact modal
+    setupContactModal();
+
+    // Pricing Plan Selection Handling
+    function setupPricingPlans() {
+        // Free Version Button
+        const freeBtn = document.querySelector('.pricing-card:nth-child(1) .pricing-card-cta');
+        freeBtn.addEventListener('click', () => {
+            // TODO: Backend Integration for Free Plan Signup
+            // 1. Validate user authentication status
+            // 2. Create user account with free tier permissions
+            // 3. Set up Google AdSense integration
+            // 4. Redirect to onboarding/dashboard
+
+            // Temporary client-side handling
+            alert('Free Plan Selected! Redirecting to signup...');
+            window.location.href = 'grind.html'; // Placeholder redirect
+        });
+
+        // Semester Plan Button
+        const semesterBtn = document.querySelector('.pricing-card:nth-child(2) .pricing-card-cta');
+        semesterBtn.addEventListener('click', () => {
+            // TODO: Backend Integration for Semester Plan
+            // 1. Check user authentication
+            // 2. Initiate payment gateway integration
+            // 3. Validate payment
+            // 4. Provision semester plan features
+            // 5. Create subscription record
+
+            // Potential payment gateway integration points:
+            // - Stripe
+            // - PayPal
+            // - Braintree
+            // - Local payment processors
+
+            // Temporary client-side handling
+            alert('Semester Plan Selected! Proceeding to checkout...');
+            window.location.href = 'grind.html'; // Placeholder redirect
+        });
+
+        // Premium Tier Contact Button (Already implemented in previous modal script)
+    }
+
+    // Initialize Pricing Plan Handlers
+    setupPricingPlans();
+
+    // TODO: Comprehensive Backend Integration Strategy
+    /*
+    Backend Integration Requirements:
+    1. User Authentication System
+        - Implement secure user registration
+        - OAuth support (Google, Microsoft, etc.)
+        - Email verification
+
+    2. Payment Processing
+        - Secure payment gateway integration
+        - Subscription management
+        - Proration and billing cycles
+        - Invoice generation
+
+    3. Feature Provisioning
+        - Dynamic feature flag system
+        - Tier-based access control
+        - Granular permissions management
+
+    4. Compliance and Security
+        - GDPR compliance
+        - PCI-DSS standards for payment
+        - Data encryption
+        - Secure token-based authentication
+
+    5. Webhook Implementations
+        - Payment status updates
+        - Subscription lifecycle events
+        - User tier change notifications
+
+    Recommended Tech Stack:
+    - Backend: Node.js/Express or Django/Flask
+    - Database: PostgreSQL
+    - Payment Gateway: Stripe
+    - Authentication: JWT, Passport.js
+
+    Potential Microservices:
+    - User Service
+    - Billing Service
+    - Subscription Service
+    - Feature Management Service
+    */
+
+    // Newsletter Signup Handler
+    document.getElementById('newsletterForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const email = document.getElementById('newsletterEmail').value;
+
+        // TODO: Implement actual newsletter signup logic
+        // 1. Validate email
+        // 2. Send to backend service
+        // 3. Handle success/error responses
+
+        alert(`Thank you for subscribing with ${email}!`);
+        this.reset(); // Clear the form
+    });
+</script>
+<script type="module" src="js/cross-tab-sync.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/sideDrawer.js"></script>
+<script src="/js/inject-header.js"></script>
+</body>
+
+</html>
+
